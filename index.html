@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
@@ -37,22 +37,20 @@
         body { user-select: none; background: #020305; color: var(--text-main); font-family: var(--font-ar); min-height: 100vh; display: flex; flex-direction: column; position: relative; overflow-y: auto; overflow-x: hidden; }
         input, textarea, select, .crypto-res, .task-table td, .allow-select, .allow-select * { user-select: text !important; }
 
-        /* 🟢 1. خلفية النجوم 🟢 */
+        /* 🟢 تخفيف تأثيرات الخلفية لتسريع الموقع 🟢 */
         #star-bg { position: fixed; inset: 0; z-index: -5; pointer-events: none; overflow: hidden; }
-        .star { position: absolute; background: white; border-radius: 50%; animation: twinkle linear infinite alternate; box-shadow: 0 0 5px rgba(0, 234, 255, 0.5); }
-        @keyframes twinkle { 0% { opacity: 0.1; transform: scale(0.5); box-shadow: none; } 100% { opacity: 1; transform: scale(1.2); box-shadow: 0 0 8px rgba(0, 234, 255, 0.8); } }
+        .star { position: absolute; background: white; border-radius: 50%; animation: twinkle linear infinite alternate; }
+        @keyframes twinkle { 0% { opacity: 0.1; transform: scale(0.5); } 100% { opacity: 0.8; transform: scale(1.1); box-shadow: 0 0 5px rgba(0, 234, 255, 0.5); } }
 
-        /* 🟢 2. انعكاس براقات الشرطة 🟢 */
         #bg-lights { position: fixed; inset: 0; z-index: -4; pointer-events: none; overflow: hidden; }
-        .light-red { position: absolute; top: -30%; left: -20%; width: 70vw; height: 70vw; background: radial-gradient(circle, rgba(255, 0, 40, 0.25) 0%, transparent 70%); animation: pulseRed 1.5s infinite alternate ease-in-out; mix-blend-mode: screen; }
-        .light-blue { position: absolute; bottom: -30%; right: -20%; width: 70vw; height: 70vw; background: radial-gradient(circle, rgba(0, 160, 255, 0.25) 0%, transparent 70%); animation: pulseBlue 1.5s infinite alternate ease-in-out; mix-blend-mode: screen; }
-        @keyframes pulseRed { 0% { opacity: 0.3; transform: scale(0.9); } 100% { opacity: 1; transform: scale(1.1); } }
-        @keyframes pulseBlue { 0% { opacity: 1; transform: scale(1.1); } 100% { opacity: 0.3; transform: scale(0.9); } }
+        .light-red { position: absolute; top: -30%; left: -20%; width: 70vw; height: 70vw; background: radial-gradient(circle, rgba(255, 0, 40, 0.15) 0%, transparent 70%); animation: pulseRed 3s infinite alternate ease-in-out; mix-blend-mode: screen; }
+        .light-blue { position: absolute; bottom: -30%; right: -20%; width: 70vw; height: 70vw; background: radial-gradient(circle, rgba(0, 160, 255, 0.15) 0%, transparent 70%); animation: pulseBlue 3s infinite alternate ease-in-out; mix-blend-mode: screen; }
+        @keyframes pulseRed { 0% { opacity: 0.4; transform: scale(0.95); } 100% { opacity: 0.8; transform: scale(1.05); } }
+        @keyframes pulseBlue { 0% { opacity: 0.8; transform: scale(1.05); } 100% { opacity: 0.4; transform: scale(0.95); } }
 
-        /* 🟢 3. إحساس المطاردة الليلية (الخطوط) 🟢 */
         #bg-pursuit { position: fixed; inset: 0; z-index: -3; pointer-events: none; overflow: hidden; }
-        .speed-line { position: absolute; width: 2px; height: 150px; background: linear-gradient(to bottom, transparent, rgba(0, 234, 255, 0.5), transparent); filter: blur(1px); animation: speedFall linear infinite; }
-        .speed-line.red { background: linear-gradient(to bottom, transparent, rgba(255, 51, 51, 0.5), transparent); }
+        .speed-line { position: absolute; width: 2px; height: 150px; background: linear-gradient(to bottom, transparent, rgba(0, 234, 255, 0.3), transparent); animation: speedFall linear infinite; }
+        .speed-line.red { background: linear-gradient(to bottom, transparent, rgba(255, 51, 51, 0.3), transparent); }
         @keyframes speedFall { 0% { transform: translateY(-200px); opacity: 0; } 50% { opacity: 1; } 100% { transform: translateY(120vh); opacity: 0; } }
 
         .central-logo-bg { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 450px; height: 450px; z-index: -1; opacity: 0.04; pointer-events: none; background-image: url('yyW7oBx.jpg'); background-size: cover; background-position: center; border-radius: 50%; clip-path: circle(47% at 50% 50%); }
@@ -67,7 +65,7 @@
         #imgZoomOverlay.active #zoomedImg { transform: scale(1); }
 
         #publicSite { display: flex; flex-direction: column; width: 100%; min-height: 100vh; transition: opacity 0.15s ease; }
-        .public-nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 80px; background: rgba(3, 5, 9, 0.8); border-bottom: 1px solid rgba(255,255,255,0.05); position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(15px); }
+        .public-nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 80px; background: rgba(3, 5, 9, 0.8); border-bottom: 1px solid rgba(255,255,255,0.05); position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(10px); }
         .nav-right { display: flex; align-items: center; gap: 40px; }
         .nav-logo { width: 45px; height: 45px; background: url('yyW7oBx.jpg') center/cover; border-radius: 50%; box-shadow: 0 0 10px rgba(0,234,255,0.3); border: 1px solid var(--cyan);}
         .nav-links { display: flex; gap: 30px; }
@@ -77,7 +75,7 @@
         .nav-left button:hover { background: var(--cyan); color: #000; box-shadow: 0 0 15px var(--cyan-glow); }
 
         #homeTab { display: flex; flex-direction: column; width: 100%; animation: fadeIn 0.3s ease; }
-        #rulesTab, #jobsTab, #foundersTab { display: none; flex-direction: column; align-items: center; width: 100%; background: transparent; padding-bottom: 100px; animation: fadeIn 0.3s ease;}
+        #rulesTab, #jobsTab, #foundersTab, #rosterTab { display: none; flex-direction: column; align-items: center; width: 100%; background: transparent; padding-bottom: 100px; animation: fadeIn 0.3s ease;}
         
         .hero-section { display: flex; align-items: center; justify-content: center; position: relative; min-height: calc(100vh - 90px); width: 100%; overflow: hidden; background: radial-gradient(circle at center, rgba(0, 234, 255, 0.05) 0%, transparent 60%); }
         .hero-content { position: relative; z-index: 3; text-align: center; max-width: 800px; padding: 40px; }
@@ -146,22 +144,43 @@
         .founder-rank { color: var(--cyan); font-size: 1.1rem; font-weight: bold; font-family: var(--font-en); letter-spacing: 1px; margin-bottom: 20px; transform: translateZ(15px);}
         .founder-desc { color: #aaa; font-size: 0.95rem; line-height: 1.7; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 20px; transform: translateZ(10px);}
 
+        /* 🟢 تنسيقات جدول العساكر العام (Luxury Roster) 🟢 */
+        .roster-wrapper {
+            width: 100%; max-width: 1300px; background: var(--glass-bg); margin-top: 20px;
+            border: 1px solid var(--glass-border); border-radius: 16px; padding: 30px 40px;
+            backdrop-filter: blur(10px); box-shadow: 0 30px 60px rgba(0,0,0,0.5); overflow-x: auto;
+        }
+        .roster-wrapper::-webkit-scrollbar { height: 6px; }
+        .roster-wrapper::-webkit-scrollbar-thumb { background: var(--cyan); border-radius: 10px; }
+
+        .luxury-table { width: 100%; border-collapse: separate; border-spacing: 0 12px; text-align: center; font-family: 'Rajdhani', 'Tajawal', sans-serif;}
+        .luxury-table thead th { color: var(--cyan); font-size: 0.9rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; padding: 0 20px 15px 20px; border-bottom: 1px solid rgba(0,234,255,0.3); }
+        .luxury-table tbody tr:not(.dept-header) { background: var(--row-bg); box-shadow: 0 5px 15px rgba(0,0,0,0.2); transition: all 0.3s ease; }
+        .luxury-table tbody tr:not(.dept-header):hover { transform: scale(1.01) translateY(-2px); background: rgba(20, 26, 40, 0.9); box-shadow: 0 10px 20px rgba(0,0,0,0.4), 0 0 15px rgba(0,234,255,0.1); }
+        .luxury-table td { padding: 14px 20px; color: #d1d1d1; font-size: 1.05rem; font-weight: 600; border-top: 1px solid var(--glass-border); border-bottom: 1px solid var(--glass-border); white-space: nowrap; }
+        .luxury-table td:first-child { border-radius: 8px 0 0 8px; border-left: 3px solid var(--cyan); color: var(--cyan); font-weight: 900; font-size: 1.1rem; }
+        .luxury-table td:last-child { border-radius: 0 8px 8px 0; border-right: 1px solid var(--glass-border); }
+        .dept-header td { padding: 30px 0 10px 0; text-align: left; border: none !important; background: transparent !important; box-shadow: none !important; }
+        .dept-title { display: inline-block; color: #fff; font-size: 1.3rem; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; padding-bottom: 6px; border-bottom: 2px solid var(--cyan); text-shadow: 0 0 10px var(--cyan-glow); }
+        .pill-status { display: inline-flex; align-items: center; gap: 8px; background: rgba(0, 255, 106, 0.08); border: 1px solid rgba(0, 255, 106, 0.3); color: var(--green); padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 800; letter-spacing: 1px; }
+        .code-box { background: rgba(0,0,0,0.5); padding: 4px 8px; border-radius: 4px; font-family: monospace; color: #8da2b5; border: 1px solid var(--glass-border); }
+        .dot { width: 6px; height: 6px; background: var(--green); border-radius: 50%; box-shadow: 0 0 8px var(--green); animation: blink 2s infinite;}
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+        /* نوافذ ولوحة تحكم */
         .modal-overlay { position: fixed; inset: 0; background: rgba(3, 5, 9, 0.95); z-index: 10005; display: none; justify-content: center; align-items: center; backdrop-filter: blur(10px); }
         .modal-box { width: 650px; padding: 40px; background: rgba(10, 15, 25, 0.98); border: 1px solid var(--cyan); border-radius: 12px; box-shadow: 0 10px 40px rgba(0,234,255,0.1); animation: popIn 0.2s ease-out; }
-        
         #customAlertBox { width: 400px; text-align: center; border-color: var(--cyan); }
         .alert-icon { font-size: 4rem; color: var(--cyan); margin-bottom: 20px; text-shadow: 0 0 20px rgba(0,234,255,0.4); }
         .alert-title { color: #fff; font-size: 1.8rem; font-weight: bold; margin-bottom: 15px; }
         .alert-desc { color: #aaa; font-size: 1.1rem; line-height: 1.6; margin-bottom: 30px; white-space: pre-wrap; } 
         
-        #loginScreen { position: fixed; inset: 0; background: rgba(3, 5, 9, 0.85); z-index: 99999; display: none; justify-content: center; align-items: center; backdrop-filter: blur(15px); transition: opacity 0.15s ease;}
+        #loginScreen { position: fixed; inset: 0; background: rgba(3, 5, 9, 0.85); z-index: 99999; display: none; justify-content: center; align-items: center; backdrop-filter: blur(10px); transition: opacity 0.15s ease;}
         .login-container { width: 400px; padding: 40px; background: #0b0e14; border: 1px solid var(--cyan); border-radius: 12px; text-align: center; box-shadow: 0 10px 50px rgba(0,0,0,0.8); animation: slideUpFade 0.3s ease-out forwards; }
-        
         .logo-pulse-container { position: relative; display: inline-flex; justify-content: center; align-items: center; margin-bottom: 15px; }
         .logo-ring { position: absolute; inset: -10px; border: 2px solid var(--cyan); border-radius: 50%; animation: ringPulse 2s infinite ease-out; opacity: 0; z-index: 1; }
         @keyframes ringPulse { 0% { transform: scale(0.9); opacity: 0.8; } 100% { transform: scale(1.6); opacity: 0; } }
         .login-logo { width: 90px; height: 90px; background-image: url('yyW7oBx.jpg'); background-size: cover; border-radius: 50%; position: relative; z-index: 2; border: 2px solid var(--cyan); box-shadow: 0 0 20px var(--cyan-glow); }
-        
         .login-title { font-size: 1.5rem; color: #fff; margin-bottom: 25px; font-weight: bold; letter-spacing: 1px;}
         .inp-group { position: relative; margin-bottom: 15px; }
         .inp-group i { position: absolute; top: 50%; transform: translateY(-50%); color: var(--cyan); opacity: 0.7; right: 15px; }
@@ -187,7 +206,7 @@
             background: linear-gradient(145deg, rgba(20, 26, 40, 0.8), rgba(10, 15, 25, 0.95));
             border: 1px solid rgba(0, 234, 255, 0.15); border-radius: 12px; padding: 25px 15px; 
             text-align: center; color: #fff; font-size: 1.15rem; font-weight: 800; cursor: pointer; 
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); backdrop-filter: blur(10px); user-select: none;
+            transition: all 0.3s ease; backdrop-filter: blur(10px); user-select: none;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.05); position: relative; overflow: hidden;
         }
         .menu-btn::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: linear-gradient(90deg, transparent, var(--cyan), transparent); opacity: 0.5; transition: 0.3s; }
@@ -195,12 +214,6 @@
         .menu-btn:hover::before { opacity: 1; box-shadow: 0 0 15px var(--cyan); }
 
         .dashboard-top-logo { width: 180px; height: 180px; object-fit: cover; border-radius: 50%; border: 3px solid var(--cyan); box-shadow: 0 0 30px rgba(0, 234, 255, 0.2); margin-bottom: 40px; position: relative; z-index: 2;}
-
-        .btn-acc { background: rgba(0, 255, 106, 0.15); color: var(--green); border: 1px solid var(--green); padding: 8px 20px; border-radius: 4px; cursor: pointer; font-weight: bold; transition: 0.2s; font-family: var(--font-ar); margin-left: 10px; user-select: none;}
-        .btn-acc:hover { background: var(--green); color: #000; box-shadow: 0 0 15px rgba(0,255,106,0.4); }
-        .btn-rej { background: rgba(255, 51, 51, 0.15); color: var(--red); border: 1px solid var(--red); padding: 8px 20px; border-radius: 4px; cursor: pointer; font-weight: bold; transition: 0.2s; font-family: var(--font-ar); user-select: none;}
-        .btn-rej:hover { background: var(--red); color: #fff; box-shadow: 0 0 15px rgba(255,51,51,0.4); }
-        .badge-status { padding: 6px 12px; border-radius: 4px; font-weight: bold; font-size: 0.9rem; border: 1px solid; }
 
         #moduleView { display: none; flex: 1; flex-direction: column; width: 85%; max-width: 1100px; margin: 0 auto; max-height: calc(100vh - 100px); padding-bottom: 20px; animation: slideUpFade 0.3s ease; }
         .module-header { flex-shrink: 0; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 15px; margin-top: 20px; margin-bottom: 20px; flex-direction: row-reverse; }
@@ -228,6 +241,12 @@
         .action-icon:hover { transform: scale(1.2); opacity: 1; }
         .icon-del { color: var(--red); margin-top: 5px;}
         
+        .btn-acc { background: rgba(0, 255, 106, 0.15); color: var(--green); border: 1px solid var(--green); padding: 8px 20px; border-radius: 4px; cursor: pointer; font-weight: bold; transition: 0.2s; font-family: var(--font-ar); margin-left: 10px; user-select: none;}
+        .btn-acc:hover { background: var(--green); color: #000; box-shadow: 0 0 15px rgba(0,255,106,0.4); }
+        .btn-rej { background: rgba(255, 51, 51, 0.15); color: var(--red); border: 1px solid var(--red); padding: 8px 20px; border-radius: 4px; cursor: pointer; font-weight: bold; transition: 0.2s; font-family: var(--font-ar); user-select: none;}
+        .btn-rej:hover { background: var(--red); color: #fff; box-shadow: 0 0 15px rgba(255,51,51,0.4); }
+        .badge-status { padding: 6px 12px; border-radius: 4px; font-weight: bold; font-size: 0.9rem; border: 1px solid; }
+
         .task-table { width: 100%; border-collapse: collapse; text-align: center; }
         .task-table th { background: rgba(0,234,255,0.03); color: var(--cyan); padding: 12px; border: 1px solid var(--btn-border); font-weight: bold; position: sticky; top: 0;}
         .task-table td { padding: 10px; border: 1px solid var(--btn-border); color: #ccc; }
@@ -245,48 +264,21 @@
         .close-btn:hover { border-color: var(--red); color: var(--red); }
 
         #idCardOverlay { position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(15px); z-index: 100000; display: none; justify-content: center; align-items: center; flex-direction: column; animation: fadeIn 0.3s ease; }
-        
-        .executive-card {
-            width: 650px; height: 300px; background: #0b0e14; border-radius: 20px;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.9);
-            display: flex; flex-direction: row-reverse; align-items: center; padding: 30px;
-            position: relative; border: 1px solid rgba(255,255,255,0.05); border-right: 3px solid var(--cyan);
-        }
+        .executive-card { width: 650px; height: 300px; background: #0b0e14; border-radius: 20px; box-shadow: 0 30px 60px rgba(0,0,0,0.9); display: flex; flex-direction: row-reverse; align-items: center; padding: 30px; position: relative; border: 1px solid rgba(255,255,255,0.05); border-right: 3px solid var(--cyan); }
         .card-left { display: flex; flex-direction: column; align-items: center; justify-content: center; margin-right: auto; width: 200px; }
-        
-        .profile-img-wrapper {
-            width: 150px; height: 150px; border-radius: 20px; border: 2px solid var(--cyan); padding: 4px;
-            position: relative; background: rgba(0, 234, 255, 0.05); box-shadow: 0 0 20px rgba(0,234,255,0.2);
-        }
+        .profile-img-wrapper { width: 150px; height: 150px; border-radius: 20px; border: 2px solid var(--cyan); padding: 4px; position: relative; background: rgba(0, 234, 255, 0.05); box-shadow: 0 0 20px rgba(0,234,255,0.2); }
         .profile-img-wrapper::before { content: ''; position: absolute; inset: -15px; border: 1px dashed rgba(255,255,255,0.2); border-radius: 30px; pointer-events: none; }
         .profile-img-card { width: 100%; height: 100%; object-fit: cover; border-radius: 16px; background: #111; }
         .security-badge-icon { margin-top: 35px; color: var(--cyan); font-size: 2.5rem; opacity: 0.8; filter: drop-shadow(0 0 10px rgba(0,234,255,0.4)); }
-
         .card-right { display: flex; flex-direction: column; align-items: flex-end; text-align: right; width: calc(100% - 220px); }
         .sys-title-card { color: #666; font-family: var(--font-en); font-size: 1rem; letter-spacing: 3px; font-weight: 800; margin-bottom: 5px; }
         .name-card { margin: 0; font-size: 2.8rem; font-weight: 900; color: #fff; font-family: var(--font-en); text-shadow: 0 5px 15px rgba(0,0,0,0.5); }
         .rank-card { margin: 5px 0 20px 0; color: var(--cyan); font-family: var(--font-en); font-size: 1.3rem; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; }
-
         .simple-status { display: inline-flex; align-items: center; gap: 10px; background: rgba(0, 255, 106, 0.05); border: 1px solid rgba(0, 255, 106, 0.3); padding: 8px 20px; border-radius: 8px; font-family: var(--font-en); font-weight: 800; font-size: 1.1rem; color: var(--green); flex-direction: row-reverse; }
         .status-dot-anim { width: 8px; height: 8px; background: var(--green); border-radius: 50%; box-shadow: 0 0 10px var(--green); animation: pulse 2s infinite; }
         .card-controls { margin-top: 30px; display: flex; gap: 15px; }
         .card-btn { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #fff; padding: 10px 25px; border-radius: 30px; cursor: pointer; font-family: var(--font-ar); font-weight: bold; transition: 0.2s; }
         .card-btn:hover { background: var(--cyan); color: #000; }
-
-        /* 🟢 تنسيقات الجدول الفخم المدمج (Luxury Roster) 🟢 */
-        .luxury-table { width: 100%; border-collapse: separate; border-spacing: 0 12px; text-align: center; font-family: 'Rajdhani', 'Tajawal', sans-serif;}
-        .luxury-table thead th { color: var(--cyan); font-size: 0.9rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; padding: 0 20px 15px 20px; border-bottom: 1px solid rgba(0,234,255,0.3); }
-        .luxury-table tbody tr:not(.dept-header) { background: var(--row-bg); box-shadow: 0 5px 15px rgba(0,0,0,0.4); transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); }
-        .luxury-table tbody tr:not(.dept-header):hover { transform: scale(1.01) translateY(-2px); background: rgba(20, 26, 40, 0.9); box-shadow: 0 15px 30px rgba(0,0,0,0.6), 0 0 20px rgba(0,234,255,0.15); }
-        .luxury-table td { padding: 16px 20px; color: #d1d1d1; font-size: 1.05rem; font-weight: 600; border-top: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light); white-space: nowrap; }
-        .luxury-table td:first-child { border-radius: 10px 0 0 10px; border-left: 3px solid var(--cyan); color: var(--cyan); font-weight: 900; font-size: 1.15rem; }
-        .luxury-table td:last-child { border-radius: 0 10px 10px 0; border-right: 1px solid var(--border-light); }
-        .dept-header td { padding: 40px 0 10px 0; text-align: left; border: none !important; background: transparent !important; box-shadow: none !important; }
-        .dept-title { display: inline-block; color: #fff; font-size: 1.4rem; font-weight: 900; letter-spacing: 3px; text-transform: uppercase; padding-bottom: 8px; border-bottom: 2px solid var(--cyan); text-shadow: 0 0 15px var(--cyan-glow); }
-        .col-name { color: #fff; font-family: 'Tajawal', sans-serif; font-weight: bold; font-size: 1.15rem;}
-        .pill-status { display: inline-flex; align-items: center; gap: 8px; background: rgba(0, 255, 106, 0.08); border: 1px solid rgba(0, 255, 106, 0.3); color: var(--green); padding: 5px 15px; border-radius: 20px; font-size: 0.85rem; font-weight: 800; letter-spacing: 1px; }
-        .code-box { background: rgba(0,0,0,0.5); padding: 4px 10px; border-radius: 6px; font-family: monospace; color: #8da2b5; border: 1px solid var(--border-light); }
-
     </style>
 </head>
 <body id="appBody">
@@ -333,7 +325,7 @@
                     <a id="nav-rules" onclick="switchPublicTab('rules', this)">القوانين</a>
                     <a id="nav-jobs" onclick="switchPublicTab('jobs', this)">تقديم الوظائف</a>
                     <a id="nav-founders" onclick="switchPublicTab('founders', this)">المسؤولين</a>
-                </div>
+                    <a id="nav-roster" onclick="switchPublicTab('roster', this)">جدول العساكر</a> </div>
             </div>
             <div class="nav-left">
                 <button onclick="openLoginScreen()">تسجيل دخول</button>
@@ -462,7 +454,6 @@
                     <div class="anim-subtitle">الرئيسية <span>></span> مسؤولين</div>
                 </div>
             </div>
-            
             <div class="founders-grid">
                 <div class="founder-card" data-tilt data-tilt-max="15" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.3">
                     <img src="https://cdn.discordapp.com/avatars/1242594305508376738/10f20a4533d8f6a277c2c5af58d9fcd7.webp?size=1024" class="founder-img" onerror="this.src='yyW7oBx.jpg'">
@@ -489,8 +480,35 @@
                     <div class="founder-desc">معالي رئيس الشرطة.</div>
                 </div>
             </div>
-            
         </div>
+
+        <div id="rosterTab">
+            <div class="animated-banner">
+                <div class="anim-content">
+                    <h1 class="anim-title">جدول <span>العساكر</span></h1>
+                    <div class="anim-subtitle">الرئيسية <span>></span> جدول العساكر</div>
+                </div>
+            </div>
+            
+            <div class="roster-wrapper" style="width: 100%; max-width: 1300px; background: var(--glass-bg); margin-top: 20px; border: 1px solid var(--glass-border); border-radius: 16px; padding: 30px 40px; backdrop-filter: blur(10px); box-shadow: 0 30px 60px rgba(0,0,0,0.5); overflow-x: auto;">
+                <table class="luxury-table" style="width: 100%; border-collapse: separate; border-spacing: 0 12px; text-align: center; font-family: 'Rajdhani', 'Tajawal', sans-serif;">
+                    <thead>
+                        <tr>
+                            <th style="color: var(--cyan); font-size: 0.9rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; padding: 0 20px 15px 20px; border-bottom: 1px solid rgba(0,234,255,0.3);">Code</th>
+                            <th style="color: var(--cyan); font-size: 0.9rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; padding: 0 20px 15px 20px; border-bottom: 1px solid rgba(0,234,255,0.3);">Name</th>
+                            <th style="color: var(--cyan); font-size: 0.9rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; padding: 0 20px 15px 20px; border-bottom: 1px solid rgba(0,234,255,0.3);">Rank</th>
+                            <th style="color: var(--cyan); font-size: 0.9rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; padding: 0 20px 15px 20px; border-bottom: 1px solid rgba(0,234,255,0.3);">Responsibility</th>
+                            <th style="color: var(--cyan); font-size: 0.9rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; padding: 0 20px 15px 20px; border-bottom: 1px solid rgba(0,234,255,0.3);">Status</th>
+                            <th style="color: var(--cyan); font-size: 0.9rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; padding: 0 20px 15px 20px; border-bottom: 1px solid rgba(0,234,255,0.3);">Discord ID</th>
+                        </tr>
+                    </thead>
+                    <tbody id="publicRosterBody">
+                        <tr><td colspan="6" style="text-align:center; color:#888; padding:40px;">جاري تحميل البيانات الحية...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
     </div>
 
     <div class="modal-overlay" id="appModal">
@@ -630,7 +648,8 @@
             const starBg = document.getElementById('star-bg');
             if(starBg) {
                 starBg.innerHTML = '';
-                for (let i = 0; i < 150; i++) {
+                // تم تقليل النجوم إلى 40 نجمة عشان الموقع يصير خفيف وطيارة
+                for (let i = 0; i < 40; i++) {
                     let star = document.createElement('div');
                     star.className = 'star';
                     let size = Math.random() * 3 + 1; 
@@ -647,7 +666,8 @@
             const pursuitBg = document.getElementById('bg-pursuit');
             if(pursuitBg) {
                 pursuitBg.innerHTML = '';
-                for(let i=0; i<20; i++) {
+                // تم تقليل الخطوط السريعة إلى 10
+                for(let i=0; i<10; i++) {
                     let line = document.createElement('div');
                     line.className = 'speed-line ' + (Math.random() > 0.7 ? 'red' : '');
                     let leftPos = Math.random() > 0.5 ? (Math.random() * 20) : (80 + Math.random() * 20); 
@@ -673,11 +693,10 @@
         firebase.initializeApp(firebaseConfig);
         const database = firebase.database();
 
-        // 🟢 مصفوفة الأقسام وتم إضافة "جدول العساكر" 🟢
+        // 🟢 إزالة الجدول من القائمة الخاصة عشان يصير عام للكل 🟢
         const modules = [
             { id: 'settings', i18n_t: 'm_set', isSettingsView: true, reqOfficer: true, allowAcademy: true },
             { id: 'applications', i18n_t: 'm_app', isAppsView: true, reqOfficer: true, allowAcademy: true },
-            { id: 'roster', i18n_t: 'm_ros', isRoster: true }, // القسم الجديد متاح للكل!
             { id: 'reports', i18n_t: 'm_rep', isReportForm: true },
             { id: 'crypto', i18n_t: 'm_cry', isCrypto: true },
             { id: 'blackbox', i18n_t: 'm_box', inputsAr: ['رقم السجل', 'كود الوصول'] },
@@ -710,7 +729,7 @@
         const i18n = {
             ar: {
                 login_title: "نظام إدارة الشرطة", login_ph_id: "اسم المستخدم", login_ph_pass: "كلمة المرور", login_btn: "تسجيل الدخول", login_err: "بيانات الدخول غير صحيحة", app_title: "إدارة الشرطة", btn_add: "إضافة / حفظ السجل", btn_back: "العودة للرئيسية",
-                m_set: "إعدادات التقديم", m_app: "طلبات التقديم", m_ros: "جدول العساكر المباشر", m_rep: "التقارير", m_cry: "قسم التشفير", m_box: "الصندوق الأسود", m_sav: "التقارير المحفوظة", m_not: "ملاحظات القيادة", m_map: "خرائط العمليات", m_off: "إدارة الحسابات", m_wan: "المطلوبون", m_tsk: "المهام والنقاط", m_gng: "قسم العصابات", m_vid: "قسم الفيديو", m_arm: "مستودع الأسلحة",
+                m_set: "إعدادات التقديم", m_app: "طلبات التقديم", m_rep: "التقارير", m_cry: "قسم التشفير", m_box: "الصندوق الأسود", m_sav: "التقارير المحفوظة", m_not: "ملاحظات القيادة", m_map: "خرائط العمليات", m_off: "إدارة الحسابات", m_wan: "المطلوبون", m_tsk: "المهام والنقاط", m_gng: "قسم العصابات", m_vid: "قسم الفيديو", m_arm: "مستودع الأسلحة",
                 o_user: "اسم المستخدم", o_pass: "كلمة المرور", o_name: "الاسم الكامل", o_rank: "اختر الرتبة", o_err: "يرجى تعبئة جميع الحقول", o_exists: "موجود مسبقاً", o_no_perm: "لا تملك الصلاحية",
                 th_officer: "المسؤول", th_assignee: "المستلم", th_pts: "النقاط", th_reason: "المهمة الموكلة", th_status: "الحالة", th_act: "إجراء", st_pend: "قيد الانتظار", st_appr: "معتمدة ✔️",
                 v_title: "عنوان الفيديو", v_yt: "رابط يوتيوب", v_or: "أو ملف", r_name: "الاسم الكامل", r_badge: "البادج العسكري", r_crim: "نوع التقرير", r_det: "اكتب التقرير بالكامل هنا...",
@@ -724,7 +743,6 @@
             return Object.values(data).filter(item => item !== null && item !== undefined);
         }
 
-        // الاستماع لقاعدة البيانات الأساسية
         database.ref('lspd_db').on('value', (snapshot) => {
             const data = snapshot.val();
             if (data) {
@@ -754,18 +772,16 @@
                 }
             }
             updatePublicJobButtons();
-            if (currentModule && document.getElementById('moduleView').style.display === 'flex' && !currentModule.isRoster) {
+            if (currentModule && document.getElementById('moduleView').style.display === 'flex') {
                 if(currentModule.id === 'settings') renderSettingsView();
                 else openMod(currentModule.id);
             }
         });
 
-        // 🟢 الاستماع المباشر لجدول العساكر (Live Roster) 🟢
+        // 🟢 الاستماع للبيانات من البوت وتحديث الجدول في الصفحة العامة فوراً 🟢
         database.ref('live_roster').on('value', (snapshot) => {
             db.live_roster = snapshot.val() || {};
-            if (currentModule && currentModule.isRoster) {
-                renderLiveRoster();
-            }
+            renderLiveRoster();
         });
 
         function saveDB() { 
@@ -774,7 +790,7 @@
             }); 
         }
 
-        window.onload = () => { applyLanguage(); updatePublicJobButtons(); };
+        window.onload = () => { applyLanguage(); updatePublicJobButtons(); renderLiveRoster(); };
 
         function updatePublicJobButtons() {
             const pWrap = document.getElementById('btn-police-wrapper');
@@ -876,7 +892,6 @@
                     if (isOfficer) canView = true; 
                     if (m.allowAcademy && myDept === "Police Academy") canView = true; 
                 }
-
                 if (!canView) return; 
 
                 c.innerHTML += `<div class="menu-btn" data-tilt data-tilt-max="20" data-tilt-speed="400" data-tilt-perspective="500" data-tilt-scale="1.05" data-tilt-glare data-tilt-max-glare="0.4" onclick="openMod('${m.id}')" style="animation-delay:${idx*0.05}s">${i18n['ar'][m.i18n_t]}</div>`; 
@@ -909,30 +924,6 @@
                 dynamicArea.innerHTML = `<div id="appsContainer"></div>`;
                 if(inputBlock) inputBlock.style.display = 'none'; 
                 renderApplications();
-            }
-            // 🟢 فتح وعرض جدول العساكر المباشر 🟢
-            else if(currentModule.isRoster) {
-                if(inputBlock) inputBlock.style.display = 'none';
-                dynamicArea.innerHTML = `
-                <div style="width:100%; overflow-x:auto;">
-                    <table class="luxury-table">
-                        <thead>
-                            <tr>
-                                <th>Code</th>
-                                <th>Name</th>
-                                <th>Rank</th>
-                                <th>Responsibility</th>
-                                <th>Status</th>
-                                <th>Strikes</th>
-                                <th>Discord ID</th>
-                            </tr>
-                        </thead>
-                        <tbody id="realRosterBody">
-                            <tr><td colspan="7" style="text-align:center; color:#888; padding:40px;">جاري تحميل البيانات الحية...</td></tr>
-                        </tbody>
-                    </table>
-                </div>`;
-                renderLiveRoster();
             }
             else if(currentModule.isAccountsForm) {
                 dynamicArea.innerHTML = `<div id="mList"></div>`;
@@ -979,57 +970,74 @@
             }
         }
 
-        // 🟢 بناء ورسم جدول العساكر المباشر 🟢
+        // 🟢 بناء ورسم جدول العساكر في الصفحة العامة 🟢
         function renderLiveRoster() {
-            const tbody = document.getElementById('realRosterBody');
+            const tbody = document.getElementById('publicRosterBody');
             if(!tbody) return;
 
             const data = db.live_roster;
             tbody.innerHTML = '';
 
             if (!data || Object.keys(data).length === 0) {
-                tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; padding:40px; color:#888; font-size:1.1rem;">لا يوجد عساكر مسجلين حالياً في قاعدة البيانات.</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; padding:40px; color:#888; font-size:1.1rem; border:none;">لا يوجد عساكر مسجلين حالياً في قاعدة البيانات.</td></tr>';
                 return;
             }
 
-            // تجميع العساكر بناءً على الأقسام
             const groups = {};
             Object.keys(data).forEach(key => {
                 const off = data[key];
-                const d = off.dept || 'Unassigned / Field';
+                const d = off.dept || 'Unassigned';
                 if(!groups[d]) groups[d] = [];
                 groups[d].push(off);
             });
 
-            // عرض الأقسام والعساكر
             for(const [deptName, officers] of Object.entries(groups)) {
-                
-                // تحديد الأيقونة حسب القسم
                 let icon = 'fa-shield-halved';
                 if(deptName.includes('Academy')) icon = 'fa-graduation-cap';
                 else if(deptName.includes('High Command') || deptName.includes('Minister')) icon = 'fa-star';
-                else if(deptName.includes('S.W.A.T')) icon = 'fa-crosshairs';
 
                 tbody.innerHTML += `
                 <tr class="dept-header">
-                    <td colspan="7">
-                        <div class="dept-title"><i class="fa-solid ${icon}" style="color:var(--cyan); margin-right: 10px;"></i> ${deptName}</div>
+                    <td colspan="6" style="padding: 40px 0 10px 0; text-align: left; border: none; background: transparent; box-shadow: none;">
+                        <div style="display: inline-block; color: #fff; font-size: 1.4rem; font-weight: 900; letter-spacing: 3px; text-transform: uppercase; padding-bottom: 8px; border-bottom: 2px solid var(--cyan); text-shadow: 0 0 15px var(--cyan-glow);">
+                            <i class="fa-solid ${icon}" style="color:var(--cyan); margin-right: 10px;"></i> ${deptName}
+                        </div>
                     </td>
                 </tr>`;
 
                 officers.forEach(officer => {
                     tbody.innerHTML += `
-                    <tr>
-                        <td>${officer.code || '-'}</td>
-                        <td class="col-name">${officer.name || 'غير معروف'}</td>
-                        <td style="color:var(--cyan);">${officer.rank || '-'}</td>
-                        <td>${officer.dept || '-'}</td>
-                        <td><div class="pill-status"><div class="dot"></div> ${officer.status || 'ACTIVE'}</div></td>
-                        <td>0</td>
-                        <td><span class="code-box">${officer.discordId || '-'}</span></td>
+                    <tr style="background: var(--row-bg); box-shadow: 0 5px 15px rgba(0,0,0,0.4); transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);">
+                        <td style="padding: 16px 20px; color: var(--cyan); font-size: 1.15rem; font-weight: 900; border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05); border-radius: 10px 0 0 10px; border-left: 3px solid var(--cyan);">${officer.code || '-'}</td>
+                        <td style="padding: 16px 20px; color: #fff; font-size: 1.15rem; font-weight: bold; font-family: 'Tajawal', sans-serif; border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05);">${officer.name || 'غير معروف'}</td>
+                        <td style="padding: 16px 20px; color: #d1d1d1; font-size: 1.05rem; font-weight: 600; border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05);">${officer.rank || '-'}</td>
+                        <td style="padding: 16px 20px; color: #d1d1d1; font-size: 1.05rem; font-weight: 600; border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05);">${officer.dept || '-'}</td>
+                        <td style="padding: 16px 20px; color: #d1d1d1; font-size: 1.05rem; font-weight: 600; border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05);">
+                            <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(0, 255, 106, 0.08); border: 1px solid rgba(0, 255, 106, 0.3); color: var(--green); padding: 5px 15px; border-radius: 20px; font-size: 0.85rem; font-weight: 800; letter-spacing: 1px;">
+                                <div style="width: 6px; height: 6px; background: var(--green); border-radius: 50%; box-shadow: 0 0 8px var(--green); animation: blink 2s infinite;"></div> ${officer.status || 'ACTIVE'}
+                            </div>
+                        </td>
+                        <td style="padding: 16px 20px; color: #d1d1d1; font-size: 1.05rem; font-weight: 600; border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05); border-radius: 0 10px 10px 0; border-right: 1px solid rgba(255,255,255,0.05);">
+                            <span style="background: rgba(0,0,0,0.5); padding: 4px 10px; border-radius: 6px; font-family: monospace; color: #8da2b5; border: 1px solid rgba(255,255,255,0.05);">${officer.discordId || '-'}</span>
+                        </td>
                     </tr>`;
                 });
             }
+            
+            // إضافة ستايل Hover يدوياً للجدول
+            const rows = tbody.querySelectorAll('tr:not(.dept-header)');
+            rows.forEach(row => {
+                row.addEventListener('mouseenter', () => {
+                    row.style.transform = 'scale(1.01) translateY(-2px)';
+                    row.style.background = 'rgba(20, 26, 40, 0.9)';
+                    row.style.boxShadow = '0 15px 30px rgba(0,0,0,0.6), 0 0 20px rgba(0,234,255,0.15)';
+                });
+                row.addEventListener('mouseleave', () => {
+                    row.style.transform = 'none';
+                    row.style.background = 'var(--row-bg)';
+                    row.style.boxShadow = '0 5px 15px rgba(0,0,0,0.4)';
+                });
+            });
         }
 
         function resetAllApplicationsFlag() {
@@ -1319,28 +1327,16 @@
         }
         
         function openAppModal() { if(db.settings && db.settings.policeOpen === false) { showCustomAlert("عذراً", "التقديم لشرطة تايتنز مغلق حالياً من قبل الإدارة.", false); return; } 
-            
-            if(localStorage.getItem('policeAppSubmitted') === 'true') { 
-                showCustomAlert("تنبيه", "لقد قمت بتقديم طلب لشرطة تايتنز مسبقاً! يرجى انتظار رد الإدارة.", false); 
-                return; 
-            }
-            
+            if(localStorage.getItem('policeAppSubmitted') === 'true') { showCustomAlert("تنبيه", "لقد قمت بتقديم طلب لشرطة تايتنز مسبقاً! يرجى انتظار رد الإدارة.", false); return; }
             document.getElementById('appModal').style.display = 'flex'; 
         }
-
         function closeAppModal() { document.getElementById('appModal').style.display = 'none'; }
         
         function openSelfAppModal() { 
             if(db.settings && db.settings.selfOpen === false) { showCustomAlert("عذراً", "التقديم لقدم نفسك مغلق حالياً من قبل الإدارة.", false); return; } 
-            
-            if(localStorage.getItem('selfAppSubmitted') === 'true') { 
-                showCustomAlert("تنبيه", "لقد قمت بتقديم طلب 'قدم نفسك' مسبقاً! يرجى انتظار رد الإدارة.", false); 
-                return; 
-            }
-            
+            if(localStorage.getItem('selfAppSubmitted') === 'true') { showCustomAlert("تنبيه", "لقد قمت بتقديم طلب 'قدم نفسك' مسبقاً! يرجى انتظار رد الإدارة.", false); return; }
             document.getElementById('selfAppModal').style.display = 'flex'; 
         }
-
         function closeSelfAppModal() { document.getElementById('selfAppModal').style.display = 'none'; document.getElementById('self-file-name').innerText = 'إرفاق صورة (اختياري)'; document.getElementById('self-file-name').style.color = '#888'; }
 
         function submitApplication() { const n = document.getElementById('appName').value.trim(); const d = document.getElementById('appDiscord').value.trim(); const a = document.getElementById('appAge').value.trim(); const exp = document.getElementById('appExp').value.trim(); const reason = document.getElementById('appReason').value.trim(); if(!n || !d || !a) { showCustomAlert("خطأ", "يرجى تعبئة الحقول الأساسية (الاسم، الديسكورد، العمر)!", false); return; } db.applications = cleanArray(db.applications); db.applications.push({ type: 'police', name: n, discord: d, age: a, exp: exp, reason: reason, date: new Date().toLocaleDateString(), status: 'pending' }); saveDB(); 
@@ -1351,7 +1347,23 @@
             localStorage.setItem('selfAppSubmitted', 'true');
             closeSelfAppModal(); showCustomAlert("اكتمل التقديم", "تم إرسال تقديمك بنجاح! سيتم مراجعته قريباً.", true); ['selfName','selfDiscord','selfAge','selfExp','selfReason'].forEach(id => document.getElementById(id).value = ''); document.getElementById('selfFile').value = ''; }
         
-        function switchPublicTab(tabId, el) { document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active')); if(el) el.classList.add('active'); if (tabId === 'home' && document.getElementById('homeTab').style.display === 'flex') { window.scrollTo({ top: 0, behavior: 'smooth' }); return; } document.getElementById('homeTab').style.display = 'none'; document.getElementById('rulesTab').style.display = 'none'; document.getElementById('jobsTab').style.display = 'none'; document.getElementById('foundersTab').style.display = 'none'; document.getElementById(tabId + 'Tab').style.display = 'flex'; window.scrollTo({ top: 0, behavior: 'auto' }); }
+        // 🟢 الانتقال بين الأقسام بالواجهة الرئيسية 🟢
+        function switchPublicTab(tabId, el) { 
+            document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active')); 
+            if(el) el.classList.add('active'); 
+            
+            if (tabId === 'home' && document.getElementById('homeTab').style.display === 'flex') { window.scrollTo({ top: 0, behavior: 'smooth' }); return; } 
+            
+            document.getElementById('homeTab').style.display = 'none'; 
+            document.getElementById('rulesTab').style.display = 'none'; 
+            document.getElementById('jobsTab').style.display = 'none'; 
+            document.getElementById('foundersTab').style.display = 'none'; 
+            document.getElementById('rosterTab').style.display = 'none'; 
+            
+            document.getElementById(tabId + 'Tab').style.display = 'flex'; 
+            window.scrollTo({ top: 0, behavior: 'auto' }); 
+        }
+
         function toggleAccordion(element) { const item = element.parentElement; const content = item.querySelector('.accordion-content'); const isActive = item.classList.contains('active'); document.querySelectorAll('.accordion-item').forEach(otherItem => { otherItem.classList.remove('active'); otherItem.querySelector('.accordion-content').style.maxHeight = null; otherItem.querySelector('.acc-icon').innerText = '+'; }); if (!isActive) { item.classList.add('active'); content.style.maxHeight = content.scrollHeight + "px"; element.querySelector('.acc-icon').innerText = '-'; } }
         function openLoginScreen() { document.getElementById('publicSite').style.opacity = '0'; setTimeout(() => { document.getElementById('publicSite').style.display = 'none'; const login = document.getElementById('loginScreen'); login.style.display = 'flex'; setTimeout(() => login.style.opacity = '1', 20); }, 150); }
         function closeLoginScreen() { const login = document.getElementById('loginScreen'); login.style.opacity = '0'; setTimeout(() => { login.style.display = 'none'; document.getElementById('publicSite').style.display = 'flex'; setTimeout(() => document.getElementById('publicSite').style.opacity = '1', 20); }, 150); }
