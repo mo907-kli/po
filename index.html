@@ -36,7 +36,7 @@
         body { user-select: none; background: #020305; color: var(--text-main); font-family: var(--font-ar); min-height: 100vh; display: flex; flex-direction: column; position: relative; overflow-y: auto; overflow-x: hidden; }
         input, textarea, select, .crypto-res, .task-table td, .allow-select, .allow-select * { user-select: text !important; }
 
-        /* 🟢 الخلفية الفخمة الأصلية 🟢 */
+        /* 🟢 الخلفية الفخمة 🟢 */
         #star-bg { position: fixed; inset: 0; z-index: -5; pointer-events: none; overflow: hidden; }
         .star { position: absolute; background: white; border-radius: 50%; animation: twinkle linear infinite alternate; box-shadow: 0 0 5px rgba(0, 234, 255, 0.5); }
         @keyframes twinkle { 0% { opacity: 0.1; transform: scale(0.5); box-shadow: none; } 100% { opacity: 1; transform: scale(1.2); box-shadow: 0 0 8px rgba(0, 234, 255, 0.8); } }
@@ -58,7 +58,12 @@
         @keyframes slideUpFade { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes popIn { 0% { opacity: 0; transform: scale(0.9); } 100% { opacity: 1; transform: scale(1); } }
 
-        /* 🟢 الموقع العام (Public Site) 🟢 */
+        #imgZoomOverlay { position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 9999999; display: none; justify-content: center; align-items: center; opacity: 0; transition: opacity 0.2s ease; cursor: zoom-out; backdrop-filter: blur(5px); }
+        #imgZoomOverlay.active { opacity: 1; }
+        #zoomedImg { max-width: 90vw; max-height: 90vh; border-radius: 8px; box-shadow: 0 0 30px rgba(0,234,255,0.4); border: 2px solid var(--cyan); transform: scale(0.8); transition: transform 0.2s ease; }
+        #imgZoomOverlay.active #zoomedImg { transform: scale(1); }
+
+        /* 🟢 الموقع العام 🟢 */
         #publicSite { display: flex; flex-direction: column; width: 100%; min-height: 100vh; transition: opacity 0.15s ease; }
         .public-nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 80px; background: rgba(3, 5, 9, 0.8); border-bottom: 1px solid rgba(255,255,255,0.05); position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(15px); }
         .nav-right { display: flex; align-items: center; gap: 40px; }
@@ -80,12 +85,12 @@
         .hero-btn { background: var(--cyan); border: none; color: #000; padding: 16px 45px; font-size: 1.2rem; font-weight: bold; border-radius: 6px; cursor: pointer; transition: 0.2s; font-family: var(--font-ar); box-shadow: 0 0 20px var(--cyan-glow); user-select: none;}
         .hero-btn:hover { background: #fff; transform: scale(1.05); }
 
-        /* 🟢 الكروت الفخمة بنظام 3D 🟢 */
         .community-section { width: 100%; padding: 80px 20px; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); }
         .community-title { font-size: 3rem; color: #fff; font-weight: 800; margin-bottom: 20px; }
         .community-desc { color: #8da2b5; font-size: 1.15rem; line-height: 1.8; max-width: 800px; margin: 0 auto 60px auto; }
         .community-cards, .jobs-cards-container { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; max-width: 1200px; margin: 0 auto; }
         
+        /* 🟢 الكروت الفخمة بـ 3D 🟢 */
         .comm-card, .job-card { 
             background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 8px; 
             padding: 40px 30px; width: 350px; text-align: center; transition: 0.2s; display: flex; 
@@ -135,7 +140,7 @@
         .founder-name { font-size: 1.8rem; color: #fff; font-weight: 800; margin-bottom: 5px; transform: translateZ(20px); }
         .founder-rank { color: var(--cyan); font-size: 1.1rem; font-weight: bold; font-family: var(--font-en); letter-spacing: 1px; margin-bottom: 20px; transform: translateZ(15px);}
 
-        /* 🟢 تنسيقات جدول العساكر الفخم 🟢 */
+        /* 🟢 تنسيقات الجداول الفخمة (للرئيسية ولوحة التحكم) 🟢 */
         .roster-wrapper {
             width: 100%; max-width: 1400px; background: var(--glass-bg); margin: 20px auto 40px auto;
             border: 1px solid var(--glass-border); border-radius: 16px; padding: 30px 40px;
@@ -150,9 +155,9 @@
         .roster-row { background: var(--row-bg); box-shadow: 0 5px 15px rgba(0,0,0,0.4); transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); }
         .roster-row:hover { transform: scale(1.01) translateY(-2px); background: rgba(20, 26, 40, 0.9); box-shadow: 0 15px 30px rgba(0,0,0,0.6), 0 0 20px rgba(0,234,255,0.15); }
         
-        .luxury-table td { padding: 16px 20px; color: #d1d1d1; font-size: 1.05rem; font-weight: 600; border-top: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light); white-space: nowrap; }
+        .luxury-table td { padding: 16px 20px; color: #d1d1d1; font-size: 1.05rem; font-weight: 600; border-top: 1px solid var(--glass-border); border-bottom: 1px solid var(--glass-border); white-space: nowrap; }
         .luxury-table td:first-child { border-radius: 10px 0 0 10px; border-left: 3px solid var(--cyan); color: var(--cyan); font-weight: 900; font-size: 1.15rem; }
-        .luxury-table td:last-child { border-radius: 0 10px 10px 0; border-right: 1px solid var(--border-light); }
+        .luxury-table td:last-child { border-radius: 0 10px 10px 0; border-right: 1px solid var(--glass-border); }
         
         .dept-header td { padding: 40px 0 10px 0; text-align: left; border: none !important; background: transparent !important; box-shadow: none !important; }
         .dept-title { display: inline-block; color: #fff; font-size: 1.4rem; font-weight: 900; letter-spacing: 3px; text-transform: uppercase; padding-bottom: 8px; border-bottom: 2px solid var(--cyan); text-shadow: 0 0 15px var(--cyan-glow); }
@@ -167,7 +172,7 @@
         .btn-edit { color: var(--yellow); }
         .btn-del { color: var(--red); }
 
-        /* 🟢 نوافذ ولوحة تحكم 🟢 */
+        /* 🟢 النوافذ المنبثقة وتسجيل الدخول 🟢 */
         .modal-overlay { position: fixed; inset: 0; background: rgba(3, 5, 9, 0.95); z-index: 10005; display: none; justify-content: center; align-items: center; backdrop-filter: blur(10px); }
         .modal-box { width: 650px; padding: 40px; background: rgba(10, 15, 25, 0.98); border: 1px solid var(--cyan); border-radius: 12px; box-shadow: 0 10px 40px rgba(0,234,255,0.1); animation: popIn 0.2s ease-out; }
         #customAlertBox { width: 400px; text-align: center; border-color: var(--cyan); }
@@ -192,8 +197,9 @@
         .back-login-btn { background: transparent; border: none; color: #888; margin-top: 20px; cursor: pointer; font-family: var(--font-ar); text-decoration: underline; font-size: 0.95rem; transition: 0.2s; user-select: none;}
         .back-login-btn:hover { color: #fff; }
 
-        #mainWrapper { position: fixed; inset: 0; z-index: 2; display: none; flex: 1; flex-direction: column; transition: opacity 0.15s ease; height: 100vh; overflow: hidden; background: transparent; }
-        header { display: flex; justify-content: space-between; align-items: center; padding: 25px 40px; z-index: 10; border-bottom: 1px solid var(--glass-border); flex-shrink: 0; background: rgba(3,5,9,0.8); backdrop-filter: blur(10px);}
+        /* 🟢 لوحة التحكم المخفية (Admin Dashboard) 🟢 */
+        #mainWrapper { position: fixed; inset: 0; z-index: 2000; display: none; flex: 1; flex-direction: column; transition: opacity 0.15s ease; height: 100vh; overflow: hidden; background: rgba(3,5,9,0.95); backdrop-filter: blur(20px);}
+        header { display: flex; justify-content: space-between; align-items: center; padding: 25px 40px; z-index: 10; border-bottom: 1px solid var(--glass-border); flex-shrink: 0; background: rgba(10,15,25,0.8);}
         .header-side { display: flex; gap: 10px; align-items: center; }
         .pill-btn { background: rgba(15, 20, 35, 0.6); border: 1px solid var(--btn-border); padding: 8px 18px; border-radius: 25px; color: #ccc; font-size: 0.85rem; font-weight: bold; display: flex; align-items: center; gap: 8px; cursor: pointer; transition: 0.2s; backdrop-filter: blur(5px); user-select: none; }
         .pill-btn:hover { background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.3); color: #fff; }
@@ -215,7 +221,7 @@
 
         .dashboard-top-logo { width: 180px; height: 180px; object-fit: cover; border-radius: 50%; border: 3px solid var(--cyan); box-shadow: 0 0 30px rgba(0, 234, 255, 0.2); margin-bottom: 40px; position: relative; z-index: 2;}
 
-        #moduleView { display: none; flex: 1; flex-direction: column; width: 85%; max-width: 1300px; margin: 0 auto; max-height: calc(100vh - 100px); padding-bottom: 20px; animation: slideUpFade 0.3s ease; }
+        #moduleView { display: none; flex: 1; flex-direction: column; width: 85%; max-width: 1400px; margin: 0 auto; max-height: calc(100vh - 100px); padding-bottom: 20px; animation: slideUpFade 0.3s ease; }
         .module-header { flex-shrink: 0; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 15px; margin-top: 20px; margin-bottom: 20px; flex-direction: row-reverse; }
         .module-title { font-size: 1.5rem; color: var(--cyan); font-weight: bold; margin: 0; }
         .back-btn { background: rgba(10, 15, 25, 0.6); border: 1px solid var(--btn-border); color: #ccc; padding: 8px 20px; border-radius: 6px; cursor: pointer; transition: 0.2s; font-size: 0.95rem; font-family: var(--font-ar); font-weight:bold; backdrop-filter: blur(5px); user-select: none;}
@@ -262,23 +268,6 @@
         .crypto-res { background: rgba(0,0,0,0.5); border: 1px solid var(--btn-border); border-radius: 4px; padding: 15px; color: #fff; min-height: 50px; font-family: monospace; word-break: break-all; padding-inline-end: 45px; }
         .close-btn { width: 100%; background: transparent; border: 1px solid #333; color: #888; padding: 10px; margin-top: 5px; cursor: pointer; border-radius: 6px; transition: 0.2s; font-family: var(--font-ar); user-select: none;}
         .close-btn:hover { border-color: var(--red); color: var(--red); }
-
-        #idCardOverlay { position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(15px); z-index: 100000; display: none; justify-content: center; align-items: center; flex-direction: column; animation: fadeIn 0.3s ease; }
-        .executive-card { width: 650px; height: 300px; background: #0b0e14; border-radius: 20px; box-shadow: 0 30px 60px rgba(0,0,0,0.9); display: flex; flex-direction: row-reverse; align-items: center; padding: 30px; position: relative; border: 1px solid rgba(255,255,255,0.05); border-right: 3px solid var(--cyan); }
-        .card-left { display: flex; flex-direction: column; align-items: center; justify-content: center; margin-right: auto; width: 200px; }
-        .profile-img-wrapper { width: 150px; height: 150px; border-radius: 20px; border: 2px solid var(--cyan); padding: 4px; position: relative; background: rgba(0, 234, 255, 0.05); box-shadow: 0 0 20px rgba(0,234,255,0.2); }
-        .profile-img-wrapper::before { content: ''; position: absolute; inset: -15px; border: 1px dashed rgba(255,255,255,0.2); border-radius: 30px; pointer-events: none; }
-        .profile-img-card { width: 100%; height: 100%; object-fit: cover; border-radius: 16px; background: #111; }
-        .security-badge-icon { margin-top: 35px; color: var(--cyan); font-size: 2.5rem; opacity: 0.8; filter: drop-shadow(0 0 10px rgba(0,234,255,0.4)); }
-        .card-right { display: flex; flex-direction: column; align-items: flex-end; text-align: right; width: calc(100% - 220px); }
-        .sys-title-card { color: #666; font-family: var(--font-en); font-size: 1rem; letter-spacing: 3px; font-weight: 800; margin-bottom: 5px; }
-        .name-card { margin: 0; font-size: 2.8rem; font-weight: 900; color: #fff; font-family: var(--font-en); text-shadow: 0 5px 15px rgba(0,0,0,0.5); }
-        .rank-card { margin: 5px 0 20px 0; color: var(--cyan); font-family: var(--font-en); font-size: 1.3rem; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; }
-        .simple-status { display: inline-flex; align-items: center; gap: 10px; background: rgba(0, 255, 106, 0.05); border: 1px solid rgba(0, 255, 106, 0.3); padding: 8px 20px; border-radius: 8px; font-family: var(--font-en); font-weight: 800; font-size: 1.1rem; color: var(--green); flex-direction: row-reverse; }
-        .status-dot-anim { width: 8px; height: 8px; background: var(--green); border-radius: 50%; box-shadow: 0 0 10px var(--green); animation: pulse 2s infinite; }
-        .card-controls { margin-top: 30px; display: flex; gap: 15px; }
-        .card-btn { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #fff; padding: 10px 25px; border-radius: 30px; cursor: pointer; font-family: var(--font-ar); font-weight: bold; transition: 0.2s; }
-        .card-btn:hover { background: var(--cyan); color: #000; }
     </style>
 </head>
 <body id="appBody">
@@ -372,7 +361,7 @@
                     <div class="accordion-header" onclick="toggleAccordion(this)"><div class="acc-title-box"><span class="acc-dot"></span><span class="acc-title">قوانين الحياة الجديدة - NLR</span></div><span class="acc-icon">+</span></div>
                     <div class="accordion-content"><div class="accordion-inner"><div class="rule-text">في حال اغماءك بشكل كامل لا يمكنك الكلام او الحركة او فعل أي شيء...</div></div></div>
                 </div>
-                </div>
+            </div>
         </div>
 
         <div id="jobsTab">
@@ -502,7 +491,6 @@
                 <div class="logo-ring"></div>
                 <div class="login-logo"></div>
             </div>
-            
             <div class="login-title" id="loginTitleText">نظام إدارة الشرطة</div>
             <div class="inp-group">
                 <i class="fa-solid fa-id-card"></i>
@@ -561,7 +549,7 @@
             const starBg = document.getElementById('star-bg');
             if(starBg) {
                 starBg.innerHTML = '';
-                for (let i = 0; i < 50; i++) {
+                for (let i = 0; i < 40; i++) { 
                     let star = document.createElement('div');
                     star.className = 'star';
                     let size = Math.random() * 3 + 1; 
@@ -577,7 +565,7 @@
             const pursuitBg = document.getElementById('bg-pursuit');
             if(pursuitBg) {
                 pursuitBg.innerHTML = '';
-                for(let i=0; i<15; i++) {
+                for(let i=0; i<10; i++) {
                     let line = document.createElement('div');
                     line.className = 'speed-line ' + (Math.random() > 0.7 ? 'red' : '');
                     let leftPos = Math.random() > 0.5 ? (Math.random() * 20) : (80 + Math.random() * 20); 
@@ -599,7 +587,6 @@
         firebase.initializeApp(firebaseConfig);
         const database = firebase.database();
 
-        // 🟢 الأقسام كاملة مع إدارة الجدول 🟢
         const modules = [
             { id: 'settings', i18n_t: 'm_set', isSettingsView: true, reqOfficer: true, allowAcademy: true },
             { id: 'applications', i18n_t: 'm_app', isAppsView: true, reqOfficer: true, allowAcademy: true },
@@ -651,7 +638,7 @@
             }
         });
 
-        // 🟢 تحديث الجدولين مع بعض وبدون لاق 🟢
+        // 🟢 تحديث الجدولين معاً برمجياً لتجنب اللاق 🟢
         database.ref('live_roster').on('value', (snapshot) => {
             db.live_roster = snapshot.val() || {};
             renderLiveRoster(); 
@@ -668,6 +655,7 @@
             if(sWrap) sWrap.innerHTML = db.settings && db.settings.selfOpen ? `<button class="job-btn-open" onclick="openSelfAppModal()">تقديم</button>` : `<button class="job-btn-closed" onclick="showCustomAlert('عذراً', 'التقديم مغلق حالياً', false)">مغلق التقديم</button>`;
         }
 
+        // 🟢 الحل الجذري لتداخل الشاشات: إخفاء الموقع بالكامل عند تسجيل الدخول 🟢
         function login() {
             const u = document.getElementById('userInput').value.trim(), p = document.getElementById('passInput').value.trim();
             let confUsers = (typeof ConfigUsers !== 'undefined') ? ConfigUsers : [];
@@ -677,7 +665,10 @@
             let foundUser = [...confUsers, ...(db.customUsers || [])].find(x => x.user === u && x.pass === p);
             
             if(foundUser) {
-                document.getElementById('loginScreen').style.display = 'none'; document.getElementById('mainWrapper').style.display = 'flex';
+                document.getElementById('loginScreen').style.display = 'none'; 
+                document.getElementById('publicSite').style.display = 'none'; // هنا السر: إخفاء الموقع الخارجي
+                document.getElementById('mainWrapper').style.display = 'flex'; // إظهار لوحة التحكم
+                
                 myRankIdx = SystemRanks.indexOf(foundUser.rank); if(myRankIdx === -1) myRankIdx = 999; 
                 isOfficer = configOfficers.includes(foundUser.rank); myName = foundUser.name; myRank = foundUser.rank; myDept = foundUser.dept || "";
                 document.getElementById('rankNameDisp').innerText = myDept ? `${myName} (${myDept})` : myName; 
@@ -798,8 +789,8 @@
                 groups[rankName].sort((a, b) => (a.code || '').localeCompare(b.code || '')).forEach(officer => {
                     htmlString += `
                     <tr class="roster-row">
-                        <td>${officer.code || '-'}</td>
-                        <td style="color: #fff; font-family: 'Tajawal', sans-serif;">${officer.name || '-'}</td>
+                        <td style="color: var(--cyan); font-weight: bold;">${officer.code || '-'}</td>
+                        <td style="color: #fff;">${officer.name || '-'}</td>
                         <td>${officer.rank || '-'}</td>
                         <td>
                             <button onclick="editOfficerRank('${officer.id}', '${officer.name}', '${officer.rank}')" class="action-btn-mini btn-edit" title="تعديل الرتبة"><i class="fa-solid fa-pen-to-square"></i></button>
