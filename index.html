@@ -10,6 +10,7 @@
     
     <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-database-compat.js"></script>
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
 
     <style>
@@ -36,7 +37,7 @@
         body { user-select: none; background: #020305; color: var(--text-main); font-family: var(--font-ar); min-height: 100vh; display: flex; flex-direction: column; position: relative; overflow-y: auto; overflow-x: hidden; }
         input, textarea, select, .crypto-res, .task-table td, .allow-select, .allow-select * { user-select: text !important; }
 
-        /* 🟢 الخلفية الفخمة 🟢 */
+        /* 🟢 الخلفية الفخمة الأصلية 🟢 */
         #star-bg { position: fixed; inset: 0; z-index: -5; pointer-events: none; overflow: hidden; }
         .star { position: absolute; background: white; border-radius: 50%; animation: twinkle linear infinite alternate; box-shadow: 0 0 5px rgba(0, 234, 255, 0.5); }
         @keyframes twinkle { 0% { opacity: 0.1; transform: scale(0.5); box-shadow: none; } 100% { opacity: 1; transform: scale(1.2); box-shadow: 0 0 8px rgba(0, 234, 255, 0.8); } }
@@ -63,7 +64,7 @@
         #zoomedImg { max-width: 90vw; max-height: 90vh; border-radius: 8px; box-shadow: 0 0 30px rgba(0,234,255,0.4); border: 2px solid var(--cyan); transform: scale(0.8); transition: transform 0.2s ease; }
         #imgZoomOverlay.active #zoomedImg { transform: scale(1); }
 
-        /* 🟢 الموقع العام 🟢 */
+        /* 🟢 الموقع العام (الرئيسية) 🟢 */
         #publicSite { display: flex; flex-direction: column; width: 100%; min-height: 100vh; transition: opacity 0.15s ease; }
         .public-nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 80px; background: rgba(3, 5, 9, 0.8); border-bottom: 1px solid rgba(255,255,255,0.05); position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(15px); }
         .nav-right { display: flex; align-items: center; gap: 40px; }
@@ -90,7 +91,6 @@
         .community-desc { color: #8da2b5; font-size: 1.15rem; line-height: 1.8; max-width: 800px; margin: 0 auto 60px auto; }
         .community-cards, .jobs-cards-container { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; max-width: 1200px; margin: 0 auto; }
         
-        /* 🟢 الكروت الفخمة بـ 3D 🟢 */
         .comm-card, .job-card { 
             background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 8px; 
             padding: 40px 30px; width: 350px; text-align: center; transition: 0.2s; display: flex; 
@@ -155,9 +155,9 @@
         .roster-row { background: var(--row-bg); box-shadow: 0 5px 15px rgba(0,0,0,0.4); transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); }
         .roster-row:hover { transform: scale(1.01) translateY(-2px); background: rgba(20, 26, 40, 0.9); box-shadow: 0 15px 30px rgba(0,0,0,0.6), 0 0 20px rgba(0,234,255,0.15); }
         
-        .luxury-table td { padding: 16px 20px; color: #d1d1d1; font-size: 1.05rem; font-weight: 600; border-top: 1px solid var(--glass-border); border-bottom: 1px solid var(--glass-border); white-space: nowrap; }
+        .luxury-table td { padding: 16px 20px; color: #d1d1d1; font-size: 1.05rem; font-weight: 600; border-top: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light); white-space: nowrap; }
         .luxury-table td:first-child { border-radius: 10px 0 0 10px; border-left: 3px solid var(--cyan); color: var(--cyan); font-weight: 900; font-size: 1.15rem; }
-        .luxury-table td:last-child { border-radius: 0 10px 10px 0; border-right: 1px solid var(--glass-border); }
+        .luxury-table td:last-child { border-radius: 0 10px 10px 0; border-right: 1px solid var(--border-light); }
         
         .dept-header td { padding: 40px 0 10px 0; text-align: left; border: none !important; background: transparent !important; box-shadow: none !important; }
         .dept-title { display: inline-block; color: #fff; font-size: 1.4rem; font-weight: 900; letter-spacing: 3px; text-transform: uppercase; padding-bottom: 8px; border-bottom: 2px solid var(--cyan); text-shadow: 0 0 15px var(--cyan-glow); }
@@ -198,8 +198,8 @@
         .back-login-btn:hover { color: #fff; }
 
         /* 🟢 لوحة التحكم المخفية (Admin Dashboard) 🟢 */
-        #mainWrapper { position: fixed; inset: 0; z-index: 2000; display: none; flex: 1; flex-direction: column; transition: opacity 0.15s ease; height: 100vh; overflow: hidden; background: rgba(3,5,9,0.95); backdrop-filter: blur(20px);}
-        header { display: flex; justify-content: space-between; align-items: center; padding: 25px 40px; z-index: 10; border-bottom: 1px solid var(--glass-border); flex-shrink: 0; background: rgba(10,15,25,0.8);}
+        #mainWrapper { position: fixed; inset: 0; z-index: 2000; display: none; flex: 1; flex-direction: column; transition: opacity 0.15s ease; height: 100vh; overflow: hidden; background: transparent; }
+        header { display: flex; justify-content: space-between; align-items: center; padding: 25px 40px; z-index: 10; border-bottom: 1px solid var(--glass-border); flex-shrink: 0; background: rgba(3,5,9,0.8); backdrop-filter: blur(10px);}
         .header-side { display: flex; gap: 10px; align-items: center; }
         .pill-btn { background: rgba(15, 20, 35, 0.6); border: 1px solid var(--btn-border); padding: 8px 18px; border-radius: 25px; color: #ccc; font-size: 0.85rem; font-weight: bold; display: flex; align-items: center; gap: 8px; cursor: pointer; transition: 0.2s; backdrop-filter: blur(5px); user-select: none; }
         .pill-btn:hover { background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.3); color: #fff; }
@@ -540,43 +540,28 @@
         </div>
     </div>
 
+    <div class="modal-overlay" id="cryptoModal">
+        <div class="modal-box">
+            <h3 style="color:var(--cyan); margin-bottom:20px; font-size:1.5rem;" id="crypTitleText">قسم التشفير</h3>
+            <div class="crypto-area">
+                <textarea id="cryIn" placeholder="أدخل النص..." autocomplete="off"></textarea>
+                <div style="display:flex; gap:10px; margin-bottom:15px;">
+                    <button class="submit-btn" onclick="doCrypto('enc')" style="margin:0" id="crypBtnEncText">تشفير</button>
+                    <button class="submit-btn" onclick="doCrypto('dec')" style="margin:0; background:#fff; color:#000;" id="crypBtnDecText">فك تشفير</button>
+                </div>
+                <div style="position:relative;">
+                    <div class="crypto-res allow-select" id="cryOut"></div>
+                    <i class="fa-solid fa-copy" onclick="copyCrypto()" style="position: absolute; top: 50%; transform: translateY(-50%); left: 20px; color: var(--cyan); font-size: 1.3rem; cursor: pointer; transition: 0.3s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--cyan)'"></i>
+                </div>
+            </div>
+            <button class="close-btn" onclick="document.getElementById('cryptoModal').style.display='none'" id="crypBtnCloseText">إغلاق</button>
+        </div>
+    </div>
+
     <script>
         const publicOfficersList = ["Minister of Interior", "Deputy Minister of Interior", "A. Minister of Interior", "Police Commander", "L.S.P.D Chief", "Deputy L.S.P.D Chief", "A' Lspd Chief", "High Commander", "General", "Colonel", "Major", "Captain", "First Lieutenant", "Lieutenant"];
         const publicEnlistedList = ["Staff Sergeant", "First Sergeant", "Sergeant", "Senior Lead Officer", "Senior Officer", "Officer III", "Officer II", "Officer I", "Solo Cadet", "Cadet"];
         let SystemRanks = [...publicOfficersList, ...publicEnlistedList];
-
-        function createBackgroundEffects() {
-            const starBg = document.getElementById('star-bg');
-            if(starBg) {
-                starBg.innerHTML = '';
-                for (let i = 0; i < 40; i++) { 
-                    let star = document.createElement('div');
-                    star.className = 'star';
-                    let size = Math.random() * 3 + 1; 
-                    star.style.width = size + 'px';
-                    star.style.height = size + 'px';
-                    star.style.left = Math.random() * 100 + 'vw';
-                    star.style.top = Math.random() * 100 + 'vh';
-                    star.style.animationDuration = (Math.random() * 3 + 2) + 's';
-                    starBg.appendChild(star);
-                }
-            }
-
-            const pursuitBg = document.getElementById('bg-pursuit');
-            if(pursuitBg) {
-                pursuitBg.innerHTML = '';
-                for(let i=0; i<10; i++) {
-                    let line = document.createElement('div');
-                    line.className = 'speed-line ' + (Math.random() > 0.7 ? 'red' : '');
-                    let leftPos = Math.random() > 0.5 ? (Math.random() * 20) : (80 + Math.random() * 20); 
-                    line.style.left = leftPos + 'vw';
-                    line.style.animationDuration = (Math.random() * 1.5 + 0.5) + 's';
-                    line.style.animationDelay = (Math.random() * 2) + 's';
-                    pursuitBg.appendChild(line);
-                }
-            }
-        }
-        createBackgroundEffects();
 
         const firebaseConfig = {
             apiKey: "AIzaSyC5PL_fJEjiJVQS8rnx4m8j9uQNsILcQvs",
@@ -666,18 +651,32 @@
             
             if(foundUser) {
                 document.getElementById('loginScreen').style.display = 'none'; 
-                document.getElementById('publicSite').style.display = 'none'; // هنا السر: إخفاء الموقع الخارجي
+                document.getElementById('publicSite').style.display = 'none'; // السر: إخفاء الموقع الخارجي
                 document.getElementById('mainWrapper').style.display = 'flex'; // إظهار لوحة التحكم
                 
                 myRankIdx = SystemRanks.indexOf(foundUser.rank); if(myRankIdx === -1) myRankIdx = 999; 
                 isOfficer = configOfficers.includes(foundUser.rank); myName = foundUser.name; myRank = foundUser.rank; myDept = foundUser.dept || "";
                 document.getElementById('rankNameDisp').innerText = myDept ? `${myName} (${myDept})` : myName; 
+                
+                const savedImg = localStorage.getItem('user_id_img_' + myName);
+                if(savedImg) document.getElementById('cardImage').src = savedImg;
+
                 renderModules();
             } else { document.getElementById('loginError').style.display = 'block'; }
         }
 
         function openIdCard() { document.getElementById('cardNameDisp').innerText = myName; document.getElementById('cardRankDisp').innerText = myRank; document.getElementById('idCardOverlay').style.display = 'flex'; }
         function closeIdCard() { document.getElementById('idCardOverlay').style.display = 'none'; }
+        function updateCardImg(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = e => { 
+                    document.getElementById('cardImage').src = e.target.result;
+                    localStorage.setItem('user_id_img_' + myName, e.target.result);
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
         function logout() { location.reload(); }
         function goHome() { document.getElementById('moduleView').style.display = 'none'; document.getElementById('dashboardView').style.display = 'flex'; }
 
@@ -693,6 +692,7 @@
 
         function openMod(id) {
             currentModule = modules.find(m => m.id === id);
+            if(currentModule.isCrypto) { document.getElementById('cryptoModal').style.display = 'flex'; return; }
             document.getElementById('dashboardView').style.display = 'none'; document.getElementById('moduleView').style.display = 'flex';
             document.getElementById('mTitle').innerText = i18n['ar'][currentModule.i18n_t];
             const dynamicArea = document.getElementById('dynamicContentArea'), inpArea = document.getElementById('mInputs'), submitBtn = document.getElementById('submitBtn'), inputBlock = document.getElementById('inputSectionBlock');
@@ -759,7 +759,7 @@
             tbody.innerHTML = htmlString;
         }
 
-        // 🟢 دالة جدول الإدارة (فخمة وبدون لاق) 🟢
+        // 🟢 دالة جدول الإدارة (رجعت الفخامة والزجاج) 🟢
         function renderAdminRoster() {
             const container = document.getElementById('adminRosterContainer'); if(!container) return;
             const data = db.live_roster;
@@ -802,7 +802,6 @@
             container.innerHTML = htmlString + '</tbody></table></div>';
         }
 
-        // 🟢 دوال لوحة تحكم الجدول 🟢
         function deleteOfficerFromRoster(id, name) {
             if(!isOfficer) return showCustomAlert("خطأ", "لا تملك صلاحية", false);
             if(confirm(`هل أنت متأكد من حذف/فصل العسكري (${name}) بشكل نهائي؟`)) {
