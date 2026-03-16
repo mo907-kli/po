@@ -6,7 +6,6 @@
     <title>لوحة القيادة | L.S.P.D</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=Rajdhani:wght@500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-database-compat.js"></script>
 
@@ -34,7 +33,8 @@
         .login-container { width: 400px; padding: 50px 40px; background: #0b101e; border: 1px solid var(--cyan); border-radius: 12px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.8); animation: popIn 0.3s ease; }
         .login-logo { width: 100px; height: 100px; background: url('yyW7oBx.jpg') center/cover; border-radius: 50%; margin: 0 auto 25px; border: 2px solid var(--cyan); }
         .inp-group { position: relative; margin-bottom: 20px; }
-        .login-input { width: 100%; padding: 15px; background: #05080f; border: 1px solid rgba(255,255,255,0.1); color: #fff; border-radius: 8px; transition: 0.2s; text-align: right; font-size:1.05rem;}
+        .inp-icon { position: absolute; top: 50%; transform: translateY(-50%); right: 15px; font-size: 1.1rem; }
+        .login-input { width: 100%; padding: 15px 40px 15px 15px; background: #05080f; border: 1px solid rgba(255,255,255,0.1); color: #fff; border-radius: 8px; transition: 0.2s; text-align: right; font-size:1.05rem;}
         .login-input:focus { border-color: var(--cyan); }
         .submit-btn { width: 100%; padding: 15px; background: var(--cyan); border: none; color: #000; font-weight: 900; font-size: 1.2rem; border-radius: 8px; cursor: pointer; transition: 0.2s; margin-top: 10px; font-family: var(--font-ar);}
         .submit-btn:hover { background: #fff; }
@@ -113,8 +113,8 @@
         <div class="login-container">
             <div class="login-logo"></div>
             <div style="font-size: 1.8rem; font-weight: 900; margin-bottom: 30px; letter-spacing: 1px; color:var(--cyan);">نظام إدارة الشرطة</div>
-            <input type="text" id="userInput" class="login-input" placeholder="اسم المستخدم">
-            <input type="password" id="passInput" class="login-input" placeholder="كلمة المرور">
+            <div class="inp-group"><span class="inp-icon">👤</span><input type="text" id="userInput" class="login-input" placeholder="اسم المستخدم"></div>
+            <div class="inp-group"><span class="inp-icon">🔒</span><input type="password" id="passInput" class="login-input" placeholder="كلمة المرور"></div>
             <button class="submit-btn" onclick="login()">دخول للوحة القيادة</button>
             <div id="loginError" style="display: none; color: var(--red); margin-top: 15px; font-weight: bold; background: rgba(255,51,51,0.1); border: 1px solid var(--red); padding: 10px; border-radius: 6px;">بيانات الدخول غير صحيحة!</div>
             <button onclick="window.location.href='index.html'" style="background: transparent; border: none; color: #888; margin-top: 25px; cursor: pointer; text-decoration: underline; font-family: var(--font-ar); font-size:1rem;">العودة للموقع الرئيسي</button>
@@ -124,12 +124,12 @@
     <div id="mainWrapper">
         <header>
             <div class="header-side">
-                <button class="head-btn btn-red" onclick="logout()">خروج</button>
-                <button class="head-btn" onclick="window.location.href='index.html'">الرئيسية</button>
+                <button class="head-btn btn-red" onclick="logout()">🚪 خروج</button>
+                <button class="head-btn" onclick="window.location.href='index.html'">🏠 الرئيسية</button>
             </div>
             <div class="sys-title">إدارة L.S.P.D</div>
             <div class="header-side">
-                <button class="head-btn btn-cyan" onclick="document.getElementById('idCardOverlay').style.display='flex'"><span id="rankNameDisp">--</span></button>
+                <button class="head-btn btn-cyan" onclick="document.getElementById('idCardOverlay').style.display='flex'">🪪 <span id="rankNameDisp">--</span></button>
             </div>
         </header>
 
@@ -141,7 +141,7 @@
         <div id="moduleView">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
                 <h2 id="mTitle" style="color: var(--cyan); font-size: 2rem; font-weight: 900;">--</h2>
-                <button class="head-btn" onclick="goHome()">العودة للوحة القيادة</button>
+                <button class="head-btn" onclick="goHome()">➡️ العودة للوحة القيادة</button>
             </div>
             
             <div id="dynamicContentArea" class="allow-select"></div>
@@ -158,12 +158,12 @@
             <h3 style="color:var(--cyan); margin-bottom:20px; font-size:1.5rem; text-align:center;">قسم التشفير</h3>
             <textarea id="cryIn" class="gen-input" placeholder="أدخل النص هنا..." style="height: 100px; resize: none; text-align:right;"></textarea>
             <div style="display:flex; gap:10px; margin-bottom:15px;">
-                <button class="submit-btn" onclick="doCrypto('enc')" style="margin:0">تشفير النص</button>
-                <button class="submit-btn" onclick="doCrypto('dec')" style="margin:0; background:#fff; color:#000;">فك التشفير</button>
+                <button class="submit-btn" onclick="doCrypto('enc')" style="margin:0">🔒 تشفير النص</button>
+                <button class="submit-btn" onclick="doCrypto('dec')" style="margin:0; background:#fff; color:#000;">🔓 فك التشفير</button>
             </div>
             <div style="position:relative;">
                 <div class="gen-input allow-select" id="cryOut" style="min-height: 50px; font-family: monospace; word-break: break-all; padding-inline-end: 45px; text-align:left;" dir="ltr">النتيجة...</div>
-                <i class="fa-solid fa-copy" onclick="copyCrypto()" style="position: absolute; top: 50%; transform: translateY(-50%); right: 20px; color: var(--cyan); font-size: 1.3rem; cursor: pointer;"></i>
+                <span onclick="copyCrypto()" style="position: absolute; top: 50%; transform: translateY(-50%); right: 20px; font-size: 1.3rem; cursor: pointer;">📋</span>
             </div>
             <button class="close-btn" onclick="document.getElementById('cryptoModal').style.display='none'">إغلاق</button>
         </div>
@@ -269,7 +269,7 @@
                 </div>
             </div>
             <div style="margin-top: 25px; display: flex; justify-content: center; gap: 15px;">
-                <label class="head-btn btn-cyan" style="cursor: pointer; padding: 12px 30px;"><i class="fa-solid fa-camera"></i> تغيير الصورة<input type="file" accept="image/*" style="display: none;" onchange="updateCardImg(this)"></label>
+                <label class="head-btn btn-cyan" style="cursor: pointer; padding: 12px 30px;">📷 تغيير الصورة<input type="file" accept="image/*" style="display: none;" onchange="updateCardImg(this)"></label>
                 <button class="head-btn btn-red" onclick="document.getElementById('idCardOverlay').style.display='none'" style="padding: 12px 40px;">إغلاق</button>
             </div>
         </div>
@@ -277,7 +277,7 @@
 
     <div class="modal-overlay" id="customConfirmOverlay">
         <div class="modal-box" style="width: 450px; text-align: center; border-color: var(--red);">
-            <i class="fa-solid fa-trash" style="font-size: 4rem; color: var(--red); margin-bottom: 20px;"></i>
+            <div style="font-size: 4rem; margin-bottom: 20px;">⚠️</div>
             <h3 style="color: #fff; font-size: 1.8rem; font-weight: bold; margin-bottom: 15px;" id="confirmTitle">تأكيد الحذف</h3>
             <p style="color: #aaa; font-size: 1.1rem; line-height: 1.6; margin-bottom: 30px;" id="confirmMessage">هل أنت متأكد؟</p>
             <div style="display: flex; gap: 15px;">
@@ -289,7 +289,7 @@
 
     <div class="modal-overlay" id="customAlertOverlay">
         <div class="modal-box" id="customAlertBox" style="width: 400px; text-align: center;">
-            <i class="fa-solid fa-circle-check" style="font-size: 4rem; color: var(--green); margin-bottom: 20px;" id="alertIcon"></i>
+            <div id="alertIcon" style="font-size: 4rem; margin-bottom: 20px;"></div>
             <h3 style="color: #fff; font-size: 1.8rem; font-weight: bold; margin-bottom: 15px;" id="alertTitle">تنبيه</h3>
             <p style="color: #aaa; font-size: 1.1rem; line-height: 1.6; margin-bottom: 30px;" id="alertMessage">رسالة التنبيه</p>
             <button class="submit-btn" onclick="document.getElementById('customAlertOverlay').style.display='none'">حسناً</button>
@@ -319,7 +319,7 @@
         firebase.initializeApp({ apiKey: "AIzaSyC5PL_fJEjiJVQS8rnx4m8j9uQNsILcQvs", authDomain: "police-depa.firebaseapp.com", databaseURL: "https://police-depa-default-rtdb.europe-west1.firebasedatabase.app", projectId: "police-depa" });
         const database = firebase.database();
 
-        // 🟢 الأقسام المحدثة (حذفنا 4 أقسام نهائياً، ورتبنا التقارير) 🟢
+        // 🟢 الأقسام (نظفنا الأقسام الزايدة زي ما طلبت) 🟢
         const modules = [
             { id: 'settings', i18n_t: 'إعدادات التقديم', isSettingsView: true, reqOfficer: true },
             { id: 'applications', i18n_t: 'طلبات التقديم', isAppsView: true, reqOfficer: true },
@@ -336,7 +336,7 @@
 
         let db = { applications: [], reports: [], customUsers: [], live_roster: {}, settings: { policeOpen: true, selfOpen: true } }; 
         let currentModule = null; let isOfficer = false; let myName = ""; let myRank = ""; 
-        let tempPDFBase64 = ""; // لتخزين ملف الـ PDF
+        let tempPDFBase64 = ""; 
 
         let pendingConfirmAction = null;
         function showCustomConfirm(title, message, callback) {
@@ -416,7 +416,7 @@
                 input.value = "";
                 return;
             }
-            if (file.size > 5 * 1024 * 1024) { // الحد الأقصى 5 ميجا
+            if (file.size > 5 * 1024 * 1024) { 
                 showCustomAlert("خطأ", "حجم الملف كبير جداً! (الحد الأقصى 5 ميجابايت)", false);
                 input.value = "";
                 return;
@@ -458,7 +458,6 @@
                 inpArea.innerHTML = `<input type="text" id="o-user" class="gen-input" placeholder="اسم المستخدم"><input type="password" id="o-pass" class="gen-input" placeholder="كلمة المرور"><input type="text" id="o-name" class="gen-input" placeholder="الاسم الكامل"><select id="o-rank" class="gen-input"><option value="" disabled selected>اختر الرتبة</option>${rankOptions}</select>`;
                 renderAccounts(container);
             } else if(currentModule.isReportForm) {
-                // 🟢 شكل نموذج رفع التقرير المحدث 🟢
                 inputBlock.style.display = 'block';
                 inpArea.innerHTML = `
                     <input type="text" id="r-badge" class="gen-input" placeholder="البادج العسكري">
@@ -470,7 +469,6 @@
                     </div>`;
                 container.innerHTML = '<div style="text-align:center; padding:30px; color:#aaa; font-size:1.1rem;">ملاحظة: سيتم إرسال التقرير المرفق مباشرة إلى قسم "التقارير المحفوظة".</div>';
             } else if (currentModule.isSavedReports) {
-                // 🟢 عرض التقارير على شكل بطاقات (مربعات) 🟢
                 renderSavedReports(container);
             } else if(currentModule.isTable) {
                 inputBlock.style.display = 'block';
@@ -678,7 +676,7 @@
             if(data.length === 0) { container.innerHTML = '<div style="text-align:center; padding:50px; color:#888; font-size:1.2rem;">لا يوجد تقارير محفوظة حالياً.</div>'; return; }
             
             let html = `<div style="display:flex; justify-content:flex-end; margin-bottom:20px;">
-                ${isOfficer ? `<button class="action-btn-text btn-del-text" style="padding:10px 20px; font-size:1.1rem;" onclick="deleteAllReports()"><i class="fa-solid fa-trash-can"></i> حذف جميع التقارير</button>` : ''}
+                ${isOfficer ? `<button class="action-btn-text btn-del-text" style="padding:10px 20px; font-size:1.1rem;" onclick="deleteAllReports()">🗑️ حذف جميع التقارير</button>` : ''}
             </div>`;
             
             html += '<div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">';
@@ -686,24 +684,22 @@
             [...data].reverse().forEach((rec, revIdx) => {
                 const idx = data.length - 1 - revIdx;
                 
-                // في حال كان التقرير قديم ومسجل كنص (عشان ما يخرب الموقع)
                 if (typeof rec === 'string') {
                     html += `<div style="background:#131a2a; padding:20px; border-radius:12px; border:1px solid var(--glass-border); box-shadow: 0 10px 20px rgba(0,0,0,0.5);">
                         <div style="text-align:right; margin-bottom:15px; line-height:1.8; color:#ddd;" class="allow-select">${rec}</div>
                         ${isOfficer ? `<button class="action-btn-text btn-del-text" onclick="delReport(${idx})">حذف التقرير</button>` : ''}
                     </div>`;
                 } else {
-                    // التقارير الجديدة المرفق معها PDF
                     html += `<div style="background:#131a2a; padding:20px; border-radius:12px; border:1px solid var(--glass-border); box-shadow: 0 10px 20px rgba(0,0,0,0.5); display:flex; flex-direction:column; justify-content:space-between;">
                         <div style="text-align:right;" class="allow-select">
-                            <h3 style="color:var(--cyan); margin-bottom:10px;"><i class="fa-solid fa-file-pdf" style="color:#ff3333;"></i> تقرير: ${rec.type}</h3>
+                            <h3 style="color:var(--cyan); margin-bottom:10px;">📄 تقرير: ${rec.type}</h3>
                             <p style="color:#ccc; margin-bottom:5px;"><strong>البادج:</strong> ${rec.badge}</p>
                             <p style="color:#ccc; margin-bottom:5px;"><strong>الاسم:</strong> ${rec.name}</p>
                             <p style="color:#888; font-size:0.9rem; margin-bottom:15px;">التاريخ: ${rec.date}</p>
                         </div>
                         <div style="display:flex; justify-content:space-between; align-items:center;">
                             ${isOfficer ? `<button class="action-btn-text btn-del-text" onclick="delReport(${idx})">حذف</button>` : '<div></div>'}
-                            <a href="${rec.pdf}" download="Report_${rec.badge}.pdf" style="background:var(--cyan); color:#000; padding:10px 15px; border-radius:8px; text-decoration:none; font-weight:bold; font-family:var(--font-ar); transition:0.2s;"><i class="fa-solid fa-download"></i> تحميل التقرير</a>
+                            <a href="${rec.pdf}" download="Report_${rec.badge}.pdf" style="background:var(--cyan); color:#000; padding:10px 15px; border-radius:8px; text-decoration:none; font-weight:bold; font-family:var(--font-ar); transition:0.2s;">⬇️ تحميل التقرير</a>
                         </div>
                     </div>`;
                 }
@@ -761,7 +757,6 @@
                 db.customUsers = cleanArray(db.customUsers); db.customUsers.push({user:u, pass:p, name:n, rank:r}); saveDB(); renderAccounts(document.getElementById('dynamicContentArea'));
             
             } else if(currentModule.isReportForm) {
-                // 🟢 إرسال التقرير مع الـ PDF لقسم التقارير المحفوظة 🟢
                 const b = document.getElementById('r-badge').value;
                 const n = document.getElementById('r-name').value;
                 const c = document.getElementById('r-crim').value;
@@ -773,12 +768,12 @@
                 db.reports.push({ badge: b, name: n, type: c, pdf: tempPDFBase64, date: new Date().toLocaleDateString() }); 
                 saveDB(); 
                 
-                tempPDFBase64 = ""; // مسح الملف من الذاكرة
-                document.getElementById('r-pdf').value = ""; // تصفير زر الرفع
+                tempPDFBase64 = ""; 
+                document.getElementById('r-pdf').value = ""; 
                 
                 showCustomAlert("نجاح", "تم حفظ التقرير بنجاح وإرساله للتقارير المحفوظة!", true);
                 document.querySelectorAll('#mInputs input').forEach(el => el.value = '');
-                return; // عشان ما تطلع رسالة النجاح العامة تحت
+                return; 
 
             } else if(currentModule.isTable) {
                 const a=document.getElementById('t-assignee').value, o=document.getElementById('t-officer').value, r=document.getElementById('t-reason').value, p=document.getElementById('t-pts').value;
@@ -806,7 +801,6 @@
             });
         }
 
-        // 🟢 دالة حذف تقرير واحد 🟢
         function delReport(idx) {
             showCustomConfirm("حذف تقرير", "هل أنت متأكد من حذف هذا التقرير نهائياً؟", () => {
                 db.reports.splice(idx, 1); saveDB(); 
@@ -814,7 +808,6 @@
             });
         }
 
-        // 🟢 دالة حذف جميع التقارير 🟢
         function deleteAllReports() {
             showCustomConfirm("حذف جميع التقارير", "⚠️ تحذير: هل أنت متأكد من حذف جميع التقارير المحفوظة بشكل نهائي؟ لا يمكن التراجع عن هذا الإجراء!", () => {
                 db.reports = []; saveDB();
@@ -822,7 +815,6 @@
             });
         }
 
-        // دالة الحذف العامة لباقي الأقسام
         function delRec(idx) {
             showCustomConfirm("حذف سجل", "هل أنت متأكد من الحذف؟", () => {
                 db[currentModule.id].splice(idx, 1); saveDB(); 
@@ -836,8 +828,8 @@
             document.getElementById('alertTitle').innerText=title; 
             document.getElementById('alertMessage').innerText=msg; 
             let icon = document.getElementById('alertIcon');
-            icon.className = success ? "fa-solid fa-circle-check alert-icon" : "fa-solid fa-circle-exclamation alert-icon";
-            icon.style.color = success ? "var(--green)" : "var(--red)";
+            // استبدلنا الأيقونات بإيموجيات أصلية
+            icon.innerText = success ? "✅" : "❌";
             document.getElementById('customAlertOverlay').style.display='flex'; 
         }
     </script>
