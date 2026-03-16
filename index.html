@@ -130,7 +130,7 @@
             </div>
         </div>
         <div class="nav-left">
-            <button class="sys-btn" onclick="window.location.href='admin.html'">لوحة التحكم</button>
+            <button class="sys-btn" onclick="window.location.href='admin.html'">تسجيل دخول</button>
         </div>
     </nav>
 
@@ -252,7 +252,8 @@
             <h3 style="color:var(--cyan); margin-bottom:20px; font-size:1.5rem; text-align:center;">نموذج "قدم نفسك"</h3>
             <input type="text" id="selfName" class="gen-input" placeholder="الاسم الشخصي">
             <input type="text" id="selfDiscord" class="gen-input" placeholder="حساب الديسكورد">
-            <input type="number" id="selfAge" class="gen-input" placeholder="العمر الحقيقي"> <textarea id="selfExp" class="gen-input" placeholder="الخبرات والمهارات..." style="height:80px; resize:none;"></textarea>
+            <input type="number" id="selfAge" class="gen-input" placeholder="العمر الحقيقي">
+            <textarea id="selfExp" class="gen-input" placeholder="الخبرات والمهارات..." style="height:80px; resize:none;"></textarea>
             <div style="display: flex; gap: 15px; margin-top: 15px;">
                 <button class="submit-btn" onclick="submitApp('self')" style="flex: 2; margin: 0;">إرسال التقديم</button>
                 <button class="close-btn" onclick="document.getElementById('selfAppModal').style.display='none'" style="flex: 1; margin: 0;">إلغاء</button>
@@ -307,7 +308,6 @@
 
             let html = '';
             sortedRanks.forEach(rank => {
-                // استبدال الأيقونة المكسورة بإيموجي درع 🛡️
                 html += `<tr class="dept-header"><td colspan="10"><div class="dept-title">🛡️ ${rank}</div></td></tr>`;
                 groups[rank].sort((a,b)=>(a.code||'').localeCompare(b.code||'')).forEach(off => {
                     html += `<tr class="roster-row">
@@ -343,7 +343,6 @@
             document.getElementById('alertTitle').innerText=title; 
             document.getElementById('alertMessage').innerText=msg; 
             let icon = document.getElementById('alertIcon');
-            // عرض إيموجيات بدال الأيقونات الخربانة
             icon.innerText = success ? "✅" : "❌";
             document.getElementById('customAlertOverlay').style.display='flex'; 
         }
@@ -363,7 +362,6 @@
                 document.getElementById(type === 'police' ? 'appModal' : 'selfAppModal').style.display='none';
                 showCustomAlert("نجاح", "تم الإرسال للقيادة بنجاح!", true);
                 
-                // تنظيف الخانات
                 if(type === 'police') {
                     document.getElementById('appName').value = ''; document.getElementById('appDiscord').value = ''; document.getElementById('appAge').value = ''; document.getElementById('appExp').value = '';
                 } else {
