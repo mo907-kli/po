@@ -24,7 +24,6 @@
         body { user-select: none; background: var(--bg-deep); color: var(--text-main); font-family: var(--font-ar); min-height: 100vh; overflow-x: hidden; }
         input, textarea, select, .allow-select * { user-select: text !important; }
 
-        /* الخلفية الفخمة */
         #bgEffects { position: fixed; inset: 0; z-index: -5; pointer-events: none; }
         .star { position: absolute; background: white; border-radius: 50%; opacity: 0.5; animation: twinkle linear infinite alternate; box-shadow: 0 0 5px rgba(0, 234, 255, 0.5); }
         @keyframes twinkle { 0% { opacity: 0.2; transform: scale(0.8); } 100% { opacity: 1; transform: scale(1.2); box-shadow: 0 0 8px rgba(0, 234, 255, 0.8); } }
@@ -38,8 +37,7 @@
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes popIn { 0% { opacity: 0; transform: scale(0.9); } 100% { opacity: 1; transform: scale(1); } }
 
-        /* شريط التنقل */
-        .public-nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 80px; background: rgba(3, 5, 9, 0.85); border-bottom: 1px solid var(--glass-border); position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(15px); }
+        .public-nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 80px; background: rgba(3, 5, 9, 0.85); border-bottom: 1px solid rgba(255,255,255,0.05); position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(15px); }
         .nav-right { display: flex; align-items: center; gap: 40px; }
         .nav-logo { width: 45px; height: 45px; background: url('yyW7oBx.jpg') center/cover; border-radius: 50%; box-shadow: 0 0 10px rgba(0,234,255,0.3); border: 1px solid var(--cyan);}
         .nav-links { display: flex; gap: 30px; }
@@ -62,7 +60,6 @@
         .anim-title { font-size: 3.5rem; color: #fff; font-weight: 800; margin-bottom: 10px; text-shadow: 0 0 20px rgba(0,234,255,0.4);}
         .anim-title span { color: var(--cyan); }
 
-        /* الكروت */
         .community-title { font-size: 3rem; color: #fff; font-weight: 800; margin: 40px 0 20px 0; text-align: center; }
         .cards-container { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; max-width: 1200px; margin: 0 auto; }
         .lux-card { background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 12px; padding: 40px 30px; width: 350px; text-align: center; transition: 0.3s; transform-style: preserve-3d; backdrop-filter: blur(10px); box-shadow: 0 15px 35px rgba(0,0,0,0.5); }
@@ -71,8 +68,8 @@
         .lux-card p { color: #888; font-size: 1rem; line-height: 1.7; margin-bottom: 30px; transform: translateZ(10px);}
         .founder-img { width: 130px; height: 130px; border-radius: 50%; margin: 0 auto 25px; border: 3px solid var(--cyan); object-fit: cover; padding: 5px; transform: translateZ(30px); }
 
-        /* 🟢 قوانين الشرطة (SOPs) 🟢 */
-        .accordion-container { width: 100%; max-width: 1000px; padding: 0 20px; margin-top: 40px;}
+        /* 🟢 القوانين 🟢 */
+        .accordion-container { width: 100%; max-width: 900px; padding: 0 20px; margin-top: 40px;}
         .accordion-item { margin-bottom: 12px; border-radius: 8px; background: rgba(20, 26, 40, 0.7); border: 1px solid var(--glass-border); transition: 0.2s; backdrop-filter: blur(10px); box-shadow: 0 10px 20px rgba(0,0,0,0.5);}
         .accordion-item:hover { border-color: rgba(0, 234, 255, 0.3); }
         .accordion-header { display: flex; justify-content: space-between; align-items: center; padding: 25px 30px; cursor: pointer; transition: 0.2s; flex-direction: row-reverse; }
@@ -82,7 +79,7 @@
         .acc-icon { font-size: 1.8rem; color: var(--cyan); font-weight: 300; transition: transform 0.3s ease; }
         .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out; background: rgba(0, 0, 0, 0.5); }
         .accordion-inner { padding: 40px; text-align: right; border-top: 1px solid rgba(255,255,255,0.05); }
-        .accordion-item.active .accordion-content { max-height: 3000px; } /* يسمح بفتح المحتوى الطويل */
+        .accordion-item.active .accordion-content { max-height: 2000px; }
         .accordion-item.active .acc-icon { transform: rotate(45deg); color: #fff; }
         
         .sop-section-title { color: var(--cyan); font-size: 1.3rem; font-weight: 900; margin-top: 30px; margin-bottom: 15px; border-bottom: 1px dashed rgba(0,234,255,0.2); padding-bottom: 10px; }
@@ -90,12 +87,11 @@
         .sop-list li { position: relative; padding-right: 25px; margin-bottom: 15px; color: #d1d1d1; font-size: 1.05rem; line-height: 1.9; }
         .sop-list li::before { content: '■'; position: absolute; right: 0; top: 0; color: var(--cyan); font-size: 0.8rem; }
 
-        /* جدول الزوار الفخم */
         .roster-wrapper { width: 95%; max-width: 1600px; background: rgba(10, 15, 25, 0.85); margin: 40px auto; border: 1px solid var(--glass-border); border-radius: 16px; padding: 20px; backdrop-filter: blur(15px); box-shadow: 0 20px 50px rgba(0,0,0,0.6); overflow-x: auto; }
         .luxury-table { width: 100%; border-collapse: separate; border-spacing: 0 8px; text-align: center; font-family: 'Rajdhani', 'Tajawal', sans-serif; min-width: 1100px;}
         .luxury-table thead th { color: var(--cyan); font-size: 0.95rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; padding: 15px; border-bottom: 2px solid rgba(0,234,255,0.2); }
         .roster-row { background: var(--row-bg); transition: 0.2s ease; }
-        .roster-row:hover { transform: scale(1.01) translateY(-2px); background: rgba(30, 40, 60, 0.95); box-shadow: 0 10px 20px rgba(0,234,255,0.15); }
+        .roster-row:hover { transform: scale(1.01); background: rgba(30, 40, 60, 0.95); box-shadow: 0 10px 20px rgba(0,234,255,0.15); }
         .luxury-table td { padding: 15px 10px; color: #d1d1d1; font-size: 1.05rem; font-weight: 600; border-top: 1px solid rgba(255,255,255,0.02); border-bottom: 1px solid rgba(255,255,255,0.02); white-space: nowrap; }
         .luxury-table td:first-child { border-radius: 8px 0 0 8px; border-left: 3px solid var(--cyan); color: var(--cyan); font-weight: 900; }
         .luxury-table td:last-child { border-radius: 0 8px 8px 0; border-right: 1px solid rgba(255,255,255,0.02); }
@@ -104,7 +100,6 @@
         .pill-status { display: inline-flex; align-items: center; gap: 8px; background: rgba(0, 255, 106, 0.08); border: 1px solid rgba(0, 255, 106, 0.3); color: var(--green); padding: 5px 15px; border-radius: 20px; font-size: 0.85rem; font-weight: 800; text-transform: uppercase;}
         .code-box { background: rgba(0,0,0,0.5); padding: 4px 10px; border-radius: 6px; font-family: monospace; color: #8da2b5; border: 1px solid rgba(255,255,255,0.05); }
 
-        /* النوافذ المنبثقة (التقديم) */
         .modal-overlay { position: fixed; inset: 0; background: rgba(3, 5, 9, 0.95); z-index: 100000; display: none; justify-content: center; align-items: center; backdrop-filter: blur(10px); }
         .modal-box { width: 550px; padding: 40px; background: rgba(10, 15, 25, 0.98); border: 1px solid var(--cyan); border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.8); animation: popIn 0.3s ease-out; }
         .gen-input { width: 100%; padding: 15px; background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.1); color: #fff; margin-bottom: 15px; border-radius: 8px; outline: none; transition: 0.3s; font-family: var(--font-ar); text-align: right;}
@@ -122,6 +117,7 @@
     <div id="bgEffects">
         <div id="star-bg"></div>
         <div id="bg-lights"><div class="light-red"></div><div class="light-blue"></div></div>
+        <div class="central-logo-bg"></div>
     </div>
 
     <nav class="public-nav">
@@ -130,13 +126,13 @@
             <div class="nav-links">
                 <a class="active" onclick="switchTab('homeTab', this)">الرئيسية</a>
                 <a onclick="switchTab('rulesTab', this)">القوانين</a>
-                <a onclick="switchTab('jobsTab', this)">التقديم</a>
+                <a onclick="switchTab('jobsTab', this)">تقديم الوظائف</a>
                 <a onclick="switchTab('foundersTab', this)">المسؤولين</a>
                 <a onclick="switchTab('rosterTab', this)">جدول العساكر</a>
             </div>
         </div>
         <div class="nav-left">
-            <button class="sys-btn" onclick="window.location.href='admin.html'"><i class="fa-solid fa-lock"></i> تسجيل دخول للقيادة</button>
+            <button onclick="window.location.href='admin.html'"><i class="fa-solid fa-lock"></i> تسجيل دخول للقيادة</button>
         </div>
     </nav>
 
@@ -152,7 +148,6 @@
 
     <div id="rulesTab" class="tab-content">
         <div class="animated-banner"><h1 class="anim-title">الدستور <span>والقوانين</span></h1></div>
-        
         <div class="accordion-container">
             <div class="accordion-item">
                 <div class="accordion-header" onclick="toggleAccordion(this)">
@@ -161,47 +156,16 @@
                 </div>
                 <div class="accordion-content">
                     <div class="accordion-inner">
-                        <div style="text-align: center; margin-bottom: 40px;">
-                            <h2 style="color: #fff; font-family: var(--font-en); letter-spacing: 2px; margin-bottom: 5px;">Standard Operating Procedures</h2>
-                            <h1 style="color: var(--red); font-weight: 900; text-shadow: 0 0 15px rgba(255,51,51,0.5); margin-bottom: 5px; font-size: 2.2rem;">طنى الشمري شخصياً مسويه</h1>
-                            <h2 style="color: #fff; font-family: var(--font-en); margin-bottom: 5px;">SOPs</h2>
-                            <h3 style="color: var(--cyan); font-weight: 900; text-shadow: 0 0 10px rgba(0,234,255,0.5); margin-bottom: 15px;">اذكر الله يابترك</h3>
-                            <p style="color: #666; font-size: 0.85rem; font-family: var(--font-en);">Copyright © 2025/2026 - All Rights Reserved</p>
-                        </div>
-
-                        <h2 style="color: var(--red); text-align: center; margin-bottom: 30px; font-weight: 900; font-size: 1.8rem;">قواعد الشرطة</h2>
-
-                        <div class="sop-section-title">1. قواعد وسلوكيات التعامل</div>
-                        <p style="color:#d1d1d1; line-height:1.9; margin-bottom:15px;">قواعد وسلوكيات التعامل تمثل شبكة الشرطة بشكل عام أمام المجتمع من ناحية الإجراءات والحماية والتنفيذ، وطرق التعامل هي الآلية التي تبرز شبكة الشرطة من طرف عناصر الشرطة.</p>
-                        
-                        <div class="sop-section-title">1.1 قواعد وسلوكيات التعامل مع المواطنين</div>
-                        <ul class="sop-list">
-                            <li>عناصر الشرطة يجب أن يكونوا في أعلى درجات الاحترام والمهنية وأن يتحلوا بالصبر والهدوء.</li>
-                            <li>يحق لشرطي المرور إيقاف أي مركبة مشتبه بها أو ارتكبت مخالفة مرورية.</li>
-                            <li>يجب على الشرطي إبلاغ المواطن عن سبب إيقافه بشكل واضح ومختصر.</li>
-                            <li>يمنع منعاً باتاً التلفظ بألفاظ نابية أو شتم المواطنين مهما كان السبب.</li>
-                            <li>في حال وجود شكوى ضد أي شرطي، يتم توجيه المواطن لتقديم شكوى رسمية في المركز.</li>
+                        <strong style="color:var(--cyan); margin-bottom:10px; display:block;">إيقاف الخدمات و المداهمة</strong>
+                        <ul class="rule-list">
+                            <li>يحق للضابط وما فوق برفع طلب إيقاف خدمات الى المحكمة، ولا يتم التنفيذ الا بحكم المحكمة.</li>
+                            <li>يتم طلب المداهمة من خلال الضباط وما فوق، ولا يمكن مداهمة أي شخص الا بأمر تنفيذ من المحكمة.</li>
+                            <li>يجب على العسكري عدم إخراج السلاح الا بعد ان يقوم المجرم بإخراج أي سلاح له.</li>
                         </ul>
-
-                        <div class="sop-section-title">2.1 قواعد وسلوكيات التعامل مع أفراد الشرطة (الزملاء)</div>
-                        <ul class="sop-list">
-                            <li>يجب احترام الرتب العسكرية والالتزام بالتسلسل القيادي (Chain of Command).</li>
-                            <li>يمنع منعاً باتاً التشاجر أو رفع الصوت بين أفراد الشرطة أمام المواطنين أو في الراديو.</li>
-                            <li>التعاون والتنسيق المستمر في الحالات الأمنية لضمان سلامة الجميع.</li>
-                        </ul>
-
-                        <div class="sop-section-title">3.1 قواعد وسلوكيات التعامل في حالات المطاردة</div>
-                        <ul class="sop-list">
-                            <li>سلامة المواطنين وأفراد الشرطة هي الأولوية القصوى أثناء المطاردات.</li>
-                            <li>لا يتم إجراء مناورات خطيرة (PIT Maneuver) إلا في الأماكن الآمنة وبعد أخذ إذن من المشرف.</li>
-                            <li>في حال شكلت المطاردة خطراً كبيراً على المارة، يجب إيقافها فوراً بأمر من الرتبة الأعلى.</li>
-                        </ul>
-
-                        <div class="sop-section-title">6.1 قواعد وسلوكيات الخروج من الخدمة (Off-Duty)</div>
-                        <ul class="sop-list">
-                            <li>عند الخروج من الخدمة، أنت مواطن عادي وتطبق عليك قوانين المدينة بالكامل.</li>
-                            <li>يمنع استخدام الأسلحة أو المعدات الحكومية أثناء الخروج من الخدمة إلا في حالة الدفاع عن النفس القصوى.</li>
-                            <li>لا يحق لك التدخل في أعمال الشرطة الرسمية وأنت خارج الخدمة إلا إذا طلب منك ذلك.</li>
+                        <hr style="border-color:rgba(255,255,255,0.05); margin:20px 0;">
+                        <strong style="color:var(--cyan); margin-bottom:10px; display:block;">الانضباط والتصرفات</strong>
+                        <ul class="rule-list">
+                            <li>يجب أن يكون رجل الأمن مهذباً تجاه المواطنين ومع زملائه، لبقاً في أداء واجبه، متحكم في اعصابه ويتحمل أقصى درجات الصبر والتقدير.</li>
                         </ul>
                     </div>
                 </div>
@@ -211,49 +175,63 @@
 
     <div id="jobsTab" class="tab-content">
         <div class="animated-banner"><h1 class="anim-title">وظائف <span>المدينة</span></h1></div>
-        <div class="cards-container" style="margin-top: 40px;">
-            <div class="lux-card">
+        <h2 class="community-title">التقديم على الوظائف</h2>
+        <div class="cards-container">
+            <div class="lux-card" data-tilt data-tilt-max="10">
                 <h3>شرطة تايتنز</h3>
-                <p>تقديم منتسبين لشرطة تايتنز (L.S.P.D).</p>
-                <button class="submit-btn" onclick="document.getElementById('appModal').style.display='flex'">تقديم</button>
+                <p>تقديم منتسبين شرطة تايتنز (L.S.P.D)، نهدف لتقديم أعلى معايير الأمن.</p>
+                <button class="job-btn-open" onclick="document.getElementById('appModal').style.display='flex'">تقديم</button>
             </div>
-            <div class="lux-card">
+            <div class="lux-card" data-tilt data-tilt-max="10">
                 <h3>قدم نفسك</h3>
-                <p>قدم مهاراتك الخاصة وسيرتك الذاتية.</p>
-                <button class="submit-btn" onclick="document.getElementById('selfAppModal').style.display='flex'">تقديم</button>
+                <p>هل لديك مهارات فريدة؟ قدم نفسك لنا وارفق سيرتك الذاتية أو أي مستندات داعمة.</p>
+                <button class="job-btn-open" onclick="document.getElementById('selfAppModal').style.display='flex'">تقديم</button>
             </div>
         </div>
     </div>
 
     <div id="foundersTab" class="tab-content">
         <div class="animated-banner"><h1 class="anim-title">مسؤولين <span>الشرطة</span></h1></div>
-        <div class="cards-container" style="margin-top: 40px;">
-            <div class="lux-card">
+        <div class="cards-container">
+            <div class="lux-card" data-tilt data-tilt-max="15">
                 <img src="https://cdn.discordapp.com/avatars/1242594305508376738/10f20a4533d8f6a277c2c5af58d9fcd7.webp?size=1024" class="founder-img" onerror="this.src='yyW7oBx.jpg'">
-                <h3 class="founder-name">جاهد المجاهد</h3><div class="founder-rank">Minister of Interior</div>
+                <h3 class="founder-name">جاهد المجاهد</h3><div style="color:var(--cyan); font-family:var(--font-en); font-weight:bold; letter-spacing:1px;">Minister of Interior</div>
             </div>
-            <div class="lux-card">
+            <div class="lux-card" data-tilt data-tilt-max="15">
                 <img src="https://cdn.discordapp.com/avatars/930773715845775362/0c88052b5de3fa22a53d45384f6d0d96.webp?size=1024" class="founder-img" onerror="this.src='yyW7oBx.jpg'">
-                <h3 class="founder-name">محمد المطيري</h3><div class="founder-rank">Deputy Minister of Interior</div>
+                <h3 class="founder-name">محمد المطيري</h3><div style="color:var(--cyan); font-family:var(--font-en); font-weight:bold; letter-spacing:1px;">Deputy Minister of Interior</div>
             </div>
-            <div class="lux-card">
+            <div class="lux-card" data-tilt data-tilt-max="15">
                 <img src="yyW7oBx.jpg" class="founder-img">
-                <h3 class="founder-name">جون هنتر</h3><div class="founder-rank">A. Minister of Interior</div>
+                <h3 class="founder-name">جون هنتر</h3><div style="color:var(--cyan); font-family:var(--font-en); font-weight:bold; letter-spacing:1px;">A. Minister of Interior</div>
             </div>
-            <div class="lux-card">
+            <div class="lux-card" data-tilt data-tilt-max="15">
                 <img src="https://cdn.discordapp.com/avatars/936671728388673586/a5f7938ee0a9e3a3f806243ae366dc3e.webp?size=1024" class="founder-img" onerror="this.src='yyW7oBx.jpg'">
-                <h3 class="founder-name">فيكاريو اسلا</h3><div class="founder-rank">L.S.P.D Chief</div>
+                <h3 class="founder-name">فيكاريو اسلا</h3><div style="color:var(--cyan); font-family:var(--font-en); font-weight:bold; letter-spacing:1px;">L.S.P.D Chief</div>
             </div>
         </div>
     </div>
 
     <div id="rosterTab" class="tab-content">
         <div class="animated-banner"><h1 class="anim-title">جدول <span>العساكر</span></h1></div>
-        <div class="roster-wrapper">
+        <div class="roster-wrapper allow-select">
             <table class="luxury-table">
-                <thead><tr><th>Code</th><th>Name</th><th>Rank</th><th>Responsibility</th><th>Status</th><th>Strikes</th><th>Last Prom</th><th>F.P</th><th>Discord ID</th><th>Notes</th></tr></thead>
+                <thead>
+                    <tr>
+                        <th>Code</th>
+                        <th>Name</th>
+                        <th>Rank</th>
+                        <th>Responsibility</th>
+                        <th>Status</th>
+                        <th>Strikes</th>
+                        <th>Last Prom</th>
+                        <th>F.P</th>
+                        <th>Discord ID</th>
+                        <th>Notes</th>
+                    </tr>
+                </thead>
                 <tbody id="publicRosterBody">
-                    <tr><td colspan="10" style="padding:50px; color:#888;">جاري تحميل البيانات...</td></tr>
+                    <tr><td colspan="10" style="padding:40px; color:#888; text-align:center;">جاري تحميل البيانات...</td></tr>
                 </tbody>
             </table>
         </div>
@@ -265,10 +243,10 @@
             <input type="text" id="appName" class="gen-input" placeholder="الاسم الشخصي (داخل اللعبة)">
             <input type="text" id="appDiscord" class="gen-input" placeholder="حساب الديسكورد (Discord ID)">
             <input type="number" id="appAge" class="gen-input" placeholder="العمر الحقيقي">
-            <textarea id="appExp" class="gen-input" placeholder="الخبرات السابقة..." style="height:80px; resize:none;"></textarea>
+            <textarea id="appExp" class="gen-input" placeholder="خبراتك السابقة في العسكرية..." style="height: 80px; resize: none;"></textarea>
             <div style="display: flex; gap: 15px; margin-top: 15px;">
-                <button class="submit-btn" onclick="submitApplication()" style="flex: 2; margin: 0;">إرسال التقديم</button>
-                <button class="close-btn" onclick="document.getElementById('appModal').style.display='none'" style="flex: 1; margin: 0;">إلغاء</button>
+                <button class="submit-btn" onclick="submitApp('police')" style="flex: 2;">إرسال التقديم</button>
+                <button class="close-btn" onclick="document.getElementById('appModal').style.display='none'" style="flex: 1;">إلغاء</button>
             </div>
         </div>
     </div>
@@ -278,16 +256,26 @@
             <h3 style="color:var(--cyan); margin-bottom:20px; font-size:1.5rem; text-align:center;">نموذج "قدم نفسك"</h3>
             <input type="text" id="selfName" class="gen-input" placeholder="الاسم الشخصي">
             <input type="text" id="selfDiscord" class="gen-input" placeholder="حساب الديسكورد">
-            <textarea id="selfExp" class="gen-input" placeholder="الخبرات والمهارات..." style="height:80px; resize:none;"></textarea>
+            <textarea id="selfExp" class="gen-input" placeholder="الخبرات والمهارات..." style="height: 80px; resize: none;"></textarea>
             <div style="display: flex; gap: 15px; margin-top: 15px;">
-                <button class="submit-btn" onclick="submitSelfApplication()" style="flex: 2; margin: 0;">إرسال التقديم</button>
-                <button class="close-btn" onclick="document.getElementById('selfAppModal').style.display='none'" style="flex: 1; margin: 0;">إلغاء</button>
+                <button class="submit-btn" onclick="submitApp('self')" style="flex: 2;">إرسال التقديم</button>
+                <button class="close-btn" onclick="document.getElementById('selfAppModal').style.display='none'" style="flex: 1;">إلغاء</button>
             </div>
         </div>
     </div>
 
     <script>
-        // إعدادات فايربيس
+        // إعدادات النجوم
+        const starBg = document.getElementById('star-bg');
+        for (let i = 0; i < 50; i++) { 
+            let star = document.createElement('div'); star.className = 'star';
+            star.style.width = star.style.height = (Math.random() * 3 + 1) + 'px';
+            star.style.left = Math.random() * 100 + 'vw'; star.style.top = Math.random() * 100 + 'vh';
+            star.style.animationDuration = (Math.random() * 3 + 2) + 's'; starBg.appendChild(star);
+        }
+        VanillaTilt.init(document.querySelectorAll(".lux-card"));
+
+        // فايربيس
         const publicOfficersList = ["Minister of Interior", "Deputy Minister of Interior", "A. Minister of Interior", "Police Commander", "L.S.P.D Chief", "Deputy L.S.P.D Chief", "A' Lspd Chief", "High Commander", "General", "Colonel", "Major", "Captain", "First Lieutenant", "Lieutenant"];
         const publicEnlistedList = ["Staff Sergeant", "First Sergeant", "Sergeant", "Senior Lead Officer", "Senior Officer", "Officer III", "Officer II", "Officer I", "Solo Cadet", "Cadet"];
         let SystemRanks = [...publicOfficersList, ...publicEnlistedList];
@@ -296,18 +284,18 @@
             apiKey: "AIzaSyC5PL_fJEjiJVQS8rnx4m8j9uQNsILcQvs", authDomain: "police-depa.firebaseapp.com",
             databaseURL: "https://police-depa-default-rtdb.europe-west1.firebasedatabase.app", projectId: "police-depa"
         });
+        const database = firebase.database();
         let db = { applications: [], live_roster: {} };
 
-        firebase.database().ref('lspd_db').on('value', (snapshot) => {
+        database.ref('lspd_db').on('value', (snapshot) => {
             const data = snapshot.val();
             if (data && data.applications) { db.applications = Object.values(data.applications).filter(i=>i); }
         });
 
-        // 🟢 جلب وعرض جدول العساكر للزوار 🟢
-        firebase.database().ref('live_roster').on('value', (snapshot) => {
+        database.ref('live_roster').on('value', (snapshot) => {
             db.live_roster = snapshot.val() || {};
             const tbody = document.getElementById('publicRosterBody');
-            if (Object.keys(db.live_roster).length === 0) { tbody.innerHTML = '<tr><td colspan="10" style="padding:40px; color:#888;">لا يوجد عساكر مسجلين.</td></tr>'; return; }
+            if (Object.keys(db.live_roster).length === 0) { tbody.innerHTML = '<tr><td colspan="10" style="padding:40px; color:#888;">لا يوجد عساكر مسجلين حالياً.</td></tr>'; return; }
             
             const groups = {};
             Object.keys(db.live_roster).forEach(k => { const r = db.live_roster[k].rank || 'غير محدد'; if(!groups[r]) groups[r] = []; groups[r].push(db.live_roster[k]); });
@@ -318,30 +306,51 @@
                 html += `<tr class="dept-header"><td colspan="10"><div class="dept-title"><i class="fa-solid fa-shield-halved" style="color:var(--cyan); margin-right:10px;"></i> ${rank}</div></td></tr>`;
                 groups[rank].sort((a,b)=>(a.code||'').localeCompare(b.code||'')).forEach(off => {
                     html += `<tr class="roster-row">
-                        <td style="color:var(--cyan); font-weight:900;">${off.code||'-'}</td> <td style="color:#fff;">${off.name||'-'}</td>
-                        <td>${off.rank||'-'}</td> <td>${off.responsibility||'-'}</td>
+                        <td style="color:var(--cyan); font-weight:bold;">${off.code||'-'}</td>
+                        <td style="color:#fff;">${off.name||'-'}</td>
+                        <td>${off.rank||'-'}</td>
+                        <td>${off.responsibility||'-'}</td>
                         <td><div class="pill-status">${off.status||'ACTIVE'}</div></td>
-                        <td>${off.strikes||'-'}</td> <td>${off.lastProm||'-'}</td> <td>${off.fp||'-'}</td>
-                        <td><span class="code-box">${off.discordId||'-'}</span></td> <td style="color:#888; font-size:0.9rem;">${off.notes||'-'}</td>
+                        <td>${off.strikes||'-'}</td>
+                        <td>${off.lastProm||'-'}</td>
+                        <td>${off.fp||'-'}</td>
+                        <td><span class="code-box">${off.discordId||'-'}</span></td>
+                        <td>${off.notes||'-'}</td>
                     </tr>`;
                 });
             });
             tbody.innerHTML = html;
         });
 
-        // دوال التحكم
         function switchTab(tabId, el) { 
             document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active')); el.classList.add('active'); 
             document.querySelectorAll('.tab-content').forEach(t => t.style.display = 'none');
             document.getElementById(tabId).style.display = 'flex'; window.scrollTo({ top: 0 }); 
         }
+
         function toggleAccordion(element) { 
             const item = element.parentElement; const icon = element.querySelector('.acc-icon');
             if(item.classList.contains('active')) { item.classList.remove('active'); icon.innerText = '+'; } 
             else { item.classList.add('active'); icon.innerText = '-'; } 
         }
-        function submitApplication() { const n = document.getElementById('appName').value, d = document.getElementById('appDiscord').value; if(!n || !d) return alert("يرجى تعبئة الحقول!"); db.applications.push({ type: 'police', name: n, discord: d, date: new Date().toLocaleDateString(), status: 'pending' }); firebase.database().ref('lspd_db').update({ applications: db.applications }); document.getElementById('appModal').style.display='none'; alert("تم الإرسال بنجاح!"); }
-        function submitSelfApplication() { const n = document.getElementById('selfName').value, d = document.getElementById('selfDiscord').value; if(!n || !d) return alert("يرجى تعبئة الحقول!"); db.applications.push({ type: 'self', name: n, discord: d, date: new Date().toLocaleDateString(), status: 'pending' }); firebase.database().ref('lspd_db').update({ applications: db.applications }); document.getElementById('selfAppModal').style.display='none'; alert("تم الإرسال بنجاح!"); }
+
+        function submitApp(type) {
+            let n, d, a, exp, r;
+            if(type === 'police') {
+                n = document.getElementById('appName').value; d = document.getElementById('appDiscord').value;
+                a = document.getElementById('appAge').value; exp = document.getElementById('appExp').value;
+            } else {
+                n = document.getElementById('selfName').value; d = document.getElementById('selfDiscord').value;
+                a = document.getElementById('selfAge').value; exp = document.getElementById('selfExp').value;
+            }
+            if(!n || !d) return alert("يرجى تعبئة الحقول الأساسية!");
+            
+            db.applications.push({ type: type, name: n, discord: d, age: a, exp: exp, date: new Date().toLocaleDateString(), status: 'pending' });
+            database.ref('lspd_db').update({ applications: db.applications }).then(() => {
+                document.getElementById(type === 'police' ? 'appModal' : 'selfAppModal').style.display='none';
+                alert("تم الإرسال للقيادة بنجاح!");
+            });
+        }
     </script>
 </body>
 </html>
