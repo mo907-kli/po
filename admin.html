@@ -28,19 +28,12 @@
         @keyframes popIn { 0% { opacity: 0; transform: scale(0.98); } 100% { opacity: 1; transform: scale(1); } }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* 🟢 تصميم شاشة تسجيل الدخول الجديدة (Glassmorphism) 🟢 */
-        #loginScreen { 
-            position: fixed; inset: 0; z-index: 99999; 
-            background: linear-gradient(135deg, #040814 0%, #0a1224 100%); 
-            display: flex; justify-content: center; align-items: center; transition: 0.4s;
-        }
+        /* شاشة تسجيل الدخول */
+        #loginScreen { position: fixed; inset: 0; z-index: 99999; background: linear-gradient(135deg, #040814 0%, #0a1224 100%); display: flex; justify-content: center; align-items: center; transition: 0.4s; }
         .bg-shape-1 { position: absolute; top: 10%; left: 20%; width: 300px; height: 300px; background: rgba(0, 234, 255, 0.1); border-radius: 50%; filter: blur(80px); pointer-events: none; }
         .bg-shape-2 { position: absolute; bottom: 10%; right: 20%; width: 400px; height: 400px; background: rgba(0, 100, 255, 0.05); border-radius: 50%; filter: blur(100px); pointer-events: none; }
         
-        .login-box {
-            position: relative; width: 450px; background: rgba(15, 22, 38, 0.4); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 24px; padding: 50px 40px; text-align: center; box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5); animation: popIn 0.5s ease-out; z-index: 10;
-        }
+        .login-box { position: relative; width: 450px; background: rgba(15, 22, 38, 0.4); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 24px; padding: 50px 40px; text-align: center; box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5); animation: popIn 0.5s ease-out; z-index: 10; }
         .logo-container { margin-bottom: 25px; }
         .logo-container img { width: 100px; height: 100px; border-radius: 50%; border: 2px solid rgba(255, 255, 255, 0.2); padding: 5px; background: rgba(0,0,0,0.3); }
         .login-box .title { font-family: 'Rajdhani', sans-serif; font-size: 2.2rem; font-weight: 700; color: #00eaff; letter-spacing: 3px; margin-bottom: 35px; }
@@ -66,8 +59,28 @@
         .btn-cyan { border-color: var(--cyan); color: var(--cyan); }
         .btn-cyan:hover { background: var(--cyan); color: #000; }
 
-        .sys-title { font-size: 1.4rem; font-weight: 900; letter-spacing: 2px; }
+        /* 🟢 زر الإنشاء الفخم 🟢 */
+        .create-btn {
+            background: linear-gradient(90deg, #00ff6a, #00cc55);
+            color: #000;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 8px;
+            font-family: var(--font-ar);
+            font-weight: 900;
+            font-size: 1.1rem;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(0, 255, 106, 0.3);
+            transition: 0.3s;
+            display: none; /* مخفي افتراضياً يظهر بس في جدول العساكر */
+        }
+        .create-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 255, 106, 0.6);
+            color: #fff;
+        }
 
+        .sys-title { font-size: 1.4rem; font-weight: 900; letter-spacing: 2px; }
         #dashboardView { flex: 1; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 40px; position: relative;}
         .watermark-logo { width: 350px; height: 350px; opacity: 0.03; background: url('yyW7oBx.jpg') center/cover; border-radius: 50%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none;}
         .main-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; width: 100%; max-width: 1000px; position: relative; z-index: 10;}
@@ -126,30 +139,20 @@
     </div>
 
     <div id="loginScreen">
-        <div class="bg-shape-1"></div>
-        <div class="bg-shape-2"></div>
-
+        <div class="bg-shape-1"></div><div class="bg-shape-2"></div>
         <div class="login-box">
-            <div class="logo-container">
-                <img src="yyW7oBx.jpg" alt="Logo" onerror="this.src='https://via.placeholder.com/100/000000/00eaff?text=LSPD'">
-            </div>
-            
+            <div class="logo-container"><img src="yyW7oBx.jpg" alt="Logo" onerror="this.src='https://via.placeholder.com/100/000000/00eaff?text=LSPD'"></div>
             <div class="title">L.S.P.D</div>
-
             <div class="input-group">
                 <label class="input-label">اسم المستخدم</label>
                 <input type="text" id="userInput" class="custom-input" placeholder="أدخل البيانات هنا...">
             </div>
-
             <div class="input-group">
                 <label class="input-label">كلمة المرور</label>
                 <input type="password" id="passInput" class="custom-input" placeholder="••••••••••">
             </div>
-
             <button class="auth-btn" onclick="login()">تسجيل الدخول للنظام</button>
-
             <div id="loginError" style="display: none; color: #ff3333; margin-top: 15px; font-weight: bold; background: rgba(255,51,51,0.1); border: 1px solid rgba(255,51,51,0.3); padding: 10px; border-radius: 8px; font-size: 0.95rem;">بيانات الدخول غير صحيحة!</div>
-
             <a href="index.html" class="back-link">العودة للموقع الرئيسي</a>
         </div>
     </div>
@@ -174,7 +177,10 @@
         <div id="moduleView">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
                 <h2 id="mTitle" style="color: var(--cyan); font-size: 2rem; font-weight: 900;">--</h2>
-                <button class="head-btn" onclick="goHome()">➡️ العودة للوحة القيادة</button>
+                <div style="display: flex; gap: 15px; align-items: center;">
+                    <button id="createOfficerBtn" class="create-btn" onclick="openCreateModal()">➕ إنشاء عسكري جديد</button>
+                    <button class="head-btn" onclick="goHome()">➡️ العودة للوحة القيادة</button>
+                </div>
             </div>
             
             <div id="dynamicContentArea" class="allow-select"></div>
@@ -186,12 +192,54 @@
         </div>
     </div>
 
+    <div class="modal-overlay" id="createRankModal">
+        <div class="modal-box" style="width: 700px; border-color: var(--green);">
+            <h3 style="color:var(--green); margin-bottom:25px; font-size:1.6rem; text-align:center;">➕ إضافة عسكري جديد للنظام</h3>
+            <div class="grid-inputs">
+                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">الاسم (Name):</div><input type="text" id="createOfficerName" class="gen-input" placeholder="اسم العسكري داخل اللعبة"></div>
+                
+                <div>
+                    <div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">الرتبة (Rank):</div>
+                    <select id="createRankSelect" class="gen-input" style="cursor: pointer; text-align: left;" dir="ltr" onchange="autoGenerateCreateCode()"></select>
+                </div>
+                
+                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">الكود (Code):</div><input type="text" id="createOfficerCode" class="gen-input" style="font-family: monospace; text-align:left;" dir="ltr"></div>
+                
+                <div>
+                    <div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">المهام (Responsibility):</div>
+                    <select id="createResp" class="gen-input" style="cursor: pointer; text-align: left;" dir="ltr"></select>
+                </div>
+                
+                <div>
+                    <div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">الحالة (Status):</div>
+                    <select id="createStatus" class="gen-input" style="cursor: pointer; text-align: left;" dir="ltr">
+                        <option value="ACTIVE">ACTIVE</option><option value="INACTIVE">INACTIVE</option><option value="LOA">LOA</option><option value="SUSPENDED">SUSPENDED</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">الإنذارات (Strikes):</div>
+                    <select id="createStrikes" class="gen-input" style="cursor: pointer; text-align: left;" dir="ltr"></select>
+                </div>
+
+                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">تاريخ الترقية:</div><input type="text" id="createProm" class="gen-input" placeholder="N/A -"></div>
+                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">النقاط (F.P):</div><input type="text" id="createFP" class="gen-input" placeholder="N/A -"></div>
+                <div style="grid-column: span 2;"><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">ديسكورد آيدي:</div><input type="text" id="createDiscord" class="gen-input" style="text-align:left;" dir="ltr" placeholder="مثال: <@123456789>"></div>
+                <div style="grid-column: span 2;"><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">ملاحظات (Notes):</div><textarea id="createNotes" class="gen-input" style="height: 60px; resize:none;"></textarea></div>
+            </div>
+            <div style="display:flex; gap:15px; margin-top: 10px;">
+                <button class="submit-btn" style="background: var(--green);" onclick="saveNewCreatedOfficer()" style="flex: 2; margin: 0;">إنشاء العسكري</button>
+                <button class="close-btn" onclick="document.getElementById('createRankModal').style.display='none'" style="flex: 1; margin: 0;">إلغاء</button>
+            </div>
+        </div>
+    </div>
+
     <div class="modal-overlay" id="cryptoModal">
         <div class="modal-box">
             <h3 style="color:var(--cyan); margin-bottom:20px; font-size:1.5rem; text-align:center;">قسم التشفير</h3>
             <textarea id="cryIn" class="gen-input" placeholder="أدخل النص هنا..." style="height: 100px; resize: none; text-align:right;"></textarea>
             <div style="display:flex; gap:10px; margin-bottom:15px;">
-                <button class="submit-btn" onclick="doCrypto('enc')" style="margin:0">🔒 تشفير النص</button>
+                <button class="submit-btn" onclick="doCrypto('enc')" style="margin:0;">🔒 تشفير النص</button>
                 <button class="submit-btn" onclick="doCrypto('dec')" style="margin:0; background:#fff; color:#000;">🔓 فك التشفير</button>
             </div>
             <div style="position:relative;">
@@ -217,40 +265,7 @@
                 
                 <div>
                     <div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">المهام (Responsibility):</div>
-                    <select id="editResp" class="gen-input" style="cursor: pointer; text-align: left;" dir="ltr">
-                        <option value="N/A">N/A</option>
-                        <option value="Police Administration">Police Administration</option>
-                        <option value="Commission Office">Commission Office</option>
-                        <option value="High Command">High Command</option>
-                        <option value="Command">Command</option>
-                        <option value="Head Of Internal Affairs">Head Of Internal Affairs</option>
-                        <option value="Intern Affairs Member">Intern Affairs Member</option>
-                        <option value="Detective Supervisor">Detective Supervisor</option>
-                        <option value="Supervisor">Supervisor</option>
-                        <option value="Detective">Detective</option>
-                        <option value="Motorcycle Unit Leader">Motorcycle Unit Leader</option>
-                        <option value="Motorcycle Unit CO-Leader">Motorcycle Unit CO-Leader</option>
-                        <option value="Motorcycle Supervisor">Motorcycle Supervisor</option>
-                        <option value="Air Unit Leader">Air Unit Leader</option>
-                        <option value="Air Unit CO-Leader">Air Unit CO-Leader</option>
-                        <option value="Speed Unit Leader">Speed Unit Leader</option>
-                        <option value="Speed Unit CO-Leader">Speed Unit CO-Leader</option>
-                        <option value="GANG UNIT Leader">GANG UNIT Leader</option>
-                        <option value="GANG UNIT CO- Leader">GANG UNIT CO- Leader</option>
-                        <option value="Assistants">Assistants</option>
-                        <option value="Trooper">Trooper</option>
-                        <option value="GANG UNIT">GANG UNIT</option>
-                        <option value="HEAD OF COMMAND">HEAD OF COMMAND</option>
-                        <option value="Air Fleet Commander">Air Fleet Commander</option>
-                        <option value="Police Wings Commander">Police Wings Commander</option>
-                        <option value="Commander Of P.A">Commander Of P.A</option>
-                        <option value="Deputy Of P.A">Deputy Of P.A</option>
-                        <option value="deputy air fleet">deputy air fleet</option>
-                        <option value="Advisor of air fleet">Advisor of air fleet</option>
-                        <option value="War Commander">War Commander</option>
-                        <option value="S.W.A.T Commander">S.W.A.T Commander</option>
-                        <option value="Deputy S.W.A.T Commander">Deputy S.W.A.T Commander</option>
-                    </select>
+                    <select id="editResp" class="gen-input" style="cursor: pointer; text-align: left;" dir="ltr"></select>
                 </div>
                 
                 <div>
@@ -262,19 +277,7 @@
                 
                 <div>
                     <div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">الإنذارات (Strikes):</div>
-                    <select id="editStrikes" class="gen-input" style="cursor: pointer; text-align: left;" dir="ltr">
-                        <option value="N/A">N/A</option>
-                        <option value="WARN 1">WARN 1</option>
-                        <option value="WARN 2">WARN 2</option>
-                        <option value="WARN 3">WARN 3</option>
-                        <option value="Strike Point 1">Strike Point 1</option>
-                        <option value="Strike Point 2">Strike Point 2</option>
-                        <option value="Strike Point 3">Strike Point 3</option>
-                        <option value="Strike Point 4">Strike Point 4</option>
-                        <option value="Strike Point 5">Strike Point 5</option>
-                        <option value="Strike Point 6">Strike Point 6</option>
-                        <option value="Strike Point 7">Strike Point 7</option>
-                    </select>
+                    <select id="editStrikes" class="gen-input" style="cursor: pointer; text-align: left;" dir="ltr"></select>
                 </div>
 
                 <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">تاريخ الترقية:</div><input type="text" id="editProm" class="gen-input" placeholder="N/A -"></div>
@@ -348,6 +351,9 @@
             "Officer II": { prefix: "U-", min: 70, max: 99 }, "Officer I": { prefix: "U-", min: 100, max: 129 },
             "Solo Cadet": { prefix: "U-", min: 130, max: 199 }, "Cadet": { prefix: "U-", min: 200, max: 400 }
         };
+
+        const respOptionsData = ["N/A", "Police Administration", "Commission Office", "High Command", "Command", "Head Of Internal Affairs", "Intern Affairs Member", "Detective Supervisor", "Supervisor", "Detective", "Motorcycle Unit Leader", "Motorcycle Unit CO-Leader", "Motorcycle Supervisor", "Air Unit Leader", "Air Unit CO-Leader", "Speed Unit Leader", "Speed Unit CO-Leader", "GANG UNIT Leader", "GANG UNIT CO- Leader", "Assistants", "Trooper", "GANG UNIT", "HEAD OF COMMAND", "Air Fleet Commander", "Police Wings Commander", "Commander Of P.A", "Deputy Of P.A", "deputy air fleet", "Advisor of air fleet", "War Commander", "S.W.A.T Commander", "Deputy S.W.A.T Commander"];
+        const strikesOptionsData = ["N/A", "WARN 1", "WARN 2", "WARN 3", "Strike Point 1", "Strike Point 2", "Strike Point 3", "Strike Point 4", "Strike Point 5", "Strike Point 6", "Strike Point 7"];
 
         firebase.initializeApp({ apiKey: "AIzaSyC5PL_fJEjiJVQS8rnx4m8j9uQNsILcQvs", authDomain: "police-depa.firebaseapp.com", databaseURL: "https://police-depa-default-rtdb.europe-west1.firebasedatabase.app", projectId: "police-depa" });
         const database = firebase.database();
@@ -476,9 +482,15 @@
             const container = document.getElementById('dynamicContentArea'), inpArea = document.getElementById('mInputs'), inputBlock = document.getElementById('inputSectionBlock');
             container.innerHTML = ''; inputBlock.style.display = 'none'; inpArea.innerHTML = '';
 
+            // 🟢 إظهار زر إنشاء العسكري فقط إذا كنا في قسم الجدول 🟢
             if(currentModule.isRosterAdmin) {
+                document.getElementById('createOfficerBtn').style.display = 'block';
                 renderAdminRoster();
-            } else if (currentModule.isAppsView) {
+            } else {
+                document.getElementById('createOfficerBtn').style.display = 'none';
+            }
+
+            if (currentModule.isAppsView) {
                 renderApplications(container);
             } else if (currentModule.isSettingsView) {
                 renderSettingsView(container);
@@ -575,16 +587,12 @@
             document.getElementById('editOfficerName').value = name || '';
             document.getElementById('editOfficerCode').value = code || '';
             
-            let respOptions = ["N/A", "Police Administration", "Commission Office", "High Command", "Command", "Head Of Internal Affairs", "Intern Affairs Member", "Detective Supervisor", "Supervisor", "Detective", "Motorcycle Unit Leader", "Motorcycle Unit CO-Leader", "Motorcycle Supervisor", "Air Unit Leader", "Air Unit CO-Leader", "Speed Unit Leader", "Speed Unit CO-Leader", "GANG UNIT Leader", "GANG UNIT CO- Leader", "Assistants", "Trooper", "GANG UNIT", "HEAD OF COMMAND", "Air Fleet Commander", "Police Wings Commander", "Commander Of P.A", "Deputy Of P.A", "deputy air fleet", "Advisor of air fleet", "War Commander", "S.W.A.T Commander", "Deputy S.W.A.T Commander"];
-            let respHtml = '';
-            respOptions.forEach(r => { respHtml += `<option value="${r}" ${r===resp ? 'selected' : ''}>${r}</option>`; });
+            let respHtml = ''; respOptionsData.forEach(r => { respHtml += `<option value="${r}" ${r===resp ? 'selected' : ''}>${r}</option>`; });
             document.getElementById('editResp').innerHTML = respHtml;
 
             document.getElementById('editStatus').value = status || 'ACTIVE';
             
-            let strikesOptions = ["N/A", "WARN 1", "WARN 2", "WARN 3", "Strike Point 1", "Strike Point 2", "Strike Point 3", "Strike Point 4", "Strike Point 5", "Strike Point 6", "Strike Point 7"];
-            let strikesHtml = '';
-            strikesOptions.forEach(s => { strikesHtml += `<option value="${s}" ${s===strikes ? 'selected' : ''}>${s}</option>`; });
+            let strikesHtml = ''; strikesOptionsData.forEach(s => { strikesHtml += `<option value="${s}" ${s===strikes ? 'selected' : ''}>${s}</option>`; });
             document.getElementById('editStrikes').innerHTML = strikesHtml;
 
             document.getElementById('editProm').value = prom === '-' ? '' : prom;
@@ -592,8 +600,7 @@
             document.getElementById('editDiscord').value = discord === '-' ? '' : discord;
             document.getElementById('editNotes').value = notes === '-' ? '' : notes;
             
-            let rankOptions = '';
-            SystemRanks.forEach(r => { rankOptions += `<option value="${r}" ${r===currentRank ? 'selected' : ''}>${r}</option>`; });
+            let rankOptions = ''; SystemRanks.forEach(r => { rankOptions += `<option value="${r}" ${r===currentRank ? 'selected' : ''}>${r}</option>`; });
             document.getElementById('editRankSelect').innerHTML = rankOptions;
             
             document.getElementById('editRankModal').style.display = 'flex';
@@ -602,20 +609,13 @@
         function autoGenerateCode() {
             const rank = document.getElementById('editRankSelect').value;
             const safeRoleName = rank.toLowerCase();
-            
-            if (rankExactCodes[rank]) {
-                document.getElementById('editOfficerCode').value = rankExactCodes[rank];
-            } else if (rankRanges[rank]) {
+            if (rankExactCodes[rank]) { document.getElementById('editOfficerCode').value = rankExactCodes[rank]; } 
+            else if (rankRanges[rank]) {
                 const range = rankRanges[rank];
                 const currentCode = document.getElementById('editOfficerCode').value;
                 let numberPart = currentCode.match(/\d+/);
-                
-                if (numberPart && numberPart[0] >= range.min && numberPart[0] <= range.max) {
-                    document.getElementById('editOfficerCode').value = `${range.prefix}${numberPart[0]}`;
-                } else {
-                    const randomNum = Math.floor(Math.random() * (range.max - range.min + 1)) + range.min;
-                    document.getElementById('editOfficerCode').value = `${range.prefix}${randomNum}`;
-                }
+                if (numberPart && numberPart[0] >= range.min && numberPart[0] <= range.max) { document.getElementById('editOfficerCode').value = `${range.prefix}${numberPart[0]}`; } 
+                else { document.getElementById('editOfficerCode').value = `${range.prefix}${Math.floor(Math.random() * (range.max - range.min + 1)) + range.min}`; }
             } else {
                 let prefix = safeRoleName.includes("officer") || safeRoleName.includes("sergeant") || safeRoleName.includes("cadet") ? "U-" : "C-";
                 document.getElementById('editOfficerCode').value = `${prefix}00`;
@@ -636,10 +636,69 @@
                 discordId: document.getElementById('editDiscord').value.trim() || '-',
                 notes: document.getElementById('editNotes').value.trim() || '-'
             };
-
             database.ref(`live_roster/${currentEditingOfficerId}`).update(payload).then(() => {
                 document.getElementById('editRankModal').style.display = 'none';
                 showCustomAlert("اكتمل", "تم تحديث السجل بنجاح", true);
+            });
+        }
+
+        // 🟢 وظائف إضافة العسكري اليدوية 🟢
+        function openCreateModal() {
+            document.getElementById('createOfficerName').value = '';
+            document.getElementById('createOfficerCode').value = '';
+            
+            let respHtml = ''; respOptionsData.forEach(r => { respHtml += `<option value="${r}">${r}</option>`; });
+            document.getElementById('createResp').innerHTML = respHtml;
+            document.getElementById('createStatus').value = 'ACTIVE';
+            
+            let strikesHtml = ''; strikesOptionsData.forEach(s => { strikesHtml += `<option value="${s}">${s}</option>`; });
+            document.getElementById('createStrikes').innerHTML = strikesHtml;
+
+            document.getElementById('createProm').value = '';
+            document.getElementById('createFP').value = '';
+            document.getElementById('createDiscord').value = '';
+            document.getElementById('createNotes').value = '';
+            
+            let rankOptions = ''; SystemRanks.forEach(r => { rankOptions += `<option value="${r}">${r}</option>`; });
+            document.getElementById('createRankSelect').innerHTML = rankOptions;
+            
+            autoGenerateCreateCode(); // يولد كود تلقائي لأول رتبة في القائمة
+            document.getElementById('createRankModal').style.display = 'flex';
+        }
+
+        function autoGenerateCreateCode() {
+            const rank = document.getElementById('createRankSelect').value;
+            const safeRoleName = rank.toLowerCase();
+            if (rankExactCodes[rank]) { document.getElementById('createOfficerCode').value = rankExactCodes[rank]; } 
+            else if (rankRanges[rank]) {
+                const range = rankRanges[rank];
+                document.getElementById('createOfficerCode').value = `${range.prefix}${Math.floor(Math.random() * (range.max - range.min + 1)) + range.min}`;
+            } else {
+                let prefix = safeRoleName.includes("officer") || safeRoleName.includes("sergeant") || safeRoleName.includes("cadet") ? "U-" : "C-";
+                document.getElementById('createOfficerCode').value = `${prefix}00`;
+            }
+        }
+
+        function saveNewCreatedOfficer() {
+            const name = document.getElementById('createOfficerName').value.trim();
+            if(!name) { showCustomAlert("خطأ", "يجب إدخال اسم العسكري على الأقل!", false); return; }
+
+            const payload = {
+                name: name,
+                code: document.getElementById('createOfficerCode').value.trim() || '-',
+                rank: document.getElementById('createRankSelect').value,
+                responsibility: document.getElementById('createResp').value,
+                status: document.getElementById('createStatus').value,
+                strikes: document.getElementById('createStrikes').value,
+                lastProm: document.getElementById('createProm').value.trim() || '-',
+                fp: document.getElementById('createFP').value.trim() || '-',
+                discordId: document.getElementById('createDiscord').value.trim() || '-',
+                notes: document.getElementById('createNotes').value.trim() || '-'
+            };
+
+            database.ref('live_roster').push(payload).then(() => {
+                document.getElementById('createRankModal').style.display = 'none';
+                showCustomAlert("نجاح", "تم إضافة العسكري الجديد للجدول بنجاح!", true);
             });
         }
 
@@ -712,7 +771,6 @@
             
             [...data].reverse().forEach((rec, revIdx) => {
                 const idx = data.length - 1 - revIdx;
-                
                 if (typeof rec === 'string') {
                     html += `<div style="background:#131a2a; padding:20px; border-radius:12px; border:1px solid var(--glass-border); box-shadow: 0 10px 20px rgba(0,0,0,0.5);">
                         <div style="text-align:right; margin-bottom:15px; line-height:1.8; color:#ddd;" class="allow-select">${rec}</div>
