@@ -21,6 +21,7 @@
         body { background: var(--bg-deep); color: #fff; font-family: var(--font-ar); min-height: 100vh; overflow-x: hidden; user-select: none;}
         input, textarea, select, .allow-select * { user-select: text !important; outline: none; font-family: var(--font-ar);}
 
+        /* 🟢 الخلفية الفخمة 🟢 */
         #bgEffects { position: fixed; inset: 0; z-index: -5; pointer-events: none; }
         .star { position: absolute; background: white; border-radius: 50%; opacity: 0.4; }
         .light-red { position: absolute; top: -30%; left: -20%; width: 70vw; height: 70vw; background: radial-gradient(circle, rgba(255, 0, 40, 0.05) 0%, transparent 70%); mix-blend-mode: screen; }
@@ -29,7 +30,7 @@
         @keyframes popIn { 0% { opacity: 0; transform: scale(0.95); } 100% { opacity: 1; transform: scale(1); } }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* شاشة تسجيل الدخول */
+        /* 🟢 شاشة تسجيل الدخول 🟢 */
         #loginScreen { position: fixed; inset: 0; background: rgba(2, 3, 5, 0.95); z-index: 99999; display: flex; justify-content: center; align-items: center; backdrop-filter: blur(10px); transition: 0.3s;}
         .login-container { width: 400px; padding: 50px 40px; background: rgba(10, 15, 20, 0.9); border: 1px solid var(--cyan); border-radius: 16px; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.9), 0 0 20px rgba(0,234,255,0.1); animation: popIn 0.3s ease; }
         .login-logo { width: 100px; height: 100px; background: url('yyW7oBx.jpg') center/cover; border-radius: 50%; margin: 0 auto 25px; border: 2px solid var(--cyan); box-shadow: 0 0 20px var(--cyan-glow); }
@@ -40,10 +41,11 @@
         .submit-btn { width: 100%; padding: 15px; background: var(--cyan); border: none; color: #000; font-weight: 900; font-size: 1.2rem; border-radius: 8px; cursor: pointer; transition: 0.3s; margin-top: 10px; font-family: var(--font-ar);}
         .submit-btn:hover { background: #fff; box-shadow: 0 0 20px var(--cyan-glow); transform: translateY(-2px);}
 
-        /* لوحة القيادة */
+        /* 🟢 لوحة القيادة 🟢 */
         #mainWrapper { display: none; flex-direction: column; min-height: 100vh; animation: fadeIn 0.4s ease;}
         header { display: flex; justify-content: space-between; align-items: center; padding: 20px 40px; border-bottom: 1px solid rgba(255,255,255,0.05); background: rgba(10,15,25,0.8); backdrop-filter: blur(10px);}
         .header-side { display: flex; gap: 15px; align-items: center; }
+        
         .head-btn { background: transparent; border: 1px solid rgba(255,255,255,0.1); padding: 10px 25px; border-radius: 8px; color: #ccc; font-weight: bold; cursor: pointer; transition: 0.2s; font-family: var(--font-ar); text-decoration: none; display: flex; align-items: center; gap: 8px;}
         .head-btn:hover { background: rgba(255,255,255,0.05); border-color: #fff; color: #fff; }
         .btn-red { border-color: var(--red); color: var(--red); }
@@ -55,10 +57,11 @@
         #dashboardView { flex: 1; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 40px; position: relative;}
         .watermark-logo { width: 350px; height: 350px; opacity: 0.05; background: url('yyW7oBx.jpg') center/cover; border-radius: 50%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none;}
         .main-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; width: 100%; max-width: 1000px; position: relative; z-index: 10;}
+        
         .menu-btn { background: rgba(15, 20, 30, 0.85); border: 1px solid var(--glass-border); border-radius: 12px; padding: 30px 20px; text-align: center; color: #fff; font-size: 1.25rem; font-weight: 800; cursor: pointer; transition: 0.3s; backdrop-filter: blur(10px); box-shadow: 0 10px 20px rgba(0,0,0,0.5);}
         .menu-btn:hover { border-color: var(--cyan); transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,234,255,0.15); text-shadow: 0 0 10px rgba(0,234,255,0.5); }
 
-        /* الأقسام الداخلية */
+        /* 🟢 واجهة الأقسام 🟢 */
         #moduleView { display: none; flex-direction: column; width: 95%; max-width: 1600px; margin: 0 auto; padding-top: 30px; animation: popIn 0.3s ease; }
         .roster-wrapper { width: 100%; background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 16px; padding: 30px; box-shadow: 0 20px 50px rgba(0,0,0,0.8); overflow-x: auto; backdrop-filter: blur(15px); margin-bottom:30px;}
         .roster-wrapper::-webkit-scrollbar { height: 6px; } .roster-wrapper::-webkit-scrollbar-thumb { background: var(--cyan); border-radius: 6px; }
@@ -72,7 +75,8 @@
         .luxury-table td:last-child { border-radius: 0 8px 8px 0; border-right: 1px solid rgba(255,255,255,0.02); }
         .dept-title { color: #fff; font-size: 1.5rem; font-weight: 900; padding: 30px 0 10px 0; text-align: left; border-bottom: 2px solid var(--cyan); display: inline-block; letter-spacing: 2px; text-shadow: 0 0 15px var(--cyan-glow);}
 
-        .action-btn { background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; padding: 8px 15px; cursor: pointer; transition: 0.2s; margin: 0 4px; color: #fff; font-family:var(--font-ar); font-weight:bold;}
+        /* 🟢 أزرار التعديل والحذف الواضحة 🟢 */
+        .action-btn { background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; padding: 8px 12px; cursor: pointer; transition: 0.2s; margin: 0 4px; color: #fff; font-family:var(--font-ar); font-weight:bold;}
         .btn-edit:hover { border-color: var(--yellow); color: var(--yellow); }
         .btn-del:hover { border-color: var(--red); color: var(--red); }
 
@@ -84,7 +88,7 @@
 
         .rec-item { padding: 20px; border-bottom: 1px solid rgba(255,255,255,0.03); display: flex; justify-content: space-between; align-items: flex-start; color: #ddd; font-size: 1.05rem; background: rgba(20,26,40,0.8); border-radius: 10px; margin-bottom: 12px; border: 1px solid var(--glass-border); }
 
-        /* النوافذ المنبثقة */
+        /* 🟢 النوافذ المنبثقة للوحة التحكم 🟢 */
         .modal-overlay { position: fixed; inset: 0; background: rgba(3, 5, 9, 0.95); z-index: 100000; display: none; justify-content: center; align-items: center; backdrop-filter: blur(10px); }
         .modal-box { width: 600px; padding: 40px; background: rgba(10, 15, 25, 0.98); border: 1px solid var(--cyan); border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.8); animation: popIn 0.3s ease; }
         .close-btn { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #ccc; padding: 15px; border-radius: 8px; cursor: pointer; transition: 0.2s; font-weight: bold; width: 100%; font-family:var(--font-ar); font-size:1.1rem;}
@@ -113,7 +117,7 @@
             <div class="inp-group"><i class="fa-solid fa-lock"></i><input type="password" id="passInput" class="login-input" placeholder="كلمة المرور"></div>
             <button class="submit-btn" onclick="login()">دخول للوحة القيادة</button>
             <div id="loginError" style="display: none; color: var(--red); margin-top: 15px; font-weight: bold; background: rgba(255,51,51,0.1); border: 1px solid var(--red); padding: 10px; border-radius: 6px;">بيانات غير صحيحة!</div>
-            <button onclick="window.location.href='index.html'" style="background: transparent; border: none; color: #888; margin-top: 25px; cursor: pointer; text-decoration: underline; font-family: var(--font-ar);">العودة للموقع الرئيسي</button>
+            <button onclick="window.location.href='index.html'" style="background: transparent; border: none; color: #888; margin-top: 25px; cursor: pointer; text-decoration: underline; font-family: var(--font-ar); font-size:1rem;">العودة للموقع الرئيسي</button>
         </div>
     </div>
 
@@ -149,29 +153,41 @@
         </div>
     </div>
 
-    <div class="modal-overlay" id="cryptoModal">
-        <div class="modal-box">
-            <h3 style="color:var(--cyan); margin-bottom:20px; font-size:1.5rem; text-align:center;">قسم التشفير</h3>
-            <textarea id="cryIn" class="gen-input" placeholder="أدخل النص هنا..." style="height: 100px; resize: none; text-align:right;"></textarea>
-            <div style="display:flex; gap:10px; margin-bottom:15px;">
-                <button class="submit-btn" onclick="doCrypto('enc')" style="margin:0">تشفير النص</button>
-                <button class="submit-btn" onclick="doCrypto('dec')" style="margin:0; background:#fff; color:#000;">فك التشفير</button>
+    <div id="cryptoSection" style="display:none; flex-direction:column; width:95%; max-width:1000px; margin:0 auto; padding-top:30px; animation:popIn 0.3s ease;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h2 style="color: var(--cyan); font-size: 2rem; font-weight: 900; text-shadow: 0 0 15px var(--cyan-glow);">قسم التشفير</h2>
+            <button class="head-btn" onclick="document.getElementById('cryptoSection').style.display='none'; document.getElementById('dashboardView').style.display='flex';"><i class="fa-solid fa-arrow-right"></i> العودة للوحة القيادة</button>
+        </div>
+        <div class="input-section">
+            <h3 style="color:#fff; margin-bottom:15px; font-family:var(--font-ar);">النص الأساسي:</h3>
+            <textarea id="cryIn" class="gen-input" placeholder="أدخل النص هنا للتشفير أو فك التشفير..." style="height: 150px; resize: none; text-align:right; font-size:1.1rem;"></textarea>
+            
+            <div style="display:flex; gap:15px; margin-bottom:20px;">
+                <button class="submit-btn" onclick="doCrypto('enc')" style="margin:0;"><i class="fa-solid fa-lock"></i> تشفير النص</button>
+                <button class="submit-btn" onclick="doCrypto('dec')" style="margin:0; background:#fff; color:#000;"><i class="fa-solid fa-lock-open"></i> فك التشفير</button>
             </div>
+            
+            <h3 style="color:#fff; margin-bottom:15px; font-family:var(--font-ar);">النتيجة:</h3>
             <div style="position:relative;">
-                <div class="gen-input allow-select" id="cryOut" style="min-height: 50px; font-family: monospace; word-break: break-all; padding-inline-end: 45px; text-align:left;" dir="ltr">النتيجة...</div>
-                <i class="fa-solid fa-copy" onclick="copyCrypto()" style="position: absolute; top: 50%; transform: translateY(-50%); right: 20px; color: var(--cyan); font-size: 1.3rem; cursor: pointer;"></i>
+                <div class="gen-input allow-select" id="cryOut" style="min-height: 100px; font-family: monospace; word-break: break-all; padding-inline-end: 45px; text-align:left; background:rgba(0,0,0,0.8);" dir="ltr">النتيجة ستظهر هنا...</div>
+                <i class="fa-solid fa-copy" onclick="copyCrypto()" style="position: absolute; top: 15px; right: 15px; color: var(--cyan); font-size: 1.5rem; cursor: pointer; transition:0.2s;" title="نسخ النص"></i>
             </div>
-            <button class="close-btn" onclick="document.getElementById('cryptoModal').style.display='none'">إغلاق</button>
         </div>
     </div>
 
     <div class="modal-overlay" id="editRankModal">
-        <div class="modal-box">
+        <div class="modal-box" style="width: 650px;">
             <h3 style="color:var(--cyan); margin-bottom:25px; font-size:1.6rem; text-align:center;">تعديل السجل العسكري</h3>
             <div class="grid-inputs">
                 <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">الاسم (Name):</div><input type="text" id="editOfficerName" class="gen-input" style="margin-bottom: 10px;"></div>
-                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">الكود (Code):</div><input type="text" id="editOfficerCode" class="gen-input" style="margin-bottom: 10px;"></div>
-                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">الرتبة (Rank):</div><select id="editRankSelect" class="gen-input" style="cursor: pointer; text-align: right; margin-bottom: 10px;"></select></div>
+                
+                <div>
+                    <div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">الرتبة (Rank):</div>
+                    <select id="editRankSelect" class="gen-input" style="cursor: pointer; text-align: right; margin-bottom: 10px;" onchange="autoGenerateCode()"></select>
+                </div>
+                
+                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">الكود (Code):</div><input type="text" id="editOfficerCode" class="gen-input" style="margin-bottom: 10px; font-family: monospace;"></div>
+                
                 <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">المهام (Resp):</div><input type="text" id="editResp" class="gen-input" style="margin-bottom: 10px;"></div>
                 <div>
                     <div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">الحالة (Status):</div>
@@ -213,7 +229,7 @@
 
     <div class="modal-overlay" id="customAlertOverlay">
         <div class="modal-box" id="customAlertBox" style="width: 400px; text-align: center;">
-            <i class="fa-solid fa-circle-check" style="font-size: 4rem; color: var(--green); margin-bottom: 20px;" id="alertIcon"></i>
+            <i class="fa-solid fa-circle-check alert-icon" style="font-size: 4rem; color: var(--green); margin-bottom: 20px;" id="alertIcon"></i>
             <h3 style="color: #fff; font-size: 1.8rem; font-weight: bold; margin-bottom: 15px;" id="alertTitle">تنبيه</h3>
             <p style="color: #aaa; font-size: 1.1rem; line-height: 1.6; margin-bottom: 30px;" id="alertMessage">رسالة التنبيه</p>
             <button class="submit-btn" onclick="document.getElementById('customAlertOverlay').style.display='none'">حسناً</button>
@@ -233,13 +249,21 @@
         const publicEnlistedList = ["Staff Sergeant", "First Sergeant", "Sergeant", "Senior Lead Officer", "Senior Officer", "Officer III", "Officer II", "Officer I", "Solo Cadet", "Cadet"];
         let SystemRanks = [...publicOfficersList, ...publicEnlistedList];
 
+        // 🟢 مصفوفة الرموز العسكرية المحدثة לפי الرتب 🟢
+        const rankPrefixes = {
+            "Minister of Interior": "P", "Deputy Minister of Interior": "P", "A. Minister of Interior": "P",
+            "L.S.P.D Chief": "A", "Deputy L.S.P.D Chief": "A", "A' Lspd Chief": "A",
+            "High Commander": "M", "General": "G", 
+            "Police Commander": "C", "Colonel": "C", "Major": "C", "Captain": "C", "First Lieutenant": "C", "Lieutenant": "C"
+        }; // الباقي بيكون U-
+
         firebase.initializeApp({
             apiKey: "AIzaSyC5PL_fJEjiJVQS8rnx4m8j9uQNsILcQvs", authDomain: "police-depa.firebaseapp.com",
             databaseURL: "https://police-depa-default-rtdb.europe-west1.firebasedatabase.app", projectId: "police-depa"
         });
         const database = firebase.database();
 
-        // 🟢 الأقسام الـ 14 كاملة 🟢
+        // 🟢 الأقسام (تم التأكد من 14 قسم كاملة وتعمل) 🟢
         const modules = [
             { id: 'settings', i18n_t: 'إعدادات التقديم', isSettingsView: true, reqOfficer: true },
             { id: 'applications', i18n_t: 'طلبات التقديم', isAppsView: true, reqOfficer: true },
@@ -305,7 +329,11 @@
         }
 
         function logout() { window.location.href='index.html'; }
-        function goHome() { document.getElementById('moduleView').style.display = 'none'; document.getElementById('dashboardView').style.display = 'flex'; }
+        function goHome() { 
+            document.getElementById('moduleView').style.display = 'none'; 
+            document.getElementById('cryptoSection').style.display = 'none';
+            document.getElementById('dashboardView').style.display = 'flex'; 
+        }
 
         function updateCardImg(input) {
             if (input.files && input.files[0]) {
@@ -323,12 +351,18 @@
             });
         }
 
-        // 🟢 فتح الأقسام الـ 14 🟢
+        // 🟢 الدالة المسؤولة عن فتح جميع الأقسام 🟢
         function openMod(id) {
             currentModule = modules.find(m => m.id === id);
-            if(currentModule.isCrypto) { document.getElementById('cryptoModal').style.display = 'flex'; return; }
-            
             document.getElementById('dashboardView').style.display = 'none'; 
+            document.getElementById('moduleView').style.display = 'none';
+            
+            // 🟢 إصلاح قسم التشفير (يفتح بصفحة خاصة داخل اللوحة بدل النافذة) 🟢
+            if(currentModule.isCrypto) { 
+                document.getElementById('cryptoSection').style.display = 'flex'; 
+                return; 
+            }
+            
             document.getElementById('moduleView').style.display = 'flex';
             document.getElementById('mTitle').innerText = currentModule.i18n_t;
             
@@ -349,7 +383,7 @@
                 renderAccounts(container);
             } else if(currentModule.isReportForm) {
                 inputBlock.style.display = 'block';
-                inpArea.innerHTML = `<input type="text" id="r-badge" class="gen-input" placeholder="البادج العسكري"><input type="text" id="r-name" class="gen-input" placeholder="الاسم الكامل"><input type="text" id="r-crim" class="gen-input" placeholder="نوع التقرير / التهمة"><textarea id="r-details" class="gen-input" placeholder="اكتب التقرير بالكامل هنا..." style="height:120px; resize:vertical;"></textarea>`;
+                inpArea.innerHTML = `<input type="text" id="r-badge" class="gen-input" placeholder="البادج العسكري"><input type="text" id="r-name" class="gen-input" placeholder="الاسم الكامل"><input type="text" id="r-crim" class="gen-input" placeholder="نوع التقرير / التهمة"><textarea id="r-details" class="gen-input" placeholder="اكتب التقرير بالكامل هنا..." style="height:120px; resize:vertical; grid-column: span 2;"></textarea>`;
                 renderRecordsList(container);
             } else if(currentModule.isTable) {
                 inputBlock.style.display = 'block';
@@ -366,11 +400,11 @@
             }
         }
 
-        // 🟢 جدول الإدارة (شغال بالكامل وبدون أي قيد تطوير، مع أزرار التعديل والحذف) 🟢
+        // 🟢 إدارة الجدول الشامل 🟢
         function renderAdminRoster() {
             const container = document.getElementById('dynamicContentArea');
             const data = db.live_roster;
-            if (!data || Object.keys(data).length === 0) { container.innerHTML = '<div style="text-align:center; padding:50px; color:#888;">لا يوجد بيانات.</div>'; return; }
+            if (!data || Object.keys(data).length === 0) { container.innerHTML = '<div style="text-align:center; padding:50px; color:#888; font-size:1.2rem;">لا يوجد بيانات.</div>'; return; }
             
             let htmlString = `
             <div class="roster-wrapper">
@@ -403,8 +437,8 @@
                         <td><span style="background: rgba(0,0,0,0.4); padding: 5px 10px; border-radius: 6px; font-family: monospace; color: #8da2b5; border: 1px solid rgba(255,255,255,0.05);">${off.discordId || '-'}</span></td>
                         <td style="color: #888; font-size:0.9rem; max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${off.notes || '-'}</td>
                         <td>
-                            <button onclick="editOfficerData('${off.id}', '${off.name}', '${off.rank}', '${off.code}', '${off.responsibility}', '${off.status}', '${off.strikes}', '${off.lastProm}', '${off.fp}', '${off.discordId}', '${off.notes}')" class="action-btn btn-edit" title="تعديل"><i class="fa-solid fa-pen-to-square"></i> تعديل</button>
-                            <button onclick="deleteOfficerFromRoster('${off.id}', '${off.name}')" class="action-btn btn-del" title="فصل"><i class="fa-solid fa-trash"></i> حذف</button>
+                            <button onclick="editOfficerData('${off.id}', '${off.name}', '${off.rank}', '${off.code}', '${off.responsibility}', '${off.status}', '${off.strikes}', '${off.lastProm}', '${off.fp}', '${off.discordId}', '${off.notes}')" class="action-btn btn-edit" title="تعديل السجل"><i class="fa-solid fa-pen-to-square"></i> تعديل</button>
+                            <button onclick="deleteOfficerFromRoster('${off.id}', '${off.name}')" class="action-btn btn-del" title="حذف السجل"><i class="fa-solid fa-trash"></i> حذف</button>
                         </td>
                     </tr>`;
                 });
@@ -414,7 +448,7 @@
 
         function deleteOfficerFromRoster(id, name) {
             if(!isOfficer) return showCustomAlert("خطأ", "لا تملك صلاحية", false);
-            if(confirm(`هل أنت متأكد من حذف العسكري (${name}) نهائياً؟`)) { database.ref(`live_roster/${id}`).remove(); }
+            if(confirm(`هل أنت متأكد من حذف العسكري (${name}) نهائياً؟`)) { database.ref(`live_roster/${id}`).remove().then(() => showCustomAlert("تم", "تم حذف العسكري بنجاح", true)); }
         }
         
         let currentEditingOfficerId = null;
@@ -438,6 +472,24 @@
             document.getElementById('editRankModal').style.display = 'flex';
         }
 
+        // 🟢 ميزة التغيير التلقائي للكود بناءً على الرتبة الجديدة 🟢
+        function autoGenerateCode() {
+            const rank = document.getElementById('editRankSelect').value;
+            let prefix = "U"; // افتراضي للأفراد
+
+            if(rankPrefixes[rank]) prefix = rankPrefixes[rank]; // جلب الرمز الصحيح
+
+            const currentCode = document.getElementById('editOfficerCode').value;
+            let numberPart = currentCode.match(/\d+/);
+            
+            if (numberPart) {
+                document.getElementById('editOfficerCode').value = `${prefix}-${numberPart[0]}`;
+            } else {
+                const randomNum = Math.floor(Math.random() * 900) + 100;
+                document.getElementById('editOfficerCode').value = `${prefix}-${randomNum}`;
+            }
+        }
+
         function saveNewOfficerData() {
             if(!currentEditingOfficerId) return;
             const payload = {
@@ -452,19 +504,22 @@
                 discordId: document.getElementById('editDiscord').value.trim() || '-',
                 notes: document.getElementById('editNotes').value.trim() || '-'
             };
+
             database.ref(`live_roster/${currentEditingOfficerId}`).update(payload).then(() => {
                 document.getElementById('editRankModal').style.display = 'none';
+                showCustomAlert("اكتمل", "تم تحديث السجل بنجاح", true);
             });
         }
 
+        // 🟢 دوال باقي الأقسام 🟢
         function renderSettingsView(container) {
             let pOpen = db.settings.policeOpen; let sOpen = db.settings.selfOpen;
-            container.innerHTML = `<div style="background:rgba(15,20,30,0.8); border:1px solid var(--glass-border); border-radius:12px; padding:40px; text-align:center;">
+            container.innerHTML = `<div style="background:rgba(15,20,30,0.8); border:1px solid var(--glass-border); border-radius:12px; padding:40px; text-align:center; max-width:800px; margin:0 auto;">
                 <h3 style="color:var(--cyan); margin-bottom:30px; font-size:1.8rem;">التحكم في بوابات التقديم</h3>
-                <div style="font-size: 1.3rem; margin-bottom: 15px; color: #fff; background: rgba(0,0,0,0.4); padding: 15px; border-radius: 8px; display:flex; justify-content:space-between;">
+                <div style="font-size: 1.3rem; margin-bottom: 15px; color: #fff; background: rgba(0,0,0,0.4); padding: 15px; border-radius: 8px; display:flex; justify-content:space-between; align-items:center;">
                     <span>تقديم شرطة تايتنز:</span> <span>${pOpen ? '<span style="color:var(--green);">مفتوح 🟢</span>' : '<span style="color:var(--red);">مغلق 🔴</span>'}</span>
                 </div>
-                <div style="font-size: 1.3rem; margin-bottom: 25px; color: #fff; background: rgba(0,0,0,0.4); padding: 15px; border-radius: 8px; display:flex; justify-content:space-between;">
+                <div style="font-size: 1.3rem; margin-bottom: 25px; color: #fff; background: rgba(0,0,0,0.4); padding: 15px; border-radius: 8px; display:flex; justify-content:space-between; align-items:center;">
                     <span>تقديم قدم نفسك:</span> <span>${sOpen ? '<span style="color:var(--green);">مفتوح 🟢</span>' : '<span style="color:var(--red);">مغلق 🔴</span>'}</span>
                 </div>
                 ${isOfficer ? `
@@ -483,16 +538,16 @@
         }
 
         function renderApplications(container) {
-            if(db.applications.length === 0) { container.innerHTML = '<div style="text-align:center; padding:30px; color:#888;">لا يوجد طلبات.</div>'; return; }
+            if(db.applications.length === 0) { container.innerHTML = '<div style="text-align:center; padding:30px; color:#888; font-size:1.2rem;">لا يوجد طلبات.</div>'; return; }
             let html = '';
             [...db.applications].reverse().forEach((app, revIdx) => {
                 const idx = db.applications.length - 1 - revIdx;
                 html += `<div class="rec-item allow-select" style="flex-direction:column; align-items:flex-end;">
-                    <div style="color:var(--cyan); font-weight:bold; font-size:1.2rem; margin-bottom:10px;">طلب مقدم من: ${app.name} (${app.type==='self'?'قدم نفسك':'شرطة'})</div>
-                    <div style="text-align:right; color:#ccc; line-height:1.6; margin-bottom:15px; width:100%;">
-                        <strong>العمر:</strong> ${app.age}<br><strong>الديسكورد:</strong> ${app.discord}<br><strong>الخبرة:</strong> ${app.exp}<br><strong>السبب:</strong> ${app.reason||'لا يوجد'}<br><strong>التاريخ:</strong> ${app.date}
+                    <div style="color:var(--cyan); font-weight:bold; font-size:1.3rem; margin-bottom:10px;">طلب مقدم من: ${app.name} (${app.type==='self'?'قدم نفسك':'شرطة'})</div>
+                    <div style="text-align:right; color:#ccc; line-height:1.8; margin-bottom:15px; width:100%;">
+                        <strong>العمر:</strong> ${app.age}<br><strong>الديسكورد:</strong> ${app.discord}<br><strong>الخبرة:</strong> ${app.exp}<br><strong>السبب:</strong> ${app.reason||'لا يوجد'}<br><strong style="color:#888; font-size:0.9rem;">التاريخ: ${app.date}</strong>
                     </div>
-                    ${isOfficer ? `<button class="action-btn btn-del" onclick="deleteApp(${idx})"><i class="fa-solid fa-trash"></i> حذف</button>` : ''}
+                    ${isOfficer ? `<button class="action-btn btn-del" onclick="deleteApp(${idx})"><i class="fa-solid fa-trash"></i> حذف الطلب</button>` : ''}
                 </div>`;
             });
             container.innerHTML = html;
@@ -506,8 +561,8 @@
             container.innerHTML = '';
             (db.customUsers || []).forEach((u, idx) => {
                 container.innerHTML += `<div class="rec-item allow-select" style="align-items:center;">
-                    <div style="text-align:right;"><span style="color:var(--cyan); font-weight:bold;">[${u.rank}]</span> ${u.name} (User: ${u.user})</div>
-                    ${isOfficer ? `<button class="action-btn btn-del" onclick="delAccount(${idx})"><i class="fa-solid fa-trash"></i> حذف</button>` : ''}
+                    <div style="text-align:right;"><span style="color:var(--cyan); font-weight:bold; font-size:1.1rem;">[${u.rank}]</span> ${u.name} (User: ${u.user})</div>
+                    ${isOfficer ? `<button class="action-btn btn-del" onclick="delAccount(${idx})"><i class="fa-solid fa-trash"></i> حذف الحساب</button>` : ''}
                 </div>`;
             });
         }
@@ -515,35 +570,35 @@
         function renderRecordsList(container) {
             container.innerHTML = '';
             const data = db[currentModule.id] || [];
-            if(data.length === 0) { container.innerHTML = '<div style="text-align:center; padding:30px; color:#888;">لا يوجد سجلات.</div>'; return; }
+            if(data.length === 0) { container.innerHTML = '<div style="text-align:center; padding:30px; color:#888; font-size:1.2rem;">لا يوجد سجلات.</div>'; return; }
             data.forEach((rec, idx) => {
                 container.innerHTML += `<div class="rec-item allow-select" style="flex-direction:column; align-items:flex-end;">
-                    <div style="width:100%; text-align:right; margin-bottom:10px; border-bottom:1px solid rgba(255,255,255,0.05); padding-bottom:10px;">${rec}</div>
-                    ${isOfficer ? `<button class="action-btn btn-del" onclick="delRec(${idx})"><i class="fa-solid fa-trash"></i> حذف</button>` : ''}
+                    <div style="width:100%; text-align:right; margin-bottom:10px; border-bottom:1px solid rgba(255,255,255,0.05); padding-bottom:10px; line-height:1.8;">${rec}</div>
+                    ${isOfficer ? `<button class="action-btn btn-del" onclick="delRec(${idx})"><i class="fa-solid fa-trash"></i> حذف السجل</button>` : ''}
                 </div>`;
             });
         }
 
         function renderTasksTable(container) {
             const data = db.tasks || [];
-            if(data.length === 0) { container.innerHTML = '<div style="text-align:center; padding:30px; color:#888;">لا يوجد مهام.</div>'; return; }
-            let html = '<div class="roster-wrapper"><table class="luxury-table"><tr><th>المستلم</th><th>المسؤول</th><th>المهمة</th><th>النقاط</th><th>الإجراء</th></tr>';
+            if(data.length === 0) { container.innerHTML = '<div style="text-align:center; padding:30px; color:#888; font-size:1.2rem;">لا يوجد مهام.</div>'; return; }
+            let html = '<div class="roster-wrapper"><table class="luxury-table"><thead><tr><th>المستلم</th><th>المسؤول</th><th>المهمة</th><th>النقاط</th><th>الإجراء</th></tr></thead><tbody>';
             data.forEach((t, idx) => {
                 html += `<tr class="roster-row"><td>${t.assignee}</td><td>${t.officer}</td><td>${t.reason}</td><td><span style="color:var(--cyan);font-weight:bold;">${t.pts}</span></td><td>${isOfficer ? `<button class="action-btn btn-del" onclick="delRec(${idx})"><i class="fa-solid fa-trash"></i> حذف</button>` : ''}</td></tr>`;
             });
-            container.innerHTML = html + '</table></div>';
+            container.innerHTML = html + '</tbody></table></div>';
         }
 
         function renderVideoGrid(container) {
             const data = db.video || [];
-            if(data.length === 0) { container.innerHTML = '<div style="text-align:center; padding:30px; color:#888;">لا يوجد مقاطع.</div>'; return; }
+            if(data.length === 0) { container.innerHTML = '<div style="text-align:center; padding:30px; color:#888; font-size:1.2rem;">لا يوجد مقاطع.</div>'; return; }
             let html = '<div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">';
             data.forEach((v, idx) => {
                 let ytId = v.yt.includes('v=') ? v.yt.split('v=')[1].split('&')[0] : v.yt.split('/').pop();
-                html += `<div style="background:var(--glass-bg); padding:15px; border-radius:12px; border:1px solid var(--glass-border);">
-                    <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+                html += `<div style="background:rgba(20,26,40,0.8); padding:15px; border-radius:12px; border:1px solid var(--glass-border); box-shadow: 0 10px 20px rgba(0,0,0,0.5);">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
                         ${isOfficer ? `<button class="action-btn btn-del" onclick="delRec(${idx})"><i class="fa-solid fa-trash"></i> حذف</button>` : '<div></div>'}
-                        <strong style="color:var(--cyan);">${v.title}</strong>
+                        <strong style="color:var(--cyan); font-size:1.2rem;">${v.title}</strong>
                     </div>
                     <iframe src="https://www.youtube.com/embed/${ytId}" style="width:100%; aspect-ratio:16/9; border:none; border-radius:8px;"></iframe>
                 </div>`;
@@ -552,7 +607,7 @@
         }
 
         function doCrypto(type) { const v = document.getElementById('cryIn').value, out = document.getElementById('cryOut'); if(!v) return; try { out.innerText = (type === 'enc') ? btoa(unescape(encodeURIComponent(v))) : decodeURIComponent(escape(atob(v))); } catch(e) { out.innerText = "Error"; } }
-        function copyCrypto() { navigator.clipboard.writeText(document.getElementById('cryOut').innerText); }
+        function copyCrypto() { navigator.clipboard.writeText(document.getElementById('cryOut').innerText); showCustomAlert("نجاح", "تم نسخ النص", true); }
 
         function addRecord() {
             if(currentModule.isAccountsForm) {
@@ -562,7 +617,7 @@
             } else if(currentModule.isReportForm) {
                 const b=document.getElementById('r-badge').value, n=document.getElementById('r-name').value, c=document.getElementById('r-crim').value, d=document.getElementById('r-details').value;
                 if(!b || !n || !d) return showCustomAlert("خطأ", "يرجى تعبئة الحقول", false);
-                db.reports = cleanArray(db.reports); db.reports.push(`<strong>البادج:</strong> ${b} | <strong>الاسم:</strong> ${n}<br><strong>نوع التقرير:</strong> ${c}<br><strong>التفاصيل:</strong> ${d}`); saveDB(); renderRecordsList(document.getElementById('dynamicContentArea'));
+                db.reports = cleanArray(db.reports); db.reports.push(`<strong>البادج:</strong> ${b} | <strong>الاسم:</strong> ${n}<br><strong style="color:var(--cyan);">نوع التقرير:</strong> ${c}<br><strong style="color:var(--cyan);">التفاصيل:</strong><br> ${d}`); saveDB(); renderRecordsList(document.getElementById('dynamicContentArea'));
             } else if(currentModule.isTable) {
                 const a=document.getElementById('t-assignee').value, o=document.getElementById('t-officer').value, r=document.getElementById('t-reason').value, p=document.getElementById('t-pts').value;
                 if(!a || !o || !r || !p) return showCustomAlert("خطأ", "يرجى تعبئة الحقول", false);
@@ -583,8 +638,8 @@
             document.querySelectorAll('#mInputs input, #mInputs textarea, #mInputs select').forEach(el => el.value = '');
         }
 
-        function delAccount(idx) { if(confirm("حذف؟")) { db.customUsers.splice(idx, 1); saveDB(); renderAccounts(document.getElementById('dynamicContentArea')); } }
-        function delRec(idx) { if(confirm("حذف؟")) { db[currentModule.id].splice(idx, 1); saveDB(); 
+        function delAccount(idx) { if(confirm("حذف الحساب؟")) { db.customUsers.splice(idx, 1); saveDB(); renderAccounts(document.getElementById('dynamicContentArea')); } }
+        function delRec(idx) { if(confirm("حذف السجل؟")) { db[currentModule.id].splice(idx, 1); saveDB(); 
             if(currentModule.isTable) renderTasksTable(document.getElementById('dynamicContentArea'));
             else if(currentModule.isVideo) renderVideoGrid(document.getElementById('dynamicContentArea'));
             else renderRecordsList(document.getElementById('dynamicContentArea'));
