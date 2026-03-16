@@ -24,7 +24,6 @@
         body { user-select: none; background: var(--bg-deep); color: var(--text-main); font-family: var(--font-ar); min-height: 100vh; overflow-x: hidden; }
         input, textarea, select, .allow-select * { user-select: text !important; }
 
-        /* الخلفية הפخمة */
         #bgEffects { position: fixed; inset: 0; z-index: -5; pointer-events: none; }
         .star { position: absolute; background: white; border-radius: 50%; opacity: 0.5; animation: twinkle linear infinite alternate; box-shadow: 0 0 5px rgba(0, 234, 255, 0.5); }
         @keyframes twinkle { 0% { opacity: 0.2; transform: scale(0.8); } 100% { opacity: 1; transform: scale(1.2); box-shadow: 0 0 8px rgba(0, 234, 255, 0.8); } }
@@ -36,7 +35,6 @@
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes popIn { 0% { opacity: 0; transform: scale(0.9); } 100% { opacity: 1; transform: scale(1); } }
 
-        /* شريط التنقل */
         .public-nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 80px; background: rgba(3, 5, 9, 0.85); border-bottom: 1px solid rgba(255,255,255,0.05); position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(15px); }
         .nav-right { display: flex; align-items: center; gap: 40px; }
         .nav-logo { width: 45px; height: 45px; background: url('yyW7oBx.jpg') center/cover; border-radius: 50%; box-shadow: 0 0 10px rgba(0,234,255,0.3); border: 1px solid var(--cyan);}
@@ -48,7 +46,6 @@
 
         .tab-content { display: none; flex-direction: column; align-items: center; width: 100%; padding-bottom: 100px; animation: fadeIn 0.3s ease;}
         
-        /* الرئيسية */
         .hero-section { display: flex; align-items: center; justify-content: center; min-height: calc(100vh - 90px); width: 100%; background: radial-gradient(circle at center, rgba(0, 234, 255, 0.05) 0%, transparent 60%); }
         .hero-content { text-align: center; max-width: 800px; padding: 40px; }
         .hero-content h1 { font-size: 5rem; color: #fff; font-weight: 900; margin-bottom: 20px; text-shadow: 0 0 30px rgba(0,234,255,0.4); }
@@ -61,7 +58,6 @@
         .anim-title { font-size: 3.5rem; color: #fff; font-weight: 800; margin-bottom: 10px; text-shadow: 0 0 20px rgba(0,234,255,0.4);}
         .anim-title span { color: var(--cyan); }
 
-        /* الكروت */
         .community-title { font-size: 3rem; color: #fff; font-weight: 800; margin: 40px 0 20px 0; text-align: center; }
         .cards-container { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; max-width: 1200px; margin: 0 auto; }
         .lux-card { background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 12px; padding: 40px 30px; width: 350px; text-align: center; transition: 0.3s; transform-style: preserve-3d; backdrop-filter: blur(10px); box-shadow: 0 15px 35px rgba(0,0,0,0.5); }
@@ -70,9 +66,9 @@
         .lux-card p { color: #888; font-size: 1rem; line-height: 1.7; margin-bottom: 30px; transform: translateZ(10px);}
         .founder-img { width: 130px; height: 130px; border-radius: 50%; margin: 0 auto 25px; border: 3px solid var(--cyan); object-fit: cover; padding: 5px; transform: translateZ(30px); }
 
-        /* القوانين */
         .accordion-container { width: 100%; max-width: 900px; padding: 0 20px; margin-top: 40px;}
         .accordion-item { margin-bottom: 12px; border-radius: 8px; background: rgba(20, 26, 40, 0.7); border: 1px solid var(--glass-border); transition: 0.2s; backdrop-filter: blur(10px); box-shadow: 0 10px 20px rgba(0,0,0,0.5);}
+        .accordion-item:hover { border-color: rgba(0, 234, 255, 0.3); }
         .accordion-header { display: flex; justify-content: space-between; align-items: center; padding: 25px 30px; cursor: pointer; transition: 0.2s; flex-direction: row-reverse; }
         .acc-title-box { display: flex; align-items: center; gap: 15px; flex-direction: row-reverse; }
         .acc-dot { width: 12px; height: 12px; background: var(--cyan); border-radius: 50%; box-shadow: 0 0 10px var(--cyan); }
@@ -88,7 +84,6 @@
         .sop-list li { position: relative; padding-right: 25px; margin-bottom: 15px; color: #d1d1d1; font-size: 1.05rem; line-height: 1.9; }
         .sop-list li::before { content: '■'; position: absolute; right: 0; top: 0; color: var(--cyan); font-size: 0.8rem; }
 
-        /* جدول الزوار */
         .roster-wrapper { width: 95%; max-width: 1600px; background: rgba(10, 15, 25, 0.85); margin: 40px auto; border: 1px solid var(--glass-border); border-radius: 16px; padding: 20px; backdrop-filter: blur(15px); box-shadow: 0 20px 50px rgba(0,0,0,0.6); overflow-x: auto; }
         .luxury-table { width: 100%; border-collapse: separate; border-spacing: 0 8px; text-align: center; font-family: 'Rajdhani', 'Tajawal', sans-serif; min-width: 1100px;}
         .luxury-table thead th { color: var(--cyan); font-size: 0.95rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; padding: 15px; border-bottom: 2px solid rgba(0,234,255,0.2); }
@@ -102,7 +97,6 @@
         .pill-status { display: inline-flex; align-items: center; gap: 8px; background: rgba(0, 255, 106, 0.08); border: 1px solid rgba(0, 255, 106, 0.3); color: var(--green); padding: 5px 15px; border-radius: 20px; font-size: 0.85rem; font-weight: 800; text-transform: uppercase;}
         .code-box { background: rgba(0,0,0,0.5); padding: 4px 10px; border-radius: 6px; font-family: monospace; color: #8da2b5; border: 1px solid rgba(255,255,255,0.05); }
 
-        /* النوافذ المنبثقة */
         .modal-overlay { position: fixed; inset: 0; background: rgba(3, 5, 9, 0.95); z-index: 100000; display: none; justify-content: center; align-items: center; backdrop-filter: blur(10px); }
         .modal-box { width: 550px; padding: 40px; background: rgba(10, 15, 25, 0.98); border: 1px solid var(--cyan); border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.8); animation: popIn 0.3s ease-out; }
         .gen-input { width: 100%; padding: 15px; background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.1); color: #fff; margin-bottom: 15px; border-radius: 8px; outline: none; transition: 0.3s; font-family: var(--font-ar); text-align: right;}
@@ -161,27 +155,28 @@
                     <div class="accordion-inner">
                         <div style="text-align: center; margin-bottom: 40px;">
                             <h2 style="color: #fff; font-family: var(--font-en); letter-spacing: 2px; margin-bottom: 10px;">Standard Operating Procedures</h2>
-                            <p style="color: #666; font-size: 0.9rem; font-family: var(--font-en);">Copyright © 2025/2026 - All Rights Reserved</p>
+                            <h1 style="color: var(--red); font-weight: 900; text-shadow: 0 0 15px rgba(255,51,51,0.6); margin-bottom: 5px; font-size: 2.2rem;">طنى الشمري شخصياً مسويه</h1>
+                            <h2 style="color: var(--red); font-family: var(--font-en); margin-bottom: 5px; font-weight:bold;">SOPs</h2>
+                            <h3 style="color: var(--cyan); font-weight: 900; text-shadow: 0 0 10px rgba(0,234,255,0.5); margin-bottom: 15px;">اذكر الله يابترك</h3>
+                            <p style="color: #666; font-size: 0.85rem; font-family: var(--font-en);">Copyright © 2025/2026 - All Rights Reserved</p>
                         </div>
 
                         <h2 style="color: var(--cyan); text-align: center; margin-bottom: 30px; font-weight: 900; font-size: 1.8rem; text-shadow: 0 0 10px rgba(0,234,255,0.3);">قواعد الشرطة</h2>
 
                         <div class="sop-section-title">1. قواعد وسلوكيات التعامل</div>
-                        <p style="color:#d1d1d1; line-height:1.9; margin-bottom:15px;">تمثل هذه القواعد شبكة الشرطة بشكل عام أمام المجتمع من ناحية الإجراءات والحماية والتنفيذ، وطرق التعامل هي الآلية التي تبرز شبكة الشرطة.</p>
+                        <p style="color:#d1d1d1; line-height:1.9; margin-bottom:15px;">تمثل هذه القواعد شبكة الشرطة بشكل عام أمام المجتمع من ناحية الإجراءات والحماية والتنفيذ.</p>
                         
                         <div class="sop-section-title">1.1 قواعد وسلوكيات التعامل مع المواطنين</div>
                         <ul class="sop-list">
-                            <li>يجب على عناصر الشرطة أن يكونوا في أعلى درجات الاحترام والمهنية وأن يتحلوا بالصبر.</li>
+                            <li>يجب على عناصر الشرطة أن يكونوا في أعلى درجات الاحترام والمهنية.</li>
                             <li>يحق لشرطي المرور إيقاف أي مركبة مشتبه بها أو ارتكبت مخالفة مرورية.</li>
-                            <li>يجب على الشرطي إبلاغ المواطن عن سبب إيقافه بشكل واضح ومختصر.</li>
+                            <li>يجب على الشرطي إبلاغ المواطن عن سبب إيقافه بشكل واضح.</li>
                             <li>يمنع منعاً باتاً التلفظ بألفاظ نابية أو شتم المواطنين مهما كان السبب.</li>
-                            <li>في حال وجود شكوى ضد أي شرطي، يتم توجيه المواطن لتقديم شكوى رسمية في المركز.</li>
                         </ul>
 
-                        <div class="sop-section-title">2.1 قواعد وسلوكيات التعامل مع أفراد الشرطة (الزملاء)</div>
+                        <div class="sop-section-title">2.1 قواعد وسلوكيات التعامل مع الزملاء</div>
                         <ul class="sop-list">
                             <li>يجب احترام الرتب العسكرية والالتزام بالتسلسل القيادي (Chain of Command).</li>
-                            <li>يمنع منعاً باتاً التشاجر أو رفع الصوت بين أفراد الشرطة أمام المواطنين أو في الراديو.</li>
                             <li>التعاون والتنسيق المستمر في الحالات الأمنية لضمان سلامة الجميع.</li>
                         </ul>
                     </div>
@@ -278,6 +273,7 @@
         }
         VanillaTilt.init(document.querySelectorAll(".lux-card"));
 
+        // الرتب الجديدة
         const publicOfficersList = ["Minister of Interior", "Deputy Minister of Interior", "A. Minister of Interior", "Police Commander", "L.S.P.D Chief", "Deputy L.S.P.D Chief", "A' Lspd Chief", "High Commander", "General", "Colonel", "Major", "Captain", "First Lieutenant", "Lieutenant"];
         const publicEnlistedList = ["Staff Sergeant", "First Sergeant", "Sergeant", "Senior Lead Officer", "Senior Officer", "Officer III", "Officer II", "Officer I", "Solo Cadet", "Cadet"];
         let SystemRanks = [...publicOfficersList, ...publicEnlistedList];
