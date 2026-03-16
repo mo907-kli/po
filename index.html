@@ -6,7 +6,6 @@
     <title>إدارة الشرطة | L.S.P.D</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=Rajdhani:wght@500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-database-compat.js"></script>
@@ -34,7 +33,7 @@
         @keyframes popIn { 0% { opacity: 0; transform: scale(0.95); } 100% { opacity: 1; transform: scale(1); } }
 
         /* شريط التنقل */
-        .public-nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 80px; background: rgba(3, 5, 9, 0.95); border-bottom: 1px solid rgba(255,255,255,0.05); position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(10px); }
+        .public-nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 80px; background: rgba(3, 5, 9, 0.95); border-bottom: 1px solid rgba(255,255,255,0.05); position: sticky; top: 0; z-index: 99999; backdrop-filter: blur(10px); }
         .nav-right { display: flex; align-items: center; gap: 40px; }
         .nav-logo { width: 45px; height: 45px; background: url('yyW7oBx.jpg') center/cover; border-radius: 50%; box-shadow: 0 0 10px rgba(0,234,255,0.3); border: 1px solid var(--cyan);}
         .nav-links { display: flex; gap: 30px; }
@@ -99,7 +98,7 @@
         .pill-status { display: inline-flex; align-items: center; gap: 8px; background: rgba(0, 255, 106, 0.08); border: 1px solid rgba(0, 255, 106, 0.3); color: var(--green); padding: 5px 15px; border-radius: 20px; font-size: 0.85rem; font-weight: 800; text-transform: uppercase;}
         .code-box { background: rgba(0,0,0,0.5); padding: 4px 10px; border-radius: 6px; font-family: monospace; color: #8da2b5; border: 1px solid rgba(255,255,255,0.05); }
 
-        /* النوافذ المنبثقة (التقديم والتنبيهات) */
+        /* النوافذ المنبثقة */
         .modal-overlay { position: fixed; inset: 0; background: rgba(3, 5, 9, 0.95); z-index: 100000; display: none; justify-content: center; align-items: center; backdrop-filter: blur(10px); }
         .modal-box { width: 550px; padding: 40px; background: rgba(10, 15, 25, 0.98); border: 1px solid var(--cyan); border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.8); animation: popIn 0.3s ease-out; }
         .gen-input { width: 100%; padding: 15px; background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.1); color: #fff; margin-bottom: 15px; border-radius: 8px; outline: none; transition: 0.3s; font-family: var(--font-ar); text-align: right;}
@@ -124,14 +123,14 @@
             <div class="nav-logo"></div>
             <div class="nav-links">
                 <a class="active" onclick="switchTab('homeTab', this)">الرئيسية</a>
-                <a onclick="switchTab('rulesTab', this)">القوانين</a>
-                <a onclick="switchTab('jobsTab', this)">تقديم الوظائف</a>
-                <a onclick="switchTab('foundersTab', this)">المسؤولين</a>
+                <a onclick="switchTab('jobsTab', this)">التقديم</a>
                 <a onclick="switchTab('rosterTab', this)">جدول العساكر</a>
+                <a onclick="switchTab('foundersTab', this)">المسؤولين</a>
+                <a onclick="switchTab('rulesTab', this)">القوانين</a>
             </div>
         </div>
         <div class="nav-left">
-            <button class="sys-btn" onclick="window.location.href='admin.html'">تسجيل دخول</button>
+            <button class="sys-btn" onclick="window.location.href='admin.html'">لوحة التحكم</button>
         </div>
     </nav>
 
@@ -140,7 +139,7 @@
             <div class="hero-content">
                 <h1>إدارة <span>الشرطة</span></h1>
                 <p>حياكم الله في سيرفر تايتنز المتخصص في الرول بلاي، نحاول جاهدين تقديم أفضل تجربة للرول بلاي في الشرق الأوسط. انضم إلينا الآن وعيش حياتك كما تريد.</p>
-                <button class="submit-btn" style="width: auto; padding: 15px 40px;" onclick="switchTab('jobsTab', document.querySelectorAll('.nav-links a')[2])">قدم الآن</button>
+                <button class="submit-btn" style="width: auto; padding: 15px 40px;" onclick="switchTab('jobsTab', document.querySelectorAll('.nav-links a')[1])">قدم الآن</button>
             </div>
         </div>
     </div>
@@ -184,7 +183,7 @@
     </div>
 
     <div id="jobsTab" class="tab-content">
-        <div class="animated-banner"><h1 class="anim-title">وظائف <span>المدينة</span></h1></div>
+        <div class="animated-banner"><h1 class="anim-title">بوابات <span>التقديم</span></h1></div>
         <h2 class="community-title" style="margin-top:40px;">التقديم على الوظائف</h2>
         <div class="cards-container">
             <div class="lux-card">
@@ -253,7 +252,7 @@
             <h3 style="color:var(--cyan); margin-bottom:20px; font-size:1.5rem; text-align:center;">نموذج "قدم نفسك"</h3>
             <input type="text" id="selfName" class="gen-input" placeholder="الاسم الشخصي">
             <input type="text" id="selfDiscord" class="gen-input" placeholder="حساب الديسكورد">
-            <textarea id="selfExp" class="gen-input" placeholder="الخبرات والمهارات..." style="height:80px; resize:none;"></textarea>
+            <input type="number" id="selfAge" class="gen-input" placeholder="العمر الحقيقي"> <textarea id="selfExp" class="gen-input" placeholder="الخبرات والمهارات..." style="height:80px; resize:none;"></textarea>
             <div style="display: flex; gap: 15px; margin-top: 15px;">
                 <button class="submit-btn" onclick="submitApp('self')" style="flex: 2; margin: 0;">إرسال التقديم</button>
                 <button class="close-btn" onclick="document.getElementById('selfAppModal').style.display='none'" style="flex: 1; margin: 0;">إلغاء</button>
@@ -263,7 +262,7 @@
 
     <div class="modal-overlay" id="customAlertOverlay">
         <div class="modal-box" style="width: 400px; text-align: center;">
-            <i class="fa-solid fa-circle-check" style="font-size: 4rem; color: var(--green); margin-bottom: 20px;" id="alertIcon"></i>
+            <div id="alertIcon" style="font-size: 4rem; margin-bottom: 20px;"></div>
             <h3 style="color: #fff; font-size: 1.8rem; font-weight: bold; margin-bottom: 15px;" id="alertTitle">تنبيه</h3>
             <p style="color: #aaa; font-size: 1.1rem; line-height: 1.6; margin-bottom: 30px;" id="alertMessage">رسالة التنبيه</p>
             <button class="submit-btn" onclick="document.getElementById('customAlertOverlay').style.display='none'">حسناً</button>
@@ -308,7 +307,8 @@
 
             let html = '';
             sortedRanks.forEach(rank => {
-                html += `<tr class="dept-header"><td colspan="10"><div class="dept-title"><i class="fa-solid fa-shield-halved" style="color:var(--cyan); margin-right:10px;"></i> ${rank}</div></td></tr>`;
+                // استبدال الأيقونة المكسورة بإيموجي درع 🛡️
+                html += `<tr class="dept-header"><td colspan="10"><div class="dept-title">🛡️ ${rank}</div></td></tr>`;
                 groups[rank].sort((a,b)=>(a.code||'').localeCompare(b.code||'')).forEach(off => {
                     html += `<tr class="roster-row">
                         <td style="color:var(--cyan); font-weight:bold;">${off.code||'-'}</td>
@@ -343,21 +343,32 @@
             document.getElementById('alertTitle').innerText=title; 
             document.getElementById('alertMessage').innerText=msg; 
             let icon = document.getElementById('alertIcon');
-            icon.className = success ? "fa-solid fa-circle-check" : "fa-solid fa-circle-exclamation";
-            icon.style.color = success ? "var(--green)" : "var(--red)";
+            // عرض إيموجيات بدال الأيقونات الخربانة
+            icon.innerText = success ? "✅" : "❌";
             document.getElementById('customAlertOverlay').style.display='flex'; 
         }
 
         function submitApp(type) {
             let n, d, a, exp, r;
-            if(type === 'police') { n = document.getElementById('appName').value; d = document.getElementById('appDiscord').value; a = document.getElementById('appAge').value; exp = document.getElementById('appExp').value; } 
-            else { n = document.getElementById('selfName').value; d = document.getElementById('selfDiscord').value; a = document.getElementById('selfAge').value; exp = document.getElementById('selfExp').value; }
-            if(!n || !d) return showCustomAlert("خطأ", "يرجى تعبئة الحقول الأساسية!", false);
+            if(type === 'police') { 
+                n = document.getElementById('appName').value; d = document.getElementById('appDiscord').value; a = document.getElementById('appAge').value; exp = document.getElementById('appExp').value; 
+            } else { 
+                n = document.getElementById('selfName').value; d = document.getElementById('selfDiscord').value; a = document.getElementById('selfAge').value; exp = document.getElementById('selfExp').value; 
+            }
+            
+            if(!n || !d || !a || !exp) return showCustomAlert("خطأ", "يرجى تعبئة جميع الحقول المطلوبة!", false);
             
             db.applications.push({ type: type, name: n, discord: d, age: a, exp: exp, date: new Date().toLocaleDateString(), status: 'pending' });
             firebase.database().ref('lspd_db').update({ applications: db.applications }).then(() => {
                 document.getElementById(type === 'police' ? 'appModal' : 'selfAppModal').style.display='none';
                 showCustomAlert("نجاح", "تم الإرسال للقيادة بنجاح!", true);
+                
+                // تنظيف الخانات
+                if(type === 'police') {
+                    document.getElementById('appName').value = ''; document.getElementById('appDiscord').value = ''; document.getElementById('appAge').value = ''; document.getElementById('appExp').value = '';
+                } else {
+                    document.getElementById('selfName').value = ''; document.getElementById('selfDiscord').value = ''; document.getElementById('selfAge').value = ''; document.getElementById('selfExp').value = '';
+                }
             });
         }
     </script>
