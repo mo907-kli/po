@@ -319,13 +319,13 @@
         firebase.initializeApp({ apiKey: "AIzaSyC5PL_fJEjiJVQS8rnx4m8j9uQNsILcQvs", authDomain: "police-depa.firebaseapp.com", databaseURL: "https://police-depa-default-rtdb.europe-west1.firebasedatabase.app", projectId: "police-depa" });
         const database = firebase.database();
 
-        // 🟢 الأقسام (نظفنا الأقسام الزايدة زي ما طلبت) 🟢
+        // 🟢 تم تغيير اسم قسم التقارير والمحاضر هنا إلى التقارير 🟢
         const modules = [
             { id: 'settings', i18n_t: 'إعدادات التقديم', isSettingsView: true, reqOfficer: true },
             { id: 'applications', i18n_t: 'طلبات التقديم', isAppsView: true, reqOfficer: true },
             { id: 'roster_admin', i18n_t: 'إدارة جدول العساكر', isRosterAdmin: true, reqOfficer: true },
-            { id: 'reports', i18n_t: 'التقارير والمحاضر', isReportForm: true }, // الإرسال
-            { id: 'saved', i18n_t: 'التقارير المحفوظة', isSavedReports: true }, // العرض (مربعات)
+            { id: 'reports', i18n_t: 'التقارير', isReportForm: true }, // الإرسال
+            { id: 'saved', i18n_t: 'التقارير المحفوظة', isSavedReports: true }, // العرض
             { id: 'tasks', i18n_t: 'المهام والنقاط', isTable: true },
             { id: 'video', i18n_t: 'قسم الفيديو', isVideo: true },
             { id: 'wanted', i18n_t: 'المطلوبين للعدالة', inputsAr: ['اسم الهدف', 'التهمة', 'الخطورة'] },
@@ -670,7 +670,7 @@
             });
         }
 
-        // 🟢 نظام عرض التقارير الجديد (على شكل بطاقات فخمة ومربعات) 🟢
+        // 🟢 نظام عرض التقارير الجديد 🟢
         function renderSavedReports(container) {
             const data = db.reports || [];
             if(data.length === 0) { container.innerHTML = '<div style="text-align:center; padding:50px; color:#888; font-size:1.2rem;">لا يوجد تقارير محفوظة حالياً.</div>'; return; }
@@ -828,7 +828,6 @@
             document.getElementById('alertTitle').innerText=title; 
             document.getElementById('alertMessage').innerText=msg; 
             let icon = document.getElementById('alertIcon');
-            // استبدلنا الأيقونات بإيموجيات أصلية
             icon.innerText = success ? "✅" : "❌";
             document.getElementById('customAlertOverlay').style.display='flex'; 
         }
