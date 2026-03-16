@@ -7,219 +7,77 @@
     
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=Rajdhani:wght@500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
     <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-database-compat.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
 
     <style>
         :root {
-            --bg-deep: #030509;
-            --glass-bg: rgba(10, 15, 25, 0.7);
-            --glass-border: rgba(255, 255, 255, 0.05);
+            --bg-deep: #020305;
+            --glass-bg: rgba(15, 20, 30, 0.7);
+            --glass-border: rgba(0, 234, 255, 0.1);
             --cyan: #00eaff;
-            --cyan-glow: rgba(0, 234, 255, 0.5);
+            --cyan-glow: rgba(0, 234, 255, 0.4);
             --red: #ff3333;
-            --red-glow: rgba(255, 51, 51, 0.3);
             --green: #00ff6a;
-            --yellow: #ffc107;
-            --text-main: #ffffff;
             --font-ar: 'Tajawal', sans-serif;
             --font-en: 'Rajdhani', sans-serif;
-            --row-bg: rgba(20, 26, 40, 0.6);
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; }
-        body { user-select: none; background: #020305; color: var(--text-main); font-family: var(--font-ar); min-height: 100vh; display: flex; flex-direction: column; position: relative; overflow-y: auto; overflow-x: hidden; }
-        input, textarea, select, .crypto-res { user-select: text !important; }
+        body { user-select: none; background: var(--bg-deep); color: #fff; font-family: var(--font-ar); min-height: 100vh; overflow-x: hidden; }
 
-        /* 🟢 الخلفية والمؤثرات الفخمة 🟢 */
+        /* الخلفية الفخمة */
         #bgEffects { position: fixed; inset: 0; z-index: -5; pointer-events: none; }
         .star { position: absolute; background: white; border-radius: 50%; opacity: 0.5; animation: twinkle linear infinite alternate; }
         @keyframes twinkle { 0% { opacity: 0.2; transform: scale(0.8); } 100% { opacity: 1; transform: scale(1.2); box-shadow: 0 0 8px rgba(0, 234, 255, 0.8); } }
-        
-        .light-red { position: absolute; top: -30%; left: -20%; width: 70vw; height: 70vw; background: radial-gradient(circle, rgba(255, 0, 40, 0.1) 0%, transparent 70%); animation: pulseRed 4s infinite alternate ease-in-out; mix-blend-mode: screen; }
-        .light-blue { position: absolute; bottom: -30%; right: -20%; width: 70vw; height: 70vw; background: radial-gradient(circle, rgba(0, 160, 255, 0.1) 0%, transparent 70%); animation: pulseBlue 4s infinite alternate ease-in-out; mix-blend-mode: screen; }
+        .light-red { position: absolute; top: -30%; left: -20%; width: 70vw; height: 70vw; background: radial-gradient(circle, rgba(255, 0, 40, 0.08) 0%, transparent 70%); mix-blend-mode: screen; animation: pulseRed 4s infinite alternate ease-in-out; }
+        .light-blue { position: absolute; bottom: -30%; right: -20%; width: 70vw; height: 70vw; background: radial-gradient(circle, rgba(0, 160, 255, 0.08) 0%, transparent 70%); mix-blend-mode: screen; animation: pulseBlue 4s infinite alternate ease-in-out; }
         @keyframes pulseRed { 0% { opacity: 0.5; transform: scale(0.9); } 100% { opacity: 1; transform: scale(1.1); } }
         @keyframes pulseBlue { 0% { opacity: 1; transform: scale(1.1); } 100% { opacity: 0.5; transform: scale(0.9); } }
 
-        .central-logo-bg { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 450px; height: 450px; z-index: -1; opacity: 0.04; pointer-events: none; background-image: url('yyW7oBx.jpg'); background-size: cover; background-position: center; border-radius: 50%; clip-path: circle(47% at 50% 50%); }
-
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes popIn { 0% { opacity: 0; transform: scale(0.9); } 100% { opacity: 1; transform: scale(1); } }
-
-        #imgZoomOverlay { position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 9999999; display: none; justify-content: center; align-items: center; opacity: 0; transition: opacity 0.2s ease; cursor: zoom-out; backdrop-filter: blur(5px); }
-        #imgZoomOverlay.active { opacity: 1; }
-        #zoomedImg { max-width: 90vw; max-height: 90vh; border-radius: 8px; box-shadow: 0 0 30px rgba(0,234,255,0.4); border: 2px solid var(--cyan); transform: scale(0.8); transition: transform 0.2s ease; }
-        #imgZoomOverlay.active #zoomedImg { transform: scale(1); }
-
-        /* 🟢 الموقع العام (الرئيسية) 🟢 */
-        #publicSite { display: flex; flex-direction: column; width: 100%; min-height: 100vh; transition: opacity 0.2s ease; }
-        .public-nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 80px; background: rgba(3, 5, 9, 0.9); border-bottom: 1px solid var(--glass-border); position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(15px); }
+        /* شريط التنقل */
+        .public-nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 80px; background: rgba(3, 5, 9, 0.85); border-bottom: 1px solid var(--glass-border); position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(15px); }
         .nav-right { display: flex; align-items: center; gap: 40px; }
         .nav-logo { width: 45px; height: 45px; background: url('yyW7oBx.jpg') center/cover; border-radius: 50%; box-shadow: 0 0 10px rgba(0,234,255,0.3); border: 1px solid var(--cyan);}
         .nav-links { display: flex; gap: 30px; }
         .nav-links a { color: #8da2b5; text-decoration: none; font-size: 1.05rem; font-weight: bold; cursor: pointer; transition: 0.2s; }
         .nav-links a:hover, .nav-links a.active { color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.5); }
         
-        .sys-btn-style { background: transparent; border: 1px solid var(--cyan); color: var(--cyan); padding: 10px 25px; border-radius: 6px; font-family: var(--font-ar); font-weight: bold; font-size: 1rem; cursor: pointer; transition: 0.2s; }
-        .sys-btn-style:hover { background: var(--cyan); color: #000; box-shadow: 0 0 15px var(--cyan-glow); }
-        .out-btn { border-color: var(--red); color: var(--red); }
-        .out-btn:hover { background: var(--red); color: #fff; box-shadow: 0 0 15px var(--red-glow); }
+        /* زر تسجيل الدخول للقيادة */
+        .sys-btn { background: transparent; border: 1px solid var(--cyan); color: var(--cyan); padding: 10px 25px; border-radius: 6px; font-family: var(--font-ar); font-weight: bold; font-size: 1rem; cursor: pointer; transition: 0.2s; text-decoration: none;}
+        .sys-btn:hover { background: var(--cyan); color: #000; box-shadow: 0 0 15px var(--cyan-glow); }
 
-        #homeTab { display: flex; flex-direction: column; width: 100%; animation: fadeIn 0.3s ease; }
-        #rulesTab, #jobsTab, #foundersTab, #rosterTab { display: none; flex-direction: column; align-items: center; width: 100%; padding-bottom: 100px; animation: fadeIn 0.3s ease;}
-        
-        .hero-section { display: flex; align-items: center; justify-content: center; position: relative; min-height: calc(100vh - 90px); width: 100%; overflow: hidden; background: radial-gradient(circle at center, rgba(0, 234, 255, 0.05) 0%, transparent 60%); }
-        .hero-content { position: relative; z-index: 3; text-align: center; max-width: 800px; padding: 40px; }
+        /* الأقسام */
+        .tab-content { display: none; flex-direction: column; align-items: center; width: 100%; padding-bottom: 100px; animation: fadeIn 0.3s ease;}
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* الرئيسية */
+        .hero-section { display: flex; align-items: center; justify-content: center; min-height: calc(100vh - 90px); width: 100%; background: radial-gradient(circle at center, rgba(0, 234, 255, 0.05) 0%, transparent 60%); }
+        .hero-content { text-align: center; max-width: 800px; padding: 40px; }
         .hero-content h1 { font-size: 5rem; color: #fff; font-weight: 900; margin-bottom: 20px; text-shadow: 0 0 30px rgba(0,234,255,0.4); }
         .hero-content h1 span { color: var(--cyan); }
         .hero-content p { font-size: 1.25rem; color: #ccc; line-height: 1.8; margin-bottom: 40px; }
-        
-        .hero-btn { background: var(--cyan); border: none; color: #000; padding: 16px 45px; font-size: 1.2rem; font-weight: bold; border-radius: 6px; cursor: pointer; transition: 0.2s; font-family: var(--font-ar); box-shadow: 0 0 20px var(--cyan-glow); }
-        .hero-btn:hover { background: #fff; transform: scale(1.05); }
 
-        .community-section { width: 100%; padding: 80px 20px; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); }
-        .community-title { font-size: 3rem; color: #fff; font-weight: 800; margin-bottom: 20px; }
-        .community-desc { color: #8da2b5; font-size: 1.15rem; line-height: 1.8; max-width: 800px; margin: 0 auto 60px auto; }
-        .community-cards, .jobs-cards-container { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; max-width: 1200px; margin: 0 auto; }
-        
-        .comm-card, .job-card { 
-            background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 8px; 
-            padding: 40px 30px; width: 350px; text-align: center; transition: 0.3s; display: flex; 
-            flex-direction: column; justify-content: space-between; align-items: center; 
-            backdrop-filter: blur(10px); box-shadow: 0 15px 35px rgba(0,0,0,0.5); transform-style: preserve-3d;
-        }
-        .comm-card:hover, .job-card:hover { border-color: rgba(0,234,255,0.3); box-shadow: 0 15px 35px rgba(0,234,255,0.15); transform: translateY(-8px); }
-        
-        .comm-icon { font-size: 3.5rem; color: var(--cyan); margin-bottom: 25px; opacity: 0.8; transform: translateZ(30px);}
-        .comm-card h3, .job-card h3 { color: #fff; font-size: 1.6rem; font-weight: bold; margin-bottom: 15px; transform: translateZ(20px);}
-        .comm-card p, .job-card p { color: #888; font-size: 1rem; line-height: 1.7; margin-bottom: 30px; flex-grow: 1; transform: translateZ(10px);}
-        .comm-link { color: #fff; font-weight: bold; font-size: 1.1rem; cursor: pointer; text-decoration: none; transition: 0.2s; transform: translateZ(15px);}
-        .comm-link:hover { color: var(--cyan); }
-        
-        .job-btn-open { width: 100%; background: rgba(0, 255, 106, 0.1); border: 1px solid rgba(0, 255, 106, 0.3); color: var(--green); padding: 15px; border-radius: 6px; font-size: 1.1rem; font-weight: bold; cursor: pointer; font-family: var(--font-ar); transition: 0.2s; transform: translateZ(20px);}
-        .job-btn-open:hover { background: var(--green); color: #000; box-shadow: 0 0 15px rgba(0,255,106,0.3); }
-        .job-btn-closed { width: 100%; background: rgba(255, 51, 51, 0.1); border: 1px solid rgba(255, 51, 51, 0.3); color: var(--red); padding: 15px; border-radius: 6px; font-size: 1.1rem; font-weight: bold; cursor: pointer; font-family: var(--font-ar); transition: 0.2s; transform: translateZ(20px);}
-
-        .animated-banner { width: 100%; padding: 100px 20px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; flex-direction: column; align-items: center; justify-content: center; background: radial-gradient(circle at center, rgba(0, 234, 255, 0.03) 0%, transparent 70%); }
-        .anim-title { font-size: 3.5rem; color: #fff; font-weight: 800; margin-bottom: 15px; text-shadow: 0 0 20px rgba(0,234,255,0.4);}
+        /* العناوين */
+        .animated-banner { width: 100%; padding: 80px 20px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.05); background: radial-gradient(circle at center, rgba(0, 234, 255, 0.03) 0%, transparent 70%); }
+        .anim-title { font-size: 3.5rem; color: #fff; font-weight: 800; margin-bottom: 10px; text-shadow: 0 0 20px rgba(0,234,255,0.4);}
         .anim-title span { color: var(--cyan); }
-        .anim-subtitle { color: var(--cyan); font-size: 1.1rem; font-weight: bold; letter-spacing: 1px;}
-        .anim-subtitle span { color: #888; margin: 0 10px; }
 
-        .accordion-container { width: 100%; max-width: 900px; padding: 0 20px; margin-top: 40px;}
-        .accordion-item { margin-bottom: 12px; border-radius: 6px; background: rgba(20, 26, 40, 0.6); border: 1px solid rgba(255,255,255,0.05); transition: 0.2s; backdrop-filter: blur(5px);}
-        .accordion-item:hover { border-color: rgba(0, 234, 255, 0.3); }
-        .accordion-header { display: flex; justify-content: space-between; align-items: center; padding: 20px 25px; cursor: pointer; transition: 0.2s; flex-direction: row-reverse; }
-        .acc-title-box { display: flex; align-items: center; gap: 12px; flex-direction: row-reverse; }
-        .acc-dot { width: 12px; height: 12px; background: var(--cyan); border-radius: 50%; box-shadow: 0 0 10px var(--cyan); }
-        .acc-title { font-size: 1.2rem; font-weight: bold; color: var(--cyan); text-align: right; text-shadow: 0 0 10px rgba(0,234,255,0.3);}
-        .acc-icon { font-size: 1.5rem; color: var(--cyan); font-weight: 300; transition: transform 0.3s ease; }
-        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; background: rgba(0, 0, 0, 0.4); }
-        .accordion-inner { padding: 25px; border-top: 1px solid rgba(255,255,255,0.02); text-align: right; }
-        .accordion-item.active .acc-icon { transform: rotate(45deg); color: #fff; }
-        .rule-list { list-style: none; padding: 0; margin: 0 0 15px 0; }
-        .rule-list li { position: relative; padding-right: 20px; margin-bottom: 12px; color: #d1d1d1; font-size: 1.05rem; line-height: 1.8; }
-        .rule-list li::before { content: '-'; position: absolute; right: 0; top: 0; color: var(--cyan); font-weight: bold; }
-
-        .jobs-content { width: 100%; max-width: 1000px; padding: 40px 20px; text-align: center; }
-        
-        .founders-grid { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; max-width: 1200px; padding: 40px 20px; width: 100%;}
-        .founder-card { background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 12px; padding: 40px 20px; width: 320px; text-align: center; transition: 0.3s; position: relative; overflow: hidden; backdrop-filter: blur(10px); transform-style: preserve-3d; }
-        .founder-card:hover { border-color: var(--cyan); box-shadow: 0 15px 30px rgba(0,234,255,0.15); transform: translateY(-8px); }
-        .founder-img { width: 130px; height: 130px; border-radius: 50%; margin: 0 auto 25px; border: 3px solid var(--cyan); object-fit: cover; box-shadow: 0 0 25px rgba(0,234,255,0.2); padding: 5px; background: #000; transform: translateZ(30px); }
-        .founder-name { font-size: 1.8rem; color: #fff; font-weight: 800; margin-bottom: 5px; transform: translateZ(20px); }
-        .founder-rank { color: var(--cyan); font-size: 1.1rem; font-weight: bold; font-family: var(--font-en); letter-spacing: 1px; margin-bottom: 20px; transform: translateZ(15px);}
-
-        /* 🟢 جدول العساكر الفخم والجديد (حل مشكلة اللاّق وتنسيق تايتنز) 🟢 */
-        .luxury-table-container { width: 100%; overflow-x: auto; background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 12px; backdrop-filter: blur(10px); padding: 10px; box-shadow: 0 15px 40px rgba(0,0,0,0.5); }
-        .luxury-table-container::-webkit-scrollbar { height: 6px; } .luxury-table-container::-webkit-scrollbar-thumb { background: var(--cyan); border-radius: 6px; }
-
-        .luxury-table { width: 100%; border-collapse: separate; border-spacing: 0 8px; text-align: center; font-family: 'Rajdhani', 'Tajawal', sans-serif; min-width: 1000px;}
-        .luxury-table thead th { color: var(--cyan); font-size: 0.9rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; padding: 15px; border-bottom: 2px solid rgba(0,234,255,0.1); }
-        .luxury-table tbody tr { background: var(--row-bg); transition: 0.2s ease; cursor: default; }
-        .luxury-table tbody tr:hover { transform: scale(1.005); background: rgba(30, 40, 60, 0.8); box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
-        .luxury-table td { padding: 15px; color: #d1d1d1; font-size: 1.05rem; font-weight: 600; border-top: 1px solid rgba(255,255,255,0.02); border-bottom: 1px solid rgba(255,255,255,0.02); white-space: nowrap; }
-        .luxury-table td:first-child { border-radius: 8px 0 0 8px; border-left: 3px solid var(--cyan); color: var(--cyan); font-weight: 900; font-size: 1.1rem; }
-        .luxury-table td:last-child { border-radius: 0 8px 8px 0; border-right: 1px solid rgba(255,255,255,0.02); }
-        
-        /* تنسيق عمود الحالة */
-        .pill-status { display: inline-flex; align-items: center; gap: 8px; background: rgba(0, 255, 106, 0.1); border: 1px solid rgba(0, 255, 106, 0.3); color: var(--green); padding: 6px 15px; border-radius: 20px; font-size: 0.85rem; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; }
-        .status-dot { width: 7px; height: 7px; background: var(--green); border-radius: 50%; box-shadow: 0 0 8px var(--green); animation: blink 2s infinite; }
-        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
-        /* تنسيق ديسكورد آيدي */
-        .code-box { background: rgba(0,0,0,0.4); padding: 5px 12px; border-radius: 6px; font-family: monospace; color: #8da2b5; border: 1px solid rgba(255,255,255,0.05); font-size: 0.95rem; }
-
-        /* أزرار التحكم داخل الجدول */
-        .action-btn-table { background: transparent; border: none; cursor: pointer; font-size: 1.2rem; transition: 0.2s; margin: 0 5px; outline: none;}
-        .action-btn-table:hover { transform: scale(1.2); }
-        .edit-btn-table { color: var(--yellow); } .edit-btn-table:hover { text-shadow: 0 0 10px var(--yellow); }
-        .del-btn-table { color: var(--red); } .del-btn-table:hover { text-shadow: 0 0 10px var(--red); }
-
-        /* تنسيق أزرار التنقل (Pagination) أسفل الجدول لإزالة اللاق */
-        .pagination-controls { display: flex; justify-content: center; align-items: center; gap: 15px; margin-top: 25px; font-family: var(--font-en); font-weight: bold;}
-        .page-info { color: #888; font-size: 1rem; }
-
-        /* 🟢 النوافذ المنبثقة للتقديم وتسجيل الدخول 🟢 */
-        .modal-overlay { position: fixed; inset: 0; background: rgba(3, 5, 9, 0.95); z-index: 100000; display: none; justify-content: center; align-items: center; backdrop-filter: blur(10px); }
-        .modal-box { width: 550px; padding: 40px; background: rgba(10, 15, 25, 0.98); border: 1px solid var(--cyan); border-radius: 12px; box-shadow: 0 10px 40px rgba(0,234,255,0.15); animation: popIn 0.3s ease-out; }
-        .gen-input { width: 100%; padding: 15px; background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.1); color: #fff; margin-bottom: 15px; border-radius: 8px; outline: none; transition: 0.3s; font-family: var(--font-ar); font-size: 1.05rem; text-align: right;}
-        .gen-input:focus { border-color: var(--cyan); box-shadow: 0 0 10px rgba(0,234,255,0.2);}
-        
-        /* 🟢 شاشة تسجيل الدخول הפخمة 🟢 */
-        #loginScreen { position: fixed; inset: 0; background: rgba(3, 5, 9, 0.85); z-index: 99999; display: none; justify-content: center; align-items: center; backdrop-filter: blur(15px); transition: opacity 0.3s ease;}
-        .login-container { width: 420px; padding: 50px 40px; background: #0b0e14; border: 1px solid var(--cyan); border-radius: 16px; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.9); animation: popIn 0.4s ease-out forwards; }
-        .logo-pulse-container { position: relative; display: inline-flex; justify-content: center; align-items: center; margin-bottom: 25px; }
-        .logo-ring { position: absolute; inset: -15px; border: 2px solid var(--cyan); border-radius: 50%; animation: ringPulse 2s infinite ease-out; opacity: 0; z-index: 1; }
-        @keyframes ringPulse { 0% { transform: scale(0.8); opacity: 0.8; } 100% { transform: scale(1.5); opacity: 0; } }
-        .login-logo { width: 100px; height: 100px; background-image: url('yyW7oBx.jpg'); background-size: cover; border-radius: 50%; position: relative; z-index: 2; border: 2px solid var(--cyan); box-shadow: 0 0 20px var(--cyan-glow); }
-        .inp-group { position: relative; margin-bottom: 20px; }
-        .inp-group i { position: absolute; top: 50%; transform: translateY(-50%); color: var(--cyan); opacity: 0.7; right: 15px; font-size: 1.2rem;}
-        .error-msg { color: #fff; font-size: 0.95rem; margin-top: 20px; font-weight: bold; background: rgba(255,51,51,0.2); border: 1px solid var(--red); padding: 10px; border-radius: 6px; display: none; }
-
-        /* 🟢 لوحة التحكم المخفية (الإدارة) 🟢 */
-        #mainWrapper { position: fixed; inset: 0; z-index: 2000; display: none; flex: 1; flex-direction: column; overflow: hidden; background: transparent; transition: opacity 0.3s ease; }
-        header { display: flex; justify-content: space-between; align-items: center; padding: 25px 40px; z-index: 10; border-bottom: 1px solid rgba(255,255,255,0.05); flex-shrink: 0; background: rgba(10,15,25,0.9); box-shadow: 0 5px 20px rgba(0,0,0,0.5); backdrop-filter: blur(10px);}
-        .header-side { display: flex; gap: 15px; align-items: center; }
-        .sys-title { font-size: 1.3rem; font-weight: 900; color: #fff; letter-spacing: 2px; text-shadow: 0 0 10px rgba(255,255,255,0.2); font-family: var(--font-ar);}
-
-        #dashboardView { flex: 1; display: flex; align-items: center; justify-content: center; padding-bottom: 60px; animation: fadeIn 0.4s ease; overflow-y: auto; flex-direction: column;}
-        .main-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; width: 80%; max-width: 1000px; margin: 0 auto; }
-        
-        .menu-btn { 
-            background: linear-gradient(145deg, rgba(20, 26, 40, 0.8), rgba(10, 15, 25, 0.95));
-            border: 1px solid rgba(0, 234, 255, 0.15); border-radius: 16px; padding: 30px 15px; 
-            text-align: center; color: #fff; font-size: 1.25rem; font-weight: 800; cursor: pointer; 
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); backdrop-filter: blur(10px); user-select: none;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05); position: relative; overflow: hidden;
-            transform-style: preserve-3d;
-        }
-        .menu-btn:hover { border-color: rgba(0, 234, 255, 0.5); color: #fff; box-shadow: 0 15px 40px rgba(0, 234, 255, 0.2); transform: translateY(-5px); text-shadow: 0 0 10px rgba(0,234,255,0.5); }
-
-        #moduleView { display: none; flex: 1; flex-direction: column; width: 90%; max-width: 1400px; margin: 0 auto; max-height: calc(100vh - 100px); padding-bottom: 20px; animation: popIn 0.3s ease; }
-        .module-header { flex-shrink: 0; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 15px; margin-top: 20px; margin-bottom: 20px; flex-direction: row-reverse; }
-        .module-title { font-size: 1.8rem; color: var(--cyan); font-weight: 900; margin: 0; text-shadow: 0 0 15px var(--cyan-glow); font-family: var(--font-ar);}
-        
-        #dynamicContentArea { flex: 1; overflow-y: auto; margin-bottom: 20px; padding-right: 10px; }
-        #dynamicContentArea::-webkit-scrollbar { width: 6px; } #dynamicContentArea::-webkit-scrollbar-thumb { background: var(--cyan); border-radius: 6px; }
-
-        /* تعديل نموذج إضافة الحسابات والتقارير ليتناسب مع الستايل */
-        .input-section { background: rgba(15, 20, 30, 0.8); border: 1px solid var(--glass-border); padding: 25px; border-radius: 12px; backdrop-filter: blur(10px); }
-        .grid-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px; }
-
-        /* 🟢 إصلاح بطاقة الهوية 🟢 */
-        #idCardOverlay { position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(15px); z-index: 1000000; display: none; justify-content: center; align-items: center; flex-direction: column; animation: fadeIn 0.3s ease; }
-        .executive-card { width: 650px; height: 300px; background: #0b0e14; border-radius: 20px; box-shadow: 0 30px 60px rgba(0,0,0,0.9); display: flex; flex-direction: row-reverse; align-items: center; padding: 30px; position: relative; border: 1px solid rgba(255,255,255,0.05); border-right: 3px solid var(--cyan); }
-        .card-left { display: flex; flex-direction: column; align-items: center; justify-content: center; margin-right: auto; width: 200px; }
-        .profile-img-wrapper { width: 150px; height: 150px; border-radius: 20px; border: 2px solid var(--cyan); padding: 4px; position: relative; background: rgba(0, 234, 255, 0.05); box-shadow: 0 0 20px rgba(0,234,255,0.2); }
-        .profile-img-wrapper::before { content: ''; position: absolute; inset: -15px; border: 1px dashed rgba(255,255,255,0.2); border-radius: 30px; pointer-events: none; }
-        .profile-img-card { width: 100%; height: 100%; object-fit: cover; border-radius: 16px; background: #111; }
-        .security-badge-icon { margin-top: 35px; color: var(--cyan); font-size: 2.5rem; opacity: 0.8; filter: drop-shadow(0 0 10px rgba(0,234,255,0.4)); }
-        .card-right { display: flex; flex-direction: column; align-items: flex-end; text-align: right; width: calc(100% - 220px); }
+        /* جدول الزوار الفخم */
+        .roster-wrapper { width: 100%; max-width: 1400px; background: rgba(10, 15, 25, 0.85); margin: 40px auto; border: 1px solid var(--glass-border); border-radius: 16px; padding: 30px 40px; backdrop-filter: blur(15px); box-shadow: 0 20px 50px rgba(0,0,0,0.6); overflow-x: auto; }
+        .luxury-table { width: 100%; border-collapse: separate; border-spacing: 0 8px; text-align: center; font-family: 'Rajdhani', 'Tajawal', sans-serif;}
+        .luxury-table thead th { color: var(--cyan); font-size: 0.95rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; padding: 0 20px 15px 20px; border-bottom: 1px solid rgba(0,234,255,0.3); }
+        .roster-row { background: rgba(20, 26, 40, 0.6); transition: 0.2s ease; }
+        .roster-row:hover { transform: scale(1.01) translateY(-2px); background: rgba(30, 40, 60, 0.95); box-shadow: 0 10px 20px rgba(0,234,255,0.15); }
+        .luxury-table td { padding: 16px 20px; color: #d1d1d1; font-size: 1.05rem; font-weight: 600; border-top: 1px solid rgba(255,255,255,0.02); border-bottom: 1px solid rgba(255,255,255,0.02); }
+        .luxury-table td:first-child { border-radius: 10px 0 0 10px; border-left: 3px solid var(--cyan); color: var(--cyan); font-weight: 900; }
+        .luxury-table td:last-child { border-radius: 0 10px 10px 0; border-right: 1px solid rgba(255,255,255,0.02); }
+        .dept-header td { padding: 40px 0 10px 0; text-align: left; border: none !important; background: transparent !important; }
+        .dept-title { display: inline-block; color: #fff; font-size: 1.4rem; font-weight: 900; letter-spacing: 3px; text-transform: uppercase; padding-bottom: 8px; border-bottom: 2px solid var(--cyan); text-shadow: 0 0 15px var(--cyan-glow); }
+        .pill-status { display: inline-flex; align-items: center; gap: 8px; background: rgba(0, 255, 106, 0.08); border: 1px solid rgba(0, 255, 106, 0.3); color: var(--green); padding: 5px 15px; border-radius: 20px; font-size: 0.85rem; font-weight: 800; }
     </style>
 </head>
-<body id="appBody">
+<body>
 
     <script src="config.js"></script>
 
@@ -227,621 +85,109 @@
         <div id="star-bg"></div>
         <div id="bg-lights"><div class="light-red"></div><div class="light-blue"></div></div>
     </div>
-    
-    <div id="imgZoomOverlay" onclick="closeImgZoom()"><img id="zoomedImg" src=""></div>
 
-    <div id="idCardOverlay">
-        <div style="display:flex; flex-direction:column; align-items:center;">
-            <div class="executive-card">
-                <div class="card-left">
-                    <div class="profile-img-wrapper"><img id="cardImage" src="https://cdn.discordapp.com/attachments/1079065638502404167/1476016754705567824/D25Todl.png" class="profile-img-card"></div>
-                    <i class="fa-solid fa-fingerprint security-badge-icon"></i>
-                </div>
-                <div class="card-right">
-                    <div style="color: #666; font-family: var(--font-en); font-size: 1rem; letter-spacing: 3px; font-weight: 800; margin-bottom: 5px;">L.S.P.D EXECUTIVE ID</div>
-                    <h2 id="cardNameDisp" style="margin: 0; font-size: 2.8rem; font-weight: 900; color: #fff; font-family: var(--font-en); text-shadow: 0 5px 15px rgba(0,0,0,0.5);">--</h2>
-                    <div id="cardRankDisp" style="margin: 5px 0 20px 0; color: var(--cyan); font-family: var(--font-en); font-size: 1.3rem; font-weight: 900; letter-spacing: 1px; text-transform: uppercase;">--</div>
-                    <div style="border-top: 1px solid rgba(255,255,255,0.05); width: 100%; margin-bottom: 20px;"></div>
-                    <div style="display: inline-flex; align-items: center; gap: 10px; background: rgba(0, 255, 106, 0.05); border: 1px solid rgba(0, 255, 106, 0.3); padding: 8px 20px; border-radius: 8px; font-family: var(--font-en); font-weight: 800; font-size: 1.1rem; color: var(--green); flex-direction: row-reverse;">SYSTEM ACTIVE <span style="width: 8px; height: 8px; background: var(--green); border-radius: 50%; box-shadow: 0 0 10px var(--green); animation: blink 2s infinite;"></span></div>
-                </div>
-            </div>
-            <div style="margin-top: 30px; display: flex; gap: 15px;">
-                <label class="sys-btn-style" style="cursor: pointer; padding: 12px 25px;"><i class="fa-solid fa-camera"></i> تغيير الصورة<input type="file" id="cardImageInput" accept="image/*" style="display: none;" onchange="updateCardImg(this)"></label>
-                <button class="sys-btn-style out-btn" onclick="closeIdCard()" style="padding: 12px 35px;">إغلاق</button>
+    <nav class="public-nav">
+        <div class="nav-right">
+            <div class="nav-logo"></div>
+            <div class="nav-links">
+                <a class="active" onclick="switchTab('homeTab', this)">الرئيسية</a>
+                <a onclick="switchTab('rulesTab', this)">القوانين</a>
+                <a onclick="switchTab('jobsTab', this)">التقديم</a>
+                <a onclick="switchTab('rosterTab', this)">جدول العساكر</a>
             </div>
         </div>
-    </div>
-    
-    <div id="publicSite">
-        <nav class="public-nav">
-            <div class="nav-right">
-                <div class="nav-logo"></div>
-                <div class="nav-links">
-                    <a id="nav-home" class="active" onclick="switchPublicTab('home', this)">الرئيسية</a>
-                    <a id="nav-rules" onclick="switchPublicTab('rules', this)">القوانين</a>
-                    <a id="nav-jobs" onclick="switchPublicTab('jobs', this)">تقديم الوظائف</a>
-                    <a id="nav-founders" onclick="switchPublicTab('founders', this)">المسؤولين</a>
-                    <a id="nav-roster" onclick="switchPublicTab('roster', this)">جدول العساكر</a>
-                </div>
-            </div>
-            <div class="nav-left">
-                <button id="authBtnPublic" class="sys-btn-style" onclick="document.getElementById('loginScreen').style.display='flex'">تسجيل دخول</button>
-            </div>
-        </nav>
-
-        <div id="homeTab" style="display: flex;">
-            <div class="hero-section">
-                <div class="hero-content">
-                    <h1>إدارة <span>الشرطة</span></h1>
-                    <p>حياكم الله في سيرفر تايتنز المتخصص في الرول بلاي، نحاول جاهدين تقديم أفضل تجربة للرول بلاي في الشرق الأوسط. انضم إلينا الآن وعيش حياتك كما تريد.</p>
-                    <button class="hero-btn" onclick="switchPublicTab('jobs', document.getElementById('nav-jobs'))">قدم الآن</button>
-                </div>
-            </div>
-            <div class="community-section">
-                <h2 class="community-title">مجتمع تايتنز</h2>
-                <div class="community-cards">
-                    <div class="comm-card" data-tilt data-tilt-max="10" data-tilt-speed="400">
-                        <i class="fa-brands fa-discord comm-icon"></i>
-                        <h3>اتصل بنا</h3>
-                        <p>يمكنك التواصل معنا عن طريق جميع منصات التواصل الاجتماعي سواء الديسكورد أو التويتر.</p>
-                        <a href="https://discord.gg/MxAgzKqchm" target="_blank" class="comm-link">الدخول إلى الديسكورد</a>
-                    </div>
-                    <div class="comm-card" data-tilt data-tilt-max="10" data-tilt-speed="400">
-                        <i class="fa-solid fa-scale-balanced comm-icon"></i>
-                        <h3>القوانين</h3>
-                        <p>القوانين تهدف إلى ضمان المتعة والاحترام بين اللاعبين، مع تنظيم سير اللعبة بطريقة عادلة وشفافة.</p>
-                        <a onclick="switchPublicTab('rules', document.getElementById('nav-rules'))" class="comm-link">الاطلاع على القوانين</a>
-                    </div>
-                    <div class="comm-card" data-tilt data-tilt-max="10" data-tilt-speed="400">
-                        <i class="fa-solid fa-circle-info comm-icon"></i>
-                        <h3>من نحن</h3>
-                        <p>سيرفر مخصص للاعبين العرب، نهدف لتقديم تجربة لعب استثنائية في عالم الرول بلاي وواقعية لا مثيل لها.</p>
-                        <a href="#" class="comm-link">اكتشف المزيد</a>
-                    </div>
-                </div>
-            </div>
+        <div class="nav-left">
+            <button class="sys-btn" onclick="window.location.href='admin.html'"><i class="fa-solid fa-lock"></i> تسجيل دخول</button>
         </div>
+    </nav>
 
-        <div id="rulesTab">
-            <div class="animated-banner">
-                <div class="anim-content">
-                    <h1 class="anim-title">الدستور <span>والقوانين</span></h1>
-                    <div class="anim-subtitle">الرئيسية <span>></span> القوانين العامة</div>
-                </div>
-            </div>
-            <div class="accordion-container">
-                <div class="accordion-item active">
-                    <div class="accordion-header" onclick="toggleAccordion(this)">
-                        <div class="acc-title-box"><span class="acc-dot"></span><span class="acc-title">قوانين الشرطة الرسمية</span></div>
-                        <span class="acc-icon">-</span>
-                    </div>
-                    <div class="accordion-content" style="max-height: 1000px;">
-                        <div class="accordion-inner">
-                            <strong style="color:var(--cyan); margin-bottom:10px; display:block; text-align:right; font-size:1.1rem;">إيقاف الخدمات و المداهمة</strong>
-                            <ul class="rule-list">
-                                <li>يحق للضابط وما فوق برفع طلب إيقاف خدمات الى المحكمة، ولا يتم التنفيذ الا بحكم المحكمة.</li>
-                                <li>يتم طلب المداهمة من خلال الضباط وما فوق، ولا يمكن مداهمة أي شخص الا بأمر تنفيذ من المحكمة.</li>
-                                <li>في حال حدوث أي مخالفه يتم محاسبة مسؤول الحالة فقط ويتحمل مسؤولية الأفراد.</li>
-                                <li>يجب على العسكري عدم إخراج السلاح الا بعد ان يقوم المجرم بإخراج أي سلاح له.</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="jobsTab">
-            <div class="animated-banner">
-                <div class="anim-content">
-                    <h1 class="anim-title">وظائف <span>المدينة</span></h1>
-                    <div class="anim-subtitle">الرئيسية <span>></span> تقديم الوظائف</div>
-                </div>
-            </div>
-            <div class="jobs-content">
-                <h2 class="community-title" style="margin-top: 20px; margin-bottom: 15px;">التقديم على الوظائف</h2>
-                <div class="jobs-cards-container">
-                    <div class="job-card" data-tilt data-tilt-max="10" data-tilt-speed="400">
-                        <h3>شرطة تايتنز</h3>
-                        <p>تقديم منتسبين شرطة تايتنز (L.S.P.D)، نهدف لتقديم أعلى معايير الأمن.</p>
-                        <div id="btn-police-wrapper"><button class="job-btn-open" onclick="document.getElementById('appModal').style.display='flex'">تقديم</button></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="rosterTab">
-            <div class="animated-banner">
-                <div class="anim-content">
-                    <h1 class="anim-title">جدول <span>العساكر</span></h1>
-                    <div class="anim-subtitle">الرئيسية <span>></span> جدول العساكر</div>
-                </div>
-            </div>
-            <div class="roster-wrapper allow-select">
-                <div class="luxury-table-container">
-                    <table class="luxury-table">
-                        <thead>
-                            <tr>
-                                <th>Code</th>
-                                <th>Name</th>
-                                <th>Rank</th>
-                                <th>Responsibility</th>
-                                <th>Status</th>
-                                <th>Discord ID</th>
-                            </tr>
-                        </thead>
-                        <tbody id="publicRosterBody">
-                            <tr><td colspan="6" style="text-align:center; padding:50px; color:#888;">جاري تحميل البيانات الحية...</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="pagination-controls" id="publicPagination"></div>
+    <div id="homeTab" class="tab-content" style="display: flex;">
+        <div class="hero-section">
+            <div class="hero-content">
+                <h1>إدارة <span>الشرطة</span></h1>
+                <p>حياكم الله في سيرفر تايتنز المتخصص في الرول بلاي، نحاول جاهدين تقديم أفضل تجربة للرول بلاي في الشرق الأوسط. انضم إلينا الآن وعيش حياتك كما تريد.</p>
             </div>
         </div>
     </div>
 
-    <div id="loginScreen">
-        <div class="login-container">
-            <div class="logo-pulse-container">
-                <div class="logo-ring"></div>
-                <div class="login-logo"></div>
-            </div>
-            <div style="font-size: 1.6rem; color: #fff; margin-bottom: 30px; font-weight: 900; letter-spacing: 1px; text-shadow: 0 0 10px rgba(0,234,255,0.5);">نظام إدارة الشرطة</div>
-            <div class="inp-group">
-                <i class="fa-solid fa-id-card"></i>
-                <input type="text" id="userInput" class="gen-input" placeholder="اسم المستخدم" style="margin-bottom:0;">
-            </div>
-            <div class="inp-group">
-                <i class="fa-solid fa-key"></i>
-                <input type="password" id="passInput" class="gen-input" placeholder="كلمة المرور" style="margin-bottom:0;">
-            </div>
-            <button class="sys-btn-style" onclick="login()" style="width:100%; padding:15px; margin-top: 15px;">تسجيل الدخول</button>
-            <div id="loginError" class="error-msg">بيانات الدخول غير صحيحة</div>
-            <button onclick="document.getElementById('loginScreen').style.display='none'" style="background: transparent; border: none; color: #888; margin-top: 25px; cursor: pointer; font-family: var(--font-ar); text-decoration: underline; font-size: 1rem; width: 100%;">إلغاء والعودة للموقع</button>
+    <div id="rulesTab" class="tab-content">
+        <div class="animated-banner"><h1 class="anim-title">دستور <span>الشرطة</span></h1></div>
+        <div style="max-width: 900px; width: 100%; margin-top: 40px; background: var(--glass-bg); padding: 40px; border-radius: 12px; border: 1px solid var(--glass-border);">
+            <h2 style="color:var(--cyan); margin-bottom:20px;">إيقاف الخدمات و المداهمة</h2>
+            <ul style="color:#ccc; line-height:2; font-size:1.1rem; padding-right:20px;">
+                <li>يحق للضابط وما فوق برفع طلب إيقاف خدمات الى المحكمة، ولا يتم التنفيذ الا بحكم المحكمة.</li>
+                <li>يتم طلب المداهمة من خلال الضباط وما فوق، ولا يمكن مداهمة أي شخص الا بأمر تنفيذ من المحكمة.</li>
+                <li>يجب على العسكري عدم إخراج السلاح الا بعد ان يقوم المجرم بإخراج أي سلاح له.</li>
+            </ul>
         </div>
     </div>
 
-    <div id="mainWrapper">
-        <div class="central-logo-bg"></div>
-        <header>
-            <div class="header-side">
-                <button class="sys-btn-style" onclick="goHome()"><i class="fa-solid fa-house"></i> الرئيسية</button>
-                <button class="sys-btn-style out-btn" onclick="logout()"><i class="fa-solid fa-power-off"></i> خروج</button>
-            </div>
-            <div class="sys-title">لوحة القيادة | L.S.P.D</div>
-            <div class="header-side" style="flex-direction: row-reverse;">
-                <button class="sys-btn-style" onclick="openIdCard()" style="color:var(--cyan); border-color:var(--cyan);"><i class="fa-solid fa-id-card"></i> هويتي العسكرية</button>
-            </div>
-        </header>
-
-        <div id="dashboardView">
-            <img src="yyW7oBx.jpg" class="central-logo-bg" style="opacity: 0.1; width: 300px; height: 300px; position: static; transform: none; margin-bottom: 40px; border-radius: 50%; border: 2px solid var(--cyan); box-shadow: 0 0 30px rgba(0,234,255,0.2);">
-            <div class="main-grid" id="modulesContainer"></div>
-        </div>
-
-        <div id="moduleView">
-            <div class="module-header">
-                <button class="sys-btn-style out-btn" onclick="goHome()"><i class="fa-solid fa-arrow-right"></i> العودة</button>
-                <h2 class="module-title" id="mTitle">--</h2>
-            </div>
-            <div id="dynamicContentArea"></div>
-            <div class="input-section" id="inputSectionBlock" style="display:none;">
-                <div id="mInputs" class="grid-inputs"></div>
-                <button class="sys-btn-style" id="submitBtn" onclick="addRecord()" style="width:100%; padding:15px;">إضافة / حفظ السجل</button>
-            </div>
-        </div>
+    <div id="jobsTab" class="tab-content">
+        <div class="animated-banner"><h1 class="anim-title">وظائف <span>المدينة</span></h1></div>
+        <div style="margin-top: 40px; color:#888;">(التقديم متاح حالياً عبر الديسكورد الرسمي)</div>
     </div>
 
-    <div class="modal-overlay" id="appModal">
-        <div class="modal-box">
-            <h3 style="color:var(--cyan); margin-bottom:20px; font-size:1.5rem; text-align:center;">نموذج تقديم شرطة تايتنز</h3>
-            <div class="grid-inputs" style="grid-template-columns: 1fr;">
-                <input type="text" id="appName" class="gen-input" placeholder="الاسم الشخصي (داخل اللعبة)">
-                <input type="text" id="appDiscord" class="gen-input" placeholder="حساب الديسكورد (Discord ID)">
-                <input type="number" id="appAge" class="gen-input" placeholder="العمر الحقيقي">
-                <textarea id="appExp" class="gen-input" placeholder="خبراتك السابقة في العسكرية..." style="height: 80px; resize: none;"></textarea>
-                <textarea id="appReason" class="gen-input" placeholder="لماذا تريد الانضمام للشرطة؟" style="height: 80px; resize: none;"></textarea>
-            </div>
-            <div style="display: flex; gap: 15px; margin-top: 15px;">
-                <button class="sys-btn-style" onclick="submitApplication()" style="flex: 2; margin: 0; padding:15px;">إرسال التقديم</button>
-                <button class="sys-btn-style out-btn" onclick="document.getElementById('appModal').style.display='none'" style="flex: 1; margin: 0; padding:15px;">إلغاء</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal-overlay" id="editRankModal">
-        <div class="modal-box" style="width: 480px;">
-            <h3 style="color:var(--cyan); margin-bottom:25px; font-size:1.6rem; text-align:center; text-shadow: 0 0 10px rgba(0,234,255,0.4);">تعديل السجل العسكري</h3>
-            <div class="grid-inputs" style="grid-template-columns: 1fr;">
-                <div style="text-align: right; color: #8da2b5; font-weight: bold; margin-bottom: -5px;">الاسم الشخصي:</div>
-                <input type="text" id="editOfficerName" class="gen-input" style="margin-bottom: 15px;">
-                <div style="text-align: right; color: #8da2b5; font-weight: bold; margin-bottom: -5px;">الرقم العسكري (Code):</div>
-                <input type="text" id="editOfficerCode" class="gen-input" style="margin-bottom: 15px;">
-                <div style="text-align: right; color: #8da2b5; font-weight: bold; margin-bottom: -5px;">الرتبة العسكرية:</div>
-                <select id="editRankSelect" class="gen-input" style="cursor: pointer; text-align: right; margin-bottom: 25px;"></select>
-            </div>
-            <div style="display:flex; gap:15px;">
-                <button class="sys-btn-style" onclick="saveNewOfficerData()" style="flex: 2; margin: 0; padding:15px;">حفظ التعديلات</button>
-                <button class="sys-btn-style out-btn" onclick="document.getElementById('editRankModal').style.display='none'" style="flex: 1; margin: 0; padding:15px;">إلغاء</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal-overlay" id="customAlertOverlay">
-        <div class="modal-box" id="customAlertBox" style="width: 400px; text-align: center;">
-            <i class="fa-solid fa-circle-exclamation alert-icon" id="alertIcon"></i>
-            <h3 class="alert-title" id="alertTitle">تنبيه</h3>
-            <p class="alert-desc" id="alertMessage">رسالة التنبيه</p>
-            <button class="sys-btn-style" onclick="document.getElementById('customAlertOverlay').style.display='none'" style="width:100%; padding:15px;">حسناً</button>
+    <div id="rosterTab" class="tab-content">
+        <div class="animated-banner"><h1 class="anim-title">جدول <span>العساكر</span></h1></div>
+        <div class="roster-wrapper">
+            <table class="luxury-table">
+                <thead><tr><th>Code</th><th>Name</th><th>Rank</th><th>Responsibility</th><th>Status</th><th>Discord ID</th></tr></thead>
+                <tbody id="publicRosterBody">
+                    <tr><td colspan="6" style="padding:50px; color:#888;">جاري تحميل البيانات...</td></tr>
+                </tbody>
+            </table>
         </div>
     </div>
 
     <script>
-        // تكوين الرتب والقوائم الأساسية
+        // النجوم
+        const starBg = document.getElementById('star-bg');
+        for (let i = 0; i < 40; i++) { 
+            let star = document.createElement('div'); star.className = 'star';
+            star.style.width = star.style.height = (Math.random() * 3 + 1) + 'px';
+            star.style.left = Math.random() * 100 + 'vw'; star.style.top = Math.random() * 100 + 'vh';
+            star.style.animationDuration = (Math.random() * 3 + 2) + 's'; starBg.appendChild(star);
+        }
+
+        // فايربيس
         const publicOfficersList = ["Minister of Interior", "Deputy Minister of Interior", "A. Minister of Interior", "Police Commander", "L.S.P.D Chief", "Deputy L.S.P.D Chief", "A' Lspd Chief", "High Commander", "General", "Colonel", "Major", "Captain", "First Lieutenant", "Lieutenant"];
         const publicEnlistedList = ["Staff Sergeant", "First Sergeant", "Sergeant", "Senior Lead Officer", "Senior Officer", "Officer III", "Officer II", "Officer I", "Solo Cadet", "Cadet"];
         let SystemRanks = [...publicOfficersList, ...publicEnlistedList];
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyC5PL_fJEjiJVQS8rnx4m8j9uQNsILcQvs",
-            authDomain: "police-depa.firebaseapp.com",
-            databaseURL: "https://police-depa-default-rtdb.europe-west1.firebasedatabase.app",
-            projectId: "police-depa"
-        };
-        firebase.initializeApp(firebaseConfig);
-        const database = firebase.database();
-
-        // أقسام لوحة التحكم
-        const modules = [
-            { id: 'settings', i18n_t: 'إعدادات التقديم', isSettingsView: true, reqOfficer: true, allowAcademy: true },
-            { id: 'applications', i18n_t: 'طلبات التقديم', isAppsView: true, reqOfficer: true, allowAcademy: true },
-            { id: 'roster_admin', i18n_t: 'إدارة جدول العساكر', isRosterAdmin: true, reqOfficer: true },
-            { id: 'reports', i18n_t: 'التقارير والمحاضر', isReportForm: true },
-            { id: 'blackbox', i18n_t: 'الصندوق الأسود', inputsAr: ['رقم السجل', 'كود الوصول'] },
-            { id: 'officials', i18n_t: 'إدارة الحسابات', isAccountsForm: true, reqOfficer: true },
-            { id: 'notes', i18n_t: 'ملاحظات القيادة', inputsAr: ['الموضوع', 'النص'] },
-        ];
-
-        let db = { applications: [], reports: [], customUsers: [], settings: { policeOpen: true }, live_roster: {} };
-        let currentModule = null; let myRankIdx = 99; let isOfficer = false; let myName = ""; let myDept = ""; let myRank = ""; 
-
-        // دوالم مساعدة لتنظيف المصفوفات
-        function cleanArray(data) {
-            if (!data) return [];
-            if (Array.isArray(data)) return data.filter(item => item !== null && item !== undefined);
-            return Object.values(data).filter(item => item !== null && item !== undefined);
-        }
-
-        // الاستماع لبيانات Firebase
-        database.ref('lspd_db').on('value', (snapshot) => {
-            const data = snapshot.val();
-            if (data) {
-                db.applications = cleanArray(data.applications); db.reports = cleanArray(data.reports); db.customUsers = cleanArray(data.customUsers); db.settings = data.settings || { policeOpen: true };
-            }
-            updatePublicJobButtons();
-            if (currentModule && document.getElementById('moduleView').style.display === 'flex') {
-                if(currentModule.id === 'settings') renderSettingsView(); 
-                else if(!currentModule.isRosterAdmin) openMod(currentModule.id);
-            }
+        firebase.initializeApp({
+            apiKey: "AIzaSyC5PL_fJEjiJVQS8rnx4m8j9uQNsILcQvs", authDomain: "police-depa.firebaseapp.com",
+            databaseURL: "https://police-depa-default-rtdb.europe-west1.firebasedatabase.app", projectId: "police-depa"
         });
 
-        // 🟢 إدارة الجدول وإزالة اللاّق (Pagination Logic) 🟢
-        let currentPage = 1; const rowsPerPage = 10; // عرض 10 عساكر فقط كل مرة
-        let rosterDataArray = [];
-
-        database.ref('live_roster').on('value', (snapshot) => {
-            db.live_roster = snapshot.val() || {};
-            
-            // تحويل الكائن إلى مصفوفة وفرزها حسب الرتبة
-            rosterDataArray = Object.keys(db.live_roster).map(key => ({ id: key, ...db.live_roster[key] }));
-            rosterDataArray.sort((a, b) => {
-                let idxA = SystemRanks.indexOf(a.rank); let idxB = SystemRanks.indexOf(b.rank);
-                if (idxA === -1) idxA = 999; if (idxB === -1) idxB = 999;
-                return idxA - idxB;
-            });
-
-            // تحديث العرض بناءً على الصفحة الحالية
-            renderPublicRosterTable(); 
-            if(currentModule && currentModule.isRosterAdmin) renderAdminRosterTable(); 
-        });
-
-        function renderPublicRosterTable() {
+        firebase.database().ref('live_roster').on('value', (snapshot) => {
+            const data = snapshot.val() || {};
             const tbody = document.getElementById('publicRosterBody');
-            const paginationBlock = document.getElementById('publicPagination');
-            if(!tbody) return;
-
-            if (rosterDataArray.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; padding:50px; color:#888;">لا يوجد عساكر مسجلين حالياً.</td></tr>';
-                if(paginationBlock) paginationBlock.innerHTML = '';
-                return;
-            }
-
-            // حساب البيانات للصفحة الحالية
-            const startIndex = (currentPage - 1) * rowsPerPage;
-            const endIndex = startIndex + rowsPerPage;
-            const paginatedData = rosterDataArray.slice(startIndex, endIndex);
-
-            let htmlString = '';
-            paginatedData.forEach(officer => {
-                htmlString += `
-                <tr class="roster-row">
-                    <td>${officer.code || '-'}</td>
-                    <td style="color: #fff; font-family: var(--font-ar);">${officer.name || 'غير معروف'}</td>
-                    <td>${officer.rank || '-'}</td>
-                    <td>${officer.dept || '-'}</td>
-                    <td><div class="pill-status"><div class="status-dot"></div> ${officer.status || 'ACTIVE'}</div></td>
-                    <td><span class="code-box">${officer.discordId || '-'}</span></td>
-                </tr>`;
-            });
-            tbody.innerHTML = htmlString;
-            renderPaginationControls(paginationBlock, renderPublicRosterTable);
-        }
-
-        // دوالم عرض عناصر التحكم بالصفحات (Pagination UI)
-        function renderPaginationControls(container, renderFunc) {
-            if(!container) return;
-            const totalPages = Math.ceil(rosterDataArray.length / rowsPerPage);
-            if(totalPages <= 1) { container.innerHTML = ''; return; }
-
-            container.innerHTML = `
-                <button class="sys-btn-style" ${currentPage === 1 ? 'disabled style="opacity:0.3; cursor:not-allowed;"' : ''} onclick="changePage(-1, ${renderFunc.name})"><i class="fa-solid fa-chevron-right"></i> السابق</button>
-                <span class="page-info">الصفحة ${currentPage} من ${totalPages}</span>
-                <button class="sys-btn-style" ${currentPage === totalPages ? 'disabled style="opacity:0.3; cursor:not-allowed;"' : ''} onclick="changePage(1, ${renderFunc.name})">التالي <i class="fa-solid fa-chevron-left"></i></button>
-            `;
-        }
-
-        function changePage(direction, funcToCall) {
-            const totalPages = Math.ceil(rosterDataArray.length / rowsPerPage);
-            currentPage += direction;
-            if(currentPage < 1) currentPage = 1;
-            if(currentPage > totalPages) currentPage = totalPages;
-            funcToCall(); // إعادة رندرة الجدول
-        }
-
-        // دوالم الحفظ والموقع الأساسي
-        function saveDB() { database.ref('lspd_db').set(db); }
-        window.onload = () => { buildStars(); updatePublicJobButtons(); renderPublicRosterTable(); };
-
-        // بناء النجوم في الخلفية ستايل تايتنز
-        function buildStars() {
-            const container = document.getElementById('star-bg'); if(!container) return;
-            for(let i=0; i<50; i++){
-                const star = document.createElement('div'); star.className = 'star';
-                star.style.width = star.style.height = Math.random()*2+1+'px';
-                star.style.top = Math.random()*100+'vh'; star.style.left = Math.random()*100+'vw';
-                star.style.animationDuration = Math.random()*3+2+'s'; container.appendChild(star);
-            }
-        }
-
-        // تحديث أزرار التقديم
-        function updatePublicJobButtons() {
-            const pWrap = document.getElementById('btn-police-wrapper');
-            if(pWrap) pWrap.innerHTML = db.settings && db.settings.policeOpen ? `<button class="job-btn-open" onclick="document.getElementById('appModal').style.display='flex'">تقديم</button>` : `<button class="job-btn-closed" disabled>مغلق</button>`;
-        }
-
-        // 🟢 نظام تسجيل الدخول الفخم وإخفاء الموقع بالكامل 🟢
-        function login() {
-            const u = document.getElementById('userInput').value.trim(), p = document.getElementById('passInput').value.trim();
-            // البحث عن المستخدم في الملف config.js أو قاعدة البيانات
-            let confUsers = (typeof ConfigUsers !== 'undefined') ? ConfigUsers : [];
-            let foundUser = [...confUsers, ...(db.customUsers || [])].find(x => x.user === u && x.pass === p);
+            if (Object.keys(data).length === 0) { tbody.innerHTML = '<tr><td colspan="6" style="padding:40px; color:#888;">لا يوجد عساكر مسجلين.</td></tr>'; return; }
             
-            if(foundUser) {
-                document.getElementById('loginScreen').style.display = 'none'; 
-                
-                // 🔴 السر هنا: إخفاء الموقع الخارجي بالكامل 🔴
-                document.getElementById('publicSite').style.display = 'none'; 
-                // إظهار لوحة التحكم الفخمة
-                document.getElementById('mainWrapper').style.display = 'flex'; 
-                
-                myName = foundUser.name; myRank = foundUser.rank; isOfficer = publicOfficersList.includes(myRank);
-                document.getElementById('cardNameDisp').innerText = myName; document.getElementById('cardRankDisp').innerText = myRank;
-                
-                const savedImg = localStorage.getItem('user_id_img_' + myName);
-                if(savedImg) document.getElementById('cardImage').src = savedImg;
+            const groups = {};
+            Object.keys(data).forEach(k => { const r = data[k].rank || 'غير محدد'; if(!groups[r]) groups[r] = []; groups[r].push(data[k]); });
+            const sortedRanks = Object.keys(groups).sort((a, b) => { let iA = SystemRanks.indexOf(a), iB = SystemRanks.indexOf(b); return (iA===-1?999:iA) - (iB===-1?999:iB); });
 
-                renderDashboardModules();
-            } else { document.getElementById('loginError').style.display = 'block'; }
-        }
-
-        function logout() { location.reload(); }
-        function goHome() { document.getElementById('moduleView').style.display = 'none'; document.getElementById('dashboardView').style.display = 'flex'; currentPage = 1; }
-
-        // بناء مربعات لوحة التحكم مع حركة الـ 3D
-        function renderDashboardModules() {
-            const c = document.getElementById('modulesContainer'); c.innerHTML = ''; 
-            modules.forEach(m => { 
-                let canView = isOfficer || (m.allowAcademy && myDept === "Police Academy") || !m.reqOfficer;
-                if (!canView) return; 
-                c.innerHTML += `<div class="menu-btn" data-tilt data-tilt-max="15" onclick="openMod('${m.id}')">${m.i18n_t}</div>`; 
+            let html = '';
+            sortedRanks.forEach(rank => {
+                html += `<tr class="dept-header"><td colspan="6"><div class="dept-title"><i class="fa-solid fa-shield-halved" style="color:var(--cyan); margin-right:10px;"></i> ${rank}</div></td></tr>`;
+                groups[rank].sort((a,b)=>(a.code||'').localeCompare(b.code||'')).forEach(off => {
+                    html += `<tr class="roster-row">
+                        <td>${off.code||'-'}</td> <td style="color:#fff;">${off.name||'-'}</td>
+                        <td>${off.rank||'-'}</td> <td>${off.dept||'-'}</td>
+                        <td><div class="pill-status"><div style="width:6px;height:6px;background:var(--green);border-radius:50%;box-shadow:0 0 8px var(--green);"></div> ${off.status||'ACTIVE'}</div></td>
+                        <td><span style="background:rgba(0,0,0,0.5); padding:4px 10px; border-radius:6px; font-family:monospace; color:#8da2b5; border:1px solid rgba(255,255,255,0.05);">${off.discordId||'-'}</span></td>
+                    </tr>`;
+                });
             });
-            VanillaTilt.init(document.querySelectorAll(".menu-btn")); // تفعيل حركة الميلان
+            tbody.innerHTML = html;
+        });
+
+        function switchTab(tabId, el) { 
+            document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active')); el.classList.add('active'); 
+            document.querySelectorAll('.tab-content').forEach(t => t.style.display = 'none');
+            document.getElementById(tabId).style.display = 'flex'; window.scrollTo({ top: 0 }); 
         }
-
-        // فتح الأقسام داخل لوحة التحكم
-        function openMod(id) {
-            currentModule = modules.find(m => m.id === id);
-            document.getElementById('dashboardView').style.display = 'none'; document.getElementById('moduleView').style.display = 'flex';
-            document.getElementById('mTitle').innerText = currentModule.i18n_t;
-            const dynamicArea = document.getElementById('dynamicContentArea'), inpArea = document.getElementById('mInputs'), inputBlock = document.getElementById('inputSectionBlock');
-            
-            dynamicArea.innerHTML = ''; inputBlock.style.display = 'none'; inpArea.innerHTML = '';
-            currentPage = 1; // تصفير الصفحة عند فتح قسم جديد
-
-            if(currentModule.id === 'settings') { renderSettingsView(); }
-            else if(currentModule.isAppsView) { renderApplications(); }
-            else if(currentModule.isRosterAdmin) { renderAdminRosterTable(); } 
-            else if(currentModule.isAccountsForm) {
-                inputBlock.style.display = 'block';
-                inpArea.innerHTML = `<div class="grid-inputs"><input type="text" id="o-user" class="gen-input" placeholder="اسم المستخدم" style="margin:0;"><input type="password" id="o-pass" class="gen-input" placeholder="كلمة المرور" style="margin:0;"><input type="text" id="o-name" class="gen-input" placeholder="الاسم الكامل" style="margin:0;"><input type="text" id="o-rank" class="gen-input" placeholder="الرتبة" style="margin:0;"></div>`;
-                renderAccountsList();
-            } else if(currentModule.isReportForm) {
-                inputBlock.style.display = 'block';
-                inpArea.innerHTML = `<div class="grid-inputs"><input type="text" id="r-badge" class="gen-input" placeholder="البادج" style="margin:0;"><input type="text" id="r-name" class="gen-input" placeholder="الاسم الكامل" style="margin:0;"></div><textarea id="r-details" class="gen-input" placeholder="نص التقرير..." style="height:100px; resize:none;"></textarea>`;
-                renderRecordsList();
-            } else {
-                if(currentModule.inputsAr) {
-                    inputBlock.style.display = 'block';
-                    let inputsHtml = '<div class="grid-inputs">';
-                    currentModule.inputsAr.forEach((ph, i) => { inputsHtml += `<input type="text" id="inp-${i}" class="gen-input" placeholder="${ph}" style="margin:0;">`; });
-                    inpArea.innerHTML = inputsHtml + '</div>';
-                }
-                renderRecordsList();
-            }
-        }
-
-        // 🟢 جدول العساكر داخل لوحة التحكم (الستايل الجديد مع أزرار التحكم) 🟢
-        function renderAdminRosterTable() {
-            const container = document.getElementById('dynamicContentArea'); if(!container) return;
-
-            if (rosterDataArray.length === 0) {
-                container.innerHTML = '<div style="text-align:center; padding:50px; color:#888;">لا يوجد بيانات.</div>'; return;
-            }
-
-            const startIndex = (currentPage - 1) * rowsPerPage;
-            const endIndex = startIndex + rowsPerPage;
-            const paginatedData = rosterDataArray.slice(startIndex, endIndex);
-
-            let htmlString = `
-                <div class="luxury-table-container">
-                    <table class="luxury-table">
-                        <thead>
-                            <tr>
-                                <th>Code</th>
-                                <th>Name</th>
-                                <th>Rank</th>
-                                <th>Status</th>
-                                <th>الإجراءات</th>
-                            </tr>
-                        </thead>
-                        <tbody>`;
-
-            paginatedData.forEach(officer => {
-                htmlString += `
-                <tr>
-                    <td>${officer.code || '-'}</td>
-                    <td style="color: #fff; font-family: var(--font-ar);">${officer.name || '-'}</td>
-                    <td>${officer.rank || '-'}</td>
-                    <td><div class="pill-status"><div class="status-dot"></div> ${officer.status || 'ACTIVE'}</div></td>
-                    <td>
-                        <button onclick="editOfficerData('${officer.id}', '${officer.name}', '${officer.rank}', '${officer.code}')" class="action-btn-table edit-btn-table" title="تعديل"><i class="fa-solid fa-pen-to-square"></i></button>
-                        ${isOfficer ? `<button onclick="deleteOfficerFromRoster('${officer.id}', '${officer.name}')" class="action-btn-table del-btn-table" title="حذف"><i class="fa-solid fa-trash"></i></button>` : ''}
-                    </td>
-                </tr>`;
-            });
-
-            // إضافة عناصر التحكم بالصفحات أسفل الجدول
-            container.innerHTML = htmlString + '</tbody></table></div><div class="pagination-controls" id="adminPagination"></div>';
-            renderPaginationControls(document.getElementById('adminPagination'), renderAdminRosterTable);
-        }
-
-        // وظائف إدارة الجدول (حذف وتعديل)
-        function deleteOfficerFromRoster(id, name) {
-            if(!isOfficer) return;
-            if(confirm(`هل أنت متأكد من حذف ${name}؟`)) {
-                database.ref(`live_roster/${id}`).remove().then(() => showCustomAlert("تم", "تم الحذف", true));
-            }
-        }
-
-        let currentEditingOfficerId = null;
-        function editOfficerData(id, name, currentRank, code) {
-            currentEditingOfficerId = id;
-            document.getElementById('editOfficerName').value = name;
-            document.getElementById('editOfficerCode').value = code;
-            let rankOptions = ''; SystemRanks.forEach(r => { rankOptions += `<option value="${r}" ${r===currentRank ? 'selected' : ''}>${r}</option>`; });
-            document.getElementById('editRankSelect').innerHTML = rankOptions;
-            document.getElementById('editRankModal').style.display = 'flex';
-        }
-
-        function saveNewOfficerData() {
-            let n = document.getElementById('editOfficerName').value, c = document.getElementById('editOfficerCode').value, r = document.getElementById('editRankSelect').value;
-            if(!n || !c) return;
-            database.ref(`live_roster/${currentEditingOfficerId}`).update({ name:n, code:c, rank:r }).then(() => {
-                document.getElementById('editRankModal').style.display = 'none';
-                showCustomAlert("تم", "تم التحديث", true);
-            });
-        }
-
-        // وظائف الموديلات الأخرى (الحسابات، التقارير، إلخ) - ستايل تايتنز
-        function renderAccountsList() {
-            const list = document.getElementById('dynamicContentArea'); list.innerHTML = '';
-            (db.customUsers || []).forEach((u, idx) => {
-                list.innerHTML += `<div class="rec-item allow-select" style="align-items:center;">
-                    <div style="text-align:right;"><span style="color:var(--cyan); font-weight:bold;">[${u.rank}]</span> ${u.name} (User: ${u.user})</div>
-                    ${isOfficer ? `<i class="fa-solid fa-trash action-btn-table del-btn-table" onclick="delAccount(${idx})"></i>` : ''}
-                </div>`;
-            });
-        }
-
-        function renderRecordsList() {
-            const list = document.getElementById('dynamicContentArea'); list.innerHTML = '';
-            const data = db[currentModule.id] || [];
-            if(data.length === 0) { list.innerHTML = '<div style="text-align:center; padding:30px; color:#888;">لا يوجد سجلات.</div>'; return; }
-            data.forEach((rec, idx) => {
-                list.innerHTML += `<div class="rec-item allow-select" style="flex-direction:column; align-items:flex-end;">
-                    <div style="width:100%; text-align:right; margin-bottom:10px; border-bottom:1px solid rgba(255,255,255,0.05); padding-bottom:10px;">${rec}</div>
-                    ${isOfficer ? `<i class="fa-solid fa-trash action-btn-table del-btn-table" onclick="delRec(${idx})"></i>` : ''}
-                </div>`;
-            });
-        }
-
-        function renderApplications() {
-            const list = document.getElementById('dynamicContentArea'); list.innerHTML = '';
-            if(db.applications.length === 0) { list.innerHTML = '<div style="text-align:center; padding:30px; color:#888;">لا يوجد طلبات.</div>'; return; }
-            [...db.applications].reverse().forEach((app, revIdx) => {
-                const idx = db.applications.length - 1 - revIdx;
-                list.innerHTML += `<div class="rec-item allow-select" style="flex-direction:column; align-items:flex-end; border-color:var(--cyan);">
-                    <div style="color:var(--cyan); font-weight:bold; font-size:1.2rem; margin-bottom:10px;">طلب مقدم من: ${app.name}</div>
-                    <div style="text-align:right; color:#ccc; line-height:1.6; margin-bottom:15px;">
-                        العمر: ${app.age}<br>الديسكورد: ${app.discord}<br>الخبرة: ${app.exp}<br>السبب: ${app.reason}
-                    </div>
-                    ${isOfficer ? `<button class="sys-btn-style out-btn" onclick="deleteApp(${idx})" style="padding:5px 15px; font-size:0.8rem;"><i class="fa-solid fa-trash"></i> حذف</button>` : ''}
-                </div>`;
-            });
-        }
-
-        // وظائف الإضافة والحذف العامة
-        function addRecord() {
-            if(currentModule.isAccountsForm) {
-                const u=document.getElementById('o-user').value, p=document.getElementById('o-pass').value, n=document.getElementById('o-name').value, r=document.getElementById('o-rank').value;
-                if(!u || !p || !n) return;
-                db.customUsers = cleanArray(db.customUsers); db.customUsers.push({user:u, pass:p, name:n, rank:r}); saveDB(); renderAccountsList();
-            } else if(currentModule.isReportForm) {
-                const b=document.getElementById('r-badge').value, n=document.getElementById('r-name').value, d=document.getElementById('r-details').value;
-                if(!b || !n || !d) return;
-                db.reports = cleanArray(db.reports); db.reports.push(`<strong>البادج:</strong> ${b} | <strong>الاسم:</strong> ${n}<br><strong>التقرير:</strong> ${d}`); saveDB(); renderRecordsList();
-            } else {
-                let vals = []; const arr = currentModule.inputsAr; if(!arr) return;
-                arr.forEach((_, i) => vals.push(document.getElementById(`inp-${i}`).value));
-                if(vals.some(v=>!v)) return;
-                db[currentModule.id] = cleanArray(db[currentModule.id]);
-                let str = ''; vals.forEach((v, i) => str += `<strong>${arr[i]}:</strong> ${v} | `);
-                db[currentModule.id].push(str); saveDB(); renderRecordsList();
-            }
-            showCustomAlert("تم", "تمت الإضافة", true);
-        }
-
-        function delAccount(idx) { db.customUsers.splice(idx, 1); saveDB(); renderAccountsList(); }
-        function delRec(idx) { db[currentModule.id].splice(idx, 1); saveDB(); renderRecordsList(); }
-        function deleteApp(idx) { db.applications.splice(idx, 1); saveDB(); renderApplications(); }
-
-        // التقديم الخارجي
-        function submitApplication() {
-            const n=document.getElementById('appName').value, d=document.getElementById('appDiscord').value, a=document.getElementById('appAge').value, exp=document.getElementById('appExp').value, r=document.getElementById('appReason').value;
-            if(!n || !d || !a) return;
-            db.applications = cleanArray(db.applications);
-            db.applications.push({name:n, discord:d, age:a, exp:exp, reason:r}); saveDB();
-            document.getElementById('appModal').style.display='none'; showCustomAlert("تم", "تم إرسال طلبك", true);
-        }
-
-        // دوالم مساعدة للواجهة
-        function switchPublicTab(tabId, el) { 
-            document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active')); if(el) el.classList.add('active'); 
-            ['home', 'rules', 'jobs', 'roster'].forEach(id => { if(document.getElementById(id + 'Tab')) document.getElementById(id + 'Tab').style.display = 'none'; });
-            document.getElementById(tabId + 'Tab').style.display = 'flex'; currentPage = 1;
-        }
-        function toggleAccordion(element) { const item = element.parentElement; item.classList.toggle('active'); const icon = element.querySelector('.acc-icon'); icon.innerText = item.classList.contains('active') ? '-' : '+'; }
-        function showCustomAlert(title, msg, success) { document.getElementById('alertTitle').innerText=title; document.getElementById('alertMessage').innerText=msg; document.getElementById('alertIcon').style.color=success? 'var(--green)':'var(--red)'; document.getElementById('customAlertOverlay').style.display='flex'; }
-        function openIdCard() { document.getElementById('idCardOverlay').style.display='flex'; } function closeIdCard() { document.getElementById('idCardOverlay').style.display='none'; }
     </script>
 </body>
 </html>
