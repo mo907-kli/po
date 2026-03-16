@@ -7,7 +7,6 @@
     
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=Rajdhani:wght@500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
     <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-database-compat.js"></script>
 
@@ -19,15 +18,15 @@
             --cyan: #00eaff;
             --cyan-glow: rgba(0, 234, 255, 0.4);
             --red: #ff3333;
-            --green: #00ff6a;
             --yellow: #ffc107;
+            --green: #00ff6a;
             --font-ar: 'Tajawal', sans-serif;
             --font-en: 'Rajdhani', sans-serif;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; }
-        body { background: var(--bg-deep); color: #fff; font-family: var(--font-ar); min-height: 100vh; overflow-x: hidden; }
-        input, textarea, select { user-select: text !important; outline: none; font-family: var(--font-ar);}
+        body { background: var(--bg-deep); color: #fff; font-family: var(--font-ar); min-height: 100vh; overflow-x: hidden; user-select: none;}
+        input, textarea, select, .allow-select * { user-select: text !important; outline: none; font-family: var(--font-ar);}
 
         /* 🟢 الخلفية الفخمة 🟢 */
         #bgEffects { position: fixed; inset: 0; z-index: -5; pointer-events: none; }
@@ -43,18 +42,16 @@
         .login-container { width: 400px; padding: 50px 40px; background: rgba(10, 15, 20, 0.9); border: 1px solid var(--cyan); border-radius: 16px; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.9), 0 0 20px rgba(0,234,255,0.1); animation: popIn 0.3s ease; }
         .login-logo { width: 100px; height: 100px; background: url('yyW7oBx.jpg') center/cover; border-radius: 50%; margin: 0 auto 25px; border: 2px solid var(--cyan); box-shadow: 0 0 20px var(--cyan-glow); }
         .inp-group { position: relative; margin-bottom: 20px; }
-        .inp-group i { position: absolute; top: 50%; transform: translateY(-50%); color: var(--cyan); right: 15px; font-size: 1.1rem;}
-        .login-input { width: 100%; padding: 15px 40px 15px 15px; background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.1); color: #fff; border-radius: 8px; transition: 0.3s; text-align: right;}
+        .login-input { width: 100%; padding: 15px; background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.1); color: #fff; border-radius: 8px; transition: 0.3s; text-align: center; font-size:1.1rem;}
         .login-input:focus { border-color: var(--cyan); box-shadow: 0 0 10px rgba(0,234,255,0.2);}
-        .submit-btn { width: 100%; padding: 15px; background: var(--cyan); border: none; color: #000; font-weight: 900; font-size: 1.2rem; border-radius: 8px; cursor: pointer; transition: 0.3s; margin-top: 10px;}
+        .submit-btn { width: 100%; padding: 15px; background: var(--cyan); border: none; color: #000; font-weight: 900; font-size: 1.2rem; border-radius: 8px; cursor: pointer; transition: 0.3s;}
         .submit-btn:hover { background: #fff; box-shadow: 0 0 20px var(--cyan-glow); transform: translateY(-2px);}
 
-        /* 🟢 لوحة القيادة (تطابق الصورة 4) 🟢 */
+        /* 🟢 لوحة القيادة (تطابق الصورة تماماً) 🟢 */
         #mainWrapper { display: none; flex-direction: column; min-height: 100vh; animation: fadeIn 0.4s ease;}
         header { display: flex; justify-content: space-between; align-items: center; padding: 20px 40px; border-bottom: 1px solid rgba(255,255,255,0.05); background: rgba(10,15,25,0.8); backdrop-filter: blur(10px);}
         .header-side { display: flex; gap: 15px; align-items: center; }
         
-        /* الأزرار العلوية */
         .head-btn { background: transparent; border: 1px solid rgba(255,255,255,0.1); padding: 10px 25px; border-radius: 8px; color: #ccc; font-weight: bold; cursor: pointer; transition: 0.2s; font-family: var(--font-ar); text-decoration: none;}
         .head-btn:hover { background: rgba(255,255,255,0.05); border-color: #fff; color: #fff; }
         .btn-red { border-color: var(--red); color: var(--red); }
@@ -65,15 +62,11 @@
         .sys-title { font-size: 1.4rem; font-weight: 900; letter-spacing: 2px; }
 
         /* الأقسام والمربعات */
-        #dashboardView { flex: 1; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 40px;}
+        #dashboardView { flex: 1; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 40px; position: relative;}
         .watermark-logo { width: 350px; height: 350px; opacity: 0.05; background: url('yyW7oBx.jpg') center/cover; border-radius: 50%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none;}
-        .main-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; width: 100%; max-width: 1000px; position: relative; z-index: 10;}
         
-        .menu-btn { 
-            background: rgba(15, 20, 30, 0.85); border: 1px solid var(--glass-border); border-radius: 12px; 
-            padding: 30px 20px; text-align: center; color: #fff; font-size: 1.25rem; font-weight: 800; cursor: pointer; 
-            transition: 0.3s; backdrop-filter: blur(10px); box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-        }
+        .main-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; width: 100%; max-width: 1000px; position: relative; z-index: 10;}
+        .menu-btn { background: rgba(15, 20, 30, 0.85); border: 1px solid var(--glass-border); border-radius: 12px; padding: 30px 20px; text-align: center; color: #fff; font-size: 1.25rem; font-weight: 800; cursor: pointer; transition: 0.3s; backdrop-filter: blur(10px); box-shadow: 0 10px 20px rgba(0,0,0,0.5);}
         .menu-btn:hover { border-color: var(--cyan); transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,234,255,0.15); text-shadow: 0 0 10px rgba(0,234,255,0.5); }
 
         /* 🟢 جدول الإدارة الشامل 🟢 */
@@ -81,28 +74,34 @@
         .roster-wrapper { width: 100%; background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 16px; padding: 30px; box-shadow: 0 20px 50px rgba(0,0,0,0.8); overflow-x: auto; backdrop-filter: blur(15px); }
         .roster-wrapper::-webkit-scrollbar { height: 6px; } .roster-wrapper::-webkit-scrollbar-thumb { background: var(--cyan); border-radius: 6px; }
         
-        .luxury-table { width: 100%; border-collapse: separate; border-spacing: 0 8px; text-align: center; font-family: 'Rajdhani', 'Tajawal', sans-serif;}
-        .luxury-table thead th { color: var(--cyan); font-size: 1rem; font-weight: 900; letter-spacing: 2px; padding: 15px; border-bottom: 2px solid rgba(0,234,255,0.2); }
+        .luxury-table { width: 100%; border-collapse: separate; border-spacing: 0 8px; text-align: center; font-family: 'Rajdhani', 'Tajawal', sans-serif; min-width: 1200px;}
+        .luxury-table thead th { color: var(--cyan); font-size: 0.95rem; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; padding: 15px; border-bottom: 2px solid rgba(0,234,255,0.2); }
         .roster-row { background: rgba(20, 26, 40, 0.7); transition: 0.2s; }
-        .roster-row:hover { background: rgba(30, 40, 60, 0.95); transform: scale(1.005); box-shadow: 0 5px 15px rgba(0,234,255,0.1); }
+        .roster-row:hover { background: rgba(30, 40, 60, 0.95); transform: scale(1.01); box-shadow: 0 5px 15px rgba(0,234,255,0.1); }
         .luxury-table td { padding: 15px; color: #d1d1d1; font-size: 1.05rem; font-weight: 600; border-top: 1px solid rgba(255,255,255,0.02); border-bottom: 1px solid rgba(255,255,255,0.02); white-space: nowrap;}
         .luxury-table td:first-child { border-radius: 8px 0 0 8px; border-left: 3px solid var(--cyan); color: var(--cyan); font-weight: 900;}
         .luxury-table td:last-child { border-radius: 0 8px 8px 0; border-right: 1px solid rgba(255,255,255,0.02); }
         
         .dept-title { color: #fff; font-size: 1.5rem; font-weight: 900; padding: 30px 0 10px 0; text-align: left; border-bottom: 2px solid var(--cyan); display: inline-block; letter-spacing: 2px; text-shadow: 0 0 15px var(--cyan-glow);}
 
-        .action-btn { background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; padding: 8px 12px; cursor: pointer; transition: 0.2s; margin: 0 4px;}
-        .btn-edit { color: var(--yellow); } .btn-edit:hover { border-color: var(--yellow); background: rgba(255,193,7,0.1); }
-        .btn-del { color: var(--red); } .btn-del:hover { border-color: var(--red); background: rgba(255,51,51,0.1); }
+        .action-btn { background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; padding: 8px 12px; cursor: pointer; transition: 0.2s; margin: 0 4px; color: #fff;}
+        .btn-edit:hover { border-color: var(--yellow); color: var(--yellow); }
+        .btn-del:hover { border-color: var(--red); color: var(--red); }
 
         /* 🟢 النوافذ المنبثقة للوحة التحكم 🟢 */
         .modal-overlay { position: fixed; inset: 0; background: rgba(3, 5, 9, 0.95); z-index: 100000; display: none; justify-content: center; align-items: center; backdrop-filter: blur(10px); }
-        .modal-box { width: 500px; padding: 40px; background: rgba(10, 15, 25, 0.98); border: 1px solid var(--cyan); border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.8); animation: popIn 0.3s ease; }
-        .gen-input { width: 100%; padding: 15px; background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.1); color: #fff; margin-bottom: 15px; border-radius: 8px; text-align: right; }
+        .modal-box { width: 550px; padding: 40px; background: rgba(10, 15, 25, 0.98); border: 1px solid var(--cyan); border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.8); animation: popIn 0.3s ease; }
+        .gen-input { width: 100%; padding: 12px; background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.1); color: #fff; margin-bottom: 15px; border-radius: 8px; text-align: right; }
         .gen-input:focus { border-color: var(--cyan); box-shadow: 0 0 10px rgba(0,234,255,0.2); }
         select.gen-input option { background: #0b0e14; }
-        .close-btn { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #ccc; padding: 15px; border-radius: 8px; cursor: pointer; transition: 0.2s; font-weight: bold; width: 100%;}
+        .close-btn { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #ccc; padding: 15px; border-radius: 8px; cursor: pointer; transition: 0.2s; font-weight: bold; width: 100%; font-family: var(--font-ar); font-size:1.1rem;}
         .close-btn:hover { background: rgba(255,51,51,0.2); border-color: var(--red); color: #fff;}
+        .grid-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .rec-item { padding: 20px; border-bottom: 1px solid rgba(255,255,255,0.03); display: flex; justify-content: space-between; align-items: flex-start; color: #ddd; font-size: 1.05rem; background: rgba(20,26,40,0.8); border-radius: 10px; margin-bottom: 12px; border: 1px solid var(--glass-border); }
+
+        /* 🟢 الهوية 🟢 */
+        .executive-card { width: 650px; height: 300px; background: #0b0e14; border-radius: 20px; box-shadow: 0 30px 60px rgba(0,0,0,0.9); display: flex; flex-direction: row-reverse; align-items: center; padding: 30px; position: relative; border: 1px solid rgba(255,255,255,0.05); border-right: 3px solid var(--cyan); }
+        .profile-img-wrapper { width: 150px; height: 150px; border-radius: 20px; border: 2px solid var(--cyan); padding: 4px; position: relative; background: rgba(0, 234, 255, 0.05); box-shadow: 0 0 20px rgba(0,234,255,0.2); }
     </style>
 </head>
 <body>
@@ -117,18 +116,12 @@
     <div id="loginScreen">
         <div class="login-container">
             <div class="login-logo"></div>
-            <div style="font-size: 1.8rem; font-weight: 900; margin-bottom: 30px; letter-spacing: 1px;">نظام إدارة الشرطة</div>
-            <div class="inp-group">
-                <i class="fa-solid fa-user"></i>
-                <input type="text" id="userInput" class="login-input" placeholder="اسم المستخدم">
-            </div>
-            <div class="inp-group">
-                <i class="fa-solid fa-lock"></i>
-                <input type="password" id="passInput" class="login-input" placeholder="كلمة المرور">
-            </div>
-            <button class="submit-btn" onclick="login()">دخول للوحة القيادة</button>
+            <h2 style="margin-bottom: 30px; color:var(--cyan); text-shadow:0 0 15px var(--cyan-glow);">نظام إدارة الشرطة</h2>
+            <input type="text" id="userInput" class="login-input" placeholder="اسم المستخدم">
+            <input type="password" id="passInput" class="login-input" placeholder="كلمة المرور">
+            <button class="submit-btn" onclick="login()">تسجيل الدخول</button>
             <div id="loginError" style="display: none; color: var(--red); margin-top: 15px; font-weight: bold; background: rgba(255,51,51,0.1); border: 1px solid var(--red); padding: 10px; border-radius: 6px;">بيانات غير صحيحة!</div>
-            <button onclick="window.location.href='index.html'" style="background: transparent; border: none; color: #888; margin-top: 25px; cursor: pointer; text-decoration: underline; font-family: var(--font-ar);">العودة للموقع الرئيسي</button>
+            <button onclick="window.location.href='index.html'" style="background:transparent; border:none; color:#888; margin-top:20px; text-decoration:underline; cursor:pointer; font-family:var(--font-ar);">العودة للموقع الرئيسي</button>
         </div>
     </div>
 
@@ -138,7 +131,7 @@
                 <button class="head-btn btn-red" onclick="logout()"><i class="fa-solid fa-power-off"></i> خروج</button>
                 <button class="head-btn" onclick="window.location.href='index.html'"><i class="fa-solid fa-house"></i> الرئيسية</button>
             </div>
-            <div class="sys-title">لوحة القيادة | L.S.P.D</div>
+            <div class="sys-title">إدارة الشرطة</div>
             <div class="header-side">
                 <button class="head-btn btn-cyan" onclick="document.getElementById('idCardOverlay').style.display='flex'"><i class="fa-solid fa-id-card"></i> هويتي العسكرية</button>
             </div>
@@ -146,8 +139,7 @@
 
         <div id="dashboardView">
             <div class="watermark-logo"></div>
-            <div class="main-grid" id="modulesContainer">
-                </div>
+            <div class="main-grid" id="modulesContainer"></div>
         </div>
 
         <div id="moduleView">
@@ -155,31 +147,74 @@
                 <h2 id="mTitle" style="color: var(--cyan); font-size: 2rem; font-weight: 900; text-shadow: 0 0 15px var(--cyan-glow);">--</h2>
                 <button class="head-btn" onclick="document.getElementById('moduleView').style.display='none'; document.getElementById('dashboardView').style.display='flex';"><i class="fa-solid fa-arrow-right"></i> العودة للوحة القيادة</button>
             </div>
-            <div id="dynamicContentArea"></div>
+            <div id="dynamicContentArea" class="allow-select"></div>
         </div>
     </div>
 
     <div class="modal-overlay" id="editRankModal">
         <div class="modal-box">
-            <h3 style="color:var(--cyan); margin-bottom:25px; font-size:1.6rem; text-align:center;">تعديل السجل العسكري</h3>
-            <div style="text-align: right; color: #8da2b5; font-weight: bold; margin-bottom: 5px;">الاسم الشخصي:</div>
-            <input type="text" id="editOfficerName" class="gen-input">
-            <div style="text-align: right; color: #8da2b5; font-weight: bold; margin-bottom: 5px;">الرقم العسكري (Code):</div>
-            <input type="text" id="editOfficerCode" class="gen-input">
-            <div style="text-align: right; color: #8da2b5; font-weight: bold; margin-bottom: 5px;">الرتبة العسكرية:</div>
-            <select id="editRankSelect" class="gen-input" style="cursor: pointer;"></select>
+            <h3 style="color:var(--cyan); margin-bottom:20px; text-align:center;">تعديل السجل العسكري</h3>
+            
+            <div class="grid-inputs">
+                <div>
+                    <div style="text-align: right; color: #8da2b5; margin-bottom: 5px;">الاسم (Name):</div>
+                    <input type="text" id="editName" class="gen-input">
+                </div>
+                <div>
+                    <div style="text-align: right; color: #8da2b5; margin-bottom: 5px;">الكود (Code):</div>
+                    <input type="text" id="editCode" class="gen-input">
+                </div>
+                <div>
+                    <div style="text-align: right; color: #8da2b5; margin-bottom: 5px;">الرتبة (Rank):</div>
+                    <select id="editRank" class="gen-input"></select>
+                </div>
+                <div>
+                    <div style="text-align: right; color: #8da2b5; margin-bottom: 5px;">المسؤولية (Responsibility):</div>
+                    <input type="text" id="editResp" class="gen-input">
+                </div>
+                <div>
+                    <div style="text-align: right; color: #8da2b5; margin-bottom: 5px;">الحالة (Status):</div>
+                    <select id="editStatus" class="gen-input">
+                        <option value="ACTIVE">ACTIVE</option>
+                        <option value="INACTIVE">INACTIVE</option>
+                        <option value="LOA">LOA</option>
+                        <option value="SUSPENDED">SUSPENDED</option>
+                    </select>
+                </div>
+                <div>
+                    <div style="text-align: right; color: #8da2b5; margin-bottom: 5px;">الإنذارات (Strikes):</div>
+                    <input type="text" id="editStrikes" class="gen-input" placeholder="N/A -">
+                </div>
+                <div>
+                    <div style="text-align: right; color: #8da2b5; margin-bottom: 5px;">تاريخ الترقية (Last Prom):</div>
+                    <input type="text" id="editProm" class="gen-input" placeholder="N/A -">
+                </div>
+                <div>
+                    <div style="text-align: right; color: #8da2b5; margin-bottom: 5px;">النقاط (F.P):</div>
+                    <input type="text" id="editFP" class="gen-input" placeholder="N/A -">
+                </div>
+                <div style="grid-column: span 2;">
+                    <div style="text-align: right; color: #8da2b5; margin-bottom: 5px;">ديسكورد آيدي (Discord ID):</div>
+                    <input type="text" id="editDiscord" class="gen-input">
+                </div>
+                <div style="grid-column: span 2;">
+                    <div style="text-align: right; color: #8da2b5; margin-bottom: 5px;">ملاحظات (Notes):</div>
+                    <textarea id="editNotes" class="gen-input" style="height: 60px; resize:none;"></textarea>
+                </div>
+            </div>
+
             <div style="display:flex; gap:15px; margin-top: 10px;">
                 <button class="submit-btn" onclick="saveNewOfficerData()" style="flex: 2; margin: 0;">حفظ التعديلات</button>
-                <button class="close-btn" onclick="document.getElementById('editRankModal').style.display='none'" style="flex: 1;">إلغاء</button>
+                <button class="close-btn" onclick="document.getElementById('editRankModal').style.display='none'" style="flex: 1; margin: 0;">إلغاء</button>
             </div>
         </div>
     </div>
 
     <div class="modal-overlay" id="idCardOverlay">
         <div style="text-align: center;">
-            <div style="width: 650px; height: 300px; background: #0b0e14; border-radius: 20px; box-shadow: 0 30px 60px rgba(0,0,0,0.9); display: flex; flex-direction: row-reverse; align-items: center; padding: 30px; position: relative; border: 1px solid rgba(255,255,255,0.05); border-right: 3px solid var(--cyan);">
-                <div style="width: 200px; display: flex; flex-direction: column; align-items: center;">
-                    <div style="width: 150px; height: 150px; border-radius: 20px; border: 2px solid var(--cyan); padding: 4px; box-shadow: 0 0 20px rgba(0,234,255,0.2);"><img id="cardImage" src="https://cdn.discordapp.com/attachments/1079065638502404167/1476016754705567824/D25Todl.png" style="width: 100%; height: 100%; object-fit: cover; border-radius: 16px;"></div>
+            <div class="executive-card">
+                <div class="card-left">
+                    <div class="profile-img-wrapper"><img id="cardImage" src="https://cdn.discordapp.com/attachments/1079065638502404167/1476016754705567824/D25Todl.png" style="width: 100%; height: 100%; object-fit: cover; border-radius: 16px;"></div>
                 </div>
                 <div style="width: calc(100% - 220px); text-align: right; display: flex; flex-direction: column; align-items: flex-end;">
                     <div style="color: #666; font-family: var(--font-en); font-weight: 800; letter-spacing: 3px;">L.S.P.D EXECUTIVE ID</div>
@@ -190,36 +225,31 @@
                 </div>
             </div>
             <div style="margin-top: 30px; display: flex; justify-content: center; gap: 15px;">
-                <label class="head-btn btn-cyan" style="cursor: pointer; padding: 15px 30px;"><i class="fa-solid fa-camera"></i> تغيير الصورة<input type="file" id="cardImageInput" accept="image/*" style="display: none;" onchange="updateCardImg(this)"></label>
+                <label class="head-btn btn-cyan" style="cursor: pointer; padding: 15px 30px;"><i class="fa-solid fa-camera"></i> تغيير الصورة<input type="file" accept="image/*" style="display: none;" onchange="updateCardImg(this)"></label>
                 <button class="head-btn btn-red" onclick="document.getElementById('idCardOverlay').style.display='none'" style="padding: 15px 40px;">إغلاق</button>
             </div>
         </div>
     </div>
 
     <script>
+        const starBg = document.getElementById('star-bg');
+        for (let i = 0; i < 30; i++) { 
+            let star = document.createElement('div'); star.className = 'star';
+            star.style.width = star.style.height = (Math.random() * 3 + 1) + 'px';
+            star.style.left = Math.random() * 100 + 'vw'; star.style.top = Math.random() * 100 + 'vh';
+            star.style.animationDuration = (Math.random() * 3 + 2) + 's'; starBg.appendChild(star);
+        }
+
         const publicOfficersList = ["Minister of Interior", "Deputy Minister of Interior", "A. Minister of Interior", "Police Commander", "L.S.P.D Chief", "Deputy L.S.P.D Chief", "A' Lspd Chief", "High Commander", "General", "Colonel", "Major", "Captain", "First Lieutenant", "Lieutenant"];
         const publicEnlistedList = ["Staff Sergeant", "First Sergeant", "Sergeant", "Senior Lead Officer", "Senior Officer", "Officer III", "Officer II", "Officer I", "Solo Cadet", "Cadet"];
         let SystemRanks = [...publicOfficersList, ...publicEnlistedList];
 
-        function createBackgroundEffects() {
-            const starBg = document.getElementById('star-bg');
-            for (let i = 0; i < 40; i++) { 
-                let star = document.createElement('div'); star.className = 'star';
-                star.style.width = star.style.height = (Math.random() * 3 + 1) + 'px';
-                star.style.left = Math.random() * 100 + 'vw'; star.style.top = Math.random() * 100 + 'vh';
-                star.style.animationDuration = (Math.random() * 3 + 2) + 's'; starBg.appendChild(star);
-            }
-        }
-        createBackgroundEffects();
-
-        const firebaseConfig = {
+        firebase.initializeApp({
             apiKey: "AIzaSyC5PL_fJEjiJVQS8rnx4m8j9uQNsILcQvs", authDomain: "police-depa.firebaseapp.com",
             databaseURL: "https://police-depa-default-rtdb.europe-west1.firebasedatabase.app", projectId: "police-depa"
-        };
-        firebase.initializeApp(firebaseConfig);
+        });
         const database = firebase.database();
 
-        // 🟢 الأقسام (تطابق الصورة 4) 🟢
         const modules = [
             { id: 'settings', i18n_t: 'إعدادات التقديم', reqOfficer: true },
             { id: 'applications', i18n_t: 'طلبات التقديم', reqOfficer: true },
@@ -238,13 +268,12 @@
             { id: 'gangs', i18n_t: 'قسم العصابات' }
         ];
 
-        let db = { live_roster: {} }; let isOfficer = false; let myName = ""; let myRank = ""; 
+        let db = { live_roster: {}, applications: [] }; let isOfficer = false; let myName = ""; let myRank = ""; 
 
+        database.ref('lspd_db').on('value', (s) => { if(s.val() && s.val().applications) db.applications = Object.values(s.val().applications).filter(i=>i); });
         database.ref('live_roster').on('value', (snapshot) => {
             db.live_roster = snapshot.val() || {};
-            if(document.getElementById('moduleView').style.display === 'flex' && document.getElementById('mTitle').innerText === 'إدارة جدول العساكر') {
-                renderAdminRoster();
-            }
+            if(document.getElementById('moduleView').style.display === 'flex' && document.getElementById('mTitle').innerText === 'إدارة جدول العساكر') { renderAdminRoster(); }
         });
 
         function login() {
@@ -266,7 +295,7 @@
             } else { document.getElementById('loginError').style.display = 'block'; }
         }
 
-        function logout() { location.reload(); }
+        function logout() { window.location.href='index.html'; }
         function updateCardImg(input) {
             if (input.files && input.files[0]) {
                 const reader = new FileReader();
@@ -293,12 +322,37 @@
 
             if(mod.isRosterAdmin) {
                 renderAdminRoster();
+            } else if (mod.id === 'applications') {
+                renderApplications(container);
             } else {
                 container.innerHTML = `<div style="text-align:center; padding:50px; color:#888; font-size:1.5rem; background:var(--glass-bg); border:1px solid var(--glass-border); border-radius:16px;">مرحباً بك في ${mod.i18n_t} (قيد التطوير)</div>`;
             }
         }
 
-        // 🟢 الجدول الاحترافي داخل لوحة التحكم (الذي يطابق إكسل) 🟢
+        function renderApplications(container) {
+            if(db.applications.length === 0) { container.innerHTML = '<div style="text-align:center; padding:30px; color:#888;">لا يوجد طلبات.</div>'; return; }
+            let html = '';
+            [...db.applications].reverse().forEach((app, revIdx) => {
+                const idx = db.applications.length - 1 - revIdx;
+                html += `<div class="rec-item allow-select" style="flex-direction:column; align-items:flex-end;">
+                    <div style="color:var(--cyan); font-weight:bold; font-size:1.2rem; margin-bottom:10px;">طلب مقدم من: ${app.name} (${app.type==='self'?'قدم نفسك':'شرطة'})</div>
+                    <div style="text-align:right; color:#ccc; line-height:1.6; margin-bottom:15px; width:100%;">
+                        <strong>العمر:</strong> ${app.age}<br><strong>الديسكورد:</strong> ${app.discord}<br><strong>الخبرة:</strong> ${app.exp}<br><strong>السبب:</strong> ${app.reason||'لا يوجد'}
+                    </div>
+                    <button class="action-btn btn-del" onclick="deleteApp(${idx})"><i class="fa-solid fa-trash"></i> حذف</button>
+                </div>`;
+            });
+            container.innerHTML = html;
+        }
+
+        function deleteApp(idx) {
+            if(confirm("حذف الطلب؟")) {
+                db.applications.splice(idx, 1);
+                firebase.database().ref('lspd_db').update({ applications: db.applications }).then(() => renderApplications(document.getElementById('dynamicContentArea')));
+            }
+        }
+
+        // 🟢 الجدول الاحترافي داخل لوحة التحكم (يطابق إكسل تماماً) 🟢
         function renderAdminRoster() {
             const container = document.getElementById('dynamicContentArea');
             const data = db.live_roster;
@@ -314,7 +368,11 @@
                             <th>Rank</th>
                             <th>Responsibility</th>
                             <th>Status</th>
+                            <th>Strikes</th>
+                            <th>Last Prom</th>
+                            <th>F.P</th>
                             <th>Discord ID</th>
+                            <th>Notes</th>
                             <th>الإجراءات</th>
                         </tr>
                     </thead>
@@ -322,23 +380,27 @@
             
             const groups = {};
             Object.keys(data).forEach(key => { const off = data[key]; off.id = key; const r = off.rank || 'غير محدد'; if(!groups[r]) groups[r] = []; groups[r].push(off); });
-            const sortedRanks = Object.keys(groups).sort((a, b) => { let idxA = SystemRanks.indexOf(a); let idxB = SystemRanks.indexOf(b); if (idxA === -1) idxA = 999; if (idxB === -1) idxB = 999; return idxA - idxB; });
+            const sortedRanks = Object.keys(groups).sort((a, b) => { let iA = SystemRanks.indexOf(a), iB = SystemRanks.indexOf(b); return (iA===-1?999:iA) - (iB===-1?999:iB); });
 
             sortedRanks.forEach(rankName => {
-                htmlString += `<tr><td colspan="7" style="border:none;"><div class="dept-title">${rankName}</div></td></tr>`;
+                htmlString += `<tr><td colspan="11" style="border:none;"><div class="dept-title">${rankName}</div></td></tr>`;
                 
-                groups[rankName].sort((a, b) => (a.code || '').localeCompare(b.code || '')).forEach(officer => {
+                groups[rankName].sort((a, b) => (a.code || '').localeCompare(b.code || '')).forEach(off => {
                     htmlString += `
                     <tr class="roster-row">
-                        <td style="color: var(--cyan); font-weight: 900;">${officer.code || '-'}</td>
-                        <td style="color: #fff; font-family: var(--font-ar);">${officer.name || '-'}</td>
-                        <td style="color: #ccc;">${officer.rank || '-'}</td>
-                        <td style="color: #ccc;">${officer.dept || '-'}</td>
-                        <td><div style="background: rgba(0, 255, 106, 0.1); border: 1px solid rgba(0, 255, 106, 0.3); color: var(--green); padding: 5px 15px; border-radius: 20px; font-size: 0.85rem; font-weight: 800; display:inline-block;">${officer.status || 'ACTIVE'}</div></td>
-                        <td><span style="background: rgba(0,0,0,0.4); padding: 5px 10px; border-radius: 6px; font-family: monospace; color: #8da2b5; border: 1px solid rgba(255,255,255,0.05);">${officer.discordId || '-'}</span></td>
+                        <td style="color: var(--cyan); font-weight: 900;">${off.code || '-'}</td>
+                        <td style="color: #fff; font-family: var(--font-ar);">${off.name || '-'}</td>
+                        <td style="color: #ccc;">${off.rank || '-'}</td>
+                        <td style="color: #ccc;">${off.responsibility || '-'}</td>
+                        <td><div style="background: rgba(0, 255, 106, 0.1); border: 1px solid rgba(0, 255, 106, 0.3); color: var(--green); padding: 5px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: 800;">${off.status || 'ACTIVE'}</div></td>
+                        <td style="color: #888;">${off.strikes || '-'}</td>
+                        <td style="color: #888;">${off.lastProm || '-'}</td>
+                        <td style="color: #888;">${off.fp || '-'}</td>
+                        <td><span style="background: rgba(0,0,0,0.4); padding: 5px 10px; border-radius: 6px; font-family: monospace; color: #8da2b5; border: 1px solid rgba(255,255,255,0.05);">${off.discordId || '-'}</span></td>
+                        <td style="color: #888; font-size:0.9rem; max-width: 150px; overflow: hidden; text-overflow: ellipsis;">${off.notes || '-'}</td>
                         <td>
-                            <button onclick="editOfficerData('${officer.id}', '${officer.name}', '${officer.rank}', '${officer.code}')" class="action-btn btn-edit" title="تعديل"><i class="fa-solid fa-pen-to-square"></i></button>
-                            <button onclick="deleteOfficerFromRoster('${officer.id}', '${officer.name}')" class="action-btn btn-del" title="فصل"><i class="fa-solid fa-trash"></i></button>
+                            <button onclick="editOfficerData('${off.id}', '${off.name}', '${off.rank}', '${off.code}', '${off.responsibility}', '${off.status}', '${off.strikes}', '${off.lastProm}', '${off.fp}', '${off.discordId}', '${off.notes}')" class="action-btn btn-edit" title="تعديل"><i class="fa-solid fa-pen-to-square"></i></button>
+                            <button onclick="deleteOfficerFromRoster('${off.id}', '${off.name}')" class="action-btn btn-del" title="فصل"><i class="fa-solid fa-trash"></i></button>
                         </td>
                     </tr>`;
                 });
@@ -353,10 +415,17 @@
         
         let currentEditingOfficerId = null;
 
-        function editOfficerData(id, name, currentRank, code) {
+        function editOfficerData(id, name, currentRank, code, resp, status, strikes, prom, fp, discord, notes) {
             currentEditingOfficerId = id;
             document.getElementById('editOfficerName').value = name || '';
             document.getElementById('editOfficerCode').value = code || '';
+            document.getElementById('editResp').value = resp === '-' ? '' : resp;
+            document.getElementById('editStatus').value = status || 'ACTIVE';
+            document.getElementById('editStrikes').value = strikes === '-' ? '' : strikes;
+            document.getElementById('editProm').value = prom === '-' ? '' : prom;
+            document.getElementById('editFP').value = fp === '-' ? '' : fp;
+            document.getElementById('editDiscord').value = discord === '-' ? '' : discord;
+            document.getElementById('editNotes').value = notes === '-' ? '' : notes;
             
             let rankOptions = '';
             SystemRanks.forEach(r => { rankOptions += `<option value="${r}" ${r===currentRank ? 'selected' : ''}>${r}</option>`; });
@@ -366,14 +435,24 @@
         }
 
         function saveNewOfficerData() {
-            let newRank = document.getElementById('editRankSelect').value, newName = document.getElementById('editOfficerName').value.trim(), newCode = document.getElementById('editOfficerCode').value.trim();
-            if(!newName || !newRank || !newCode) return alert("يرجى تعبئة الحقول الأساسية.");
+            if(!currentEditingOfficerId) return;
+            
+            const payload = {
+                name: document.getElementById('editOfficerName').value.trim() || '-',
+                code: document.getElementById('editOfficerCode').value.trim() || '-',
+                rank: document.getElementById('editRankSelect').value,
+                responsibility: document.getElementById('editResp').value.trim() || '-',
+                status: document.getElementById('editStatus').value,
+                strikes: document.getElementById('editStrikes').value.trim() || '-',
+                lastProm: document.getElementById('editProm').value.trim() || '-',
+                fp: document.getElementById('editFP').value.trim() || '-',
+                discordId: document.getElementById('editDiscord').value.trim() || '-',
+                notes: document.getElementById('editNotes').value.trim() || '-'
+            };
 
-            if(currentEditingOfficerId) {
-                database.ref(`live_roster/${currentEditingOfficerId}`).update({ rank: newRank, name: newName, code: newCode }).then(() => {
-                    document.getElementById('editRankModal').style.display = 'none';
-                });
-            }
+            database.ref(`live_roster/${currentEditingOfficerId}`).update(payload).then(() => {
+                document.getElementById('editRankModal').style.display = 'none';
+            });
         }
     </script>
 </body>
