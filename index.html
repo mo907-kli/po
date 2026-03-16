@@ -24,7 +24,7 @@
         body { user-select: none; background: var(--bg-deep); color: var(--text-main); font-family: var(--font-ar); min-height: 100vh; overflow-x: hidden; }
         input, textarea, select, .allow-select * { user-select: text !important; }
 
-        /* الخلفية الفخمة */
+        /* الخلفية הפخمة */
         #bgEffects { position: fixed; inset: 0; z-index: -5; pointer-events: none; }
         .star { position: absolute; background: white; border-radius: 50%; opacity: 0.5; animation: twinkle linear infinite alternate; box-shadow: 0 0 5px rgba(0, 234, 255, 0.5); }
         @keyframes twinkle { 0% { opacity: 0.2; transform: scale(0.8); } 100% { opacity: 1; transform: scale(1.2); box-shadow: 0 0 8px rgba(0, 234, 255, 0.8); } }
@@ -32,8 +32,6 @@
         .light-blue { position: absolute; bottom: -30%; right: -20%; width: 70vw; height: 70vw; background: radial-gradient(circle, rgba(0, 160, 255, 0.08) 0%, transparent 70%); mix-blend-mode: screen; animation: pulseBlue 4s infinite alternate ease-in-out; }
         @keyframes pulseRed { 0% { opacity: 0.5; transform: scale(0.9); } 100% { opacity: 1; transform: scale(1.1); } }
         @keyframes pulseBlue { 0% { opacity: 1; transform: scale(1.1); } 100% { opacity: 0.5; transform: scale(0.9); } }
-
-        .central-logo-bg { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 450px; height: 450px; z-index: -1; opacity: 0.04; pointer-events: none; background-image: url('yyW7oBx.jpg'); background-size: cover; background-position: center; border-radius: 50%; clip-path: circle(47% at 50% 50%); }
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes popIn { 0% { opacity: 0; transform: scale(0.9); } 100% { opacity: 1; transform: scale(1); } }
@@ -50,6 +48,7 @@
 
         .tab-content { display: none; flex-direction: column; align-items: center; width: 100%; padding-bottom: 100px; animation: fadeIn 0.3s ease;}
         
+        /* الرئيسية */
         .hero-section { display: flex; align-items: center; justify-content: center; min-height: calc(100vh - 90px); width: 100%; background: radial-gradient(circle at center, rgba(0, 234, 255, 0.05) 0%, transparent 60%); }
         .hero-content { text-align: center; max-width: 800px; padding: 40px; }
         .hero-content h1 { font-size: 5rem; color: #fff; font-weight: 900; margin-bottom: 20px; text-shadow: 0 0 30px rgba(0,234,255,0.4); }
@@ -71,10 +70,9 @@
         .lux-card p { color: #888; font-size: 1rem; line-height: 1.7; margin-bottom: 30px; transform: translateZ(10px);}
         .founder-img { width: 130px; height: 130px; border-radius: 50%; margin: 0 auto 25px; border: 3px solid var(--cyan); object-fit: cover; padding: 5px; transform: translateZ(30px); }
 
-        /* 🟢 القوانين (SOPs) 🟢 */
-        .accordion-container { width: 100%; max-width: 1000px; padding: 0 20px; margin-top: 40px;}
+        /* القوانين */
+        .accordion-container { width: 100%; max-width: 900px; padding: 0 20px; margin-top: 40px;}
         .accordion-item { margin-bottom: 12px; border-radius: 8px; background: rgba(20, 26, 40, 0.7); border: 1px solid var(--glass-border); transition: 0.2s; backdrop-filter: blur(10px); box-shadow: 0 10px 20px rgba(0,0,0,0.5);}
-        .accordion-item:hover { border-color: rgba(0, 234, 255, 0.3); }
         .accordion-header { display: flex; justify-content: space-between; align-items: center; padding: 25px 30px; cursor: pointer; transition: 0.2s; flex-direction: row-reverse; }
         .acc-title-box { display: flex; align-items: center; gap: 15px; flex-direction: row-reverse; }
         .acc-dot { width: 12px; height: 12px; background: var(--cyan); border-radius: 50%; box-shadow: 0 0 10px var(--cyan); }
@@ -90,7 +88,7 @@
         .sop-list li { position: relative; padding-right: 25px; margin-bottom: 15px; color: #d1d1d1; font-size: 1.05rem; line-height: 1.9; }
         .sop-list li::before { content: '■'; position: absolute; right: 0; top: 0; color: var(--cyan); font-size: 0.8rem; }
 
-        /* جدول الزوار الفخم */
+        /* جدول الزوار */
         .roster-wrapper { width: 95%; max-width: 1600px; background: rgba(10, 15, 25, 0.85); margin: 40px auto; border: 1px solid var(--glass-border); border-radius: 16px; padding: 20px; backdrop-filter: blur(15px); box-shadow: 0 20px 50px rgba(0,0,0,0.6); overflow-x: auto; }
         .luxury-table { width: 100%; border-collapse: separate; border-spacing: 0 8px; text-align: center; font-family: 'Rajdhani', 'Tajawal', sans-serif; min-width: 1100px;}
         .luxury-table thead th { color: var(--cyan); font-size: 0.95rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; padding: 15px; border-bottom: 2px solid rgba(0,234,255,0.2); }
@@ -104,7 +102,7 @@
         .pill-status { display: inline-flex; align-items: center; gap: 8px; background: rgba(0, 255, 106, 0.08); border: 1px solid rgba(0, 255, 106, 0.3); color: var(--green); padding: 5px 15px; border-radius: 20px; font-size: 0.85rem; font-weight: 800; text-transform: uppercase;}
         .code-box { background: rgba(0,0,0,0.5); padding: 4px 10px; border-radius: 6px; font-family: monospace; color: #8da2b5; border: 1px solid rgba(255,255,255,0.05); }
 
-        /* النوافذ المنبثقة (التقديم) */
+        /* النوافذ المنبثقة */
         .modal-overlay { position: fixed; inset: 0; background: rgba(3, 5, 9, 0.95); z-index: 100000; display: none; justify-content: center; align-items: center; backdrop-filter: blur(10px); }
         .modal-box { width: 550px; padding: 40px; background: rgba(10, 15, 25, 0.98); border: 1px solid var(--cyan); border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.8); animation: popIn 0.3s ease-out; }
         .gen-input { width: 100%; padding: 15px; background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.1); color: #fff; margin-bottom: 15px; border-radius: 8px; outline: none; transition: 0.3s; font-family: var(--font-ar); text-align: right;}
@@ -162,22 +160,18 @@
                 <div class="accordion-content">
                     <div class="accordion-inner">
                         <div style="text-align: center; margin-bottom: 40px;">
-                            <img src="yyW7oBx.jpg" style="width: 100px; height: 100px; border-radius: 50%; border: 2px solid var(--cyan); margin-bottom: 15px; box-shadow: 0 0 15px var(--cyan-glow);">
-                            <h2 style="color: #fff; font-family: var(--font-en); letter-spacing: 2px; margin-bottom: 5px;"><span style="color:var(--red);">S</span>tandard <span style="color:var(--red);">O</span>perating <span style="color:var(--red);">P</span>rocedures</h2>
-                            <h1 style="color: var(--red); font-weight: 900; text-shadow: 0 0 15px rgba(255,51,51,0.6); margin-bottom: 5px; font-size: 2.2rem;">طنى الشمري شخصياً مسويه</h1>
-                            <h2 style="color: var(--red); font-family: var(--font-en); margin-bottom: 5px; font-weight:bold;">SOPs</h2>
-                            <h3 style="color: var(--cyan); font-weight: 900; text-shadow: 0 0 10px rgba(0,234,255,0.5); margin-bottom: 15px;">اذكر الله يابترك</h3>
-                            <p style="color: #666; font-size: 0.85rem; font-family: var(--font-en);">Copyright © 2025/2026 q2_rv & Abdulrhman - All Rights Reserved</p>
+                            <h2 style="color: #fff; font-family: var(--font-en); letter-spacing: 2px; margin-bottom: 10px;">Standard Operating Procedures</h2>
+                            <p style="color: #666; font-size: 0.9rem; font-family: var(--font-en);">Copyright © 2025/2026 - All Rights Reserved</p>
                         </div>
 
-                        <h2 style="color: var(--red); text-align: center; margin-bottom: 30px; font-weight: 900; font-size: 1.8rem; text-shadow: 0 0 10px rgba(255,51,51,0.3);">قواعد الشرطة</h2>
+                        <h2 style="color: var(--cyan); text-align: center; margin-bottom: 30px; font-weight: 900; font-size: 1.8rem; text-shadow: 0 0 10px rgba(0,234,255,0.3);">قواعد الشرطة</h2>
 
                         <div class="sop-section-title">1. قواعد وسلوكيات التعامل</div>
-                        <p style="color:#d1d1d1; line-height:1.9; margin-bottom:15px;">قواعد وسلوكيات التعامل تمثل شبكة الشرطة بشكل عام أمام المجتمع من ناحية الإجراءات والحماية والتنفيذ، وطرق التعامل هي الآلية التي تبرز شبكة الشرطة من طرف عناصر الشرطة.</p>
+                        <p style="color:#d1d1d1; line-height:1.9; margin-bottom:15px;">تمثل هذه القواعد شبكة الشرطة بشكل عام أمام المجتمع من ناحية الإجراءات والحماية والتنفيذ، وطرق التعامل هي الآلية التي تبرز شبكة الشرطة.</p>
                         
                         <div class="sop-section-title">1.1 قواعد وسلوكيات التعامل مع المواطنين</div>
                         <ul class="sop-list">
-                            <li>عناصر الشرطة يجب أن يكونوا في أعلى درجات الاحترام والمهنية وأن يتحلوا بالصبر والهدوء.</li>
+                            <li>يجب على عناصر الشرطة أن يكونوا في أعلى درجات الاحترام والمهنية وأن يتحلوا بالصبر.</li>
                             <li>يحق لشرطي المرور إيقاف أي مركبة مشتبه بها أو ارتكبت مخالفة مرورية.</li>
                             <li>يجب على الشرطي إبلاغ المواطن عن سبب إيقافه بشكل واضح ومختصر.</li>
                             <li>يمنع منعاً باتاً التلفظ بألفاظ نابية أو شتم المواطنين مهما كان السبب.</li>
@@ -255,7 +249,7 @@
             <input type="number" id="appAge" class="gen-input" placeholder="العمر الحقيقي">
             <textarea id="appExp" class="gen-input" placeholder="الخبرات السابقة في العسكرية..." style="height:80px; resize:none;"></textarea>
             <div style="display: flex; gap: 15px; margin-top: 15px;">
-                <button class="submit-btn" onclick="submitApplication('police')" style="flex: 2; margin: 0;">إرسال التقديم</button>
+                <button class="submit-btn" onclick="submitApp('police')" style="flex: 2; margin: 0;">إرسال التقديم</button>
                 <button class="close-btn" onclick="document.getElementById('appModal').style.display='none'" style="flex: 1; margin: 0;">إلغاء</button>
             </div>
         </div>
@@ -268,7 +262,7 @@
             <input type="text" id="selfDiscord" class="gen-input" placeholder="حساب الديسكورد">
             <textarea id="selfExp" class="gen-input" placeholder="الخبرات والمهارات..." style="height:80px; resize:none;"></textarea>
             <div style="display: flex; gap: 15px; margin-top: 15px;">
-                <button class="submit-btn" onclick="submitApplication('self')" style="flex: 2; margin: 0;">إرسال التقديم</button>
+                <button class="submit-btn" onclick="submitApp('self')" style="flex: 2; margin: 0;">إرسال التقديم</button>
                 <button class="close-btn" onclick="document.getElementById('selfAppModal').style.display='none'" style="flex: 1; margin: 0;">إلغاء</button>
             </div>
         </div>
@@ -292,10 +286,9 @@
             apiKey: "AIzaSyC5PL_fJEjiJVQS8rnx4m8j9uQNsILcQvs", authDomain: "police-depa.firebaseapp.com",
             databaseURL: "https://police-depa-default-rtdb.europe-west1.firebasedatabase.app", projectId: "police-depa"
         });
-        const database = firebase.database();
         let db = { applications: [], live_roster: {}, settings: {} };
 
-        database.ref('lspd_db').on('value', (snapshot) => {
+        firebase.database().ref('lspd_db').on('value', (snapshot) => {
             const data = snapshot.val();
             if (data) {
                 if(data.applications) db.applications = Object.values(data.applications).filter(i=>i);
@@ -307,7 +300,7 @@
             }
         });
 
-        database.ref('live_roster').on('value', (snapshot) => {
+        firebase.database().ref('live_roster').on('value', (snapshot) => {
             db.live_roster = snapshot.val() || {};
             const tbody = document.getElementById('publicRosterBody');
             if (Object.keys(db.live_roster).length === 0) { tbody.innerHTML = '<tr><td colspan="10" style="padding:40px; color:#888; text-align:center;">لا يوجد عساكر مسجلين حالياً.</td></tr>'; return; }
@@ -349,7 +342,7 @@
             else { item.classList.add('active'); icon.innerText = '-'; } 
         }
 
-        function submitApplication(type) {
+        function submitApp(type) {
             let n, d, a, exp, r;
             if(type === 'police') {
                 n = document.getElementById('appName').value; d = document.getElementById('appDiscord').value;
