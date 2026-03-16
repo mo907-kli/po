@@ -34,6 +34,7 @@
         .login-container { width: 400px; padding: 50px 40px; background: rgba(10, 15, 20, 0.9); border: 1px solid var(--cyan); border-radius: 16px; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.9), 0 0 20px rgba(0,234,255,0.1); animation: popIn 0.3s ease; }
         .login-logo { width: 100px; height: 100px; background: url('yyW7oBx.jpg') center/cover; border-radius: 50%; margin: 0 auto 25px; border: 2px solid var(--cyan); box-shadow: 0 0 20px var(--cyan-glow); }
         .inp-group { position: relative; margin-bottom: 20px; }
+        .inp-group i { position: absolute; top: 50%; transform: translateY(-50%); color: var(--cyan); right: 15px; font-size: 1.1rem;}
         .login-input { width: 100%; padding: 15px 40px 15px 15px; background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.1); color: #fff; border-radius: 8px; transition: 0.3s; text-align: right; font-size:1.05rem;}
         .login-input:focus { border-color: var(--cyan); box-shadow: 0 0 10px rgba(0,234,255,0.2);}
         .submit-btn { width: 100%; padding: 15px; background: var(--cyan); border: none; color: #000; font-weight: 900; font-size: 1.2rem; border-radius: 8px; cursor: pointer; transition: 0.3s; margin-top: 10px; font-family: var(--font-ar);}
@@ -43,12 +44,14 @@
         #mainWrapper { display: none; flex-direction: column; min-height: 100vh; animation: fadeIn 0.4s ease;}
         header { display: flex; justify-content: space-between; align-items: center; padding: 20px 40px; border-bottom: 1px solid rgba(255,255,255,0.05); background: rgba(10,15,25,0.8); backdrop-filter: blur(10px);}
         .header-side { display: flex; gap: 15px; align-items: center; }
-        .head-btn { background: transparent; border: 1px solid rgba(255,255,255,0.1); padding: 10px 25px; border-radius: 8px; color: #ccc; font-weight: bold; cursor: pointer; transition: 0.2s; font-family: var(--font-ar); text-decoration: none;}
+        
+        .head-btn { background: transparent; border: 1px solid rgba(255,255,255,0.1); padding: 10px 25px; border-radius: 8px; color: #ccc; font-weight: bold; cursor: pointer; transition: 0.2s; font-family: var(--font-ar); text-decoration: none; display: flex; align-items: center; gap: 8px;}
         .head-btn:hover { background: rgba(255,255,255,0.05); border-color: #fff; color: #fff; }
         .btn-red { border-color: var(--red); color: var(--red); }
         .btn-red:hover { background: rgba(255,51,51,0.1); color: var(--red); border-color: var(--red); }
         .btn-cyan { border-color: var(--cyan); color: var(--cyan); }
         .btn-cyan:hover { background: rgba(0,234,255,0.1); color: var(--cyan); }
+
         .sys-title { font-size: 1.4rem; font-weight: 900; letter-spacing: 2px; }
 
         #dashboardView { flex: 1; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 40px; position: relative;}
@@ -58,8 +61,9 @@
         .menu-btn { background: rgba(15, 20, 30, 0.85); border: 1px solid var(--glass-border); border-radius: 12px; padding: 30px 20px; text-align: center; color: #fff; font-size: 1.25rem; font-weight: 800; cursor: pointer; transition: 0.3s; backdrop-filter: blur(10px); box-shadow: 0 10px 20px rgba(0,0,0,0.5);}
         .menu-btn:hover { border-color: var(--cyan); transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,234,255,0.15); text-shadow: 0 0 10px rgba(0,234,255,0.5); }
 
-        /* واجهة الأقسام الداخلية والجدول */
+        /* واجهة الأقسام */
         #moduleView { display: none; flex-direction: column; width: 95%; max-width: 1600px; margin: 0 auto; padding-top: 30px; animation: popIn 0.3s ease; }
+        
         .roster-wrapper { width: 100%; background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 16px; padding: 30px; box-shadow: 0 20px 50px rgba(0,0,0,0.8); overflow-x: auto; backdrop-filter: blur(15px); margin-bottom:30px;}
         .roster-wrapper::-webkit-scrollbar { height: 6px; } .roster-wrapper::-webkit-scrollbar-thumb { background: var(--cyan); border-radius: 6px; }
         
@@ -72,7 +76,6 @@
         .luxury-table td:last-child { border-radius: 0 8px 8px 0; border-right: 1px solid rgba(255,255,255,0.02); }
         .dept-title { color: #fff; font-size: 1.5rem; font-weight: 900; padding: 30px 0 10px 0; text-align: left; border-bottom: 2px solid var(--cyan); display: inline-block; letter-spacing: 2px; text-shadow: 0 0 15px var(--cyan-glow);}
 
-        /* 🟢 أزرار الإجراءات واضحة بالنص 🟢 */
         .action-btn-text { background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; padding: 8px 15px; cursor: pointer; transition: 0.2s; margin: 0 4px; color: #fff; font-family:var(--font-ar); font-weight:bold; font-size:0.9rem;}
         .btn-edit-text:hover { border-color: var(--yellow); color: var(--yellow); background: rgba(255,193,7,0.1);}
         .btn-del-text { color: var(--red); border-color: rgba(255,51,51,0.3);}
@@ -111,8 +114,8 @@
         <div class="login-container">
             <div class="login-logo"></div>
             <div style="font-size: 1.8rem; font-weight: 900; margin-bottom: 30px; letter-spacing: 1px; color:var(--cyan); text-shadow:0 0 15px var(--cyan-glow);">نظام إدارة الشرطة</div>
-            <input type="text" id="userInput" class="login-input" placeholder="اسم المستخدم">
-            <input type="password" id="passInput" class="login-input" placeholder="كلمة المرور">
+            <div class="inp-group"><i class="fa-solid fa-user"></i><input type="text" id="userInput" class="login-input" placeholder="اسم المستخدم"></div>
+            <div class="inp-group"><i class="fa-solid fa-lock"></i><input type="password" id="passInput" class="login-input" placeholder="كلمة المرور"></div>
             <button class="submit-btn" onclick="login()">دخول للوحة القيادة</button>
             <div id="loginError" style="display: none; color: var(--red); margin-top: 15px; font-weight: bold; background: rgba(255,51,51,0.1); border: 1px solid var(--red); padding: 10px; border-radius: 6px;">بيانات غير صحيحة!</div>
             <button onclick="window.location.href='index.html'" style="background: transparent; border: none; color: #888; margin-top: 25px; cursor: pointer; text-decoration: underline; font-family: var(--font-ar); font-size:1rem;">العودة للموقع الرئيسي</button>
@@ -146,7 +149,7 @@
             
             <div class="input-section" id="inputSectionBlock" style="display:none;">
                 <div id="mInputs" class="grid-inputs"></div>
-                <button class="submit-btn" id="submitBtn" onclick="addRecord()" style="margin-top: 15px;">إضافة السجل</button>
+                <button class="submit-btn" id="submitBtn" onclick="addRecord()" style="margin-top: 15px;">إضافة / حفظ السجل</button>
             </div>
         </div>
     </div>
@@ -159,36 +162,75 @@
                 <button class="submit-btn" onclick="doCrypto('enc')" style="margin:0">تشفير النص</button>
                 <button class="submit-btn" onclick="doCrypto('dec')" style="margin:0; background:#fff; color:#000;">فك التشفير</button>
             </div>
-            <div class="gen-input allow-select" id="cryOut" style="min-height: 50px; font-family: monospace; word-break: break-all; text-align:left;" dir="ltr">النتيجة...</div>
+            <div style="position:relative;">
+                <div class="gen-input allow-select" id="cryOut" style="min-height: 50px; font-family: monospace; word-break: break-all; padding-inline-end: 45px; text-align:left;" dir="ltr">النتيجة...</div>
+                <i class="fa-solid fa-copy" onclick="copyCrypto()" style="position: absolute; top: 50%; transform: translateY(-50%); right: 20px; color: var(--cyan); font-size: 1.3rem; cursor: pointer;"></i>
+            </div>
             <button class="close-btn" onclick="document.getElementById('cryptoModal').style.display='none'">إغلاق</button>
         </div>
     </div>
 
     <div class="modal-overlay" id="editRankModal">
-        <div class="modal-box" style="width: 650px;">
+        <div class="modal-box" style="width: 700px;">
             <h3 style="color:var(--cyan); margin-bottom:25px; font-size:1.6rem; text-align:center;">تعديل السجل العسكري</h3>
             <div class="grid-inputs">
                 <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">الاسم (Name):</div><input type="text" id="editOfficerName" class="gen-input" style="margin-bottom: 10px;"></div>
                 
                 <div>
                     <div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">الرتبة (Rank):</div>
-                    <select id="editRankSelect" class="gen-input" style="cursor: pointer; text-align: right; margin-bottom: 10px;" onchange="autoGenerateCode()"></select>
+                    <select id="editRankSelect" class="gen-input" style="cursor: pointer; text-align: left; margin-bottom: 10px;" dir="ltr" onchange="autoGenerateCode()"></select>
                 </div>
                 
-                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">الكود (Code):</div><input type="text" id="editOfficerCode" class="gen-input" style="margin-bottom: 10px; font-family: monospace;"></div>
+                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">الكود (Code):</div><input type="text" id="editOfficerCode" class="gen-input" style="margin-bottom: 10px; font-family: monospace; text-align:left;" dir="ltr"></div>
                 
-                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">المهام (Resp):</div><input type="text" id="editResp" class="gen-input" style="margin-bottom: 10px;"></div>
+                <div>
+                    <div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">المهام (Responsibility):</div>
+                    <select id="editResp" class="gen-input" style="cursor: pointer; text-align: left; margin-bottom: 10px;" dir="ltr">
+                        <option value="N/A">N/A</option>
+                        <option value="Police Administration">Police Administration</option>
+                        <option value="Commission Office">Commission Office</option>
+                        <option value="High Command">High Command</option>
+                        <option value="Command">Command</option>
+                        <option value="Head Of Internal Affairs">Head Of Internal Affairs</option>
+                        <option value="Intern Affairs Member">Intern Affairs Member</option>
+                        <option value="Detective Supervisor">Detective Supervisor</option>
+                        <option value="Supervisor">Supervisor</option>
+                        <option value="Detective">Detective</option>
+                        <option value="Motorcycle Unit Leader">Motorcycle Unit Leader</option>
+                        <option value="Motorcycle Unit CO-Leader">Motorcycle Unit CO-Leader</option>
+                        <option value="Motorcycle Supervisor">Motorcycle Supervisor</option>
+                        <option value="Air Unit Leader">Air Unit Leader</option>
+                        <option value="Air Unit CO-Leader">Air Unit CO-Leader</option>
+                        <option value="Speed Unit Leader">Speed Unit Leader</option>
+                        <option value="Speed Unit CO-Leader">Speed Unit CO-Leader</option>
+                        <option value="GANG UNIT Leader">GANG UNIT Leader</option>
+                        <option value="GANG UNIT CO- Leader">GANG UNIT CO- Leader</option>
+                        <option value="Assistants">Assistants</option>
+                        <option value="Trooper">Trooper</option>
+                        <option value="GANG UNIT">GANG UNIT</option>
+                        <option value="HEAD OF COMMAND">HEAD OF COMMAND</option>
+                        <option value="Air Fleet Commander">Air Fleet Commander</option>
+                        <option value="Police Wings Commander">Police Wings Commander</option>
+                        <option value="Commander Of P.A">Commander Of P.A</option>
+                        <option value="Deputy Of P.A">Deputy Of P.A</option>
+                        <option value="deputy air fleet">deputy air fleet</option>
+                        <option value="Advisor of air fleet">Advisor of air fleet</option>
+                        <option value="War Commander">War Commander</option>
+                        <option value="S.W.A.T Commander">S.W.A.T Commander</option>
+                        <option value="Deputy S.W.A.T Commander">Deputy S.W.A.T Commander</option>
+                    </select>
+                </div>
                 
                 <div>
                     <div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">الحالة (Status):</div>
-                    <select id="editStatus" class="gen-input" style="cursor: pointer; text-align: right; margin-bottom: 10px;">
+                    <select id="editStatus" class="gen-input" style="cursor: pointer; text-align: left; margin-bottom: 10px;" dir="ltr">
                         <option value="ACTIVE">ACTIVE</option><option value="INACTIVE">INACTIVE</option><option value="LOA">LOA</option><option value="SUSPENDED">SUSPENDED</option>
                     </select>
                 </div>
                 
                 <div>
                     <div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">الإنذارات (Strikes):</div>
-                    <select id="editStrikes" class="gen-input" style="cursor: pointer; text-align: right; margin-bottom: 10px;">
+                    <select id="editStrikes" class="gen-input" style="cursor: pointer; text-align: left; margin-bottom: 10px;" dir="ltr">
                         <option value="N/A">N/A</option>
                         <option value="WARN 1">WARN 1</option>
                         <option value="WARN 2">WARN 2</option>
@@ -202,15 +244,34 @@
                         <option value="Strike Point 7">Strike Point 7</option>
                     </select>
                 </div>
-                
-                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">تاريخ الترقية:</div><input type="text" id="editProm" class="gen-input" placeholder="N/A -" style="margin-bottom: 10px;"></div>
+
+                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">تاريخ الترقية (Last Prom):</div><input type="text" id="editProm" class="gen-input" placeholder="N/A -" style="margin-bottom: 10px;"></div>
                 <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">النقاط (F.P):</div><input type="text" id="editFP" class="gen-input" placeholder="N/A -" style="margin-bottom: 10px;"></div>
-                <div style="grid-column: span 2;"><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">ديسكورد آيدي:</div><input type="text" id="editDiscord" class="gen-input" style="margin-bottom: 10px;"></div>
-                <div style="grid-column: span 2;"><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">ملاحظات (Notes):</div><textarea id="editNotes" class="gen-input" style="height: 60px; resize:none; margin-bottom: 10px;"></textarea></div>
+                <div style="grid-column: span 2;"><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">ديسكورد آيدي:</div><input type="text" id="editDiscord" class="gen-input" style="margin-bottom: 10px; text-align:left;" dir="ltr"></div>
+                <div style="grid-column: span 2;"><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">ملاحظات (Notes):</div><textarea id="editNotes" class="gen-input" style="height: 60px; resize:none; margin-bottom: 10px; text-align:right;"></textarea></div>
             </div>
             <div style="display:flex; gap:15px; margin-top: 10px;">
                 <button class="submit-btn" onclick="saveNewOfficerData()" style="flex: 2; margin: 0;">حفظ التعديلات</button>
                 <button class="close-btn" onclick="document.getElementById('editRankModal').style.display='none'" style="flex: 1; margin: 0;">إلغاء</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="idCardOverlay">
+        <div style="text-align: center;">
+            <div class="modal-box executive-card" style="padding:0; overflow:hidden;">
+                <div class="card-left"><div class="profile-img-wrapper"><img id="cardImage" src="https://cdn.discordapp.com/attachments/1079065638502404167/1476016754705567824/D25Todl.png" style="width: 100%; height: 100%; object-fit: cover; border-radius: 16px;"></div></div>
+                <div class="card-right" style="padding: 30px;">
+                    <div style="color: #666; font-family: var(--font-en); font-weight: 800; letter-spacing: 3px; margin-bottom:5px;">L.S.P.D EXECUTIVE ID</div>
+                    <h2 id="cardNameOverlay" style="margin: 0; font-size: 2.8rem; font-weight: 900; color: #fff; font-family: var(--font-en); text-shadow: 0 5px 15px rgba(0,0,0,0.5);">--</h2>
+                    <div id="cardRankOverlay" style="color: var(--cyan); font-family: var(--font-en); font-size: 1.3rem; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; margin: 5px 0 20px 0;">--</div>
+                    <div style="border-top: 1px solid rgba(255,255,255,0.05); width: 100%; margin-bottom: 20px;"></div>
+                    <div style="display: inline-flex; align-items: center; gap: 10px; background: rgba(0, 255, 106, 0.05); border: 1px solid rgba(0, 255, 106, 0.3); padding: 8px 20px; border-radius: 8px; font-family: var(--font-en); font-weight: 800; color: var(--green); flex-direction: row-reverse;">SYSTEM ACTIVE <span style="width: 8px; height: 8px; background: var(--green); border-radius: 50%; box-shadow: 0 0 10px var(--green);"></span></div>
+                </div>
+            </div>
+            <div style="margin-top: 25px; display: flex; justify-content: center; gap: 15px;">
+                <label class="head-btn btn-cyan" style="cursor: pointer; padding: 12px 30px;"><i class="fa-solid fa-camera"></i> تغيير الصورة<input type="file" accept="image/*" style="display: none;" onchange="updateCardImg(this)"></label>
+                <button class="head-btn btn-red" onclick="document.getElementById('idCardOverlay').style.display='none'" style="padding: 12px 40px;">إغلاق</button>
             </div>
         </div>
     </div>
@@ -236,31 +297,29 @@
         const publicEnlistedList = ["Staff Sergeant", "First Sergeant", "Sergeant", "Senior Lead Officer", "Senior Officer", "Officer III", "Officer II", "Officer I", "Solo Cadet", "Cadet"];
         let SystemRanks = [...publicOfficersList, ...publicEnlistedList];
 
-        // 🟢 قاموس الأكواد (الربط الدقيق لكل رتبة برقم وكود محدد) 🟢
+        // 🟢 البرمجة الذكية للأكواد לפי الرتب 🟢
         const rankExactCodes = {
-            "Minister of Interior": "P-0",
-            "Deputy Minister of Interior": "P-1",
-            "A. Minister of Interior": "P-2",
-            "L.S.P.D Chief": "A-1",
-            "Deputy L.S.P.D Chief": "A-2",
-            "A' Lspd Chief": "A-3",
-            "High Commander": "M-1",
-            "General": "G-1",
-            "Colonel": "C-1",
-            "Major": "C-2",
-            "Captain": "C-3",
-            "First Lieutenant": "C-10",
-            "Lieutenant": "C-9",
-            "Staff Sergeant": "U-1",
-            "First Sergeant": "U-2",
-            "Sergeant": "U-3",
-            "Senior Lead Officer": "U-4",
-            "Senior Officer": "U-5",
-            "Officer III": "U-6",
-            "Officer II": "U-7",
-            "Officer I": "U-8",
-            "Solo Cadet": "U-9",
-            "Cadet": "U-400"
+            "Minister of Interior": "P-0", "Deputy Minister of Interior": "P-1", "A. Minister of Interior": "P-2",
+            "L.S.P.D Chief": "A-1", "Deputy L.S.P.D Chief": "A-2", "A' Lspd Chief": "A-3",
+            "High Commander": "M-1", "General": "G-1"
+        };
+        // النطاقات المخصصة للضباط والأفراد عشان الملازم ما يجي رقمه أقل من الملازم أول
+        const rankRanges = {
+            "Colonel": { prefix: "C-", min: 1, max: 2 },
+            "Major": { prefix: "C-", min: 3, max: 3 },
+            "Captain": { prefix: "C-", min: 4, max: 6 },
+            "First Lieutenant": { prefix: "C-", min: 7, max: 11 },
+            "Lieutenant": { prefix: "C-", min: 12, max: 20 },
+            "Staff Sergeant": { prefix: "U-", min: 1, max: 9 },
+            "First Sergeant": { prefix: "U-", min: 10, max: 19 },
+            "Sergeant": { prefix: "U-", min: 20, max: 29 },
+            "Senior Lead Officer": { prefix: "U-", min: 30, max: 39 },
+            "Senior Officer": { prefix: "U-", min: 40, max: 49 },
+            "Officer III": { prefix: "U-", min: 50, max: 69 },
+            "Officer II": { prefix: "U-", min: 70, max: 99 },
+            "Officer I": { prefix: "U-", min: 100, max: 129 },
+            "Solo Cadet": { prefix: "U-", min: 130, max: 199 },
+            "Cadet": { prefix: "U-", min: 200, max: 400 }
         };
 
         firebase.initializeApp({
@@ -269,7 +328,6 @@
         });
         const database = firebase.database();
 
-        // 🟢 الأقسام (كلها تعمل بدون قيد التطوير) 🟢
         const modules = [
             { id: 'settings', i18n_t: 'إعدادات التقديم', isSettingsView: true, reqOfficer: true },
             { id: 'applications', i18n_t: 'طلبات التقديم', isAppsView: true, reqOfficer: true },
@@ -321,14 +379,29 @@
             if(foundUser) {
                 document.getElementById('loginScreen').style.display = 'none'; 
                 document.getElementById('mainWrapper').style.display = 'flex'; 
+                
                 isOfficer = publicOfficersList.includes(foundUser.rank); myName = foundUser.name; myRank = foundUser.rank;
                 document.getElementById('rankNameDisp').innerText = myName; 
+                document.getElementById('cardNameOverlay').innerText = myName;
+                document.getElementById('cardRankOverlay').innerText = myRank;
+                
+                const savedImg = localStorage.getItem('user_id_img_' + myName);
+                if(savedImg) document.getElementById('cardImage').src = savedImg;
+
                 renderModules();
             } else { document.getElementById('loginError').style.display = 'block'; }
         }
 
         function logout() { window.location.href='index.html'; }
         function goHome() { document.getElementById('moduleView').style.display = 'none'; document.getElementById('dashboardView').style.display = 'flex'; }
+
+        function updateCardImg(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = e => { document.getElementById('cardImage').src = e.target.result; localStorage.setItem('user_id_img_' + myName, e.target.result); };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
 
         function renderModules() {
             const c = document.getElementById('modulesContainer'); c.innerHTML = ''; 
@@ -338,7 +411,6 @@
             });
         }
 
-        // 🟢 فتح الأقسام (مضمون 100% يفتح المربعات ومافي قيد التطوير) 🟢
         function openMod(id) {
             currentModule = modules.find(m => m.id === id);
             if(currentModule.isCrypto) { document.getElementById('cryptoModal').style.display = 'flex'; return; }
@@ -374,7 +446,7 @@
                 inputBlock.style.display = 'block';
                 inpArea.innerHTML = `<input type="text" id="v-title" class="gen-input" placeholder="عنوان الفيديو"><input type="text" id="v-yt" class="gen-input" placeholder="رابط يوتيوب (ID فقط أو الرابط كامل)">`;
                 renderVideoGrid(container);
-            } else if(currentModule.inputsAr) { // جميع الأقسام المتبقية
+            } else if(currentModule.inputsAr) {
                 inputBlock.style.display = 'block';
                 currentModule.inputsAr.forEach((ph, i) => { inpArea.innerHTML += `<input type="text" id="inp-${i}" class="gen-input" placeholder="${ph}">`; });
                 renderRecordsList(container);
@@ -409,14 +481,14 @@
                     <tr class="roster-row">
                         <td style="color: var(--cyan); font-weight: 900;">${off.code || '-'}</td>
                         <td style="color: #fff; font-family: var(--font-ar);">${off.name || '-'}</td>
-                        <td style="color: #ccc;">${off.rank || '-'}</td>
-                        <td style="color: #ccc;">${off.responsibility || '-'}</td>
+                        <td style="color: #ccc; font-size:0.95rem;">${off.rank || '-'}</td>
+                        <td style="color: #ccc; font-size:0.95rem;">${off.responsibility || '-'}</td>
                         <td><div style="background: rgba(0, 255, 106, 0.1); border: 1px solid rgba(0, 255, 106, 0.3); color: var(--green); padding: 5px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: 800;">${off.status || 'ACTIVE'}</div></td>
                         <td style="color: #888;">${off.strikes || '-'}</td>
                         <td style="color: #888;">${off.lastProm || '-'}</td>
                         <td style="color: #888;">${off.fp || '-'}</td>
                         <td><span style="background: rgba(0,0,0,0.4); padding: 5px 10px; border-radius: 6px; font-family: monospace; color: #8da2b5; border: 1px solid rgba(255,255,255,0.05);">${off.discordId || '-'}</span></td>
-                        <td style="color: #888; font-size:0.9rem; max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${off.notes || '-'}</td>
+                        <td style="color: #888; font-size:0.85rem; max-width: 120px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${off.notes || '-'}</td>
                         <td>
                             <button onclick="editOfficerData('${off.id}', '${off.name}', '${off.rank}', '${off.code}', '${off.responsibility}', '${off.status}', '${off.strikes}', '${off.lastProm}', '${off.fp}', '${off.discordId}', '${off.notes}')" class="action-btn-text btn-edit-text" title="تعديل">تعديل</button>
                             <button onclick="deleteOfficerFromRoster('${off.id}', '${off.name}')" class="action-btn-text btn-del-text" title="حذف">حذف</button>
@@ -438,9 +510,16 @@
             currentEditingOfficerId = id;
             document.getElementById('editOfficerName').value = name || '';
             document.getElementById('editOfficerCode').value = code || '';
-            document.getElementById('editResp').value = resp === '-' ? '' : resp;
+            
+            // قائمة المهام
+            let respOptions = ["N/A", "Police Administration", "Commission Office", "High Command", "Command", "Head Of Internal Affairs", "Intern Affairs Member", "Detective Supervisor", "Supervisor", "Detective", "Motorcycle Unit Leader", "Motorcycle Unit CO-Leader", "Motorcycle Supervisor", "Air Unit Leader", "Air Unit CO-Leader", "Speed Unit Leader", "Speed Unit CO-Leader", "GANG UNIT Leader", "GANG UNIT CO- Leader", "Assistants", "Trooper", "GANG UNIT", "HEAD OF COMMAND", "Air Fleet Commander", "Police Wings Commander", "Commander Of P.A", "Deputy Of P.A", "deputy air fleet", "Advisor of air fleet", "War Commander", "S.W.A.T Commander", "Deputy S.W.A.T Commander"];
+            let respHtml = '';
+            respOptions.forEach(r => { respHtml += `<option value="${r}" ${r===resp ? 'selected' : ''}>${r}</option>`; });
+            document.getElementById('editResp').innerHTML = respHtml;
+            if(!respOptions.includes(resp) && resp && resp !== '-') { document.getElementById('editResp').innerHTML += `<option value="${resp}" selected>${resp}</option>`; }
+
             document.getElementById('editStatus').value = status || 'ACTIVE';
-            document.getElementById('editStrikes').value = strikes === '-' ? 'N/A' : strikes;
+            document.getElementById('editStrikes').value = strikes && strikes !== '-' ? strikes : 'N/A';
             document.getElementById('editProm').value = prom === '-' ? '' : prom;
             document.getElementById('editFP').value = fp === '-' ? '' : fp;
             document.getElementById('editDiscord').value = discord === '-' ? '' : discord;
@@ -453,25 +532,26 @@
             document.getElementById('editRankModal').style.display = 'flex';
         }
 
-        // 🟢 ميزة التغيير التلقائي للكود بدقة للرتب 🟢
+        // 🟢 ميزة التغيير التلقائي للكود الذكية (ترتيب صحيح 100%) 🟢
         function autoGenerateCode() {
             const rank = document.getElementById('editRankSelect').value;
             
-            // سحب الكود الدقيق إذا كان موجود في المصفوفة
             if (rankExactCodes[rank]) {
                 document.getElementById('editOfficerCode').value = rankExactCodes[rank];
-            } else {
-                // إذا لم يكن له كود محدد (مثلاً الأفراد U-100 وفوق)
+            } else if (rankRanges[rank]) {
+                const range = rankRanges[rank];
                 const currentCode = document.getElementById('editOfficerCode').value;
                 let numberPart = currentCode.match(/\d+/);
-                let prefix = rank.includes("Officer") || rank.includes("Sergeant") ? "U" : "C";
                 
-                if (numberPart) {
-                    document.getElementById('editOfficerCode').value = `${prefix}-${numberPart[0]}`;
+                if (numberPart && numberPart[0] >= range.min && numberPart[0] <= range.max) {
+                    document.getElementById('editOfficerCode').value = `${range.prefix}${numberPart[0]}`;
                 } else {
-                    const randomNum = Math.floor(Math.random() * 900) + 100;
-                    document.getElementById('editOfficerCode').value = `${prefix}-${randomNum}`;
+                    const randomNum = Math.floor(Math.random() * (range.max - range.min + 1)) + range.min;
+                    document.getElementById('editOfficerCode').value = `${range.prefix}${randomNum}`;
                 }
+            } else {
+                let prefix = rank.includes("Officer") || rank.includes("Sergeant") ? "U-" : "C-";
+                document.getElementById('editOfficerCode').value = `${prefix}00`;
             }
         }
 
@@ -483,7 +563,7 @@
                 rank: document.getElementById('editRankSelect').value,
                 responsibility: document.getElementById('editResp').value.trim() || '-',
                 status: document.getElementById('editStatus').value,
-                strikes: document.getElementById('editStrikes').value.trim() || 'N/A',
+                strikes: document.getElementById('editStrikes').value,
                 lastProm: document.getElementById('editProm').value.trim() || '-',
                 fp: document.getElementById('editFP').value.trim() || '-',
                 discordId: document.getElementById('editDiscord').value.trim() || '-',
@@ -496,7 +576,7 @@
             });
         }
 
-        // 🟢 دوال باقي الأقسام 🟢
+        // دوال الأقسام المتبقية
         function renderSettingsView(container) {
             let pOpen = db.settings.policeOpen; let sOpen = db.settings.selfOpen;
             container.innerHTML = `<div style="background:rgba(15,20,30,0.8); border:1px solid var(--glass-border); border-radius:12px; padding:40px; text-align:center; max-width:800px; margin:0 auto;">
@@ -551,11 +631,7 @@
                 </div>`;
             });
             let accountsDiv = document.getElementById('accountsListDiv');
-            if(!accountsDiv) {
-                accountsDiv = document.createElement('div');
-                accountsDiv.id = 'accountsListDiv';
-                container.appendChild(accountsDiv);
-            }
+            if(!accountsDiv) { accountsDiv = document.createElement('div'); accountsDiv.id = 'accountsListDiv'; container.appendChild(accountsDiv); }
             accountsDiv.innerHTML = listHtml;
         }
 
@@ -572,11 +648,7 @@
                 });
             }
             let recordsDiv = document.getElementById('recordsListDiv');
-            if(!recordsDiv) {
-                recordsDiv = document.createElement('div');
-                recordsDiv.id = 'recordsListDiv';
-                container.appendChild(recordsDiv);
-            }
+            if(!recordsDiv) { recordsDiv = document.createElement('div'); recordsDiv.id = 'recordsListDiv'; container.appendChild(recordsDiv); }
             recordsDiv.innerHTML = listHtml;
         }
 
@@ -592,11 +664,7 @@
                 html += '</tbody></table></div>';
             }
             let tasksDiv = document.getElementById('tasksListDiv');
-            if(!tasksDiv) {
-                tasksDiv = document.createElement('div');
-                tasksDiv.id = 'tasksListDiv';
-                container.appendChild(tasksDiv);
-            }
+            if(!tasksDiv) { tasksDiv = document.createElement('div'); tasksDiv.id = 'tasksListDiv'; container.appendChild(tasksDiv); }
             tasksDiv.innerHTML = html;
         }
 
@@ -619,11 +687,7 @@
                 html += '</div>';
             }
             let videoDiv = document.getElementById('videoListDiv');
-            if(!videoDiv) {
-                videoDiv = document.createElement('div');
-                videoDiv.id = 'videoListDiv';
-                container.appendChild(videoDiv);
-            }
+            if(!videoDiv) { videoDiv = document.createElement('div'); videoDiv.id = 'videoListDiv'; container.appendChild(videoDiv); }
             videoDiv.innerHTML = html;
         }
 
