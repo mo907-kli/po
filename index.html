@@ -11,30 +11,106 @@
 
     <style>
         :root {
-            --bg-deep: #050a15; --glass-bg: #0f1626; --cyan: #00eaff; --green: #00ff6a;
-            --font-ar: 'Tajawal', sans-serif; --font-en: 'Rajdhani', sans-serif;
+            --cyan: #00eaff; 
+            --bg-deep: #050a15;
+            --font-ar: 'Tajawal', sans-serif; 
+            --font-en: 'Rajdhani', sans-serif;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; }
-        body { background: radial-gradient(circle at top, #0a1128 0%, #020305 100%); background-attachment: fixed; color: #fff; font-family: var(--font-ar); min-height: 100vh; overflow-x: hidden; }
         
-        /* 🟢 القائمة العلوية (الناف بار) تم حل مشكلة الضغط هنا 🟢 */
-        header { position: fixed; top: 0; width: 100%; z-index: 99999; background: rgba(5, 10, 20, 0.95); border-bottom: 1px solid rgba(0, 234, 255, 0.2); padding: 15px 40px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 30px rgba(0,0,0,0.5); backdrop-filter: blur(10px); pointer-events: auto; }
+        body { 
+            background: radial-gradient(circle at top, #0a1128 0%, #020305 100%); 
+            background-attachment: fixed; 
+            color: #fff; 
+            font-family: var(--font-ar); 
+            min-height: 100vh; 
+            overflow-x: hidden; 
+        }
         
-        .logo-text { font-family: var(--font-en); font-size: 1.8rem; font-weight: 900; color: var(--cyan); letter-spacing: 3px; }
+        /* 🟢 القائمة العلوية المحدثة (مستحيل تعلق الأزرار هنا) 🟢 */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 85px;
+            background-color: #070d1c;
+            border-bottom: 2px solid rgba(0, 234, 255, 0.3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 50px;
+            z-index: 999999;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.8);
+        }
         
-        nav { display: flex; gap: 20px; align-items: center; }
-        .nav-link { color: #ccc; text-decoration: none; font-size: 1.1rem; font-weight: bold; padding: 5px 10px; transition: 0.3s; }
-        .nav-link:hover { color: var(--cyan); }
-        .admin-btn { background: var(--cyan); color: #000; padding: 8px 20px; border-radius: 8px; text-decoration: none; font-weight: 900; font-size: 1.1rem; transition: 0.3s; margin-right: 15px; }
-        .admin-btn:hover { background: #fff; transform: translateY(-2px); }
+        .logo-text { 
+            font-family: var(--font-en); 
+            font-size: 2.2rem; 
+            font-weight: 900; 
+            color: var(--cyan); 
+            letter-spacing: 3px; 
+        }
+        
+        .nav-links { 
+            display: flex; 
+            gap: 25px; 
+            align-items: center; 
+        }
+        
+        .nav-links a { 
+            color: #e0e0e0; 
+            text-decoration: none; 
+            font-size: 1.1rem; 
+            font-weight: 800; 
+            padding: 8px 12px; 
+            transition: 0.2s; 
+            border-radius: 6px;
+        }
+        
+        .nav-links a:hover { 
+            color: var(--cyan); 
+            background: rgba(0, 234, 255, 0.05);
+        }
+        
+        .admin-btn { 
+            background: var(--cyan); 
+            color: #000 !important; 
+            padding: 10px 25px !important; 
+            border-radius: 8px !important; 
+            font-weight: 900 !important; 
+            margin-right: 20px;
+        }
+        
+        .admin-btn:hover { 
+            background: #fff; 
+            transform: translateY(-2px); 
+        }
 
-        /* الأقسام */
-        section { min-height: 100vh; padding: 120px 20px 50px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        .section-title { font-size: 2.5rem; font-weight: 900; color: var(--cyan); margin-bottom: 40px; text-align: center; border-bottom: 3px solid var(--cyan); padding-bottom: 10px; display: inline-block; }
+        /* الأقسام والمسافات */
+        section { 
+            padding-top: 130px; /* مسافة عشان الشريط العلوي ما يغطي الكلام */
+            padding-bottom: 50px;
+            min-height: 100vh; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+        }
+        
+        .section-title { 
+            font-size: 2.5rem; 
+            font-weight: 900; 
+            color: var(--cyan); 
+            margin-bottom: 40px; 
+            text-align: center; 
+            border-bottom: 3px solid var(--cyan); 
+            padding-bottom: 10px; 
+            display: inline-block; 
+        }
 
         /* الرئيسية */
-        .hero-box { text-align: center; background: rgba(15, 22, 38, 0.6); border: 1px solid rgba(0, 234, 255, 0.2); padding: 60px; border-radius: 20px; max-width: 800px; }
+        .hero-box { text-align: center; background: rgba(11, 16, 30, 0.8); border: 1px solid rgba(0, 234, 255, 0.2); padding: 60px; border-radius: 20px; max-width: 800px; margin-top: 50px; }
         .hero-title { font-size: 3rem; font-weight: 900; margin-bottom: 20px; color: #fff; }
         .hero-desc { font-size: 1.3rem; color: #aaa; line-height: 1.8; margin-bottom: 30px; }
 
@@ -47,7 +123,7 @@
         .submit-btn:hover { background: #fff; }
         .closed-msg { color: #ff3333; font-weight: bold; font-size: 1.2rem; text-align: center; background: rgba(255,51,51,0.1); padding: 20px; border-radius: 8px; border: 1px solid #ff3333; }
 
-        /* الجدول العسكري للموقع */
+        /* الجدول العسكري */
         .roster-wrapper { width: 100%; max-width: 1400px; background: #0f1626; border: 1px solid rgba(0, 234, 255, 0.2); border-radius: 12px; padding: 20px; overflow-x: auto; }
         .luxury-table { width: 100%; border-collapse: separate; border-spacing: 0 6px; text-align: center; font-family: 'Rajdhani', 'Tajawal', sans-serif; min-width: 1000px; }
         .luxury-table thead th { color: var(--cyan); font-size: 0.95rem; font-weight: 800; text-transform: uppercase; padding: 15px; border-bottom: 2px solid rgba(0,234,255,0.2); }
@@ -64,17 +140,17 @@
 </head>
 <body>
 
-    <header>
+    <div class="navbar">
         <div class="logo-text">L.S.P.D</div>
-        <nav>
-            <a href="#home" class="nav-link">الرئيسية</a>
-            <a href="#apply" class="nav-link">التقديم</a>
-            <a href="#roster" class="nav-link">جدول العساكر</a>
-            <a href="#officials" class="nav-link">المسؤولين</a>
-            <a href="#rules" class="nav-link">القوانين</a>
+        <div class="nav-links">
+            <a href="#home">الرئيسية</a>
+            <a href="#apply">التقديم</a>
+            <a href="#roster">جدول العساكر</a>
+            <a href="#officials">المسؤولين</a>
+            <a href="#rules">القوانين</a>
             <a href="admin.html" class="admin-btn">لوحة التحكم</a>
-        </nav>
-    </header>
+        </div>
+    </div>
 
     <section id="home">
         <div class="hero-box">
@@ -87,7 +163,6 @@
     <section id="apply">
         <h2 class="section-title">بوابات التقديم</h2>
         <div class="forms-container">
-            
             <div class="form-box">
                 <h3 style="color:var(--cyan); margin-bottom:20px; font-size:1.5rem; text-align:center;">🚨 تقديم شرطة تايتنز</h3>
                 <div id="policeFormArea">
@@ -112,13 +187,12 @@
                 </div>
                 <div id="selfClosedMsg" class="closed-msg" style="display:none;">⚠️ التقديم مغلق حالياً من قبل القيادة.</div>
             </div>
-
         </div>
     </section>
 
     <section id="roster">
         <h2 class="section-title">الجدول العسكري (Roster)</h2>
-        <div id="rosterContainer" style="width: 100%; display: flex; justify-content: center;">
+        <div id="rosterContainer" style="width: 100%; display: flex; justify-content: center; padding: 0 20px;">
             <div style="color: #aaa;">جاري تحميل بيانات الجدول...</div>
         </div>
     </section>
@@ -147,12 +221,11 @@
         </div>
     </section>
 
-    <footer style="text-align: center; padding: 30px; background: #05080f; color: #666; font-family: var(--font-en); font-weight: bold;">
+    <footer style="text-align: center; padding: 30px; background: #05080f; color: #666; font-family: var(--font-en); font-weight: bold; border-top: 1px solid rgba(255,255,255,0.05);">
         &copy; 2024 L.S.P.D Management System. All Rights Reserved.
     </footer>
 
     <script>
-        // إعدادات فايربيس
         firebase.initializeApp({ 
             apiKey: "AIzaSyC5PL_fJEjiJVQS8rnx4m8j9uQNsILcQvs", 
             authDomain: "police-depa.firebaseapp.com", 
@@ -161,28 +234,18 @@
         });
         const database = firebase.database();
 
-        // 1. قراءة حالة التقديم (مفتوح / مغلق)
+        // قراءة حالة التقديم
         database.ref('lspd_db/settings').on('value', (snapshot) => {
             const settings = snapshot.val() || { policeOpen: true, selfOpen: true };
             
-            if(settings.policeOpen) {
-                document.getElementById('policeFormArea').style.display = 'block';
-                document.getElementById('policeClosedMsg').style.display = 'none';
-            } else {
-                document.getElementById('policeFormArea').style.display = 'none';
-                document.getElementById('policeClosedMsg').style.display = 'block';
-            }
+            document.getElementById('policeFormArea').style.display = settings.policeOpen ? 'block' : 'none';
+            document.getElementById('policeClosedMsg').style.display = settings.policeOpen ? 'none' : 'block';
 
-            if(settings.selfOpen) {
-                document.getElementById('selfFormArea').style.display = 'block';
-                document.getElementById('selfClosedMsg').style.display = 'none';
-            } else {
-                document.getElementById('selfFormArea').style.display = 'none';
-                document.getElementById('selfClosedMsg').style.display = 'block';
-            }
+            document.getElementById('selfFormArea').style.display = settings.selfOpen ? 'block' : 'none';
+            document.getElementById('selfClosedMsg').style.display = settings.selfOpen ? 'none' : 'block';
         });
 
-        // 2. إرسال الطلب لقاعدة البيانات
+        // إرسال الطلب
         function submitApp(type) {
             const prefix = type === 'police' ? 'p-' : 's-';
             const name = document.getElementById(prefix + 'name').value.trim();
@@ -196,7 +259,6 @@
                 return;
             }
 
-            // إرسال البيانات للفايربيس (البوت بيقراها ويرسلها ديسكورد)
             database.ref('lspd_db/applications').push({
                 type: type,
                 name: name,
@@ -209,7 +271,6 @@
                 date: new Date().toLocaleDateString()
             }).then(() => {
                 alert('✅ تم إرسال طلبك بنجاح! سيتم مراجعته من قبل القيادة.');
-                // تصفير الحقول بعد الإرسال
                 document.getElementById(prefix + 'name').value = '';
                 document.getElementById(prefix + 'discord').value = '';
                 document.getElementById(prefix + 'age').value = '';
@@ -220,7 +281,7 @@
             });
         }
 
-        // 3. قراءة وعرض الجدول العسكري للزوار (للعرض فقط)
+        // عرض الجدول العسكري
         const publicOfficersList = ["Minister of Interior", "Deputy Minister of Interior", "A. Minister of Interior", "Police Commander", "L.S.P.D Chief", "Deputy L.S.P.D Chief", "A' Lspd Chief", "High Commander", "General", "Colonel", "Major", "Captain", "First Lieutenant", "Lieutenant"];
         const publicEnlistedList = ["Staff Sergeant", "First Sergeant", "Sergeant", "Senior Lead Officer", "Senior Officer", "Officer III", "Officer II", "Officer I", "Solo Cadet", "Cadet"];
         let SystemRanks = [...publicOfficersList, ...publicEnlistedList];
