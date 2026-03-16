@@ -21,11 +21,15 @@
         body { background: var(--bg-deep); color: #fff; font-family: var(--font-ar); min-height: 100vh; overflow-x: hidden; user-select: none;}
         input, textarea, select, .allow-select * { user-select: text !important; outline: none; font-family: var(--font-ar);}
 
-        /* 🟢 الخلفية الخفيفة لمنع اللاق 🟢 */
-        #bgEffects { position: fixed; inset: 0; z-index: -5; pointer-events: none; background: radial-gradient(circle at center, rgba(0, 234, 255, 0.02) 0%, transparent 80%); }
-        .light-red { position: absolute; top: -20%; left: -20%; width: 60vw; height: 60vw; background: radial-gradient(circle, rgba(255, 0, 40, 0.05) 0%, transparent 60%); animation: pulseLight 4s infinite alternate; }
-        .light-blue { position: absolute; bottom: -20%; right: -20%; width: 60vw; height: 60vw; background: radial-gradient(circle, rgba(0, 160, 255, 0.05) 0%, transparent 60%); animation: pulseLight 4s infinite alternate-reverse; }
-        @keyframes pulseLight { 0% { opacity: 0.5; } 100% { opacity: 1; } }
+        /* 🟢 تخفيف مؤثرات الخلفية لحل مشكلة اللاّق 🟢 */
+        /* إزالة background: radial-gradient... الثقيلة والاعتماد على ألوان ثابتة مع تأثير خفيف */
+        #bgEffects { position: fixed; inset: 0; z-index: -5; pointer-events: none; background-color: var(--bg-deep); }
+        /* تقليل عدد النجوم وتبسيط حركتها */
+        .star { position: absolute; background: white; border-radius: 50%; opacity: 0.3; }
+        
+        /* إضاءات خلفية مبسطة جداً */
+        .light-red { position: absolute; top: 0; left: 0; width: 40vw; height: 40vw; background: rgba(255, 0, 40, 0.03); border-radius: 50%; filter: blur(100px); }
+        .light-blue { position: absolute; bottom: 0; right: 0; width: 40vw; height: 40vw; background: rgba(0, 160, 255, 0.03); border-radius: 50%; filter: blur(100px); }
 
         @keyframes popIn { 0% { opacity: 0; transform: scale(0.95); } 100% { opacity: 1; transform: scale(1); } }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
@@ -45,59 +49,58 @@
         #mainWrapper { display: none; flex-direction: column; min-height: 100vh; animation: fadeIn 0.4s ease;}
         header { display: flex; justify-content: space-between; align-items: center; padding: 20px 40px; border-bottom: 1px solid rgba(255,255,255,0.05); background: rgba(10,15,25,0.8); backdrop-filter: blur(10px);}
         .header-side { display: flex; gap: 15px; align-items: center; }
-        
         .head-btn { background: transparent; border: 1px solid rgba(255,255,255,0.1); padding: 10px 25px; border-radius: 8px; color: #ccc; font-weight: bold; cursor: pointer; transition: 0.2s; font-family: var(--font-ar); text-decoration: none; display: flex; align-items: center; gap: 8px;}
         .head-btn:hover { background: rgba(255,255,255,0.05); border-color: #fff; color: #fff; }
         .btn-red { border-color: var(--red); color: var(--red); }
         .btn-red:hover { background: rgba(255,51,51,0.1); color: var(--red); border-color: var(--red); }
         .btn-cyan { border-color: var(--cyan); color: var(--cyan); }
         .btn-cyan:hover { background: rgba(0,234,255,0.1); color: var(--cyan); }
-
         .sys-title { font-size: 1.4rem; font-weight: 900; letter-spacing: 2px; }
 
         #dashboardView { flex: 1; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 40px; position: relative;}
-        .watermark-logo { width: 350px; height: 350px; opacity: 0.05; background: url('yyW7oBx.jpg') center/cover; border-radius: 50%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none;}
+        .watermark-logo { width: 350px; height: 350px; opacity: 0.03; background: url('yyW7oBx.jpg') center/cover; border-radius: 50%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none;}
         .main-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; width: 100%; max-width: 1000px; position: relative; z-index: 10;}
-        .menu-btn { background: rgba(15, 20, 30, 0.85); border: 1px solid var(--glass-border); border-radius: 12px; padding: 30px 20px; text-align: center; color: #fff; font-size: 1.25rem; font-weight: 800; cursor: pointer; transition: 0.3s; backdrop-filter: blur(10px); box-shadow: 0 10px 20px rgba(0,0,0,0.5);}
-        .menu-btn:hover { border-color: var(--cyan); transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,234,255,0.15); text-shadow: 0 0 10px rgba(0,234,255,0.5); }
+        /* إزالة shadow المبالغ فيه لتسريع الأداء */
+        .menu-btn { background: rgba(15, 20, 30, 0.85); border: 1px solid var(--glass-border); border-radius: 12px; padding: 30px 20px; text-align: center; color: #fff; font-size: 1.25rem; font-weight: 800; cursor: pointer; transition: 0.2s; backdrop-filter: blur(5px);}
+        .menu-btn:hover { border-color: var(--cyan); transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,234,255,0.1); }
 
-        /* الأقسام والجدول */
+        /* واجهة الأقسام والجدول */
         #moduleView { display: none; flex-direction: column; width: 95%; max-width: 1600px; margin: 0 auto; padding-top: 30px; animation: popIn 0.3s ease; }
-        .roster-wrapper { width: 100%; background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 16px; padding: 30px; box-shadow: 0 20px 50px rgba(0,0,0,0.8); overflow-x: auto; backdrop-filter: blur(15px); margin-bottom:30px;}
+        .roster-wrapper { width: 100%; background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 16px; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); overflow-x: auto; backdrop-filter: blur(10px); margin-bottom:30px;}
         .roster-wrapper::-webkit-scrollbar { height: 6px; } .roster-wrapper::-webkit-scrollbar-thumb { background: var(--cyan); border-radius: 6px; }
         
         .luxury-table { width: 100%; border-collapse: separate; border-spacing: 0 8px; text-align: center; font-family: 'Rajdhani', 'Tajawal', sans-serif; min-width: 1300px;}
         .luxury-table thead th { color: var(--cyan); font-size: 0.95rem; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; padding: 15px; border-bottom: 2px solid rgba(0,234,255,0.2); }
         .roster-row { background: rgba(20, 26, 40, 0.7); transition: 0.2s; }
-        .roster-row:hover { background: rgba(30, 40, 60, 0.95); transform: scale(1.005); box-shadow: 0 5px 15px rgba(0,234,255,0.1); }
-        .luxury-table td { padding: 15px; color: #d1d1d1; font-size: 1.05rem; font-weight: 600; border-top: 1px solid rgba(255,255,255,0.02); border-bottom: 1px solid rgba(255,255,255,0.02); white-space: nowrap;}
+        .roster-row:hover { background: rgba(30, 40, 60, 0.95); transform: scale(1.002); } /* تقليل scale للسرعة */
+        .luxury-table td { padding: 12px; color: #d1d1d1; font-size: 1.05rem; font-weight: 600; border-top: 1px solid rgba(255,255,255,0.02); border-bottom: 1px solid rgba(255,255,255,0.02); white-space: nowrap;}
         .luxury-table td:first-child { border-radius: 8px 0 0 8px; border-left: 3px solid var(--cyan); color: var(--cyan); font-weight: 900;}
         .luxury-table td:last-child { border-radius: 0 8px 8px 0; border-right: 1px solid rgba(255,255,255,0.02); }
-        .dept-title { color: #fff; font-size: 1.5rem; font-weight: 900; padding: 30px 0 10px 0; text-align: left; border-bottom: 2px solid var(--cyan); display: inline-block; letter-spacing: 2px; text-shadow: 0 0 15px var(--cyan-glow);}
+        .dept-title { color: #fff; font-size: 1.5rem; font-weight: 900; padding: 20px 0 10px 0; text-align: left; border-bottom: 2px solid var(--cyan); display: inline-block; letter-spacing: 2px;}
 
-        /* أزرار الحذف والتعديل الصريحة */
-        .action-btn-text { background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; padding: 8px 15px; cursor: pointer; transition: 0.2s; margin: 0 4px; color: #fff; font-family:var(--font-ar); font-weight:bold; font-size:0.95rem;}
+        /* أزرار الإجراءات */
+        .action-btn-text { background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; padding: 6px 12px; cursor: pointer; transition: 0.2s; margin: 0 4px; color: #fff; font-family:var(--font-ar); font-weight:bold; font-size:0.9rem;}
         .btn-edit-text:hover { border-color: var(--yellow); color: var(--yellow); background: rgba(255,193,7,0.1);}
         .btn-del-text { color: var(--red); border-color: rgba(255,51,51,0.3);}
         .btn-del-text:hover { border-color: var(--red); color: #fff; background: var(--red);}
 
         .input-section { background: rgba(15, 20, 30, 0.8); border: 1px solid var(--glass-border); padding: 25px; border-radius: 12px; backdrop-filter: blur(10px); margin-bottom:20px; }
-        .gen-input { width: 100%; padding: 15px; background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.1); color: #fff; margin-bottom: 15px; border-radius: 8px; text-align: right; font-family: var(--font-ar); font-size:1.05rem;}
-        .gen-input:focus { border-color: var(--cyan); box-shadow: 0 0 10px rgba(0,234,255,0.2); }
+        .gen-input { width: 100%; padding: 12px; background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.1); color: #fff; margin-bottom: 15px; border-radius: 8px; text-align: right; font-family: var(--font-ar); font-size:1.05rem;}
+        .gen-input:focus { border-color: var(--cyan); box-shadow: 0 0 8px rgba(0,234,255,0.2); }
         select.gen-input option { background: #0b0e14; }
         .grid-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
 
-        .rec-item { padding: 20px; border-bottom: 1px solid rgba(255,255,255,0.03); display: flex; justify-content: space-between; align-items: center; color: #ddd; font-size: 1.05rem; background: rgba(20,26,40,0.8); border-radius: 10px; margin-bottom: 12px; border: 1px solid var(--glass-border); }
+        .rec-item { padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.03); display: flex; justify-content: space-between; align-items: center; color: #ddd; font-size: 1.05rem; background: rgba(20,26,40,0.8); border-radius: 8px; margin-bottom: 10px; border: 1px solid var(--glass-border); }
 
-        /* 🟢 النوافذ المنبثقة للوحة التحكم 🟢 */
-        .modal-overlay { position: fixed; inset: 0; background: rgba(3, 5, 9, 0.95); z-index: 100000; display: none; justify-content: center; align-items: center; backdrop-filter: blur(10px); }
-        .modal-box { width: 600px; padding: 40px; background: rgba(10, 15, 25, 0.98); border: 1px solid var(--cyan); border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.8); animation: popIn 0.3s ease; }
-        .close-btn { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #ccc; padding: 15px; border-radius: 8px; cursor: pointer; transition: 0.2s; font-weight: bold; width: 100%; font-family:var(--font-ar); font-size:1.1rem;}
+        /* النوافذ المنبثقة */
+        .modal-overlay { position: fixed; inset: 0; background: rgba(3, 5, 9, 0.95); z-index: 100000; display: none; justify-content: center; align-items: center; backdrop-filter: blur(5px); } /* تقليل blur للسرعة */
+        .modal-box { width: 600px; padding: 30px; background: rgba(10, 15, 25, 0.98); border: 1px solid var(--cyan); border-radius: 12px; box-shadow: 0 15px 40px rgba(0,0,0,0.8); animation: popIn 0.2s ease; }
+        .close-btn { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #ccc; padding: 12px; border-radius: 8px; cursor: pointer; transition: 0.2s; font-weight: bold; width: 100%; font-family:var(--font-ar); font-size:1.1rem;}
         .close-btn:hover { background: rgba(255,51,51,0.2); border-color: var(--red); color: #fff;}
 
         /* بطاقة الهوية */
         #idCardOverlay .modal-box { width: 650px; background: #0b0e14; border: 1px solid rgba(255,255,255,0.05); border-right: 3px solid var(--cyan); display: flex; flex-direction: row-reverse; align-items: center; padding: 30px; }
-        .profile-img-wrapper { width: 150px; height: 150px; border-radius: 20px; border: 2px solid var(--cyan); padding: 4px; box-shadow: 0 0 20px rgba(0,234,255,0.2); background: rgba(0, 234, 255, 0.05); margin-right:auto;}
+        .profile-img-wrapper { width: 150px; height: 150px; border-radius: 20px; border: 2px solid var(--cyan); padding: 4px; box-shadow: 0 0 15px rgba(0,234,255,0.2); background: rgba(0, 234, 255, 0.05); margin-right:auto;}
         .card-right { display: flex; flex-direction: column; align-items: flex-end; text-align: right; width: calc(100% - 200px); }
     </style>
 </head>
@@ -106,17 +109,19 @@
     <script src="config.js"></script>
 
     <div id="bgEffects">
-        <div id="bg-lights"><div class="light-red"></div><div class="light-blue"></div></div>
+        <div id="star-bg"></div>
+        <div class="light-red"></div>
+        <div class="light-blue"></div>
     </div>
 
     <div id="loginScreen">
         <div class="login-container">
             <div class="login-logo"></div>
             <div style="font-size: 1.8rem; font-weight: 900; margin-bottom: 30px; letter-spacing: 1px; color:var(--cyan); text-shadow:0 0 15px var(--cyan-glow);">نظام إدارة الشرطة</div>
-            <div class="inp-group"><input type="text" id="userInput" class="login-input" placeholder="اسم المستخدم"></div>
-            <div class="inp-group"><input type="password" id="passInput" class="login-input" placeholder="كلمة المرور"></div>
+            <div class="inp-group"><i class="fa-solid fa-user"></i><input type="text" id="userInput" class="login-input" placeholder="اسم المستخدم"></div>
+            <div class="inp-group"><i class="fa-solid fa-lock"></i><input type="password" id="passInput" class="login-input" placeholder="كلمة المرور"></div>
             <button class="submit-btn" onclick="login()">دخول للوحة القيادة</button>
-            <div id="loginError" style="display: none; color: var(--red); margin-top: 15px; font-weight: bold; background: rgba(255,51,51,0.1); border: 1px solid var(--red); padding: 10px; border-radius: 6px;">بيانات غير صحيحة!</div>
+            <div id="loginError" style="display: none; color: var(--red); margin-top: 15px; font-weight: bold; background: rgba(255,51,51,0.1); border: 1px solid var(--red); padding: 10px; border-radius: 6px;">بيانات الدخول غير صحيحة!</div>
             <button onclick="window.location.href='index.html'" style="background: transparent; border: none; color: #888; margin-top: 25px; cursor: pointer; text-decoration: underline; font-family: var(--font-ar); font-size:1rem;">العودة للموقع الرئيسي</button>
         </div>
     </div>
@@ -141,7 +146,7 @@
         <div id="moduleView">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
                 <h2 id="mTitle" style="color: var(--cyan); font-size: 2rem; font-weight: 900; text-shadow: 0 0 15px var(--cyan-glow);">--</h2>
-                <button class="head-btn" onclick="document.getElementById('moduleView').style.display='none'; document.getElementById('dashboardView').style.display='flex';"><i class="fa-solid fa-arrow-right"></i> العودة للوحة القيادة</button>
+                <button class="head-btn" onclick="goHome()">العودة للوحة القيادة</button>
             </div>
             
             <div id="dynamicContentArea" class="allow-select"></div>
@@ -153,8 +158,24 @@
         </div>
     </div>
 
+    <div class="modal-overlay" id="cryptoModal">
+        <div class="modal-box">
+            <h3 style="color:var(--cyan); margin-bottom:20px; font-size:1.5rem; text-align:center;">قسم التشفير</h3>
+            <textarea id="cryIn" class="gen-input" placeholder="أدخل النص هنا..." style="height: 100px; resize: none; text-align:right;"></textarea>
+            <div style="display:flex; gap:10px; margin-bottom:15px;">
+                <button class="submit-btn" onclick="doCrypto('enc')" style="margin:0">تشفير النص</button>
+                <button class="submit-btn" onclick="doCrypto('dec')" style="margin:0; background:#fff; color:#000;">فك التشفير</button>
+            </div>
+            <div style="position:relative;">
+                <div class="gen-input allow-select" id="cryOut" style="min-height: 50px; font-family: monospace; word-break: break-all; padding-inline-end: 45px; text-align:left;" dir="ltr">النتيجة ستظهر هنا...</div>
+                <i class="fa-solid fa-copy" onclick="copyCrypto()" style="position: absolute; top: 15px; right: 15px; color: var(--cyan); font-size: 1.3rem; cursor: pointer;"></i>
+            </div>
+            <button class="close-btn" onclick="document.getElementById('cryptoModal').style.display='none'">إغلاق</button>
+        </div>
+    </div>
+
     <div class="modal-overlay" id="editRankModal">
-        <div class="modal-box" style="width: 700px;">
+        <div class="modal-box" style="width: 650px;">
             <h3 style="color:var(--cyan); margin-bottom:25px; font-size:1.6rem; text-align:center;">تعديل السجل العسكري</h3>
             <div class="grid-inputs">
                 <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">الاسم (Name):</div><input type="text" id="editOfficerName" class="gen-input" style="margin-bottom: 10px;"></div>
@@ -228,32 +249,15 @@
                     </select>
                 </div>
 
-                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">تاريخ الترقية (Last Prom):</div><input type="text" id="editProm" class="gen-input" placeholder="N/A -" style="margin-bottom: 10px;"></div>
+                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">تاريخ الترقية:</div><input type="text" id="editProm" class="gen-input" placeholder="N/A -" style="margin-bottom: 10px;"></div>
                 <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">النقاط (F.P):</div><input type="text" id="editFP" class="gen-input" placeholder="N/A -" style="margin-bottom: 10px;"></div>
                 <div style="grid-column: span 2;"><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">ديسكورد آيدي:</div><input type="text" id="editDiscord" class="gen-input" style="margin-bottom: 10px; text-align:left;" dir="ltr"></div>
                 <div style="grid-column: span 2;"><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">ملاحظات (Notes):</div><textarea id="editNotes" class="gen-input" style="height: 60px; resize:none; margin-bottom: 10px;"></textarea></div>
             </div>
-
             <div style="display:flex; gap:15px; margin-top: 10px;">
                 <button class="submit-btn" onclick="saveNewOfficerData()" style="flex: 2; margin: 0;">حفظ التعديلات</button>
                 <button class="close-btn" onclick="document.getElementById('editRankModal').style.display='none'" style="flex: 1; margin: 0;">إلغاء</button>
             </div>
-        </div>
-    </div>
-
-    <div class="modal-overlay" id="cryptoModal">
-        <div class="modal-box">
-            <h3 style="color:var(--cyan); margin-bottom:20px; font-size:1.5rem; text-align:center;">قسم التشفير</h3>
-            <textarea id="cryIn" class="gen-input" placeholder="أدخل النص هنا..." style="height: 100px; resize: none; text-align:right;"></textarea>
-            <div style="display:flex; gap:10px; margin-bottom:15px;">
-                <button class="submit-btn" onclick="doCrypto('enc')" style="margin:0">تشفير النص</button>
-                <button class="submit-btn" onclick="doCrypto('dec')" style="margin:0; background:#fff; color:#000;">فك التشفير</button>
-            </div>
-            <div style="position:relative;">
-                <div class="gen-input allow-select" id="cryOut" style="min-height: 50px; font-family: monospace; word-break: break-all; text-align:left;" dir="ltr">النتيجة ستظهر هنا...</div>
-                <i class="fa-solid fa-copy" onclick="copyCrypto()" style="position: absolute; top: 15px; right: 15px; color: var(--cyan); font-size: 1.3rem; cursor: pointer;"></i>
-            </div>
-            <button class="close-btn" onclick="document.getElementById('cryptoModal').style.display='none'">إغلاق</button>
         </div>
     </div>
 
@@ -298,11 +302,19 @@
     </div>
 
     <script>
+        const starBg = document.getElementById('star-bg');
+        for (let i = 0; i < 25; i++) {  // تقليل عدد النجوم لتخفيف الأداء
+            let star = document.createElement('div'); star.className = 'star';
+            star.style.width = star.style.height = (Math.random() * 3 + 1) + 'px';
+            star.style.left = Math.random() * 100 + 'vw'; star.style.top = Math.random() * 100 + 'vh';
+            starBg.appendChild(star);
+        }
+
         const publicOfficersList = ["Minister of Interior", "Deputy Minister of Interior", "A. Minister of Interior", "Police Commander", "L.S.P.D Chief", "Deputy L.S.P.D Chief", "A' Lspd Chief", "High Commander", "General", "Colonel", "Major", "Captain", "First Lieutenant", "Lieutenant"];
         const publicEnlistedList = ["Staff Sergeant", "First Sergeant", "Sergeant", "Senior Lead Officer", "Senior Officer", "Officer III", "Officer II", "Officer I", "Solo Cadet", "Cadet"];
         let SystemRanks = [...publicOfficersList, ...publicEnlistedList];
 
-        // 🟢 البرمجة الذكية للأكواد الدقيقة والنطاقات المخصصة 🟢
+        // 🟢 النطاقات والأكواد الدقيقة المطلوبة 🟢
         const rankExactCodes = {
             "Minister of Interior": "P-0", "Deputy Minister of Interior": "P-1", "A. Minister of Interior": "P-2",
             "L.S.P.D Chief": "A-1", "Deputy L.S.P.D Chief": "A-2", "A' Lspd Chief": "A-3",
@@ -351,7 +363,7 @@
         let db = { applications: [], reports: [], customUsers: [], live_roster: {}, settings: { policeOpen: true, selfOpen: true } }; 
         let currentModule = null; let isOfficer = false; let myName = ""; let myRank = ""; 
 
-        // 🟢 دالة نافذة الحذف المخصصة الفخمة (بديل window.confirm) 🟢
+        // 🟢 دالة نافذة الحذف المخصصة 🟢
         let pendingConfirmAction = null;
         function showCustomConfirm(title, message, callback) {
             document.getElementById('confirmTitle').innerText = title;
@@ -413,7 +425,11 @@
         }
 
         function logout() { window.location.href='index.html'; }
-        function goHome() { document.getElementById('moduleView').style.display = 'none'; document.getElementById('dashboardView').style.display = 'flex'; }
+        function goHome() { 
+            document.getElementById('moduleView').style.display = 'none'; 
+            document.getElementById('cryptoModal').style.display = 'none';
+            document.getElementById('dashboardView').style.display = 'flex'; 
+        }
 
         function updateCardImg(input) {
             if (input.files && input.files[0]) {
@@ -521,7 +537,6 @@
 
         function deleteOfficerFromRoster(id, name) {
             if(!isOfficer) return showCustomAlert("خطأ", "لا تملك صلاحية", false);
-            // استخدمنا النافذة الفخمة الجديدة بدل window.confirm
             showCustomConfirm("حذف عسكري", `هل أنت متأكد من حذف العسكري (${name}) نهائياً من الجدول؟`, () => {
                 database.ref(`live_roster/${id}`).remove().then(() => showCustomAlert("تم", "تم حذف العسكري بنجاح", true));
             });
@@ -533,9 +548,19 @@
             currentEditingOfficerId = id;
             document.getElementById('editOfficerName').value = name || '';
             document.getElementById('editOfficerCode').value = code || '';
-            document.getElementById('editResp').value = resp === '-' ? 'N/A' : resp;
+            
+            let respOptions = ["N/A", "Police Administration", "Commission Office", "High Command", "Command", "Head Of Internal Affairs", "Intern Affairs Member", "Detective Supervisor", "Supervisor", "Detective", "Motorcycle Unit Leader", "Motorcycle Unit CO-Leader", "Motorcycle Supervisor", "Air Unit Leader", "Air Unit CO-Leader", "Speed Unit Leader", "Speed Unit CO-Leader", "GANG UNIT Leader", "GANG UNIT CO- Leader", "Assistants", "Trooper", "GANG UNIT", "HEAD OF COMMAND", "Air Fleet Commander", "Police Wings Commander", "Commander Of P.A", "Deputy Of P.A", "deputy air fleet", "Advisor of air fleet", "War Commander", "S.W.A.T Commander", "Deputy S.W.A.T Commander"];
+            let respHtml = '';
+            respOptions.forEach(r => { respHtml += `<option value="${r}" ${r===resp ? 'selected' : ''}>${r}</option>`; });
+            document.getElementById('editResp').innerHTML = respHtml;
+
             document.getElementById('editStatus').value = status || 'ACTIVE';
-            document.getElementById('editStrikes').value = strikes === '-' ? 'N/A' : strikes;
+            
+            let strikesOptions = ["N/A", "WARN 1", "WARN 2", "WARN 3", "Strike Point 1", "Strike Point 2", "Strike Point 3", "Strike Point 4", "Strike Point 5", "Strike Point 6", "Strike Point 7"];
+            let strikesHtml = '';
+            strikesOptions.forEach(s => { strikesHtml += `<option value="${s}" ${s===strikes ? 'selected' : ''}>${s}</option>`; });
+            document.getElementById('editStrikes').innerHTML = strikesHtml;
+
             document.getElementById('editProm').value = prom === '-' ? '' : prom;
             document.getElementById('editFP').value = fp === '-' ? '' : fp;
             document.getElementById('editDiscord').value = discord === '-' ? '' : discord;
@@ -548,7 +573,7 @@
             document.getElementById('editRankModal').style.display = 'flex';
         }
 
-        // 🟢 ميزة التغيير التلقائي للكود بدقة للرتب (مع الاحتفاظ بالرقم) 🟢
+        // 🟢 ميزة التغيير التلقائي للكود بناءً على الرتبة 🟢
         function autoGenerateCode() {
             const rank = document.getElementById('editRankSelect').value;
             
@@ -592,7 +617,7 @@
             });
         }
 
-        // دوال باقي الأقسام
+        // 🟢 دوال باقي الأقسام 🟢
         function renderSettingsView(container) {
             let pOpen = db.settings.policeOpen; let sOpen = db.settings.selfOpen;
             container.innerHTML = `<div style="background:rgba(15,20,30,0.8); border:1px solid var(--glass-border); border-radius:12px; padding:40px; text-align:center; max-width:800px; margin:0 auto;">
