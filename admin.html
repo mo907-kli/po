@@ -21,9 +21,6 @@
         input, textarea, select, .allow-select * { user-select: text !important; outline: none; font-family: var(--font-ar);}
 
         #bgEffects { position: fixed; inset: 0; z-index: -5; pointer-events: none; background-color: var(--bg-deep); }
-        .star { position: absolute; background: white; border-radius: 50%; opacity: 0.3; }
-        .light-red { position: absolute; top: 0; left: 0; width: 40vw; height: 40vw; background: rgba(255, 0, 40, 0.03); border-radius: 50%; filter: blur(100px); }
-        .light-blue { position: absolute; bottom: 0; right: 0; width: 40vw; height: 40vw; background: rgba(0, 160, 255, 0.03); border-radius: 50%; filter: blur(100px); }
 
         @keyframes popIn { 0% { opacity: 0; transform: scale(0.98); } 100% { opacity: 1; transform: scale(1); } }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
@@ -48,7 +45,7 @@
         .back-link { display: inline-block; margin-top: 25px; color: #666; font-size: 0.95rem; text-decoration: none; transition: 0.3s; font-weight: bold; }
         .back-link:hover { color: #fff; }
 
-        /* لوحة القيادة */
+        /* لوحة القيادة العامة */
         #mainWrapper { display: none; flex-direction: column; min-height: 100vh; animation: fadeIn 0.3s ease;}
         header { display: flex; justify-content: space-between; align-items: center; padding: 20px 40px; border-bottom: 1px solid rgba(255,255,255,0.05); background: #0a0f1c;}
         .header-side { display: flex; gap: 15px; align-items: center; }
@@ -59,26 +56,8 @@
         .btn-cyan { border-color: var(--cyan); color: var(--cyan); }
         .btn-cyan:hover { background: var(--cyan); color: #000; }
 
-        /* 🟢 زر الإنشاء الفخم 🟢 */
-        .create-btn {
-            background: linear-gradient(90deg, #00ff6a, #00cc55);
-            color: #000;
-            border: none;
-            padding: 10px 25px;
-            border-radius: 8px;
-            font-family: var(--font-ar);
-            font-weight: 900;
-            font-size: 1.1rem;
-            cursor: pointer;
-            box-shadow: 0 0 15px rgba(0, 255, 106, 0.3);
-            transition: 0.3s;
-            display: none; /* مخفي افتراضياً يظهر بس في جدول العساكر */
-        }
-        .create-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(0, 255, 106, 0.6);
-            color: #fff;
-        }
+        .create-btn { background: linear-gradient(90deg, #00ff6a, #00cc55); color: #000; border: none; padding: 10px 25px; border-radius: 8px; font-family: var(--font-ar); font-weight: 900; font-size: 1.1rem; cursor: pointer; box-shadow: 0 0 15px rgba(0, 255, 106, 0.3); transition: 0.3s; display: none; }
+        .create-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(0, 255, 106, 0.6); color: #fff; }
 
         .sys-title { font-size: 1.4rem; font-weight: 900; letter-spacing: 2px; }
         #dashboardView { flex: 1; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 40px; position: relative;}
@@ -88,7 +67,7 @@
         .menu-btn { background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 12px; padding: 30px 20px; text-align: center; color: #fff; font-size: 1.25rem; font-weight: 800; cursor: pointer; transition: 0.2s;}
         .menu-btn:hover { border-color: var(--cyan); background: #151e32; transform: translateY(-3px); }
 
-        /* واجهة الأقسام والجدول */
+        /* الأقسام الداخلية */
         #moduleView { display: none; flex-direction: column; width: 95%; max-width: 1600px; margin: 0 auto; padding-top: 30px; animation: popIn 0.2s ease; }
         .roster-wrapper { width: 100%; background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 12px; padding: 20px; overflow-x: auto; margin-bottom:30px;}
         .roster-wrapper::-webkit-scrollbar { height: 6px; } .roster-wrapper::-webkit-scrollbar-thumb { background: var(--cyan); border-radius: 6px; }
@@ -102,11 +81,19 @@
         .luxury-table td:last-child { border-radius: 0 6px 6px 0; border-right: 1px solid rgba(255,255,255,0.02); }
         .dept-title { color: #fff; font-size: 1.5rem; font-weight: 900; padding: 20px 0 5px 0; text-align: left; border-bottom: 2px solid var(--cyan); display: inline-block; letter-spacing: 2px;}
 
-        /* أزرار الحذف والتعديل */
         .action-btn-text { background: #0a0f1c; border: 1px solid rgba(255,255,255,0.2); border-radius: 6px; padding: 6px 12px; cursor: pointer; transition: 0.2s; margin: 0 4px; color: #fff; font-family:var(--font-ar); font-weight:bold; font-size:0.9rem;}
         .btn-edit-text:hover { border-color: var(--yellow); color: var(--yellow); }
         .btn-del-text { color: var(--red); border-color: rgba(255,51,51,0.4);}
         .btn-del-text:hover { border-color: var(--red); background: var(--red); color: #fff;}
+
+        /* إصلاح المشكلة هنا: تعريف الزر بشكل صريح */
+        .submit-btn {
+            appearance: none; -webkit-appearance: none;
+            width: 100%; padding: 15px; background: var(--cyan); border: none; color: #000; 
+            font-weight: 900; font-size: 1.2rem; border-radius: 8px; cursor: pointer; 
+            transition: 0.2s; box-shadow: 0 0 20px rgba(0, 234, 255, 0.3); font-family: var(--font-ar);
+        }
+        .submit-btn:hover { background: #fff; transform: translateY(-2px); }
 
         .input-section { background: var(--glass-bg); border: 1px solid var(--glass-border); padding: 25px; border-radius: 12px; margin-bottom:20px; }
         .gen-input { width: 100%; padding: 12px; background: #05080f; border: 1px solid rgba(255,255,255,0.2); color: #fff; margin-bottom: 15px; border-radius: 6px; text-align: right; font-family: var(--font-ar); font-size:1.05rem;}
@@ -132,11 +119,7 @@
 
     <script src="config.js"></script>
 
-    <div id="bgEffects">
-        <div id="star-bg"></div>
-        <div class="light-red"></div>
-        <div class="light-blue"></div>
-    </div>
+    <div id="bgEffects"></div>
 
     <div id="loginScreen">
         <div class="bg-shape-1"></div><div class="bg-shape-2"></div>
@@ -482,7 +465,6 @@
             const container = document.getElementById('dynamicContentArea'), inpArea = document.getElementById('mInputs'), inputBlock = document.getElementById('inputSectionBlock');
             container.innerHTML = ''; inputBlock.style.display = 'none'; inpArea.innerHTML = '';
 
-            // 🟢 إظهار زر إنشاء العسكري فقط إذا كنا في قسم الجدول 🟢
             if(currentModule.isRosterAdmin) {
                 document.getElementById('createOfficerBtn').style.display = 'block';
                 renderAdminRoster();
@@ -642,7 +624,6 @@
             });
         }
 
-        // 🟢 وظائف إضافة العسكري اليدوية 🟢
         function openCreateModal() {
             document.getElementById('createOfficerName').value = '';
             document.getElementById('createOfficerCode').value = '';
@@ -662,7 +643,7 @@
             let rankOptions = ''; SystemRanks.forEach(r => { rankOptions += `<option value="${r}">${r}</option>`; });
             document.getElementById('createRankSelect').innerHTML = rankOptions;
             
-            autoGenerateCreateCode(); // يولد كود تلقائي لأول رتبة في القائمة
+            autoGenerateCreateCode(); 
             document.getElementById('createRankModal').style.display = 'flex';
         }
 
