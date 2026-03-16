@@ -10,32 +10,31 @@
     
     <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-database-compat.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
-
     <style>
         :root {
-            --bg-deep: #020305; --glass-bg: rgba(15, 20, 30, 0.7); --glass-border: rgba(0, 234, 255, 0.1);
+            --bg-deep: #020305; --glass-bg: rgba(15, 20, 30, 0.8); --glass-border: rgba(0, 234, 255, 0.1);
             --cyan: #00eaff; --cyan-glow: rgba(0, 234, 255, 0.4); --red: #ff3333; --green: #00ff6a; --yellow: #ffc107;
             --text-main: #ffffff; --font-ar: 'Tajawal', sans-serif; --font-en: 'Rajdhani', sans-serif;
-            --row-bg: rgba(20, 26, 40, 0.6);
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; }
         body { user-select: none; background: var(--bg-deep); color: var(--text-main); font-family: var(--font-ar); min-height: 100vh; overflow-x: hidden; }
-        input, textarea, select, .allow-select * { user-select: text !important; }
+        input, textarea, select, .allow-select * { user-select: text !important; outline: none; font-family: var(--font-ar);}
 
-        #bgEffects { position: fixed; inset: 0; z-index: -5; pointer-events: none; }
-        .star { position: absolute; background: white; border-radius: 50%; opacity: 0.5; animation: twinkle linear infinite alternate; box-shadow: 0 0 5px rgba(0, 234, 255, 0.5); }
-        @keyframes twinkle { 0% { opacity: 0.2; transform: scale(0.8); } 100% { opacity: 1; transform: scale(1.2); box-shadow: 0 0 8px rgba(0, 234, 255, 0.8); } }
-        .light-red { position: absolute; top: -30%; left: -20%; width: 70vw; height: 70vw; background: radial-gradient(circle, rgba(255, 0, 40, 0.08) 0%, transparent 70%); mix-blend-mode: screen; animation: pulseRed 4s infinite alternate ease-in-out; }
-        .light-blue { position: absolute; bottom: -30%; right: -20%; width: 70vw; height: 70vw; background: radial-gradient(circle, rgba(0, 160, 255, 0.08) 0%, transparent 70%); mix-blend-mode: screen; animation: pulseBlue 4s infinite alternate ease-in-out; }
-        @keyframes pulseRed { 0% { opacity: 0.5; transform: scale(0.9); } 100% { opacity: 1; transform: scale(1.1); } }
-        @keyframes pulseBlue { 0% { opacity: 1; transform: scale(1.1); } 100% { opacity: 0.5; transform: scale(0.9); } }
+        /* 🟢 الخلفية الخفيفة والسريعة جداً (بدون لاق) 🟢 */
+        #bgEffects { position: fixed; inset: 0; z-index: -5; pointer-events: none; background: radial-gradient(circle at center, rgba(0, 234, 255, 0.02) 0%, transparent 80%); }
+        .star { position: absolute; background: white; border-radius: 50%; opacity: 0.3; animation: twinkle linear infinite alternate; }
+        @keyframes twinkle { 0% { opacity: 0.1; } 100% { opacity: 0.6; transform: scale(1.2); } }
+        
+        .light-red { position: absolute; top: -20%; left: -20%; width: 60vw; height: 60vw; background: radial-gradient(circle, rgba(255, 0, 40, 0.04) 0%, transparent 60%); animation: pulseLight 4s infinite alternate; }
+        .light-blue { position: absolute; bottom: -20%; right: -20%; width: 60vw; height: 60vw; background: radial-gradient(circle, rgba(0, 160, 255, 0.04) 0%, transparent 60%); animation: pulseLight 4s infinite alternate-reverse; }
+        @keyframes pulseLight { 0% { opacity: 0.5; } 100% { opacity: 1; } }
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes popIn { 0% { opacity: 0; transform: scale(0.9); } 100% { opacity: 1; transform: scale(1); } }
+        @keyframes popIn { 0% { opacity: 0; transform: scale(0.95); } 100% { opacity: 1; transform: scale(1); } }
 
-        .public-nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 80px; background: rgba(3, 5, 9, 0.85); border-bottom: 1px solid rgba(255,255,255,0.05); position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(15px); }
+        /* شريط التنقل */
+        .public-nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 80px; background: rgba(3, 5, 9, 0.95); border-bottom: 1px solid rgba(255,255,255,0.05); position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(10px); }
         .nav-right { display: flex; align-items: center; gap: 40px; }
         .nav-logo { width: 45px; height: 45px; background: url('yyW7oBx.jpg') center/cover; border-radius: 50%; box-shadow: 0 0 10px rgba(0,234,255,0.3); border: 1px solid var(--cyan);}
         .nav-links { display: flex; gap: 30px; }
@@ -46,29 +45,31 @@
 
         .tab-content { display: none; flex-direction: column; align-items: center; width: 100%; padding-bottom: 100px; animation: fadeIn 0.3s ease;}
         
-        .hero-section { display: flex; align-items: center; justify-content: center; min-height: calc(100vh - 90px); width: 100%; background: radial-gradient(circle at center, rgba(0, 234, 255, 0.05) 0%, transparent 60%); }
+        /* الرئيسية */
+        .hero-section { display: flex; align-items: center; justify-content: center; min-height: calc(100vh - 90px); width: 100%; }
         .hero-content { text-align: center; max-width: 800px; padding: 40px; }
         .hero-content h1 { font-size: 5rem; color: #fff; font-weight: 900; margin-bottom: 20px; text-shadow: 0 0 30px rgba(0,234,255,0.4); }
         .hero-content h1 span { color: var(--cyan); }
         .hero-content p { font-size: 1.25rem; color: #ccc; line-height: 1.8; margin-bottom: 40px; }
-        .hero-btn { background: var(--cyan); border: none; color: #000; padding: 16px 45px; font-size: 1.2rem; font-weight: bold; border-radius: 6px; cursor: pointer; transition: 0.2s; box-shadow: 0 0 20px var(--cyan-glow); }
-        .hero-btn:hover { background: #fff; transform: scale(1.05); }
+        .hero-btn { background: var(--cyan); border: none; color: #000; padding: 16px 45px; font-size: 1.2rem; font-weight: bold; border-radius: 6px; cursor: pointer; transition: 0.2s; box-shadow: 0 0 20px var(--cyan-glow); font-family: var(--font-ar);}
+        .hero-btn:hover { background: #fff; transform: translateY(-3px); }
 
-        .animated-banner { width: 100%; padding: 80px 20px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.05); background: radial-gradient(circle at center, rgba(0, 234, 255, 0.03) 0%, transparent 70%); }
+        .animated-banner { width: 100%; padding: 80px 20px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.05); }
         .anim-title { font-size: 3.5rem; color: #fff; font-weight: 800; margin-bottom: 10px; text-shadow: 0 0 20px rgba(0,234,255,0.4);}
         .anim-title span { color: var(--cyan); }
 
+        /* الكروت */
         .community-title { font-size: 3rem; color: #fff; font-weight: 800; margin: 40px 0 20px 0; text-align: center; }
         .cards-container { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; max-width: 1200px; margin: 0 auto; }
-        .lux-card { background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 12px; padding: 40px 30px; width: 350px; text-align: center; transition: 0.3s; transform-style: preserve-3d; backdrop-filter: blur(10px); box-shadow: 0 15px 35px rgba(0,0,0,0.5); }
-        .lux-card:hover { border-color: var(--cyan); box-shadow: 0 15px 35px rgba(0,234,255,0.15); transform: translateY(-8px); }
-        .lux-card h3 { color: #fff; font-size: 1.6rem; font-weight: bold; margin-bottom: 15px; transform: translateZ(20px);}
-        .lux-card p { color: #888; font-size: 1rem; line-height: 1.7; margin-bottom: 30px; transform: translateZ(10px);}
-        .founder-img { width: 130px; height: 130px; border-radius: 50%; margin: 0 auto 25px; border: 3px solid var(--cyan); object-fit: cover; padding: 5px; transform: translateZ(30px); }
+        .lux-card { background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 12px; padding: 40px 30px; width: 350px; text-align: center; transition: 0.3s; backdrop-filter: blur(10px); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .lux-card:hover { border-color: var(--cyan); transform: translateY(-8px); }
+        .lux-card h3 { color: #fff; font-size: 1.6rem; font-weight: bold; margin-bottom: 15px; }
+        .lux-card p { color: #888; font-size: 1rem; line-height: 1.7; margin-bottom: 30px; }
+        .founder-img { width: 130px; height: 130px; border-radius: 50%; margin: 0 auto 25px; border: 3px solid var(--cyan); object-fit: cover; padding: 5px; }
 
+        /* القوانين SOPs */
         .accordion-container { width: 100%; max-width: 900px; padding: 0 20px; margin-top: 40px;}
-        .accordion-item { margin-bottom: 12px; border-radius: 8px; background: rgba(20, 26, 40, 0.7); border: 1px solid var(--glass-border); transition: 0.2s; backdrop-filter: blur(10px); box-shadow: 0 10px 20px rgba(0,0,0,0.5);}
-        .accordion-item:hover { border-color: rgba(0, 234, 255, 0.3); }
+        .accordion-item { margin-bottom: 12px; border-radius: 8px; background: var(--glass-bg); border: 1px solid var(--glass-border); transition: 0.2s;}
         .accordion-header { display: flex; justify-content: space-between; align-items: center; padding: 25px 30px; cursor: pointer; transition: 0.2s; flex-direction: row-reverse; }
         .acc-title-box { display: flex; align-items: center; gap: 15px; flex-direction: row-reverse; }
         .acc-dot { width: 12px; height: 12px; background: var(--cyan); border-radius: 50%; box-shadow: 0 0 10px var(--cyan); }
@@ -84,11 +85,12 @@
         .sop-list li { position: relative; padding-right: 25px; margin-bottom: 15px; color: #d1d1d1; font-size: 1.05rem; line-height: 1.9; }
         .sop-list li::before { content: '■'; position: absolute; right: 0; top: 0; color: var(--cyan); font-size: 0.8rem; }
 
-        .roster-wrapper { width: 95%; max-width: 1600px; background: rgba(10, 15, 25, 0.85); margin: 40px auto; border: 1px solid var(--glass-border); border-radius: 16px; padding: 20px; backdrop-filter: blur(15px); box-shadow: 0 20px 50px rgba(0,0,0,0.6); overflow-x: auto; }
+        /* جدول الزوار */
+        .roster-wrapper { width: 95%; max-width: 1600px; background: var(--glass-bg); margin: 40px auto; border: 1px solid var(--glass-border); border-radius: 16px; padding: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.6); overflow-x: auto; }
         .luxury-table { width: 100%; border-collapse: separate; border-spacing: 0 8px; text-align: center; font-family: 'Rajdhani', 'Tajawal', sans-serif; min-width: 1100px;}
         .luxury-table thead th { color: var(--cyan); font-size: 0.95rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; padding: 15px; border-bottom: 2px solid rgba(0,234,255,0.2); }
-        .roster-row { background: var(--row-bg); transition: 0.2s ease; }
-        .roster-row:hover { transform: scale(1.01) translateY(-2px); background: rgba(30, 40, 60, 0.95); box-shadow: 0 10px 20px rgba(0,234,255,0.15); }
+        .roster-row { background: rgba(20, 26, 40, 0.6); transition: 0.2s ease; }
+        .roster-row:hover { transform: scale(1.01); background: rgba(30, 40, 60, 0.95); }
         .luxury-table td { padding: 15px 10px; color: #d1d1d1; font-size: 1.05rem; font-weight: 600; border-top: 1px solid rgba(255,255,255,0.02); border-bottom: 1px solid rgba(255,255,255,0.02); white-space: nowrap; }
         .luxury-table td:first-child { border-radius: 8px 0 0 8px; border-left: 3px solid var(--cyan); color: var(--cyan); font-weight: 900; }
         .luxury-table td:last-child { border-radius: 0 8px 8px 0; border-right: 1px solid rgba(255,255,255,0.02); }
@@ -97,6 +99,7 @@
         .pill-status { display: inline-flex; align-items: center; gap: 8px; background: rgba(0, 255, 106, 0.08); border: 1px solid rgba(0, 255, 106, 0.3); color: var(--green); padding: 5px 15px; border-radius: 20px; font-size: 0.85rem; font-weight: 800; text-transform: uppercase;}
         .code-box { background: rgba(0,0,0,0.5); padding: 4px 10px; border-radius: 6px; font-family: monospace; color: #8da2b5; border: 1px solid rgba(255,255,255,0.05); }
 
+        /* النوافذ المنبثقة (التقديم والتنبيهات) */
         .modal-overlay { position: fixed; inset: 0; background: rgba(3, 5, 9, 0.95); z-index: 100000; display: none; justify-content: center; align-items: center; backdrop-filter: blur(10px); }
         .modal-box { width: 550px; padding: 40px; background: rgba(10, 15, 25, 0.98); border: 1px solid var(--cyan); border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.8); animation: popIn 0.3s ease-out; }
         .gen-input { width: 100%; padding: 15px; background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.1); color: #fff; margin-bottom: 15px; border-radius: 8px; outline: none; transition: 0.3s; font-family: var(--font-ar); text-align: right;}
@@ -154,7 +157,8 @@
                 <div class="accordion-content">
                     <div class="accordion-inner">
                         <div style="text-align: center; margin-bottom: 40px;">
-                            <h2 style="color: #fff; font-family: var(--font-en); letter-spacing: 2px; margin-bottom: 10px;">Standard Operating Procedures</h2>
+                            <img src="yyW7oBx.jpg" style="width: 100px; height: 100px; border-radius: 50%; border: 2px solid var(--cyan); margin-bottom: 15px; box-shadow: 0 0 15px var(--cyan-glow);">
+                            <h2 style="color: #fff; font-family: var(--font-en); letter-spacing: 2px; margin-bottom: 5px;"><span style="color:var(--red);">S</span>tandard <span style="color:var(--red);">O</span>perating <span style="color:var(--red);">P</span>rocedures</h2>
                             <h1 style="color: var(--red); font-weight: 900; text-shadow: 0 0 15px rgba(255,51,51,0.6); margin-bottom: 5px; font-size: 2.2rem;">طنى الشمري شخصياً مسويه</h1>
                             <h2 style="color: var(--red); font-family: var(--font-en); margin-bottom: 5px; font-weight:bold;">SOPs</h2>
                             <h3 style="color: var(--cyan); font-weight: 900; text-shadow: 0 0 10px rgba(0,234,255,0.5); margin-bottom: 15px;">اذكر الله يابترك</h3>
@@ -173,12 +177,6 @@
                             <li>يجب على الشرطي إبلاغ المواطن عن سبب إيقافه بشكل واضح.</li>
                             <li>يمنع منعاً باتاً التلفظ بألفاظ نابية أو شتم المواطنين مهما كان السبب.</li>
                         </ul>
-
-                        <div class="sop-section-title">2.1 قواعد وسلوكيات التعامل مع الزملاء</div>
-                        <ul class="sop-list">
-                            <li>يجب احترام الرتب العسكرية والالتزام بالتسلسل القيادي (Chain of Command).</li>
-                            <li>التعاون والتنسيق المستمر في الحالات الأمنية لضمان سلامة الجميع.</li>
-                        </ul>
                     </div>
                 </div>
             </div>
@@ -189,14 +187,14 @@
         <div class="animated-banner"><h1 class="anim-title">وظائف <span>المدينة</span></h1></div>
         <h2 class="community-title" style="margin-top:40px;">التقديم على الوظائف</h2>
         <div class="cards-container">
-            <div class="lux-card" data-tilt data-tilt-max="10">
+            <div class="lux-card">
                 <h3>شرطة تايتنز</h3>
                 <p>تقديم منتسبين شرطة تايتنز (L.S.P.D)، نهدف لتقديم أعلى معايير الأمن.</p>
                 <div id="btn-police-wrapper"><button class="submit-btn" onclick="document.getElementById('appModal').style.display='flex'">تقديم</button></div>
             </div>
-            <div class="lux-card" data-tilt data-tilt-max="10">
+            <div class="lux-card">
                 <h3>قدم نفسك</h3>
-                <p>هل لديك مهارات فريدة؟ قدم نفسك لنا وارفق سيرتك الذاتية أو أي مستندات داعمة.</p>
+                <p>هل لديك مهارات فريدة؟ قدم نفسك لنا وارفق سيرتك الذاتية.</p>
                 <div id="btn-self-wrapper"><button class="submit-btn" onclick="document.getElementById('selfAppModal').style.display='flex'">تقديم</button></div>
             </div>
         </div>
@@ -205,21 +203,21 @@
     <div id="foundersTab" class="tab-content">
         <div class="animated-banner"><h1 class="anim-title">مسؤولين <span>الشرطة</span></h1></div>
         <div class="cards-container" style="margin-top:40px;">
-            <div class="lux-card" data-tilt data-tilt-max="15">
+            <div class="lux-card">
                 <img src="https://cdn.discordapp.com/avatars/1242594305508376738/10f20a4533d8f6a277c2c5af58d9fcd7.webp?size=1024" class="founder-img" onerror="this.src='yyW7oBx.jpg'">
-                <h3 class="founder-name">جاهد المجاهد</h3><div style="color:var(--cyan); font-family:var(--font-en); font-weight:bold; letter-spacing:1px;">Minister of Interior</div>
+                <h3 style="color:#fff;">جاهد المجاهد</h3><div style="color:var(--cyan); font-family:var(--font-en); font-weight:bold;">Minister of Interior</div>
             </div>
-            <div class="lux-card" data-tilt data-tilt-max="15">
+            <div class="lux-card">
                 <img src="https://cdn.discordapp.com/avatars/930773715845775362/0c88052b5de3fa22a53d45384f6d0d96.webp?size=1024" class="founder-img" onerror="this.src='yyW7oBx.jpg'">
-                <h3 class="founder-name">محمد المطيري</h3><div style="color:var(--cyan); font-family:var(--font-en); font-weight:bold; letter-spacing:1px;">Deputy Minister of Interior</div>
+                <h3 style="color:#fff;">محمد المطيري</h3><div style="color:var(--cyan); font-family:var(--font-en); font-weight:bold;">Deputy Minister of Interior</div>
             </div>
-            <div class="lux-card" data-tilt data-tilt-max="15">
+            <div class="lux-card">
                 <img src="yyW7oBx.jpg" class="founder-img">
-                <h3 class="founder-name">جون هنتر</h3><div style="color:var(--cyan); font-family:var(--font-en); font-weight:bold; letter-spacing:1px;">A. Minister of Interior</div>
+                <h3 style="color:#fff;">جون هنتر</h3><div style="color:var(--cyan); font-family:var(--font-en); font-weight:bold;">A. Minister of Interior</div>
             </div>
-            <div class="lux-card" data-tilt data-tilt-max="15">
+            <div class="lux-card">
                 <img src="https://cdn.discordapp.com/avatars/936671728388673586/a5f7938ee0a9e3a3f806243ae366dc3e.webp?size=1024" class="founder-img" onerror="this.src='yyW7oBx.jpg'">
-                <h3 class="founder-name">فيكاريو اسلا</h3><div style="color:var(--cyan); font-family:var(--font-en); font-weight:bold; letter-spacing:1px;">L.S.P.D Chief</div>
+                <h3 style="color:#fff;">فيكاريو اسلا</h3><div style="color:var(--cyan); font-family:var(--font-en); font-weight:bold;">L.S.P.D Chief</div>
             </div>
         </div>
     </div>
@@ -242,7 +240,7 @@
             <input type="text" id="appName" class="gen-input" placeholder="الاسم الشخصي (داخل اللعبة)">
             <input type="text" id="appDiscord" class="gen-input" placeholder="حساب الديسكورد (Discord ID)">
             <input type="number" id="appAge" class="gen-input" placeholder="العمر الحقيقي">
-            <textarea id="appExp" class="gen-input" placeholder="الخبرات السابقة في العسكرية..." style="height:80px; resize:none;"></textarea>
+            <textarea id="appExp" class="gen-input" placeholder="الخبرات السابقة..." style="height:80px; resize:none;"></textarea>
             <div style="display: flex; gap: 15px; margin-top: 15px;">
                 <button class="submit-btn" onclick="submitApp('police')" style="flex: 2; margin: 0;">إرسال التقديم</button>
                 <button class="close-btn" onclick="document.getElementById('appModal').style.display='none'" style="flex: 1; margin: 0;">إلغاء</button>
@@ -263,25 +261,29 @@
         </div>
     </div>
 
+    <div class="modal-overlay" id="customAlertOverlay">
+        <div class="modal-box" style="width: 400px; text-align: center;">
+            <i class="fa-solid fa-circle-check" style="font-size: 4rem; color: var(--green); margin-bottom: 20px;" id="alertIcon"></i>
+            <h3 style="color: #fff; font-size: 1.8rem; font-weight: bold; margin-bottom: 15px;" id="alertTitle">تنبيه</h3>
+            <p style="color: #aaa; font-size: 1.1rem; line-height: 1.6; margin-bottom: 30px;" id="alertMessage">رسالة التنبيه</p>
+            <button class="submit-btn" onclick="document.getElementById('customAlertOverlay').style.display='none'">حسناً</button>
+        </div>
+    </div>
+
     <script>
         const starBg = document.getElementById('star-bg');
-        for (let i = 0; i < 50; i++) { 
+        for (let i = 0; i < 30; i++) { 
             let star = document.createElement('div'); star.className = 'star';
             star.style.width = star.style.height = (Math.random() * 3 + 1) + 'px';
             star.style.left = Math.random() * 100 + 'vw'; star.style.top = Math.random() * 100 + 'vh';
             star.style.animationDuration = (Math.random() * 3 + 2) + 's'; starBg.appendChild(star);
         }
-        VanillaTilt.init(document.querySelectorAll(".lux-card"));
 
-        // الرتب الجديدة
         const publicOfficersList = ["Minister of Interior", "Deputy Minister of Interior", "A. Minister of Interior", "Police Commander", "L.S.P.D Chief", "Deputy L.S.P.D Chief", "A' Lspd Chief", "High Commander", "General", "Colonel", "Major", "Captain", "First Lieutenant", "Lieutenant"];
         const publicEnlistedList = ["Staff Sergeant", "First Sergeant", "Sergeant", "Senior Lead Officer", "Senior Officer", "Officer III", "Officer II", "Officer I", "Solo Cadet", "Cadet"];
         let SystemRanks = [...publicOfficersList, ...publicEnlistedList];
 
-        firebase.initializeApp({
-            apiKey: "AIzaSyC5PL_fJEjiJVQS8rnx4m8j9uQNsILcQvs", authDomain: "police-depa.firebaseapp.com",
-            databaseURL: "https://police-depa-default-rtdb.europe-west1.firebasedatabase.app", projectId: "police-depa"
-        });
+        firebase.initializeApp({ apiKey: "AIzaSyC5PL_fJEjiJVQS8rnx4m8j9uQNsILcQvs", authDomain: "police-depa.firebaseapp.com", databaseURL: "https://police-depa-default-rtdb.europe-west1.firebasedatabase.app", projectId: "police-depa" });
         let db = { applications: [], live_roster: {}, settings: {} };
 
         firebase.database().ref('lspd_db').on('value', (snapshot) => {
@@ -289,7 +291,6 @@
             if (data) {
                 if(data.applications) db.applications = Object.values(data.applications).filter(i=>i);
                 db.settings = data.settings || { policeOpen: true, selfOpen: true };
-                
                 const pWrap = document.getElementById('btn-police-wrapper'); const sWrap = document.getElementById('btn-self-wrapper');
                 if(pWrap) pWrap.innerHTML = db.settings.policeOpen ? `<button class="submit-btn" onclick="document.getElementById('appModal').style.display='flex'">تقديم</button>` : `<button class="close-btn" style="color:var(--red); border-color:var(--red);" disabled>التقديم مغلق حالياً</button>`;
                 if(sWrap) sWrap.innerHTML = db.settings.selfOpen ? `<button class="submit-btn" onclick="document.getElementById('selfAppModal').style.display='flex'">تقديم</button>` : `<button class="close-btn" style="color:var(--red); border-color:var(--red);" disabled>التقديم مغلق حالياً</button>`;
@@ -338,21 +339,25 @@
             else { item.classList.add('active'); icon.innerText = '-'; } 
         }
 
+        function showCustomAlert(title, msg, success) { 
+            document.getElementById('alertTitle').innerText=title; 
+            document.getElementById('alertMessage').innerText=msg; 
+            let icon = document.getElementById('alertIcon');
+            icon.className = success ? "fa-solid fa-circle-check" : "fa-solid fa-circle-exclamation";
+            icon.style.color = success ? "var(--green)" : "var(--red)";
+            document.getElementById('customAlertOverlay').style.display='flex'; 
+        }
+
         function submitApp(type) {
             let n, d, a, exp, r;
-            if(type === 'police') {
-                n = document.getElementById('appName').value; d = document.getElementById('appDiscord').value;
-                a = document.getElementById('appAge').value; exp = document.getElementById('appExp').value;
-            } else {
-                n = document.getElementById('selfName').value; d = document.getElementById('selfDiscord').value;
-                a = document.getElementById('selfAge').value; exp = document.getElementById('selfExp').value;
-            }
-            if(!n || !d) return alert("يرجى تعبئة الحقول الأساسية!");
+            if(type === 'police') { n = document.getElementById('appName').value; d = document.getElementById('appDiscord').value; a = document.getElementById('appAge').value; exp = document.getElementById('appExp').value; } 
+            else { n = document.getElementById('selfName').value; d = document.getElementById('selfDiscord').value; a = document.getElementById('selfAge').value; exp = document.getElementById('selfExp').value; }
+            if(!n || !d) return showCustomAlert("خطأ", "يرجى تعبئة الحقول الأساسية!", false);
             
             db.applications.push({ type: type, name: n, discord: d, age: a, exp: exp, date: new Date().toLocaleDateString(), status: 'pending' });
             firebase.database().ref('lspd_db').update({ applications: db.applications }).then(() => {
                 document.getElementById(type === 'police' ? 'appModal' : 'selfAppModal').style.display='none';
-                alert("تم الإرسال للقيادة بنجاح!");
+                showCustomAlert("نجاح", "تم الإرسال للقيادة بنجاح!", true);
             });
         }
     </script>
