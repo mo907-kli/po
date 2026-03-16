@@ -38,10 +38,10 @@
         .inp-group i { position: absolute; top: 50%; transform: translateY(-50%); color: var(--cyan); right: 15px; font-size: 1.1rem;}
         .login-input { width: 100%; padding: 15px 40px 15px 15px; background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.1); color: #fff; border-radius: 8px; transition: 0.3s; text-align: right; font-size:1.05rem;}
         .login-input:focus { border-color: var(--cyan); box-shadow: 0 0 10px rgba(0,234,255,0.2);}
-        .submit-btn { width: 100%; padding: 15px; background: var(--cyan); border: none; color: #000; font-weight: 900; font-size: 1.2rem; border-radius: 8px; cursor: pointer; transition: 0.3s; margin-top: 10px;}
+        .submit-btn { width: 100%; padding: 15px; background: var(--cyan); border: none; color: #000; font-weight: 900; font-size: 1.2rem; border-radius: 8px; cursor: pointer; transition: 0.3s; margin-top: 10px; font-family: var(--font-ar);}
         .submit-btn:hover { background: #fff; box-shadow: 0 0 20px var(--cyan-glow); transform: translateY(-2px);}
 
-        /* 🟢 لوحة القيادة 🟢 */
+        /* 🟢 لوحة القيادة (تطابق الصورة 4) 🟢 */
         #mainWrapper { display: none; flex-direction: column; min-height: 100vh; animation: fadeIn 0.4s ease;}
         header { display: flex; justify-content: space-between; align-items: center; padding: 20px 40px; border-bottom: 1px solid rgba(255,255,255,0.05); background: rgba(10,15,25,0.8); backdrop-filter: blur(10px);}
         .header-side { display: flex; gap: 15px; align-items: center; }
@@ -83,7 +83,7 @@
         .btn-edit:hover { border-color: var(--yellow); color: var(--yellow); }
         .btn-del:hover { border-color: var(--red); color: var(--red); }
 
-        /* مدخلات الأقسام العادية (التي كانت قيد التطوير) */
+        /* مدخلات الأقسام העادية */
         .input-section { background: rgba(15, 20, 30, 0.8); border: 1px solid var(--glass-border); padding: 25px; border-radius: 12px; backdrop-filter: blur(10px); margin-bottom:20px; }
         .gen-input { width: 100%; padding: 15px; background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.1); color: #fff; margin-bottom: 15px; border-radius: 8px; text-align: right; font-family: var(--font-ar); font-size:1.05rem;}
         .gen-input:focus { border-color: var(--cyan); box-shadow: 0 0 10px rgba(0,234,255,0.2); }
@@ -127,7 +127,7 @@
             </div>
             <button class="submit-btn" onclick="login()">دخول للوحة القيادة</button>
             <div id="loginError" style="display: none; color: var(--red); margin-top: 15px; font-weight: bold; background: rgba(255,51,51,0.1); border: 1px solid var(--red); padding: 10px; border-radius: 6px;">بيانات غير صحيحة!</div>
-            <button onclick="window.location.href='index.html'" style="background: transparent; border: none; color: #888; margin-top: 25px; cursor: pointer; text-decoration: underline; font-family: var(--font-ar);">العودة للموقع الرئيسي</button>
+            <button onclick="window.location.href='index.html'" style="background: transparent; border: none; color: #888; margin-top: 25px; cursor: pointer; text-decoration: underline; font-family: var(--font-ar); font-size:1rem;">العودة للموقع الرئيسي</button>
         </div>
     </div>
 
@@ -145,8 +145,7 @@
 
         <div id="dashboardView">
             <div class="watermark-logo"></div>
-            <div class="main-grid" id="modulesContainer">
-                </div>
+            <div class="main-grid" id="modulesContainer"></div>
         </div>
 
         <div id="moduleView">
@@ -164,74 +163,26 @@
         </div>
     </div>
 
-    <div class="modal-overlay" id="cryptoModal">
-        <div class="modal-box">
-            <h3 style="color:var(--cyan); margin-bottom:20px; font-size:1.5rem; text-align:center;">قسم التشفير</h3>
-            <textarea id="cryIn" class="gen-input" placeholder="أدخل النص هنا..." style="height: 100px; resize: none; text-align:right;"></textarea>
-            <div style="display:flex; gap:10px; margin-bottom:15px;">
-                <button class="submit-btn" onclick="doCrypto('enc')" style="margin:0">تشفير</button>
-                <button class="submit-btn" onclick="doCrypto('dec')" style="margin:0; background:#fff; color:#000;">فك تشفير</button>
-            </div>
-            <div style="position:relative;">
-                <div class="gen-input allow-select" id="cryOut" style="min-height: 50px; font-family: monospace; word-break: break-all; padding-inline-end: 45px; text-align:left;" dir="ltr">النتيجة هنا...</div>
-                <i class="fa-solid fa-copy" onclick="copyCrypto()" style="position: absolute; top: 50%; transform: translateY(-50%); right: 20px; color: var(--cyan); font-size: 1.3rem; cursor: pointer;"></i>
-            </div>
-            <button class="close-btn" onclick="document.getElementById('cryptoModal').style.display='none'">إغلاق</button>
-        </div>
-    </div>
-
     <div class="modal-overlay" id="editRankModal">
-        <div class="modal-box" style="width: 600px;">
-            <h3 style="color:var(--cyan); margin-bottom:25px; font-size:1.6rem; text-align:center;">تعديل السجل العسكري</h3>
-            
+        <div class="modal-box">
+            <h3 style="color:var(--cyan); margin-bottom:20px; text-align:center;">تعديل السجل العسكري</h3>
             <div class="grid-inputs">
+                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">الاسم (Name):</div><input type="text" id="editOfficerName" class="gen-input"></div>
+                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">الكود (Code):</div><input type="text" id="editOfficerCode" class="gen-input"></div>
+                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">الرتبة (Rank):</div><select id="editRankSelect" class="gen-input"></select></div>
+                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">المسؤولية (Responsibility):</div><input type="text" id="editResp" class="gen-input"></div>
                 <div>
-                    <div style="text-align: right; color: #8da2b5; margin-bottom: 5px; font-weight:bold;">الاسم الشخصي:</div>
-                    <input type="text" id="editOfficerName" class="gen-input" style="margin-bottom: 10px;">
-                </div>
-                <div>
-                    <div style="text-align: right; color: #8da2b5; margin-bottom: 5px; font-weight:bold;">الكود (Code):</div>
-                    <input type="text" id="editOfficerCode" class="gen-input" style="margin-bottom: 10px;">
-                </div>
-                <div>
-                    <div style="text-align: right; color: #8da2b5; margin-bottom: 5px; font-weight:bold;">الرتبة (Rank):</div>
-                    <select id="editRankSelect" class="gen-input" style="cursor: pointer; text-align: right; margin-bottom: 10px;"></select>
-                </div>
-                <div>
-                    <div style="text-align: right; color: #8da2b5; margin-bottom: 5px; font-weight:bold;">المهام (Responsibility):</div>
-                    <input type="text" id="editResp" class="gen-input" style="margin-bottom: 10px;">
-                </div>
-                <div>
-                    <div style="text-align: right; color: #8da2b5; margin-bottom: 5px; font-weight:bold;">الحالة (Status):</div>
-                    <select id="editStatus" class="gen-input" style="cursor: pointer; text-align: right; margin-bottom: 10px;">
-                        <option value="ACTIVE">ACTIVE</option>
-                        <option value="INACTIVE">INACTIVE</option>
-                        <option value="LOA">LOA</option>
-                        <option value="SUSPENDED">SUSPENDED</option>
+                    <div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">الحالة (Status):</div>
+                    <select id="editStatus" class="gen-input">
+                        <option value="ACTIVE">ACTIVE</option><option value="INACTIVE">INACTIVE</option><option value="LOA">LOA</option><option value="SUSPENDED">SUSPENDED</option>
                     </select>
                 </div>
-                <div>
-                    <div style="text-align: right; color: #8da2b5; margin-bottom: 5px; font-weight:bold;">الإنذارات (Strikes):</div>
-                    <input type="text" id="editStrikes" class="gen-input" placeholder="N/A -" style="margin-bottom: 10px;">
-                </div>
-                <div>
-                    <div style="text-align: right; color: #8da2b5; margin-bottom: 5px; font-weight:bold;">تاريخ الترقية (Last Prom):</div>
-                    <input type="text" id="editProm" class="gen-input" placeholder="N/A -" style="margin-bottom: 10px;">
-                </div>
-                <div>
-                    <div style="text-align: right; color: #8da2b5; margin-bottom: 5px; font-weight:bold;">النقاط (F.P):</div>
-                    <input type="text" id="editFP" class="gen-input" placeholder="N/A -" style="margin-bottom: 10px;">
-                </div>
-                <div style="grid-column: span 2;">
-                    <div style="text-align: right; color: #8da2b5; margin-bottom: 5px; font-weight:bold;">ديسكورد آيدي (Discord ID):</div>
-                    <input type="text" id="editDiscord" class="gen-input" style="margin-bottom: 10px;">
-                </div>
-                <div style="grid-column: span 2;">
-                    <div style="text-align: right; color: #8da2b5; margin-bottom: 5px; font-weight:bold;">ملاحظات (Notes):</div>
-                    <textarea id="editNotes" class="gen-input" style="height: 60px; resize:none; margin-bottom: 10px;"></textarea>
-                </div>
+                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">الإنذارات (Strikes):</div><input type="text" id="editStrikes" class="gen-input" placeholder="N/A -"></div>
+                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">تاريخ الترقية (Last Prom):</div><input type="text" id="editProm" class="gen-input" placeholder="N/A -"></div>
+                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">النقاط (F.P):</div><input type="text" id="editFP" class="gen-input" placeholder="N/A -"></div>
+                <div style="grid-column: span 2;"><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">ديسكورد آيدي (Discord ID):</div><input type="text" id="editDiscord" class="gen-input"></div>
+                <div style="grid-column: span 2;"><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">ملاحظات (Notes):</div><textarea id="editNotes" class="gen-input" style="height: 60px; resize:none;"></textarea></div>
             </div>
-
             <div style="display:flex; gap:15px; margin-top: 10px;">
                 <button class="submit-btn" onclick="saveNewOfficerData()" style="flex: 2; margin: 0;">حفظ التعديلات</button>
                 <button class="close-btn" onclick="document.getElementById('editRankModal').style.display='none'" style="flex: 1; margin: 0;">إلغاء</button>
@@ -242,15 +193,13 @@
     <div class="modal-overlay" id="idCardOverlay">
         <div style="text-align: center;">
             <div class="modal-box executive-card" style="padding:0; overflow:hidden;">
-                <div class="card-left">
-                    <div class="profile-img-wrapper"><img id="cardImage" src="https://cdn.discordapp.com/attachments/1079065638502404167/1476016754705567824/D25Todl.png" style="width: 100%; height: 100%; object-fit: cover; border-radius: 16px;"></div>
-                </div>
+                <div class="card-left"><div class="profile-img-wrapper"><img id="cardImage" src="https://cdn.discordapp.com/attachments/1079065638502404167/1476016754705567824/D25Todl.png" style="width: 100%; height: 100%; object-fit: cover; border-radius: 16px;"></div></div>
                 <div class="card-right" style="padding: 30px;">
                     <div style="color: #666; font-family: var(--font-en); font-weight: 800; letter-spacing: 3px; margin-bottom:5px;">L.S.P.D EXECUTIVE ID</div>
                     <h2 id="cardNameOverlay" style="margin: 0; font-size: 2.8rem; font-weight: 900; color: #fff; font-family: var(--font-en); text-shadow: 0 5px 15px rgba(0,0,0,0.5);">--</h2>
                     <div id="cardRankOverlay" style="color: var(--cyan); font-family: var(--font-en); font-size: 1.3rem; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; margin: 5px 0 20px 0;">--</div>
                     <div style="border-top: 1px solid rgba(255,255,255,0.05); width: 100%; margin-bottom: 20px;"></div>
-                    <div style="display: inline-flex; align-items: center; gap: 10px; background: rgba(0, 255, 106, 0.05); border: 1px solid rgba(0, 255, 106, 0.3); padding: 8px 20px; border-radius: 8px; font-family: var(--font-en); font-weight: 800; color: var(--green); flex-direction: row-reverse;">SYSTEM ACTIVE <span style="width: 8px; height: 8px; background: var(--green); border-radius: 50%; box-shadow: 0 0 10px var(--green);"></span></div>
+                    <div style="display: inline-flex; align-items: center; gap: 10px; background: rgba(0, 255, 106, 0.05); border: 1px solid rgba(0, 255, 106, 0.3); padding: 8px 20px; border-radius: 8px; font-family: var(--font-en); font-weight: 800; color: var(--green); flex-direction: row-reverse;">SYSTEM ACTIVE <span style="width: 8px; height: 8px; background: var(--green); border-radius: 50%; box-shadow: 0 0 10px var(--green); animation: blink 2s infinite;"></span></div>
                 </div>
             </div>
             <div style="margin-top: 25px; display: flex; justify-content: center; gap: 15px;">
@@ -288,7 +237,7 @@
         });
         const database = firebase.database();
 
-        // 🟢 استرجاع جميع الأقسام الـ 14 🟢
+        // 🟢 استرجاع جميع الأقسام الـ 14 بشكل كامل وصحيح 🟢
         const modules = [
             { id: 'settings', i18n_t: 'إعدادات التقديم', isSettingsView: true, reqOfficer: true },
             { id: 'applications', i18n_t: 'طلبات التقديم', isAppsView: true, reqOfficer: true },
@@ -372,10 +321,9 @@
             });
         }
 
-        // 🟢 المنطق الشامل لفتح الأقسام الـ 14 🟢
+        // 🟢 فتح كل الأقسام وعرض مدخلاتها الخاصة 🟢
         function openMod(id) {
             currentModule = modules.find(m => m.id === id);
-            if(currentModule.isCrypto) { document.getElementById('cryptoModal').style.display = 'flex'; return; }
             
             document.getElementById('dashboardView').style.display = 'none'; 
             document.getElementById('moduleView').style.display = 'flex';
@@ -415,7 +363,7 @@
             }
         }
 
-        // 🟢 إدارة الجدول الشامل للقيادة 🟢
+        // 🟢 إدارة الجدول الشامل 🟢
         function renderAdminRoster() {
             const container = document.getElementById('dynamicContentArea');
             const data = db.live_roster;
@@ -507,7 +455,7 @@
             });
         }
 
-        // 🟢 دوال باقي الأقسام الـ 14 🟢
+        // 🟢 دوال عرض الأقسام الداخلية للإدارة 🟢
         function renderSettingsView(container) {
             let pOpen = db.settings.policeOpen; let sOpen = db.settings.selfOpen;
             container.innerHTML = `<div style="background:rgba(15,20,30,0.8); border:1px solid var(--glass-border); border-radius:12px; padding:40px; text-align:center;">
@@ -601,9 +549,6 @@
             });
             container.innerHTML = html + '</div>';
         }
-
-        function doCrypto(type) { const v = document.getElementById('cryIn').value, out = document.getElementById('cryOut'); if(!v) return; try { out.innerText = (type === 'enc') ? btoa(unescape(encodeURIComponent(v))) : decodeURIComponent(escape(atob(v))); } catch(e) { out.innerText = "Error"; } }
-        function copyCrypto() { navigator.clipboard.writeText(document.getElementById('cryOut').innerText); }
 
         function addRecord() {
             if(currentModule.isAccountsForm) {
