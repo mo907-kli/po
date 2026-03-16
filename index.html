@@ -24,6 +24,7 @@
         body { user-select: none; background: var(--bg-deep); color: var(--text-main); font-family: var(--font-ar); min-height: 100vh; overflow-x: hidden; }
         input, textarea, select, .allow-select * { user-select: text !important; }
 
+        /* الخلفية الفخمة */
         #bgEffects { position: fixed; inset: 0; z-index: -5; pointer-events: none; }
         .star { position: absolute; background: white; border-radius: 50%; opacity: 0.5; animation: twinkle linear infinite alternate; box-shadow: 0 0 5px rgba(0, 234, 255, 0.5); }
         @keyframes twinkle { 0% { opacity: 0.2; transform: scale(0.8); } 100% { opacity: 1; transform: scale(1.2); box-shadow: 0 0 8px rgba(0, 234, 255, 0.8); } }
@@ -37,6 +38,7 @@
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes popIn { 0% { opacity: 0; transform: scale(0.9); } 100% { opacity: 1; transform: scale(1); } }
 
+        /* شريط التنقل */
         .public-nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 80px; background: rgba(3, 5, 9, 0.85); border-bottom: 1px solid rgba(255,255,255,0.05); position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(15px); }
         .nav-right { display: flex; align-items: center; gap: 40px; }
         .nav-logo { width: 45px; height: 45px; background: url('yyW7oBx.jpg') center/cover; border-radius: 50%; box-shadow: 0 0 10px rgba(0,234,255,0.3); border: 1px solid var(--cyan);}
@@ -69,13 +71,8 @@
         .lux-card p { color: #888; font-size: 1rem; line-height: 1.7; margin-bottom: 30px; transform: translateZ(10px);}
         .founder-img { width: 130px; height: 130px; border-radius: 50%; margin: 0 auto 25px; border: 3px solid var(--cyan); object-fit: cover; padding: 5px; transform: translateZ(30px); }
 
-        /* 🟢 إصلاح زر التقديم الفخم 🟢 */
-        .job-btn-open { width: 100%; background: rgba(0, 234, 255, 0.1); border: 1px solid var(--cyan); color: var(--cyan); padding: 15px; border-radius: 8px; font-size: 1.15rem; font-weight: bold; cursor: pointer; transition: 0.3s; font-family: var(--font-ar); margin-top: 10px; transform: translateZ(20px);}
-        .job-btn-open:hover { background: var(--cyan); color: #000; box-shadow: 0 0 20px var(--cyan-glow); }
-        .job-btn-closed { width: 100%; background: rgba(255, 51, 51, 0.1); border: 1px solid var(--red); color: var(--red); padding: 15px; border-radius: 8px; font-size: 1.15rem; font-weight: bold; cursor: not-allowed; transition: 0.3s; font-family: var(--font-ar); margin-top: 10px; transform: translateZ(20px);}
-
-        /* القوانين SOPs */
-        .accordion-container { width: 100%; max-width: 900px; padding: 0 20px; margin-top: 40px;}
+        /* 🟢 القوانين (SOPs) 🟢 */
+        .accordion-container { width: 100%; max-width: 1000px; padding: 0 20px; margin-top: 40px;}
         .accordion-item { margin-bottom: 12px; border-radius: 8px; background: rgba(20, 26, 40, 0.7); border: 1px solid var(--glass-border); transition: 0.2s; backdrop-filter: blur(10px); box-shadow: 0 10px 20px rgba(0,0,0,0.5);}
         .accordion-item:hover { border-color: rgba(0, 234, 255, 0.3); }
         .accordion-header { display: flex; justify-content: space-between; align-items: center; padding: 25px 30px; cursor: pointer; transition: 0.2s; flex-direction: row-reverse; }
@@ -102,11 +99,12 @@
         .luxury-table td { padding: 15px 10px; color: #d1d1d1; font-size: 1.05rem; font-weight: 600; border-top: 1px solid rgba(255,255,255,0.02); border-bottom: 1px solid rgba(255,255,255,0.02); white-space: nowrap; }
         .luxury-table td:first-child { border-radius: 8px 0 0 8px; border-left: 3px solid var(--cyan); color: var(--cyan); font-weight: 900; }
         .luxury-table td:last-child { border-radius: 0 8px 8px 0; border-right: 1px solid rgba(255,255,255,0.02); }
-        .dept-title { color: #fff; font-size: 1.4rem; font-weight: 900; text-align: left; padding: 30px 0 10px 0; border-bottom: 2px solid var(--cyan); display: inline-block; text-shadow: 0 0 15px var(--cyan-glow); }
+        .dept-header td { padding: 40px 0 10px 0; text-align: left; border: none !important; background: transparent !important; }
+        .dept-title { display: inline-block; color: #fff; font-size: 1.4rem; font-weight: 900; letter-spacing: 3px; text-transform: uppercase; padding-bottom: 8px; border-bottom: 2px solid var(--cyan); text-shadow: 0 0 15px var(--cyan-glow); }
         .pill-status { display: inline-flex; align-items: center; gap: 8px; background: rgba(0, 255, 106, 0.08); border: 1px solid rgba(0, 255, 106, 0.3); color: var(--green); padding: 5px 15px; border-radius: 20px; font-size: 0.85rem; font-weight: 800; text-transform: uppercase;}
         .code-box { background: rgba(0,0,0,0.5); padding: 4px 10px; border-radius: 6px; font-family: monospace; color: #8da2b5; border: 1px solid rgba(255,255,255,0.05); }
 
-        /* النوافذ المنبثقة */
+        /* النوافذ المنبثقة (التقديم) */
         .modal-overlay { position: fixed; inset: 0; background: rgba(3, 5, 9, 0.95); z-index: 100000; display: none; justify-content: center; align-items: center; backdrop-filter: blur(10px); }
         .modal-box { width: 550px; padding: 40px; background: rgba(10, 15, 25, 0.98); border: 1px solid var(--cyan); border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.8); animation: popIn 0.3s ease-out; }
         .gen-input { width: 100%; padding: 15px; background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.1); color: #fff; margin-bottom: 15px; border-radius: 8px; outline: none; transition: 0.3s; font-family: var(--font-ar); text-align: right;}
@@ -124,7 +122,6 @@
     <div id="bgEffects">
         <div id="star-bg"></div>
         <div id="bg-lights"><div class="light-red"></div><div class="light-blue"></div></div>
-        <div class="central-logo-bg"></div>
     </div>
 
     <nav class="public-nav">
@@ -139,7 +136,7 @@
             </div>
         </div>
         <div class="nav-left">
-            <button onclick="window.location.href='admin.html'"><i class="fa-solid fa-lock"></i> تسجيل دخول للقيادة</button>
+            <button class="sys-btn" onclick="window.location.href='admin.html'">تسجيل دخول</button>
         </div>
     </nav>
 
@@ -148,7 +145,7 @@
             <div class="hero-content">
                 <h1>إدارة <span>الشرطة</span></h1>
                 <p>حياكم الله في سيرفر تايتنز المتخصص في الرول بلاي، نحاول جاهدين تقديم أفضل تجربة للرول بلاي في الشرق الأوسط. انضم إلينا الآن وعيش حياتك كما تريد.</p>
-                <button class="hero-btn" onclick="switchTab('jobsTab', document.querySelectorAll('.nav-links a')[2])">قدم الآن</button>
+                <button class="submit-btn" style="width: auto; padding: 15px 40px;" onclick="switchTab('jobsTab', document.querySelectorAll('.nav-links a')[2])">قدم الآن</button>
             </div>
         </div>
     </div>
@@ -206,12 +203,12 @@
             <div class="lux-card" data-tilt data-tilt-max="10">
                 <h3>شرطة تايتنز</h3>
                 <p>تقديم منتسبين شرطة تايتنز (L.S.P.D)، نهدف لتقديم أعلى معايير الأمن.</p>
-                <div id="btn-police-wrapper"><button class="job-btn-open" onclick="document.getElementById('appModal').style.display='flex'">تقديم</button></div>
+                <div id="btn-police-wrapper"><button class="submit-btn" onclick="document.getElementById('appModal').style.display='flex'">تقديم</button></div>
             </div>
             <div class="lux-card" data-tilt data-tilt-max="10">
                 <h3>قدم نفسك</h3>
                 <p>هل لديك مهارات فريدة؟ قدم نفسك لنا وارفق سيرتك الذاتية أو أي مستندات داعمة.</p>
-                <div id="btn-self-wrapper"><button class="job-btn-open" onclick="document.getElementById('selfAppModal').style.display='flex'">تقديم</button></div>
+                <div id="btn-self-wrapper"><button class="submit-btn" onclick="document.getElementById('selfAppModal').style.display='flex'">تقديم</button></div>
             </div>
         </div>
     </div>
@@ -244,7 +241,7 @@
             <table class="luxury-table">
                 <thead><tr><th>Code</th><th>Name</th><th>Rank</th><th>Responsibility</th><th>Status</th><th>Strikes</th><th>Last Prom</th><th>F.P</th><th>Discord ID</th><th>Notes</th></tr></thead>
                 <tbody id="publicRosterBody">
-                    <tr><td colspan="10" style="padding:50px; color:#888;">جاري تحميل البيانات...</td></tr>
+                    <tr><td colspan="10" style="padding:50px; color:#888; text-align:center;">جاري تحميل البيانات...</td></tr>
                 </tbody>
             </table>
         </div>
@@ -258,8 +255,8 @@
             <input type="number" id="appAge" class="gen-input" placeholder="العمر الحقيقي">
             <textarea id="appExp" class="gen-input" placeholder="الخبرات السابقة في العسكرية..." style="height:80px; resize:none;"></textarea>
             <div style="display: flex; gap: 15px; margin-top: 15px;">
-                <button class="submit-btn" onclick="submitApp('police')" style="flex: 2;">إرسال التقديم</button>
-                <button class="close-btn" onclick="document.getElementById('appModal').style.display='none'" style="flex: 1;">إلغاء</button>
+                <button class="submit-btn" onclick="submitApplication('police')" style="flex: 2; margin: 0;">إرسال التقديم</button>
+                <button class="close-btn" onclick="document.getElementById('appModal').style.display='none'" style="flex: 1; margin: 0;">إلغاء</button>
             </div>
         </div>
     </div>
@@ -271,8 +268,8 @@
             <input type="text" id="selfDiscord" class="gen-input" placeholder="حساب الديسكورد">
             <textarea id="selfExp" class="gen-input" placeholder="الخبرات والمهارات..." style="height:80px; resize:none;"></textarea>
             <div style="display: flex; gap: 15px; margin-top: 15px;">
-                <button class="submit-btn" onclick="submitApp('self')" style="flex: 2;">إرسال التقديم</button>
-                <button class="close-btn" onclick="document.getElementById('selfAppModal').style.display='none'" style="flex: 1;">إلغاء</button>
+                <button class="submit-btn" onclick="submitApplication('self')" style="flex: 2; margin: 0;">إرسال التقديم</button>
+                <button class="close-btn" onclick="document.getElementById('selfAppModal').style.display='none'" style="flex: 1; margin: 0;">إلغاء</button>
             </div>
         </div>
     </div>
@@ -305,15 +302,15 @@
                 db.settings = data.settings || { policeOpen: true, selfOpen: true };
                 
                 const pWrap = document.getElementById('btn-police-wrapper'); const sWrap = document.getElementById('btn-self-wrapper');
-                if(pWrap) pWrap.innerHTML = db.settings.policeOpen ? `<button class="job-btn-open" onclick="document.getElementById('appModal').style.display='flex'">تقديم</button>` : `<button class="job-btn-closed" disabled>مغلق</button>`;
-                if(sWrap) sWrap.innerHTML = db.settings.selfOpen ? `<button class="job-btn-open" onclick="document.getElementById('selfAppModal').style.display='flex'">تقديم</button>` : `<button class="job-btn-closed" disabled>مغلق</button>`;
+                if(pWrap) pWrap.innerHTML = db.settings.policeOpen ? `<button class="submit-btn" onclick="document.getElementById('appModal').style.display='flex'">تقديم</button>` : `<button class="close-btn" style="color:var(--red); border-color:var(--red);" disabled>التقديم مغلق حالياً</button>`;
+                if(sWrap) sWrap.innerHTML = db.settings.selfOpen ? `<button class="submit-btn" onclick="document.getElementById('selfAppModal').style.display='flex'">تقديم</button>` : `<button class="close-btn" style="color:var(--red); border-color:var(--red);" disabled>التقديم مغلق حالياً</button>`;
             }
         });
 
         database.ref('live_roster').on('value', (snapshot) => {
             db.live_roster = snapshot.val() || {};
             const tbody = document.getElementById('publicRosterBody');
-            if (Object.keys(db.live_roster).length === 0) { tbody.innerHTML = '<tr><td colspan="10" style="padding:40px; color:#888;">لا يوجد عساكر مسجلين حالياً.</td></tr>'; return; }
+            if (Object.keys(db.live_roster).length === 0) { tbody.innerHTML = '<tr><td colspan="10" style="padding:40px; color:#888; text-align:center;">لا يوجد عساكر مسجلين حالياً.</td></tr>'; return; }
             
             const groups = {};
             Object.keys(db.live_roster).forEach(k => { const r = db.live_roster[k].rank || 'غير محدد'; if(!groups[r]) groups[r] = []; groups[r].push(db.live_roster[k]); });
@@ -352,7 +349,7 @@
             else { item.classList.add('active'); icon.innerText = '-'; } 
         }
 
-        function submitApp(type) {
+        function submitApplication(type) {
             let n, d, a, exp, r;
             if(type === 'police') {
                 n = document.getElementById('appName').value; d = document.getElementById('appDiscord').value;
@@ -364,7 +361,7 @@
             if(!n || !d) return alert("يرجى تعبئة الحقول الأساسية!");
             
             db.applications.push({ type: type, name: n, discord: d, age: a, exp: exp, date: new Date().toLocaleDateString(), status: 'pending' });
-            database.ref('lspd_db').update({ applications: db.applications }).then(() => {
+            firebase.database().ref('lspd_db').update({ applications: db.applications }).then(() => {
                 document.getElementById(type === 'police' ? 'appModal' : 'selfAppModal').style.display='none';
                 alert("تم الإرسال للقيادة بنجاح!");
             });
