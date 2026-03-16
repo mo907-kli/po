@@ -21,7 +21,6 @@
         body { background: var(--bg-deep); color: #fff; font-family: var(--font-ar); min-height: 100vh; overflow-x: hidden; user-select: none;}
         input, textarea, select, .allow-select * { user-select: text !important; outline: none; font-family: var(--font-ar);}
 
-        /* 🟢 الخلفية الفخمة 🟢 */
         #bgEffects { position: fixed; inset: 0; z-index: -5; pointer-events: none; }
         .star { position: absolute; background: white; border-radius: 50%; opacity: 0.4; }
         .light-red { position: absolute; top: -30%; left: -20%; width: 70vw; height: 70vw; background: radial-gradient(circle, rgba(255, 0, 40, 0.05) 0%, transparent 70%); mix-blend-mode: screen; }
@@ -30,7 +29,7 @@
         @keyframes popIn { 0% { opacity: 0; transform: scale(0.95); } 100% { opacity: 1; transform: scale(1); } }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* 🟢 شاشة تسجيل الدخول 🟢 */
+        /* شاشة تسجيل الدخول */
         #loginScreen { position: fixed; inset: 0; background: rgba(2, 3, 5, 0.95); z-index: 99999; display: flex; justify-content: center; align-items: center; backdrop-filter: blur(10px); transition: 0.3s;}
         .login-container { width: 400px; padding: 50px 40px; background: rgba(10, 15, 20, 0.9); border: 1px solid var(--cyan); border-radius: 16px; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.9), 0 0 20px rgba(0,234,255,0.1); animation: popIn 0.3s ease; }
         .login-logo { width: 100px; height: 100px; background: url('yyW7oBx.jpg') center/cover; border-radius: 50%; margin: 0 auto 25px; border: 2px solid var(--cyan); box-shadow: 0 0 20px var(--cyan-glow); }
@@ -41,31 +40,26 @@
         .submit-btn { width: 100%; padding: 15px; background: var(--cyan); border: none; color: #000; font-weight: 900; font-size: 1.2rem; border-radius: 8px; cursor: pointer; transition: 0.3s; margin-top: 10px; font-family: var(--font-ar);}
         .submit-btn:hover { background: #fff; box-shadow: 0 0 20px var(--cyan-glow); transform: translateY(-2px);}
 
-        /* 🟢 لوحة القيادة (تطابق الصورة 4) 🟢 */
+        /* لوحة القيادة */
         #mainWrapper { display: none; flex-direction: column; min-height: 100vh; animation: fadeIn 0.4s ease;}
         header { display: flex; justify-content: space-between; align-items: center; padding: 20px 40px; border-bottom: 1px solid rgba(255,255,255,0.05); background: rgba(10,15,25,0.8); backdrop-filter: blur(10px);}
         .header-side { display: flex; gap: 15px; align-items: center; }
-        
         .head-btn { background: transparent; border: 1px solid rgba(255,255,255,0.1); padding: 10px 25px; border-radius: 8px; color: #ccc; font-weight: bold; cursor: pointer; transition: 0.2s; font-family: var(--font-ar); text-decoration: none; display: flex; align-items: center; gap: 8px;}
         .head-btn:hover { background: rgba(255,255,255,0.05); border-color: #fff; color: #fff; }
         .btn-red { border-color: var(--red); color: var(--red); }
         .btn-red:hover { background: rgba(255,51,51,0.1); color: var(--red); border-color: var(--red); }
         .btn-cyan { border-color: var(--cyan); color: var(--cyan); }
         .btn-cyan:hover { background: rgba(0,234,255,0.1); color: var(--cyan); }
-
         .sys-title { font-size: 1.4rem; font-weight: 900; letter-spacing: 2px; }
 
-        /* الأقسام والمربعات */
         #dashboardView { flex: 1; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 40px; position: relative;}
         .watermark-logo { width: 350px; height: 350px; opacity: 0.05; background: url('yyW7oBx.jpg') center/cover; border-radius: 50%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none;}
         .main-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; width: 100%; max-width: 1000px; position: relative; z-index: 10;}
-        
         .menu-btn { background: rgba(15, 20, 30, 0.85); border: 1px solid var(--glass-border); border-radius: 12px; padding: 30px 20px; text-align: center; color: #fff; font-size: 1.25rem; font-weight: 800; cursor: pointer; transition: 0.3s; backdrop-filter: blur(10px); box-shadow: 0 10px 20px rgba(0,0,0,0.5);}
         .menu-btn:hover { border-color: var(--cyan); transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,234,255,0.15); text-shadow: 0 0 10px rgba(0,234,255,0.5); }
 
-        /* 🟢 واجهة عرض الأقسام الداخلية والجدول 🟢 */
+        /* الأقسام الداخلية */
         #moduleView { display: none; flex-direction: column; width: 95%; max-width: 1600px; margin: 0 auto; padding-top: 30px; animation: popIn 0.3s ease; }
-        
         .roster-wrapper { width: 100%; background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 16px; padding: 30px; box-shadow: 0 20px 50px rgba(0,0,0,0.8); overflow-x: auto; backdrop-filter: blur(15px); margin-bottom:30px;}
         .roster-wrapper::-webkit-scrollbar { height: 6px; } .roster-wrapper::-webkit-scrollbar-thumb { background: var(--cyan); border-radius: 6px; }
         
@@ -76,14 +70,12 @@
         .luxury-table td { padding: 15px; color: #d1d1d1; font-size: 1.05rem; font-weight: 600; border-top: 1px solid rgba(255,255,255,0.02); border-bottom: 1px solid rgba(255,255,255,0.02); white-space: nowrap;}
         .luxury-table td:first-child { border-radius: 8px 0 0 8px; border-left: 3px solid var(--cyan); color: var(--cyan); font-weight: 900;}
         .luxury-table td:last-child { border-radius: 0 8px 8px 0; border-right: 1px solid rgba(255,255,255,0.02); }
-        
         .dept-title { color: #fff; font-size: 1.5rem; font-weight: 900; padding: 30px 0 10px 0; text-align: left; border-bottom: 2px solid var(--cyan); display: inline-block; letter-spacing: 2px; text-shadow: 0 0 15px var(--cyan-glow);}
 
-        .action-btn { background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; padding: 8px 12px; cursor: pointer; transition: 0.2s; margin: 0 4px; color: #fff; font-family:var(--font-ar); font-weight:bold;}
+        .action-btn { background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; padding: 8px 15px; cursor: pointer; transition: 0.2s; margin: 0 4px; color: #fff; font-family:var(--font-ar); font-weight:bold;}
         .btn-edit:hover { border-color: var(--yellow); color: var(--yellow); }
         .btn-del:hover { border-color: var(--red); color: var(--red); }
 
-        /* مدخلات الأقسام העادية */
         .input-section { background: rgba(15, 20, 30, 0.8); border: 1px solid var(--glass-border); padding: 25px; border-radius: 12px; backdrop-filter: blur(10px); margin-bottom:20px; }
         .gen-input { width: 100%; padding: 15px; background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.1); color: #fff; margin-bottom: 15px; border-radius: 8px; text-align: right; font-family: var(--font-ar); font-size:1.05rem;}
         .gen-input:focus { border-color: var(--cyan); box-shadow: 0 0 10px rgba(0,234,255,0.2); }
@@ -92,7 +84,7 @@
 
         .rec-item { padding: 20px; border-bottom: 1px solid rgba(255,255,255,0.03); display: flex; justify-content: space-between; align-items: flex-start; color: #ddd; font-size: 1.05rem; background: rgba(20,26,40,0.8); border-radius: 10px; margin-bottom: 12px; border: 1px solid var(--glass-border); }
 
-        /* 🟢 النوافذ المنبثقة للوحة التحكم 🟢 */
+        /* النوافذ المنبثقة */
         .modal-overlay { position: fixed; inset: 0; background: rgba(3, 5, 9, 0.95); z-index: 100000; display: none; justify-content: center; align-items: center; backdrop-filter: blur(10px); }
         .modal-box { width: 600px; padding: 40px; background: rgba(10, 15, 25, 0.98); border: 1px solid var(--cyan); border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.8); animation: popIn 0.3s ease; }
         .close-btn { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #ccc; padding: 15px; border-radius: 8px; cursor: pointer; transition: 0.2s; font-weight: bold; width: 100%; font-family:var(--font-ar); font-size:1.1rem;}
@@ -117,17 +109,11 @@
         <div class="login-container">
             <div class="login-logo"></div>
             <div style="font-size: 1.8rem; font-weight: 900; margin-bottom: 30px; letter-spacing: 1px; color:var(--cyan); text-shadow:0 0 15px var(--cyan-glow);">نظام إدارة الشرطة</div>
-            <div class="inp-group">
-                <i class="fa-solid fa-user"></i>
-                <input type="text" id="userInput" class="login-input" placeholder="اسم المستخدم">
-            </div>
-            <div class="inp-group">
-                <i class="fa-solid fa-lock"></i>
-                <input type="password" id="passInput" class="login-input" placeholder="كلمة المرور">
-            </div>
+            <div class="inp-group"><i class="fa-solid fa-user"></i><input type="text" id="userInput" class="login-input" placeholder="اسم المستخدم"></div>
+            <div class="inp-group"><i class="fa-solid fa-lock"></i><input type="password" id="passInput" class="login-input" placeholder="كلمة المرور"></div>
             <button class="submit-btn" onclick="login()">دخول للوحة القيادة</button>
             <div id="loginError" style="display: none; color: var(--red); margin-top: 15px; font-weight: bold; background: rgba(255,51,51,0.1); border: 1px solid var(--red); padding: 10px; border-radius: 6px;">بيانات غير صحيحة!</div>
-            <button onclick="window.location.href='index.html'" style="background: transparent; border: none; color: #888; margin-top: 25px; cursor: pointer; text-decoration: underline; font-family: var(--font-ar); font-size:1rem;">العودة للموقع الرئيسي</button>
+            <button onclick="window.location.href='index.html'" style="background: transparent; border: none; color: #888; margin-top: 25px; cursor: pointer; text-decoration: underline; font-family: var(--font-ar);">العودة للموقع الرئيسي</button>
         </div>
     </div>
 
@@ -163,25 +149,41 @@
         </div>
     </div>
 
+    <div class="modal-overlay" id="cryptoModal">
+        <div class="modal-box">
+            <h3 style="color:var(--cyan); margin-bottom:20px; font-size:1.5rem; text-align:center;">قسم التشفير</h3>
+            <textarea id="cryIn" class="gen-input" placeholder="أدخل النص هنا..." style="height: 100px; resize: none; text-align:right;"></textarea>
+            <div style="display:flex; gap:10px; margin-bottom:15px;">
+                <button class="submit-btn" onclick="doCrypto('enc')" style="margin:0">تشفير النص</button>
+                <button class="submit-btn" onclick="doCrypto('dec')" style="margin:0; background:#fff; color:#000;">فك التشفير</button>
+            </div>
+            <div style="position:relative;">
+                <div class="gen-input allow-select" id="cryOut" style="min-height: 50px; font-family: monospace; word-break: break-all; padding-inline-end: 45px; text-align:left;" dir="ltr">النتيجة...</div>
+                <i class="fa-solid fa-copy" onclick="copyCrypto()" style="position: absolute; top: 50%; transform: translateY(-50%); right: 20px; color: var(--cyan); font-size: 1.3rem; cursor: pointer;"></i>
+            </div>
+            <button class="close-btn" onclick="document.getElementById('cryptoModal').style.display='none'">إغلاق</button>
+        </div>
+    </div>
+
     <div class="modal-overlay" id="editRankModal">
         <div class="modal-box">
-            <h3 style="color:var(--cyan); margin-bottom:20px; text-align:center;">تعديل السجل العسكري</h3>
+            <h3 style="color:var(--cyan); margin-bottom:25px; font-size:1.6rem; text-align:center;">تعديل السجل العسكري</h3>
             <div class="grid-inputs">
-                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">الاسم (Name):</div><input type="text" id="editOfficerName" class="gen-input"></div>
-                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">الكود (Code):</div><input type="text" id="editOfficerCode" class="gen-input"></div>
-                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">الرتبة (Rank):</div><select id="editRankSelect" class="gen-input"></select></div>
-                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">المسؤولية (Responsibility):</div><input type="text" id="editResp" class="gen-input"></div>
+                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">الاسم (Name):</div><input type="text" id="editOfficerName" class="gen-input" style="margin-bottom: 10px;"></div>
+                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">الكود (Code):</div><input type="text" id="editOfficerCode" class="gen-input" style="margin-bottom: 10px;"></div>
+                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">الرتبة (Rank):</div><select id="editRankSelect" class="gen-input" style="cursor: pointer; text-align: right; margin-bottom: 10px;"></select></div>
+                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">المهام (Resp):</div><input type="text" id="editResp" class="gen-input" style="margin-bottom: 10px;"></div>
                 <div>
                     <div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">الحالة (Status):</div>
-                    <select id="editStatus" class="gen-input">
+                    <select id="editStatus" class="gen-input" style="cursor: pointer; text-align: right; margin-bottom: 10px;">
                         <option value="ACTIVE">ACTIVE</option><option value="INACTIVE">INACTIVE</option><option value="LOA">LOA</option><option value="SUSPENDED">SUSPENDED</option>
                     </select>
                 </div>
-                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">الإنذارات (Strikes):</div><input type="text" id="editStrikes" class="gen-input" placeholder="N/A -"></div>
-                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">تاريخ الترقية (Last Prom):</div><input type="text" id="editProm" class="gen-input" placeholder="N/A -"></div>
-                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">النقاط (F.P):</div><input type="text" id="editFP" class="gen-input" placeholder="N/A -"></div>
-                <div style="grid-column: span 2;"><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">ديسكورد آيدي (Discord ID):</div><input type="text" id="editDiscord" class="gen-input"></div>
-                <div style="grid-column: span 2;"><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">ملاحظات (Notes):</div><textarea id="editNotes" class="gen-input" style="height: 60px; resize:none;"></textarea></div>
+                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">الإنذارات (Strikes):</div><input type="text" id="editStrikes" class="gen-input" placeholder="N/A -" style="margin-bottom: 10px;"></div>
+                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">تاريخ الترقية:</div><input type="text" id="editProm" class="gen-input" placeholder="N/A -" style="margin-bottom: 10px;"></div>
+                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">النقاط (F.P):</div><input type="text" id="editFP" class="gen-input" placeholder="N/A -" style="margin-bottom: 10px;"></div>
+                <div style="grid-column: span 2;"><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">ديسكورد آيدي:</div><input type="text" id="editDiscord" class="gen-input" style="margin-bottom: 10px;"></div>
+                <div style="grid-column: span 2;"><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">ملاحظات (Notes):</div><textarea id="editNotes" class="gen-input" style="height: 60px; resize:none; margin-bottom: 10px;"></textarea></div>
             </div>
             <div style="display:flex; gap:15px; margin-top: 10px;">
                 <button class="submit-btn" onclick="saveNewOfficerData()" style="flex: 2; margin: 0;">حفظ التعديلات</button>
@@ -199,7 +201,7 @@
                     <h2 id="cardNameOverlay" style="margin: 0; font-size: 2.8rem; font-weight: 900; color: #fff; font-family: var(--font-en); text-shadow: 0 5px 15px rgba(0,0,0,0.5);">--</h2>
                     <div id="cardRankOverlay" style="color: var(--cyan); font-family: var(--font-en); font-size: 1.3rem; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; margin: 5px 0 20px 0;">--</div>
                     <div style="border-top: 1px solid rgba(255,255,255,0.05); width: 100%; margin-bottom: 20px;"></div>
-                    <div style="display: inline-flex; align-items: center; gap: 10px; background: rgba(0, 255, 106, 0.05); border: 1px solid rgba(0, 255, 106, 0.3); padding: 8px 20px; border-radius: 8px; font-family: var(--font-en); font-weight: 800; color: var(--green); flex-direction: row-reverse;">SYSTEM ACTIVE <span style="width: 8px; height: 8px; background: var(--green); border-radius: 50%; box-shadow: 0 0 10px var(--green); animation: blink 2s infinite;"></span></div>
+                    <div style="display: inline-flex; align-items: center; gap: 10px; background: rgba(0, 255, 106, 0.05); border: 1px solid rgba(0, 255, 106, 0.3); padding: 8px 20px; border-radius: 8px; font-family: var(--font-en); font-weight: 800; color: var(--green); flex-direction: row-reverse;">SYSTEM ACTIVE <span style="width: 8px; height: 8px; background: var(--green); border-radius: 50%; box-shadow: 0 0 10px var(--green);"></span></div>
                 </div>
             </div>
             <div style="margin-top: 25px; display: flex; justify-content: center; gap: 15px;">
@@ -237,7 +239,7 @@
         });
         const database = firebase.database();
 
-        // 🟢 استرجاع جميع الأقسام الـ 14 بشكل كامل وصحيح 🟢
+        // 🟢 الأقسام الـ 14 كاملة 🟢
         const modules = [
             { id: 'settings', i18n_t: 'إعدادات التقديم', isSettingsView: true, reqOfficer: true },
             { id: 'applications', i18n_t: 'طلبات التقديم', isAppsView: true, reqOfficer: true },
@@ -321,9 +323,10 @@
             });
         }
 
-        // 🟢 فتح كل الأقسام وعرض مدخلاتها الخاصة 🟢
+        // 🟢 فتح الأقسام الـ 14 🟢
         function openMod(id) {
             currentModule = modules.find(m => m.id === id);
+            if(currentModule.isCrypto) { document.getElementById('cryptoModal').style.display = 'flex'; return; }
             
             document.getElementById('dashboardView').style.display = 'none'; 
             document.getElementById('moduleView').style.display = 'flex';
@@ -363,7 +366,7 @@
             }
         }
 
-        // 🟢 إدارة الجدول الشامل 🟢
+        // 🟢 جدول الإدارة (شغال بالكامل وبدون أي قيد تطوير، مع أزرار التعديل والحذف) 🟢
         function renderAdminRoster() {
             const container = document.getElementById('dynamicContentArea');
             const data = db.live_roster;
@@ -400,8 +403,8 @@
                         <td><span style="background: rgba(0,0,0,0.4); padding: 5px 10px; border-radius: 6px; font-family: monospace; color: #8da2b5; border: 1px solid rgba(255,255,255,0.05);">${off.discordId || '-'}</span></td>
                         <td style="color: #888; font-size:0.9rem; max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${off.notes || '-'}</td>
                         <td>
-                            <button onclick="editOfficerData('${off.id}', '${off.name}', '${off.rank}', '${off.code}', '${off.responsibility}', '${off.status}', '${off.strikes}', '${off.lastProm}', '${off.fp}', '${off.discordId}', '${off.notes}')" class="action-btn btn-edit" title="تعديل"><i class="fa-solid fa-pen-to-square"></i></button>
-                            <button onclick="deleteOfficerFromRoster('${off.id}', '${off.name}')" class="action-btn btn-del" title="فصل"><i class="fa-solid fa-trash"></i></button>
+                            <button onclick="editOfficerData('${off.id}', '${off.name}', '${off.rank}', '${off.code}', '${off.responsibility}', '${off.status}', '${off.strikes}', '${off.lastProm}', '${off.fp}', '${off.discordId}', '${off.notes}')" class="action-btn btn-edit" title="تعديل"><i class="fa-solid fa-pen-to-square"></i> تعديل</button>
+                            <button onclick="deleteOfficerFromRoster('${off.id}', '${off.name}')" class="action-btn btn-del" title="فصل"><i class="fa-solid fa-trash"></i> حذف</button>
                         </td>
                     </tr>`;
                 });
@@ -410,7 +413,7 @@
         }
 
         function deleteOfficerFromRoster(id, name) {
-            if(!isOfficer) return;
+            if(!isOfficer) return showCustomAlert("خطأ", "لا تملك صلاحية", false);
             if(confirm(`هل أنت متأكد من حذف العسكري (${name}) نهائياً؟`)) { database.ref(`live_roster/${id}`).remove(); }
         }
         
@@ -449,13 +452,11 @@
                 discordId: document.getElementById('editDiscord').value.trim() || '-',
                 notes: document.getElementById('editNotes').value.trim() || '-'
             };
-
             database.ref(`live_roster/${currentEditingOfficerId}`).update(payload).then(() => {
                 document.getElementById('editRankModal').style.display = 'none';
             });
         }
 
-        // 🟢 دوال عرض الأقسام الداخلية للإدارة 🟢
         function renderSettingsView(container) {
             let pOpen = db.settings.policeOpen; let sOpen = db.settings.selfOpen;
             container.innerHTML = `<div style="background:rgba(15,20,30,0.8); border:1px solid var(--glass-border); border-radius:12px; padding:40px; text-align:center;">
@@ -506,7 +507,7 @@
             (db.customUsers || []).forEach((u, idx) => {
                 container.innerHTML += `<div class="rec-item allow-select" style="align-items:center;">
                     <div style="text-align:right;"><span style="color:var(--cyan); font-weight:bold;">[${u.rank}]</span> ${u.name} (User: ${u.user})</div>
-                    ${isOfficer ? `<button class="action-btn btn-del" onclick="delAccount(${idx})"><i class="fa-solid fa-trash"></i></button>` : ''}
+                    ${isOfficer ? `<button class="action-btn btn-del" onclick="delAccount(${idx})"><i class="fa-solid fa-trash"></i> حذف</button>` : ''}
                 </div>`;
             });
         }
@@ -528,7 +529,7 @@
             if(data.length === 0) { container.innerHTML = '<div style="text-align:center; padding:30px; color:#888;">لا يوجد مهام.</div>'; return; }
             let html = '<div class="roster-wrapper"><table class="luxury-table"><tr><th>المستلم</th><th>المسؤول</th><th>المهمة</th><th>النقاط</th><th>الإجراء</th></tr>';
             data.forEach((t, idx) => {
-                html += `<tr class="roster-row"><td>${t.assignee}</td><td>${t.officer}</td><td>${t.reason}</td><td><span style="color:var(--cyan);font-weight:bold;">${t.pts}</span></td><td>${isOfficer ? `<button class="action-btn btn-del" onclick="delRec(${idx})"><i class="fa-solid fa-trash"></i></button>` : ''}</td></tr>`;
+                html += `<tr class="roster-row"><td>${t.assignee}</td><td>${t.officer}</td><td>${t.reason}</td><td><span style="color:var(--cyan);font-weight:bold;">${t.pts}</span></td><td>${isOfficer ? `<button class="action-btn btn-del" onclick="delRec(${idx})"><i class="fa-solid fa-trash"></i> حذف</button>` : ''}</td></tr>`;
             });
             container.innerHTML = html + '</table></div>';
         }
@@ -541,7 +542,7 @@
                 let ytId = v.yt.includes('v=') ? v.yt.split('v=')[1].split('&')[0] : v.yt.split('/').pop();
                 html += `<div style="background:var(--glass-bg); padding:15px; border-radius:12px; border:1px solid var(--glass-border);">
                     <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
-                        ${isOfficer ? `<button class="action-btn btn-del" onclick="delRec(${idx})"><i class="fa-solid fa-trash"></i></button>` : '<div></div>'}
+                        ${isOfficer ? `<button class="action-btn btn-del" onclick="delRec(${idx})"><i class="fa-solid fa-trash"></i> حذف</button>` : '<div></div>'}
                         <strong style="color:var(--cyan);">${v.title}</strong>
                     </div>
                     <iframe src="https://www.youtube.com/embed/${ytId}" style="width:100%; aspect-ratio:16/9; border:none; border-radius:8px;"></iframe>
@@ -549,6 +550,9 @@
             });
             container.innerHTML = html + '</div>';
         }
+
+        function doCrypto(type) { const v = document.getElementById('cryIn').value, out = document.getElementById('cryOut'); if(!v) return; try { out.innerText = (type === 'enc') ? btoa(unescape(encodeURIComponent(v))) : decodeURIComponent(escape(atob(v))); } catch(e) { out.innerText = "Error"; } }
+        function copyCrypto() { navigator.clipboard.writeText(document.getElementById('cryOut').innerText); }
 
         function addRecord() {
             if(currentModule.isAccountsForm) {
