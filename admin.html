@@ -18,9 +18,13 @@
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; }
-        /* 🟢 خلفية ثابتة وخفيفة جداً بدون أي تأثيرات متحركة تسبب لاق 🟢 */
         body { background: radial-gradient(circle at top, #0a1128 0%, #020305 100%); background-attachment: fixed; color: #fff; font-family: var(--font-ar); min-height: 100vh; overflow-x: hidden; user-select: none;}
         input, textarea, select, .allow-select * { user-select: text !important; outline: none; font-family: var(--font-ar);}
+
+        #bgEffects { position: fixed; inset: 0; z-index: -5; pointer-events: none; background-color: var(--bg-deep); }
+        .star { position: absolute; background: white; border-radius: 50%; opacity: 0.3; }
+        .light-red { position: absolute; top: 0; left: 0; width: 40vw; height: 40vw; background: rgba(255, 0, 40, 0.03); border-radius: 50%; filter: blur(100px); }
+        .light-blue { position: absolute; bottom: 0; right: 0; width: 40vw; height: 40vw; background: rgba(0, 160, 255, 0.03); border-radius: 50%; filter: blur(100px); }
 
         @keyframes popIn { 0% { opacity: 0; transform: scale(0.98); } 100% { opacity: 1; transform: scale(1); } }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
@@ -39,7 +43,6 @@
         #mainWrapper { display: none; flex-direction: column; min-height: 100vh; animation: fadeIn 0.3s ease;}
         header { display: flex; justify-content: space-between; align-items: center; padding: 20px 40px; border-bottom: 1px solid rgba(255,255,255,0.05); background: #0a0f1c;}
         .header-side { display: flex; gap: 15px; align-items: center; }
-        
         .head-btn { background: #0f1626; border: 1px solid rgba(255,255,255,0.1); padding: 10px 25px; border-radius: 8px; color: #ccc; font-weight: bold; cursor: pointer; transition: 0.2s; font-family: var(--font-ar); text-decoration: none; display: flex; align-items: center; gap: 8px;}
         .head-btn:hover { background: rgba(255,255,255,0.1); color: #fff; }
         .btn-red { border-color: var(--red); color: var(--red); }
@@ -53,11 +56,10 @@
         .watermark-logo { width: 350px; height: 350px; opacity: 0.03; background: url('yyW7oBx.jpg') center/cover; border-radius: 50%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none;}
         .main-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; width: 100%; max-width: 1000px; position: relative; z-index: 10;}
         
-        /* 🟢 أزرار اللوحة السريعة 🟢 */
         .menu-btn { background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 12px; padding: 30px 20px; text-align: center; color: #fff; font-size: 1.25rem; font-weight: 800; cursor: pointer; transition: 0.2s;}
         .menu-btn:hover { border-color: var(--cyan); background: #151e32; transform: translateY(-3px); }
 
-        /* واجهة الأقسام */
+        /* واجهة الأقسام والجدول */
         #moduleView { display: none; flex-direction: column; width: 95%; max-width: 1600px; margin: 0 auto; padding-top: 30px; animation: popIn 0.2s ease; }
         .roster-wrapper { width: 100%; background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 12px; padding: 20px; overflow-x: auto; margin-bottom:30px;}
         .roster-wrapper::-webkit-scrollbar { height: 6px; } .roster-wrapper::-webkit-scrollbar-thumb { background: var(--cyan); border-radius: 6px; }
@@ -85,7 +87,7 @@
 
         .rec-item { padding: 15px; background: #131a2a; border-radius: 8px; margin-bottom: 10px; border: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; align-items: center; color: #ddd; font-size: 1.05rem; }
 
-        /* 🟢 النوافذ المنبثقة الخفيفة 🟢 */
+        /* النوافذ المنبثقة */
         .modal-overlay { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.85); z-index: 100000; display: none; justify-content: center; align-items: center; }
         .modal-box { width: 600px; padding: 30px; background: #0b101e; border: 1px solid var(--cyan); border-radius: 12px; animation: popIn 0.2s ease; }
         .close-btn { background: #131a2a; border: 1px solid rgba(255,255,255,0.2); color: #ccc; padding: 12px; border-radius: 8px; cursor: pointer; transition: 0.2s; font-weight: bold; width: 100%; font-family:var(--font-ar); font-size:1.1rem;}
@@ -100,6 +102,12 @@
 <body>
 
     <script src="config.js"></script>
+
+    <div id="bgEffects">
+        <div id="star-bg"></div>
+        <div class="light-red"></div>
+        <div class="light-blue"></div>
+    </div>
 
     <div id="loginScreen">
         <div class="login-container">
@@ -289,7 +297,6 @@
     </div>
 
     <script>
-        // تمت إزالة حلقة إنشاء النجوم (التي كانت تستهلك المعالج) بالكامل
         const publicOfficersList = ["Minister of Interior", "Deputy Minister of Interior", "A. Minister of Interior", "Police Commander", "L.S.P.D Chief", "Deputy L.S.P.D Chief", "A' Lspd Chief", "High Commander", "General", "Colonel", "Major", "Captain", "First Lieutenant", "Lieutenant"];
         const publicEnlistedList = ["Staff Sergeant", "First Sergeant", "Sergeant", "Senior Lead Officer", "Senior Officer", "Officer III", "Officer II", "Officer I", "Solo Cadet", "Cadet"];
         let SystemRanks = [...publicOfficersList, ...publicEnlistedList];
@@ -299,48 +306,37 @@
             "L.S.P.D Chief": "A-1", "Deputy L.S.P.D Chief": "A-2", "A' Lspd Chief": "A-3"
         };
         const rankRanges = {
-            "General": { prefix: "G-", min: 0, max: 99 },
-            "High Commander": { prefix: "M-", min: 0, max: 99 },
-            "Colonel": { prefix: "C-", min: 1, max: 2 },
-            "Major": { prefix: "C-", min: 3, max: 3 },
-            "Captain": { prefix: "C-", min: 4, max: 6 },
-            "First Lieutenant": { prefix: "C-", min: 7, max: 11 },
-            "Lieutenant": { prefix: "C-", min: 12, max: 20 },
-            "Staff Sergeant": { prefix: "U-", min: 1, max: 9 },
-            "First Sergeant": { prefix: "U-", min: 10, max: 19 },
-            "Sergeant": { prefix: "U-", min: 20, max: 29 },
-            "Senior Lead Officer": { prefix: "U-", min: 30, max: 39 },
-            "Senior Officer": { prefix: "U-", min: 40, max: 49 },
-            "Officer III": { prefix: "U-", min: 50, max: 69 },
-            "Officer II": { prefix: "U-", min: 70, max: 99 },
-            "Officer I": { prefix: "U-", min: 100, max: 129 },
-            "Solo Cadet": { prefix: "U-", min: 130, max: 199 },
-            "Cadet": { prefix: "U-", min: 200, max: 400 }
+            "General": { prefix: "G-", min: 0, max: 99 }, "High Commander": { prefix: "M-", min: 0, max: 99 },
+            "Colonel": { prefix: "C-", min: 1, max: 2 }, "Major": { prefix: "C-", min: 3, max: 3 }, "Captain": { prefix: "C-", min: 4, max: 6 },
+            "First Lieutenant": { prefix: "C-", min: 7, max: 11 }, "Lieutenant": { prefix: "C-", min: 12, max: 20 },
+            "Staff Sergeant": { prefix: "U-", min: 1, max: 9 }, "First Sergeant": { prefix: "U-", min: 10, max: 19 },
+            "Sergeant": { prefix: "U-", min: 20, max: 29 }, "Senior Lead Officer": { prefix: "U-", min: 30, max: 39 },
+            "Senior Officer": { prefix: "U-", min: 40, max: 49 }, "Officer III": { prefix: "U-", min: 50, max: 69 },
+            "Officer II": { prefix: "U-", min: 70, max: 99 }, "Officer I": { prefix: "U-", min: 100, max: 129 },
+            "Solo Cadet": { prefix: "U-", min: 130, max: 199 }, "Cadet": { prefix: "U-", min: 200, max: 400 }
         };
 
         firebase.initializeApp({ apiKey: "AIzaSyC5PL_fJEjiJVQS8rnx4m8j9uQNsILcQvs", authDomain: "police-depa.firebaseapp.com", databaseURL: "https://police-depa-default-rtdb.europe-west1.firebasedatabase.app", projectId: "police-depa" });
         const database = firebase.database();
 
+        // 🟢 الأقسام المحدثة (حذفنا 4 أقسام نهائياً، ورتبنا التقارير) 🟢
         const modules = [
             { id: 'settings', i18n_t: 'إعدادات التقديم', isSettingsView: true, reqOfficer: true },
             { id: 'applications', i18n_t: 'طلبات التقديم', isAppsView: true, reqOfficer: true },
             { id: 'roster_admin', i18n_t: 'إدارة جدول العساكر', isRosterAdmin: true, reqOfficer: true },
-            { id: 'reports', i18n_t: 'التقارير والمحاضر', isReportForm: true },
-            { id: 'crypto', i18n_t: 'قسم التشفير', isCrypto: true },
-            { id: 'blackbox', i18n_t: 'الصندوق الأسود', inputsAr: ['رقم السجل', 'كود الوصول'] },
+            { id: 'reports', i18n_t: 'التقارير والمحاضر', isReportForm: true }, // الإرسال
+            { id: 'saved', i18n_t: 'التقارير المحفوظة', isSavedReports: true }, // العرض (مربعات)
             { id: 'tasks', i18n_t: 'المهام والنقاط', isTable: true },
-            { id: 'notes', i18n_t: 'ملاحظات القيادة', inputsAr: ['الموضوع', 'النص'] },
-            { id: 'maps', i18n_t: 'خرائط العمليات', inputsAr: ['الإحداثيات', 'المنطقة'] },
             { id: 'video', i18n_t: 'قسم الفيديو', isVideo: true },
             { id: 'wanted', i18n_t: 'المطلوبين للعدالة', inputsAr: ['اسم الهدف', 'التهمة', 'الخطورة'] },
-            { id: 'saved', i18n_t: 'التقارير المحفوظة', inputsAr: ['رقم التقرير', 'التصنيف'] },
-            { id: 'armory', i18n_t: 'مستودع الأسلحة', inputsAr: ['نوع السلاح', 'الرقم التسلسلي', 'المستلم'] },
-            { id: 'officials', i18n_t: 'إدارة الحسابات', isAccountsForm: true, reqOfficer: true },
-            { id: 'gangs', i18n_t: 'قسم العصابات', inputsAr: ['الاسم', 'النشاط'] }
+            { id: 'notes', i18n_t: 'ملاحظات القيادة', inputsAr: ['الموضوع', 'النص'] },
+            { id: 'crypto', i18n_t: 'قسم التشفير', isCrypto: true },
+            { id: 'officials', i18n_t: 'إدارة الحسابات', isAccountsForm: true, reqOfficer: true }
         ];
 
         let db = { applications: [], reports: [], customUsers: [], live_roster: {}, settings: { policeOpen: true, selfOpen: true } }; 
         let currentModule = null; let isOfficer = false; let myName = ""; let myRank = ""; 
+        let tempPDFBase64 = ""; // لتخزين ملف الـ PDF
 
         let pendingConfirmAction = null;
         function showCustomConfirm(title, message, callback) {
@@ -396,7 +392,6 @@
                 
                 const savedImg = localStorage.getItem('user_id_img_' + myName);
                 if(savedImg) document.getElementById('cardImage').src = savedImg;
-
                 renderModules();
             } else { document.getElementById('loginError').style.display = 'block'; }
         }
@@ -410,6 +405,25 @@
                 reader.onload = e => { document.getElementById('cardImage').src = e.target.result; localStorage.setItem('user_id_img_' + myName, e.target.result); };
                 reader.readAsDataURL(input.files[0]);
             }
+        }
+
+        // قراءة وتخزين ملف الـ PDF
+        function handlePDFUpload(input) {
+            const file = input.files[0];
+            if (!file) { tempPDFBase64 = ""; return; }
+            if (file.type !== "application/pdf") {
+                showCustomAlert("خطأ", "يجب إرفاق ملف بصيغة PDF فقط!", false);
+                input.value = "";
+                return;
+            }
+            if (file.size > 5 * 1024 * 1024) { // الحد الأقصى 5 ميجا
+                showCustomAlert("خطأ", "حجم الملف كبير جداً! (الحد الأقصى 5 ميجابايت)", false);
+                input.value = "";
+                return;
+            }
+            const reader = new FileReader();
+            reader.onload = (e) => { tempPDFBase64 = e.target.result; };
+            reader.readAsDataURL(file);
         }
 
         function renderModules() {
@@ -444,9 +458,20 @@
                 inpArea.innerHTML = `<input type="text" id="o-user" class="gen-input" placeholder="اسم المستخدم"><input type="password" id="o-pass" class="gen-input" placeholder="كلمة المرور"><input type="text" id="o-name" class="gen-input" placeholder="الاسم الكامل"><select id="o-rank" class="gen-input"><option value="" disabled selected>اختر الرتبة</option>${rankOptions}</select>`;
                 renderAccounts(container);
             } else if(currentModule.isReportForm) {
+                // 🟢 شكل نموذج رفع التقرير المحدث 🟢
                 inputBlock.style.display = 'block';
-                inpArea.innerHTML = `<input type="text" id="r-badge" class="gen-input" placeholder="البادج العسكري"><input type="text" id="r-name" class="gen-input" placeholder="الاسم الكامل"><input type="text" id="r-crim" class="gen-input" placeholder="نوع التقرير / التهمة"><textarea id="r-details" class="gen-input" placeholder="اكتب التقرير بالكامل هنا..." style="height:120px; resize:vertical; grid-column: span 2;"></textarea>`;
-                renderRecordsList(container);
+                inpArea.innerHTML = `
+                    <input type="text" id="r-badge" class="gen-input" placeholder="البادج العسكري">
+                    <input type="text" id="r-name" class="gen-input" placeholder="الاسم الكامل">
+                    <input type="text" id="r-crim" class="gen-input" placeholder="نوع التقرير" style="grid-column: span 2;">
+                    <div style="grid-column: span 2; background: rgba(0,0,0,0.3); padding: 15px; border-radius: 8px; border: 1px dashed var(--cyan); text-align: center;">
+                        <div style="color: #fff; margin-bottom: 10px; font-weight: bold;">📄 إرفاق ملف التقرير (PDF):</div>
+                        <input type="file" id="r-pdf" accept="application/pdf" class="gen-input" style="cursor: pointer; width: auto; margin: 0 auto; display: block;" onchange="handlePDFUpload(this)">
+                    </div>`;
+                container.innerHTML = '<div style="text-align:center; padding:30px; color:#aaa; font-size:1.1rem;">ملاحظة: سيتم إرسال التقرير المرفق مباشرة إلى قسم "التقارير المحفوظة".</div>';
+            } else if (currentModule.isSavedReports) {
+                // 🟢 عرض التقارير على شكل بطاقات (مربعات) 🟢
+                renderSavedReports(container);
             } else if(currentModule.isTable) {
                 inputBlock.style.display = 'block';
                 inpArea.innerHTML = `<input type="text" id="t-assignee" class="gen-input" placeholder="المستلم"><input type="text" id="t-officer" class="gen-input" placeholder="المسؤول"><input type="text" id="t-reason" class="gen-input" placeholder="المهمة الموكلة"><input type="number" id="t-pts" class="gen-input" placeholder="النقاط">`;
@@ -462,6 +487,7 @@
             }
         }
 
+        // نظام الجدول الشامل
         function renderAdminRoster() {
             const container = document.getElementById('dynamicContentArea');
             const data = db.live_roster;
@@ -545,7 +571,6 @@
             document.getElementById('editRankModal').style.display = 'flex';
         }
 
-        // 🟢 ميزة التغيير التلقائي للكود الذكية (تحديث: يبدأ من 0 للجنرال) 🟢
         function autoGenerateCode() {
             const rank = document.getElementById('editRankSelect').value;
             const safeRoleName = rank.toLowerCase();
@@ -647,16 +672,44 @@
             });
         }
 
-        function renderRecordsList(container) {
-            container.innerHTML = '';
-            const data = db[currentModule.id] || [];
-            if(data.length === 0) { container.innerHTML = '<div style="text-align:center; padding:30px; color:#888; font-size:1.2rem;">لا يوجد سجلات.</div>'; return; }
-            data.forEach((rec, idx) => {
-                container.innerHTML += `<div class="rec-item allow-select" style="flex-direction:column; align-items:flex-end;">
-                    <div style="width:100%; text-align:right; margin-bottom:10px; padding-bottom:10px; line-height:1.8;">${rec}</div>
-                    ${isOfficer ? `<button class="action-btn-text btn-del-text" onclick="delRec(${idx})">حذف السجل</button>` : ''}
-                </div>`;
+        // 🟢 نظام عرض التقارير الجديد (على شكل بطاقات فخمة ومربعات) 🟢
+        function renderSavedReports(container) {
+            const data = db.reports || [];
+            if(data.length === 0) { container.innerHTML = '<div style="text-align:center; padding:50px; color:#888; font-size:1.2rem;">لا يوجد تقارير محفوظة حالياً.</div>'; return; }
+            
+            let html = `<div style="display:flex; justify-content:flex-end; margin-bottom:20px;">
+                ${isOfficer ? `<button class="action-btn-text btn-del-text" style="padding:10px 20px; font-size:1.1rem;" onclick="deleteAllReports()"><i class="fa-solid fa-trash-can"></i> حذف جميع التقارير</button>` : ''}
+            </div>`;
+            
+            html += '<div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">';
+            
+            [...data].reverse().forEach((rec, revIdx) => {
+                const idx = data.length - 1 - revIdx;
+                
+                // في حال كان التقرير قديم ومسجل كنص (عشان ما يخرب الموقع)
+                if (typeof rec === 'string') {
+                    html += `<div style="background:#131a2a; padding:20px; border-radius:12px; border:1px solid var(--glass-border); box-shadow: 0 10px 20px rgba(0,0,0,0.5);">
+                        <div style="text-align:right; margin-bottom:15px; line-height:1.8; color:#ddd;" class="allow-select">${rec}</div>
+                        ${isOfficer ? `<button class="action-btn-text btn-del-text" onclick="delReport(${idx})">حذف التقرير</button>` : ''}
+                    </div>`;
+                } else {
+                    // التقارير الجديدة المرفق معها PDF
+                    html += `<div style="background:#131a2a; padding:20px; border-radius:12px; border:1px solid var(--glass-border); box-shadow: 0 10px 20px rgba(0,0,0,0.5); display:flex; flex-direction:column; justify-content:space-between;">
+                        <div style="text-align:right;" class="allow-select">
+                            <h3 style="color:var(--cyan); margin-bottom:10px;"><i class="fa-solid fa-file-pdf" style="color:#ff3333;"></i> تقرير: ${rec.type}</h3>
+                            <p style="color:#ccc; margin-bottom:5px;"><strong>البادج:</strong> ${rec.badge}</p>
+                            <p style="color:#ccc; margin-bottom:5px;"><strong>الاسم:</strong> ${rec.name}</p>
+                            <p style="color:#888; font-size:0.9rem; margin-bottom:15px;">التاريخ: ${rec.date}</p>
+                        </div>
+                        <div style="display:flex; justify-content:space-between; align-items:center;">
+                            ${isOfficer ? `<button class="action-btn-text btn-del-text" onclick="delReport(${idx})">حذف</button>` : '<div></div>'}
+                            <a href="${rec.pdf}" download="Report_${rec.badge}.pdf" style="background:var(--cyan); color:#000; padding:10px 15px; border-radius:8px; text-decoration:none; font-weight:bold; font-family:var(--font-ar); transition:0.2s;"><i class="fa-solid fa-download"></i> تحميل التقرير</a>
+                        </div>
+                    </div>`;
+                }
             });
+            html += '</div>';
+            container.innerHTML = html;
         }
 
         function renderTasksTable(container) {
@@ -686,6 +739,18 @@
             container.innerHTML = html + '</div>';
         }
 
+        function renderRecordsList(container) {
+            container.innerHTML = '';
+            const data = db[currentModule.id] || [];
+            if(data.length === 0) { container.innerHTML = '<div style="text-align:center; padding:30px; color:#888; font-size:1.2rem;">لا يوجد بيانات.</div>'; return; }
+            data.forEach((rec, idx) => {
+                container.innerHTML += `<div class="rec-item allow-select" style="flex-direction:column; align-items:flex-end;">
+                    <div style="width:100%; text-align:right; margin-bottom:10px; padding-bottom:10px; line-height:1.8;">${rec}</div>
+                    ${isOfficer ? `<button class="action-btn-text btn-del-text" onclick="delRec(${idx})">حذف</button>` : ''}
+                </div>`;
+            });
+        }
+
         function doCrypto(type) { const v = document.getElementById('cryIn').value, out = document.getElementById('cryOut'); if(!v) return; try { out.innerText = (type === 'enc') ? btoa(unescape(encodeURIComponent(v))) : decodeURIComponent(escape(atob(v))); } catch(e) { out.innerText = "Error"; } }
         function copyCrypto() { navigator.clipboard.writeText(document.getElementById('cryOut').innerText); showCustomAlert("نجاح", "تم نسخ النص", true); }
 
@@ -694,10 +759,27 @@
                 const u=document.getElementById('o-user').value, p=document.getElementById('o-pass').value, n=document.getElementById('o-name').value, r=document.getElementById('o-rank').value;
                 if(!u || !p || !n) return showCustomAlert("خطأ", "يرجى تعبئة الحقول", false);
                 db.customUsers = cleanArray(db.customUsers); db.customUsers.push({user:u, pass:p, name:n, rank:r}); saveDB(); renderAccounts(document.getElementById('dynamicContentArea'));
+            
             } else if(currentModule.isReportForm) {
-                const b=document.getElementById('r-badge').value, n=document.getElementById('r-name').value, c=document.getElementById('r-crim').value, d=document.getElementById('r-details').value;
-                if(!b || !n || !d) return showCustomAlert("خطأ", "يرجى تعبئة الحقول", false);
-                db.reports = cleanArray(db.reports); db.reports.push(`<strong>البادج:</strong> ${b} | <strong>الاسم:</strong> ${n}<br><strong style="color:var(--cyan);">نوع التقرير:</strong> ${c}<br><strong style="color:var(--cyan);">التفاصيل:</strong><br> ${d}`); saveDB(); renderRecordsList(document.getElementById('dynamicContentArea'));
+                // 🟢 إرسال التقرير مع الـ PDF لقسم التقارير المحفوظة 🟢
+                const b = document.getElementById('r-badge').value;
+                const n = document.getElementById('r-name').value;
+                const c = document.getElementById('r-crim').value;
+                
+                if(!b || !n || !c) return showCustomAlert("خطأ", "يرجى تعبئة جميع الحقول النصية للتقرير!", false);
+                if(!tempPDFBase64) return showCustomAlert("خطأ", "يرجى إرفاق ملف الـ PDF الخاص بالتقرير!", false);
+                
+                db.reports = cleanArray(db.reports); 
+                db.reports.push({ badge: b, name: n, type: c, pdf: tempPDFBase64, date: new Date().toLocaleDateString() }); 
+                saveDB(); 
+                
+                tempPDFBase64 = ""; // مسح الملف من الذاكرة
+                document.getElementById('r-pdf').value = ""; // تصفير زر الرفع
+                
+                showCustomAlert("نجاح", "تم حفظ التقرير بنجاح وإرساله للتقارير المحفوظة!", true);
+                document.querySelectorAll('#mInputs input').forEach(el => el.value = '');
+                return; // عشان ما تطلع رسالة النجاح العامة تحت
+
             } else if(currentModule.isTable) {
                 const a=document.getElementById('t-assignee').value, o=document.getElementById('t-officer').value, r=document.getElementById('t-reason').value, p=document.getElementById('t-pts').value;
                 if(!a || !o || !r || !p) return showCustomAlert("خطأ", "يرجى تعبئة الحقول", false);
@@ -724,8 +806,25 @@
             });
         }
 
+        // 🟢 دالة حذف تقرير واحد 🟢
+        function delReport(idx) {
+            showCustomConfirm("حذف تقرير", "هل أنت متأكد من حذف هذا التقرير نهائياً؟", () => {
+                db.reports.splice(idx, 1); saveDB(); 
+                renderSavedReports(document.getElementById('dynamicContentArea'));
+            });
+        }
+
+        // 🟢 دالة حذف جميع التقارير 🟢
+        function deleteAllReports() {
+            showCustomConfirm("حذف جميع التقارير", "⚠️ تحذير: هل أنت متأكد من حذف جميع التقارير المحفوظة بشكل نهائي؟ لا يمكن التراجع عن هذا الإجراء!", () => {
+                db.reports = []; saveDB();
+                renderSavedReports(document.getElementById('dynamicContentArea'));
+            });
+        }
+
+        // دالة الحذف العامة لباقي الأقسام
         function delRec(idx) {
-            showCustomConfirm("حذف سجل", "هل أنت متأكد من حذف هذا السجل؟", () => {
+            showCustomConfirm("حذف سجل", "هل أنت متأكد من الحذف؟", () => {
                 db[currentModule.id].splice(idx, 1); saveDB(); 
                 if(currentModule.isTable) renderTasksTable(document.getElementById('dynamicContentArea'));
                 else if(currentModule.isVideo) renderVideoGrid(document.getElementById('dynamicContentArea'));
