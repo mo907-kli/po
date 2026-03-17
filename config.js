@@ -9,6 +9,7 @@ const OfficerRanks = [
     "Police Commander",
     "L.S.P.D Chief",
     "Deputy L.S.P.D Chief",
+    "A' Lspd Chief",
     "High Commander",
     "General",
     "Colonel",
