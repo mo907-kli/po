@@ -897,8 +897,22 @@
             document.getElementById('alertMessage').innerText=msg; 
             let icon = document.getElementById('alertIcon');
             icon.innerText = success ? "✅" : "❌";
-            document.getElementById('customAlertOverlay').style.display='flex'; 
+            document.getElementById('customAlertOverlay').style.display='flex';   
         }
     </script>
 </body>
 </html>
+<script>
+    // 🛡️ درع الحماية: منع الزر الأيمن
+    document.addEventListener('contextmenu', event => event.preventDefault());
+
+    // 🛡️ درع الحماية: منع اختصارات المطورين وسحب الكود
+    document.onkeydown = function(e) {
+        if(e.keyCode == 123) { return false; } // يمنع F12
+        if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) { return false; } // يمنع Ctrl+Shift+I
+        if(e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) { return false; } // يمنع Ctrl+Shift+C
+        if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) { return false; } // يمنع Ctrl+Shift+J
+        if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) { return false; } // يمنع Ctrl+U (عرض مصدر الصفحة)
+        if(e.ctrlKey && e.keyCode == 'S'.charCodeAt(0)) { return false; } // يمنع Ctrl+S (حفظ الصفحة)
+    }
+</script>
