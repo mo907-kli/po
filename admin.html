@@ -86,13 +86,7 @@
         .btn-del-text { color: var(--red); border-color: rgba(255,51,51,0.4);}
         .btn-del-text:hover { border-color: var(--red); background: var(--red); color: #fff;}
 
-        /* إصلاح المشكلة هنا: تعريف الزر بشكل صريح */
-        .submit-btn {
-            appearance: none; -webkit-appearance: none;
-            width: 100%; padding: 15px; background: var(--cyan); border: none; color: #000; 
-            font-weight: 900; font-size: 1.2rem; border-radius: 8px; cursor: pointer; 
-            transition: 0.2s; box-shadow: 0 0 20px rgba(0, 234, 255, 0.3); font-family: var(--font-ar);
-        }
+        .submit-btn { appearance: none; -webkit-appearance: none; width: 100%; padding: 15px; background: var(--cyan); border: none; color: #000; font-weight: 900; font-size: 1.2rem; border-radius: 8px; cursor: pointer; transition: 0.2s; box-shadow: 0 0 20px rgba(0, 234, 255, 0.3); font-family: var(--font-ar); }
         .submit-btn:hover { background: #fff; transform: translateY(-2px); }
 
         .input-section { background: var(--glass-bg); border: 1px solid var(--glass-border); padding: 25px; border-radius: 12px; margin-bottom:20px; }
@@ -134,7 +128,7 @@
                 <label class="input-label">كلمة المرور</label>
                 <input type="password" id="passInput" class="custom-input" placeholder="••••••••••">
             </div>
-            <button class="auth-btn" onclick="login()">تسجيل الدخول للنظام</button>
+            <button class="auth-btn" id="loginBtn" onclick="login()">تسجيل الدخول للنظام</button>
             <div id="loginError" style="display: none; color: #ff3333; margin-top: 15px; font-weight: bold; background: rgba(255,51,51,0.1); border: 1px solid rgba(255,51,51,0.3); padding: 10px; border-radius: 8px; font-size: 0.95rem;">بيانات الدخول غير صحيحة!</div>
             <a href="index.html" class="back-link">العودة للموقع الرئيسي</a>
         </div>
@@ -180,31 +174,11 @@
             <h3 style="color:var(--green); margin-bottom:25px; font-size:1.6rem; text-align:center;">➕ إضافة عسكري جديد للنظام</h3>
             <div class="grid-inputs">
                 <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">الاسم (Name):</div><input type="text" id="createOfficerName" class="gen-input" placeholder="اسم العسكري داخل اللعبة"></div>
-                
-                <div>
-                    <div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">الرتبة (Rank):</div>
-                    <select id="createRankSelect" class="gen-input" style="cursor: pointer; text-align: left;" dir="ltr" onchange="autoGenerateCreateCode()"></select>
-                </div>
-                
+                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">الرتبة (Rank):</div><select id="createRankSelect" class="gen-input" style="cursor: pointer; text-align: left;" dir="ltr" onchange="autoGenerateCreateCode()"></select></div>
                 <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">الكود (Code):</div><input type="text" id="createOfficerCode" class="gen-input" style="font-family: monospace; text-align:left;" dir="ltr"></div>
-                
-                <div>
-                    <div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">المهام (Responsibility):</div>
-                    <select id="createResp" class="gen-input" style="cursor: pointer; text-align: left;" dir="ltr"></select>
-                </div>
-                
-                <div>
-                    <div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">الحالة (Status):</div>
-                    <select id="createStatus" class="gen-input" style="cursor: pointer; text-align: left;" dir="ltr">
-                        <option value="ACTIVE">ACTIVE</option><option value="INACTIVE">INACTIVE</option><option value="LOA">LOA</option><option value="SUSPENDED">SUSPENDED</option>
-                    </select>
-                </div>
-                
-                <div>
-                    <div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">الإنذارات (Strikes):</div>
-                    <select id="createStrikes" class="gen-input" style="cursor: pointer; text-align: left;" dir="ltr"></select>
-                </div>
-
+                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">المهام (Responsibility):</div><select id="createResp" class="gen-input" style="cursor: pointer; text-align: left;" dir="ltr"></select></div>
+                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">الحالة (Status):</div><select id="createStatus" class="gen-input" style="cursor: pointer; text-align: left;" dir="ltr"><option value="ACTIVE">ACTIVE</option><option value="INACTIVE">INACTIVE</option><option value="LOA">LOA</option><option value="SUSPENDED">SUSPENDED</option></select></div>
+                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">الإنذارات (Strikes):</div><select id="createStrikes" class="gen-input" style="cursor: pointer; text-align: left;" dir="ltr"></select></div>
                 <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">تاريخ الترقية:</div><input type="text" id="createProm" class="gen-input" placeholder="N/A -"></div>
                 <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">النقاط (F.P):</div><input type="text" id="createFP" class="gen-input" placeholder="N/A -"></div>
                 <div style="grid-column: span 2;"><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">ديسكورد آيدي:</div><input type="text" id="createDiscord" class="gen-input" style="text-align:left;" dir="ltr" placeholder="مثال: <@123456789>"></div>
@@ -238,31 +212,11 @@
             <h3 style="color:var(--cyan); margin-bottom:25px; font-size:1.6rem; text-align:center;">تعديل السجل العسكري</h3>
             <div class="grid-inputs">
                 <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">الاسم (Name):</div><input type="text" id="editOfficerName" class="gen-input"></div>
-                
-                <div>
-                    <div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">الرتبة (Rank):</div>
-                    <select id="editRankSelect" class="gen-input" style="cursor: pointer; text-align: left;" dir="ltr" onchange="autoGenerateCode()"></select>
-                </div>
-                
+                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">الرتبة (Rank):</div><select id="editRankSelect" class="gen-input" style="cursor: pointer; text-align: left;" dir="ltr" onchange="autoGenerateCode()"></select></div>
                 <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">الكود (Code):</div><input type="text" id="editOfficerCode" class="gen-input" style="font-family: monospace; text-align:left;" dir="ltr"></div>
-                
-                <div>
-                    <div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">المهام (Responsibility):</div>
-                    <select id="editResp" class="gen-input" style="cursor: pointer; text-align: left;" dir="ltr"></select>
-                </div>
-                
-                <div>
-                    <div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">الحالة (Status):</div>
-                    <select id="editStatus" class="gen-input" style="cursor: pointer; text-align: left;" dir="ltr">
-                        <option value="ACTIVE">ACTIVE</option><option value="INACTIVE">INACTIVE</option><option value="LOA">LOA</option><option value="SUSPENDED">SUSPENDED</option>
-                    </select>
-                </div>
-                
-                <div>
-                    <div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">الإنذارات (Strikes):</div>
-                    <select id="editStrikes" class="gen-input" style="cursor: pointer; text-align: left;" dir="ltr"></select>
-                </div>
-
+                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">المهام (Responsibility):</div><select id="editResp" class="gen-input" style="cursor: pointer; text-align: left;" dir="ltr"></select></div>
+                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">الحالة (Status):</div><select id="editStatus" class="gen-input" style="cursor: pointer; text-align: left;" dir="ltr"><option value="ACTIVE">ACTIVE</option><option value="INACTIVE">INACTIVE</option><option value="LOA">LOA</option><option value="SUSPENDED">SUSPENDED</option></select></div>
+                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">الإنذارات (Strikes):</div><select id="editStrikes" class="gen-input" style="cursor: pointer; text-align: left;" dir="ltr"></select></div>
                 <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">تاريخ الترقية:</div><input type="text" id="editProm" class="gen-input" placeholder="N/A -"></div>
                 <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">النقاط (F.P):</div><input type="text" id="editFP" class="gen-input" placeholder="N/A -"></div>
                 <div style="grid-column: span 2;"><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">ديسكورد آيدي:</div><input type="text" id="editDiscord" class="gen-input" style="text-align:left;" dir="ltr"></div>
@@ -397,6 +351,14 @@
         });
 
         function saveDB() { database.ref('lspd_db').set(db).catch(e => { showCustomAlert("خطأ", "فشل الحفظ.", false); }); }
+
+        // 🟢 ميزة تسجيل الدخول باستخدام زر Enter 🟢
+        document.getElementById('userInput').addEventListener('keydown', function(e) {
+            if(e.key === 'Enter') login();
+        });
+        document.getElementById('passInput').addEventListener('keydown', function(e) {
+            if(e.key === 'Enter') login();
+        });
 
         function login() {
             const u = document.getElementById('userInput').value.trim(), p = document.getElementById('passInput').value.trim();
@@ -897,22 +859,8 @@
             document.getElementById('alertMessage').innerText=msg; 
             let icon = document.getElementById('alertIcon');
             icon.innerText = success ? "✅" : "❌";
-            document.getElementById('customAlertOverlay').style.display='flex';   
+            document.getElementById('customAlertOverlay').style.display='flex'; 
         }
     </script>
 </body>
 </html>
-<script>
-    // 🛡️ درع الحماية: منع الزر الأيمن
-    document.addEventListener('contextmenu', event => event.preventDefault());
-
-    // 🛡️ درع الحماية: منع اختصارات المطورين وسحب الكود
-    document.onkeydown = function(e) {
-        if(e.keyCode == 123) { return false; } // يمنع F12
-        if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) { return false; } // يمنع Ctrl+Shift+I
-        if(e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) { return false; } // يمنع Ctrl+Shift+C
-        if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) { return false; } // يمنع Ctrl+Shift+J
-        if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) { return false; } // يمنع Ctrl+U (عرض مصدر الصفحة)
-        if(e.ctrlKey && e.keyCode == 'S'.charCodeAt(0)) { return false; } // يمنع Ctrl+S (حفظ الصفحة)
-    }
-</script>
