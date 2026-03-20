@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>لوحة القيادة | L.S.P.D</title>
     
+    <link rel="icon" href="yyW7oBx.jpg?v=2" type="image/jpeg">
+    
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=Rajdhani:wght@500;600;700;800;900&display=swap" rel="stylesheet">
     <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-database-compat.js"></script>
@@ -23,24 +25,22 @@
             --font-ar: 'Tajawal', sans-serif; --font-en: 'Rajdhani', sans-serif;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; }
-        
-        /* إخفاء الماوس الافتراضي لتشغيل الماوس السماوي */
-        body { cursor: none; background: radial-gradient(circle at top, #0a1128 0%, #020305 100%); background-attachment: fixed; color: #fff; font-family: var(--font-ar); min-height: 100vh; overflow-x: hidden; user-select: none;}
+        * { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; outline: none;}
+        body { background: radial-gradient(circle at top, #0a1128 0%, #020305 100%); background-attachment: fixed; color: #fff; font-family: var(--font-ar); min-height: 100vh; overflow-x: hidden; user-select: none; cursor: none;}
         input, textarea, select, .allow-select *, button, a { user-select: text !important; outline: none; font-family: var(--font-ar); cursor: none !important;}
 
         #bgEffects { position: fixed; inset: 0; z-index: -5; pointer-events: none; background-color: var(--bg-deep); }
 
         /* =========================================
-           إضافات النجوم والماوس (خفيفة جداً)
+           🟢 حل مشكلة الماوس (رفعنا الـ z-index) 🟢
         ========================================= */
         #particles-container { position: fixed; inset: 0; z-index: -1; pointer-events: none; }
         .particle { position: absolute; background: var(--cyan); border-radius: 50%; animation: floatParticle linear infinite; opacity: 0; box-shadow: 0 0 5px var(--cyan); }
         @keyframes floatParticle { 0% { transform: translateY(0); opacity: 0; } 10% { opacity: 0.15; } 90% { opacity: 0.15; } 100% { transform: translateY(-100vh); opacity: 0; } }
 
-        #cursor-pointer { position: fixed; width: 6px; height: 6px; background-color: var(--cyan); border-radius: 50%; pointer-events: none; z-index: 99999; transform: translate(-50%, -50%); box-shadow: 0 0 10px var(--cyan); transition: width 0.15s, height 0.15s; }
-        #cursor-trail { position: fixed; width: 30px; height: 30px; border: 1.5px solid rgba(0, 234, 255, 0.1); border-radius: 50%; pointer-events: none; z-index: 99998; transform: translate(-50%, -50%); transition: 0.1s ease-out, width 0.15s, height 0.15s; }
-
+        /* لاحظ الرقم 9999999 عشان يكون فوق شاشة الدخول */
+        #cursor-pointer { position: fixed; width: 6px; height: 6px; background-color: var(--cyan); border-radius: 50%; pointer-events: none; z-index: 9999999; transform: translate(-50%, -50%); box-shadow: 0 0 10px var(--cyan); transition: width 0.15s, height 0.15s; }
+        #cursor-trail { position: fixed; width: 30px; height: 30px; border: 1.5px solid rgba(0, 234, 255, 0.1); border-radius: 50%; pointer-events: none; z-index: 9999998; transform: translate(-50%, -50%); transition: 0.1s ease-out, width 0.15s, height 0.15s; }
         /* ========================================= */
 
         @keyframes popIn { 0% { opacity: 0; transform: scale(0.98); } 100% { opacity: 1; transform: scale(1); } }
@@ -61,7 +61,6 @@
         .custom-input { width: 100%; background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); padding: 15px 20px; color: #fff; border-radius: 12px; font-family: 'Tajawal', sans-serif; font-size: 1.05rem; transition: 0.3s; outline: none; text-align: right; }
         .custom-input:focus { background: rgba(0, 0, 0, 0.5); border-color: #00eaff; box-shadow: 0 0 15px rgba(0, 234, 255, 0.1); }
         
-        /* 🟢 زر النبض النيون (بدل auth-btn العادي) 🟢 */
         .neon-pulse-btn { width: 100%; padding: 15px; background: rgba(0, 0, 0, 0.5); color: var(--cyan); border: 2px solid var(--cyan); border-radius: 12px; cursor: none; transition: 0.3s; margin-top: 15px; font-family: var(--font-ar); font-weight: 900; font-size: 1.2rem; box-shadow: 0 0 10px var(--cyan-glow); animation: neonPulse 2s infinite ease-in-out; }
         .neon-pulse-btn:hover { background: var(--cyan); color: #000; box-shadow: 0 0 30px var(--cyan), inset 0 0 10px rgba(255,255,255,0.5); animation: none; }
         @keyframes neonPulse { 0%, 100% { box-shadow: 0 0 10px var(--cyan-glow); border-color: var(--cyan); } 50% { box-shadow: 0 0 25px var(--cyan), inset 0 0 5px var(--cyan-glow); border-color: #fff; } }
@@ -110,8 +109,7 @@
         .btn-del-text { color: var(--red); border-color: rgba(255,51,51,0.4);}
         .btn-del-text:hover { border-color: var(--red); background: var(--red); color: #fff;}
 
-        /* هذا الزر الأساسي حقك سليم 100% ما انلمس */
-        .submit-btn { appearance: none; -webkit-appearance: none; width: 100%; padding: 15px; background: var(--cyan); border: none; color: #000; font-weight: 900; font-size: 1.2rem; border-radius: 8px; cursor: pointer; transition: 0.2s; box-shadow: 0 0 20px rgba(0, 234, 255, 0.3); font-family: var(--font-ar); }
+        .submit-btn { appearance: none; -webkit-appearance: none; width: 100%; padding: 15px; background: var(--cyan); border: none; color: #000; font-weight: 900; font-size: 1.2rem; border-radius: 8px; cursor: none; transition: 0.2s; box-shadow: 0 0 20px rgba(0, 234, 255, 0.3); font-family: var(--font-ar); }
         .submit-btn:hover { background: #fff; transform: translateY(-2px); }
 
         .input-section { background: var(--glass-bg); border: 1px solid var(--glass-border); padding: 25px; border-radius: 12px; margin-bottom:20px; }
@@ -125,7 +123,7 @@
         /* النوافذ المنبثقة */
         .modal-overlay { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.85); z-index: 100000; display: none; justify-content: center; align-items: center; }
         .modal-box { width: 600px; padding: 30px; background: #0b101e; border: 1px solid var(--cyan); border-radius: 12px; animation: popIn 0.2s ease; }
-        .close-btn { background: #131a2a; border: 1px solid rgba(255,255,255,0.2); color: #ccc; padding: 12px; border-radius: 8px; cursor: pointer; transition: 0.2s; font-weight: bold; width: 100%; font-family:var(--font-ar); font-size:1.1rem;}
+        .close-btn { background: #131a2a; border: 1px solid rgba(255,255,255,0.2); color: #ccc; padding: 12px; border-radius: 8px; cursor: none; transition: 0.2s; font-weight: bold; width: 100%; font-family:var(--font-ar); font-size:1.1rem;}
         .close-btn:hover { background: var(--red); border-color: var(--red); color: #fff;}
 
         /* بطاقة الهوية */
@@ -151,11 +149,11 @@
             <div class="title">L.S.P.D</div>
             <div class="input-group">
                 <label class="input-label">اسم المستخدم</label>
-                <input type="text" id="userInput" class="custom-input" placeholder="أدخل البيانات هنا...">
+                <input type="text" id="userInput" class="custom-input hover-target" placeholder="أدخل البيانات هنا...">
             </div>
             <div class="input-group">
                 <label class="input-label">كلمة المرور</label>
-                <input type="password" id="passInput" class="custom-input" placeholder="••••••••••">
+                <input type="password" id="passInput" class="custom-input hover-target" placeholder="••••••••••">
             </div>
             <button class="neon-pulse-btn hover-target" id="loginBtn" onclick="login()">تسجيل الدخول للنظام</button>
             <div id="loginError" style="display: none; color: #ff3333; margin-top: 15px; font-weight: bold; background: rgba(255,51,51,0.1); border: 1px solid rgba(255,51,51,0.3); padding: 10px; border-radius: 8px; font-size: 0.95rem;">بيانات الدخول غير صحيحة!</div>
@@ -166,7 +164,7 @@
     <div id="mainWrapper">
         <header>
             <div class="header-side">
-                <button class="head-btn btn-red" onclick="logout()">🚪 خروج</button>
+                <button class="head-btn btn-red hover-target" onclick="logout()">🚪 خروج</button>
                 <button class="head-btn hover-target" onclick="window.location.href='index.html'">🏠 الرئيسية</button>
             </div>
             <div class="sys-title">إدارة L.S.P.D</div>
@@ -202,16 +200,16 @@
         <div class="modal-box" style="width: 700px; border-color: var(--green);">
             <h3 style="color:var(--green); margin-bottom:25px; font-size:1.6rem; text-align:center;">➕ إضافة عسكري جديد للنظام</h3>
             <div class="grid-inputs">
-                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">الاسم (Name):</div><input type="text" id="createOfficerName" class="gen-input" placeholder="اسم العسكري داخل اللعبة"></div>
-                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">الرتبة (Rank):</div><select id="createRankSelect" class="gen-input hover-target" style="cursor: none; text-align: left;" dir="ltr" onchange="autoGenerateCreateCode()"></select></div>
-                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">الكود (Code):</div><input type="text" id="createOfficerCode" class="gen-input" style="font-family: monospace; text-align:left;" dir="ltr"></div>
-                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">المهام (Responsibility):</div><select id="createResp" class="gen-input hover-target" style="cursor: none; text-align: left;" dir="ltr"></select></div>
-                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">الحالة (Status):</div><select id="createStatus" class="gen-input hover-target" style="cursor: none; text-align: left;" dir="ltr"><option value="ACTIVE">ACTIVE</option><option value="INACTIVE">INACTIVE</option><option value="LOA">LOA</option><option value="SUSPENDED">SUSPENDED</option></select></div>
-                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">الإنذارات (Strikes):</div><select id="createStrikes" class="gen-input hover-target" style="cursor: none; text-align: left;" dir="ltr"></select></div>
-                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">تاريخ الترقية:</div><input type="text" id="createProm" class="gen-input" placeholder="N/A -"></div>
-                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">النقاط (F.P):</div><input type="text" id="createFP" class="gen-input" placeholder="N/A -"></div>
-                <div style="grid-column: span 2;"><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">ديسكورد آيدي:</div><input type="text" id="createDiscord" class="gen-input" style="text-align:left;" dir="ltr" placeholder="مثال: <@123456789>"></div>
-                <div style="grid-column: span 2;"><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">ملاحظات (Notes):</div><textarea id="createNotes" class="gen-input" style="height: 60px; resize:none;"></textarea></div>
+                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">الاسم (Name):</div><input type="text" id="createOfficerName" class="gen-input hover-target" placeholder="اسم العسكري داخل اللعبة"></div>
+                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">الرتبة (Rank):</div><select id="createRankSelect" class="gen-input hover-target" style="text-align: left;" dir="ltr" onchange="autoGenerateCreateCode()"></select></div>
+                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">الكود (Code):</div><input type="text" id="createOfficerCode" class="gen-input hover-target" style="font-family: monospace; text-align:left;" dir="ltr"></div>
+                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">المهام (Responsibility):</div><select id="createResp" class="gen-input hover-target" style="text-align: left;" dir="ltr"></select></div>
+                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">الحالة (Status):</div><select id="createStatus" class="gen-input hover-target" style="text-align: left;" dir="ltr"><option value="ACTIVE">ACTIVE</option><option value="INACTIVE">INACTIVE</option><option value="LOA">LOA</option><option value="SUSPENDED">SUSPENDED</option></select></div>
+                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">الإنذارات (Strikes):</div><select id="createStrikes" class="gen-input hover-target" style="text-align: left;" dir="ltr"></select></div>
+                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">تاريخ الترقية:</div><input type="text" id="createProm" class="gen-input hover-target" placeholder="N/A -"></div>
+                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">النقاط (F.P):</div><input type="text" id="createFP" class="gen-input hover-target" placeholder="N/A -"></div>
+                <div style="grid-column: span 2;"><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">ديسكورد آيدي:</div><input type="text" id="createDiscord" class="gen-input hover-target" style="text-align:left;" dir="ltr" placeholder="مثال: <@123456789>"></div>
+                <div style="grid-column: span 2;"><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">ملاحظات (Notes):</div><textarea id="createNotes" class="gen-input hover-target" style="height: 60px; resize:none;"></textarea></div>
             </div>
             <div style="display:flex; gap:15px; margin-top: 10px;">
                 <button class="submit-btn hover-target" style="background: var(--green);" onclick="saveNewCreatedOfficer()" style="flex: 2; margin: 0;">إنشاء العسكري</button>
@@ -223,13 +221,13 @@
     <div class="modal-overlay" id="cryptoModal">
         <div class="modal-box">
             <h3 style="color:var(--cyan); margin-bottom:20px; font-size:1.5rem; text-align:center;">قسم التشفير</h3>
-            <textarea id="cryIn" class="gen-input" placeholder="أدخل النص هنا..." style="height: 100px; resize: none; text-align:right;"></textarea>
+            <textarea id="cryIn" class="gen-input hover-target" placeholder="أدخل النص هنا..." style="height: 100px; resize: none; text-align:right;"></textarea>
             <div style="display:flex; gap:10px; margin-bottom:15px;">
                 <button class="submit-btn hover-target" onclick="doCrypto('enc')" style="margin:0;">🔒 تشفير النص</button>
                 <button class="submit-btn hover-target" onclick="doCrypto('dec')" style="margin:0; background:#fff; color:#000;">🔓 فك التشفير</button>
             </div>
             <div style="position:relative;">
-                <div class="gen-input allow-select" id="cryOut" style="min-height: 50px; font-family: monospace; word-break: break-all; padding-inline-end: 45px; text-align:left;" dir="ltr">النتيجة...</div>
+                <div class="gen-input allow-select hover-target" id="cryOut" style="min-height: 50px; font-family: monospace; word-break: break-all; padding-inline-end: 45px; text-align:left;" dir="ltr">النتيجة...</div>
                 <span class="hover-target" onclick="copyCrypto()" style="position: absolute; top: 50%; transform: translateY(-50%); right: 20px; font-size: 1.3rem;">📋</span>
             </div>
             <button class="close-btn hover-target" onclick="document.getElementById('cryptoModal').style.display='none'">إغلاق</button>
@@ -240,16 +238,16 @@
         <div class="modal-box" style="width: 700px;">
             <h3 style="color:var(--cyan); margin-bottom:25px; font-size:1.6rem; text-align:center;">تعديل السجل العسكري</h3>
             <div class="grid-inputs">
-                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">الاسم (Name):</div><input type="text" id="editOfficerName" class="gen-input"></div>
-                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">الرتبة (Rank):</div><select id="editRankSelect" class="gen-input hover-target" style="cursor: none; text-align: left;" dir="ltr" onchange="autoGenerateCode()"></select></div>
-                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">الكود (Code):</div><input type="text" id="editOfficerCode" class="gen-input" style="font-family: monospace; text-align:left;" dir="ltr"></div>
-                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">المهام (Responsibility):</div><select id="editResp" class="gen-input hover-target" style="cursor: none; text-align: left;" dir="ltr"></select></div>
-                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">الحالة (Status):</div><select id="editStatus" class="gen-input hover-target" style="cursor: none; text-align: left;" dir="ltr"><option value="ACTIVE">ACTIVE</option><option value="INACTIVE">INACTIVE</option><option value="LOA">LOA</option><option value="SUSPENDED">SUSPENDED</option></select></div>
-                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">الإنذارات (Strikes):</div><select id="editStrikes" class="gen-input hover-target" style="cursor: none; text-align: left;" dir="ltr"></select></div>
-                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">تاريخ الترقية:</div><input type="text" id="editProm" class="gen-input" placeholder="N/A -"></div>
-                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">النقاط (F.P):</div><input type="text" id="editFP" class="gen-input" placeholder="N/A -"></div>
-                <div style="grid-column: span 2;"><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">ديسكورد آيدي:</div><input type="text" id="editDiscord" class="gen-input" style="text-align:left;" dir="ltr"></div>
-                <div style="grid-column: span 2;"><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">ملاحظات (Notes):</div><textarea id="editNotes" class="gen-input" style="height: 60px; resize:none;"></textarea></div>
+                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">الاسم (Name):</div><input type="text" id="editOfficerName" class="gen-input hover-target"></div>
+                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">الرتبة (Rank):</div><select id="editRankSelect" class="gen-input hover-target" style="text-align: left;" dir="ltr" onchange="autoGenerateCode()"></select></div>
+                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">الكود (Code):</div><input type="text" id="editOfficerCode" class="gen-input hover-target" style="font-family: monospace; text-align:left;" dir="ltr"></div>
+                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">المهام (Responsibility):</div><select id="editResp" class="gen-input hover-target" style="text-align: left;" dir="ltr"></select></div>
+                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">الحالة (Status):</div><select id="editStatus" class="gen-input hover-target" style="text-align: left;" dir="ltr"><option value="ACTIVE">ACTIVE</option><option value="INACTIVE">INACTIVE</option><option value="LOA">LOA</option><option value="SUSPENDED">SUSPENDED</option></select></div>
+                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">الإنذارات (Strikes):</div><select id="editStrikes" class="gen-input hover-target" style="text-align: left;" dir="ltr"></select></div>
+                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">تاريخ الترقية:</div><input type="text" id="editProm" class="gen-input hover-target" placeholder="N/A -"></div>
+                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">النقاط (F.P):</div><input type="text" id="editFP" class="gen-input hover-target" placeholder="N/A -"></div>
+                <div style="grid-column: span 2;"><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">ديسكورد آيدي:</div><input type="text" id="editDiscord" class="gen-input hover-target" style="text-align:left;" dir="ltr"></div>
+                <div style="grid-column: span 2;"><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">ملاحظات (Notes):</div><textarea id="editNotes" class="gen-input hover-target" style="height: 60px; resize:none;"></textarea></div>
             </div>
             <div style="display:flex; gap:15px; margin-top: 10px;">
                 <button class="submit-btn hover-target" onclick="saveNewOfficerData()" style="flex: 2; margin: 0;">حفظ التعديلات</button>
@@ -271,7 +269,7 @@
                 </div>
             </div>
             <div style="margin-top: 25px; display: flex; justify-content: center; gap: 15px;">
-                <label class="head-btn btn-cyan hover-target" style="cursor: none; padding: 12px 30px;">📷 تغيير الصورة<input type="file" accept="image/*" style="display: none;" onchange="updateCardImg(this)"></label>
+                <label class="head-btn btn-cyan hover-target" style="padding: 12px 30px;">📷 تغيير الصورة<input type="file" accept="image/*" style="display: none;" onchange="updateCardImg(this)"></label>
                 <button class="head-btn btn-red hover-target" onclick="document.getElementById('idCardOverlay').style.display='none'" style="padding: 12px 40px;">إغلاق</button>
             </div>
         </div>
@@ -337,7 +335,7 @@
         });
 
         // ==========================================
-        // 🟢 السكربت الأساسي حقك (لم يتم التعديل عليه) 🟢
+        // 🟢 السكربت الأساسي لعمل الموقع 🟢
         // ==========================================
         const publicOfficersList = ["Minister of Interior", "Deputy Minister of Interior", "A. Minister of Interior", "Police Commander", "L.S.P.D Chief", "Deputy L.S.P.D Chief", "A' Lspd Chief", "High Commander", "General", "Colonel", "Major", "Captain", "First Lieutenant", "Lieutenant"];
         const publicEnlistedList = ["Staff Sergeant", "First Sergeant", "Sergeant", "Senior Lead Officer", "Senior Officer", "Officer III", "Officer II", "Officer I", "Solo Cadet", "Cadet"];
@@ -520,7 +518,7 @@
                     <input type="text" id="r-crim" class="gen-input hover-target" placeholder="نوع التقرير" style="grid-column: span 2;">
                     <div style="grid-column: span 2; background: rgba(0,0,0,0.3); padding: 15px; border-radius: 8px; border: 1px dashed var(--cyan); text-align: center;">
                         <div style="color: #fff; margin-bottom: 10px; font-weight: bold;">📄 إرفاق ملف التقرير (PDF):</div>
-                        <input type="file" id="r-pdf" accept="application/pdf" class="gen-input hover-target" style="cursor: none; width: auto; margin: 0 auto; display: block;" onchange="handlePDFUpload(this)">
+                        <input type="file" id="r-pdf" accept="application/pdf" class="gen-input hover-target" style="width: auto; margin: 0 auto; display: block;" onchange="handlePDFUpload(this)">
                     </div>`;
                 container.innerHTML = '<div style="text-align:center; padding:30px; color:#aaa; font-size:1.1rem;">ملاحظة: سيتم إرسال التقرير المرفق مباشرة إلى قسم "التقارير المحفوظة".</div>';
             } else if (currentModule.isSavedReports) {
