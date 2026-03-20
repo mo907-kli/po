@@ -1,4 +1,477 @@
-<!doctypehtml><html dir=rtl lang=ar><meta charset=UTF-8><meta content="width=device-width,initial-scale=1"name=viewport><title>إدارة الشرطة | L.S.P.D</title><link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=Rajdhani:wght@500;600;700;800;900&display=swap"rel=stylesheet><script src=https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js></script><script src=https://www.gstatic.com/firebasejs/10.8.1/firebase-database-compat.js></script><style>:root{--bg-deep:#04070e;--cyan:#00eaff;--cyan-glow:rgba(0, 234, 255, 0.3);--red:#ff3333;--green:#00ff6a;--yellow:#ffc107;--text-main:#ffffff;--font-ar:'Tajawal',sans-serif;--font-en:'Rajdhani',sans-serif}*{box-sizing:border-box;margin:0;padding:0;scroll-behavior:smooth}body{user-select:none;background:var(--bg-deep) radial-gradient(circle at top,rgba(0,234,255,.05) 0,transparent 60%) no-repeat fixed;color:var(--text-main);font-family:var(--font-ar);min-height:100vh;overflow-x:hidden}.allow-select *,input,select,textarea{user-select:text!important;outline:0;font-family:var(--font-ar)}@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}@keyframes popIn{0%{opacity:0;transform:scale(.95)}100%{opacity:1;transform:scale(1)}}.public-nav{display:flex;justify-content:space-between;align-items:center;padding:20px 80px;background:#070b14;border-bottom:1px solid rgba(0,234,255,.1);position:sticky;top:0;z-index:99999}.nav-right{display:flex;align-items:center;gap:40px}.nav-logo{width:45px;height:45px;background:url(yyW7oBx.jpg) center/cover;border-radius:50%;border:1px solid var(--cyan)}.nav-links{display:flex;gap:30px}.nav-links a{color:#8da2b5;text-decoration:none;font-size:1.05rem;font-weight:700;cursor:pointer;transition:.2s}.nav-links a.active,.nav-links a:hover{color:#fff;text-shadow:0 0 10px rgba(255,255,255,.5)}.sys-btn{background:0 0;border:1px solid var(--cyan);color:var(--cyan);padding:10px 25px;border-radius:6px;font-family:var(--font-ar);font-weight:700;font-size:1rem;cursor:pointer;transition:.2s;text-decoration:none}.sys-btn:hover{background:var(--cyan);color:#000;box-shadow:0 0 15px var(--cyan-glow)}.tab-content{display:none;flex-direction:column;align-items:center;width:100%;padding-bottom:100px;animation:fadeIn .3s ease}.hero-section{display:flex;align-items:center;justify-content:center;min-height:calc(100vh - 90px);width:100%}.hero-content{text-align:center;max-width:800px;padding:40px}.hero-content h1{font-size:5rem;color:#fff;font-weight:900;margin-bottom:20px;text-shadow:0 0 20px rgba(0,234,255,.3)}.hero-content h1 span{color:var(--cyan)}.hero-content p{font-size:1.25rem;color:#ccc;line-height:1.8;margin-bottom:40px}.hero-btn{background:var(--cyan);border:none;color:#000;padding:16px 45px;font-size:1.2rem;font-weight:700;border-radius:6px;cursor:pointer;transition:.2s;box-shadow:0 0 20px var(--cyan-glow);font-family:var(--font-ar)}.hero-btn:hover{background:#fff;transform:translateY(-3px)}.animated-banner{width:100%;padding:80px 20px;text-align:center;border-bottom:1px solid rgba(255,255,255,.05)}.anim-title{font-size:3.5rem;color:#fff;font-weight:800;margin-bottom:10px;text-shadow:0 0 20px rgba(0,234,255,.3)}.anim-title span{color:var(--cyan)}.community-title{font-size:3rem;color:#fff;font-weight:800;margin:40px 0 20px 0;text-align:center}.cards-container{display:flex;justify-content:center;gap:30px;flex-wrap:wrap;max-width:1200px;margin:0 auto}.lux-card{background:#0c121e;border:1px solid rgba(0,234,255,.15);border-radius:12px;padding:40px 30px;width:350px;text-align:center;transition:.2s;box-shadow:0 10px 30px rgba(0,0,0,.5)}.lux-card:hover{border-color:var(--cyan);transform:translateY(-5px)}.lux-card h3{color:#fff;font-size:1.6rem;font-weight:700;margin-bottom:15px}.lux-card p{color:#888;font-size:1rem;line-height:1.7;margin-bottom:30px}.founder-img{width:130px;height:130px;border-radius:50%;margin:0 auto 25px;border:3px solid var(--cyan);object-fit:cover;padding:5px}.accordion-container{width:100%;max-width:900px;padding:0 20px;margin-top:40px}.accordion-item{margin-bottom:12px;border-radius:8px;background:#0c121e;border:1px solid rgba(0,234,255,.15);transition:.2s}.accordion-header{display:flex;justify-content:space-between;align-items:center;padding:25px 30px;cursor:pointer;transition:.2s;flex-direction:row-reverse}.acc-title-box{display:flex;align-items:center;gap:15px;flex-direction:row-reverse}.acc-dot{width:12px;height:12px;background:var(--cyan);border-radius:50%;box-shadow:0 0 10px var(--cyan)}.acc-title{font-size:1.3rem;font-weight:900;color:var(--cyan);text-align:right}.acc-icon{font-size:1.8rem;color:var(--cyan);font-weight:300;transition:transform .2s ease}.accordion-content{max-height:0;overflow:hidden;transition:max-height .4s ease-out;background:#070a11}.accordion-inner{padding:40px;text-align:right;border-top:1px solid rgba(255,255,255,.05)}.accordion-item.active .accordion-content{max-height:3000px}.accordion-item.active .acc-icon{transform:rotate(45deg);color:#fff}.sop-section-title{color:var(--cyan);font-size:1.3rem;font-weight:900;margin-top:30px;margin-bottom:15px;border-bottom:1px dashed rgba(0,234,255,.2);padding-bottom:10px}.sop-list{list-style:none;padding:0;margin:0 0 20px 0}.sop-list li{position:relative;padding-right:25px;margin-bottom:15px;color:#d1d1d1;font-size:1.05rem;line-height:1.9}.sop-list li::before{content:'■';position:absolute;right:0;top:0;color:var(--cyan);font-size:.8rem}.roster-wrapper{width:95%;max-width:1600px;background:#0c121e;margin:40px auto;border:1px solid rgba(0,234,255,.15);border-radius:16px;padding:20px;box-shadow:0 20px 50px rgba(0,0,0,.6);overflow-x:auto}.luxury-table{width:100%;border-collapse:separate;border-spacing:0 8px;text-align:center;font-family:Rajdhani,Tajawal,sans-serif;min-width:1100px}.luxury-table thead th{color:var(--cyan);font-size:.95rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;padding:15px;border-bottom:2px solid rgba(0,234,255,.2)}.roster-row{background:#080c14;transition:.2s ease}.roster-row:hover{background:#0f1624;border-right:3px solid var(--cyan)}.luxury-table td{padding:15px 10px;color:#d1d1d1;font-size:1.05rem;font-weight:600;border-top:1px solid rgba(255,255,255,.02);border-bottom:1px solid rgba(255,255,255,.02);white-space:nowrap}.luxury-table td:first-child{border-radius:8px 0 0 8px;border-left:3px solid var(--cyan);color:var(--cyan);font-weight:900}.luxury-table td:last-child{border-radius:0 8px 8px 0;border-right:1px solid rgba(255,255,255,.02)}.dept-header td{padding:40px 0 10px 0;text-align:left;border:none!important;background:0 0!important}.dept-title{display:inline-block;color:#fff;font-size:1.4rem;font-weight:900;letter-spacing:3px;text-transform:uppercase;padding-bottom:8px;border-bottom:2px solid var(--cyan)}.pill-status{display:inline-flex;align-items:center;gap:8px;background:rgba(0,255,106,.08);border:1px solid rgba(0,255,106,.3);color:var(--green);padding:5px 15px;border-radius:20px;font-size:.85rem;font-weight:800;text-transform:uppercase}.code-box{background:rgba(0,0,0,.5);padding:4px 10px;border-radius:6px;font-family:monospace;color:#8da2b5;border:1px solid rgba(255,255,255,.05)}.modal-overlay{position:fixed;inset:0;background:rgba(2,3,5,.9);z-index:100000;display:none;justify-content:center;align-items:center}.modal-box{width:550px;padding:40px;background:#0c121e;border:1px solid var(--cyan);border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.8);animation:popIn .2s ease-out}.gen-input{width:100%;padding:15px;background:#04070e;border:1px solid rgba(255,255,255,.1);color:#fff;margin-bottom:15px;border-radius:8px;outline:0;transition:.2s;font-family:var(--font-ar);text-align:right}.gen-input:focus{border-color:var(--cyan)}.submit-btn{padding:15px;background:var(--cyan);border:none;font-weight:900;font-size:1.2rem;border-radius:8px;cursor:pointer;color:#000;transition:.2s;width:100%;font-family:var(--font-ar)}.submit-btn:hover{background:#fff;transform:translateY(-2px)}.close-btn{background:#04070e;border:1px solid rgba(255,255,255,.1);color:#ccc;padding:15px;cursor:pointer;border-radius:8px;transition:.2s;font-weight:700;width:100%;font-family:var(--font-ar)}.close-btn:hover{border-color:var(--red);color:#fff;background:rgba(255,51,51,.1)}</style><body><script src=config.js></script><nav class=public-nav><div class=nav-right><div class=nav-logo></div><div class=nav-links><a onclick='switchTab("homeTab",this)'class=active>الرئيسية</a> <a onclick='switchTab("jobsTab",this)'>التقديم</a> <a onclick='switchTab("rosterTab",this)'>جدول العساكر</a> <a onclick='switchTab("foundersTab",this)'>المسؤولين</a> <a onclick='switchTab("rulesTab",this)'>القوانين</a></div></div><div class=nav-left><button class=sys-btn onclick='window.location.href="admin.html"'>تسجيل دخول</button></div></nav><div class=tab-content id=homeTab style=display:flex><div class=hero-section><div class=hero-content><h1>إدارة <span>الشرطة</span></h1><p>حياكم الله في سيرفر تايتنز المتخصص في الرول بلاي، نحاول جاهدين تقديم أفضل تجربة للرول بلاي في الشرق الأوسط. انضم إلينا الآن وعيش حياتك كما تريد.</p><button class=submit-btn onclick='switchTab("jobsTab",document.querySelectorAll(".nav-links a")[1])'style="width:auto;padding:15px 40px">قدم الآن</button></div></div></div><div class=tab-content id=rulesTab><div class=animated-banner><h1 class=anim-title>الدستور <span>والقوانين</span></h1></div><div class=accordion-container><div style=text-align:center;margin-bottom:40px;margin-top:20px><img src=yyW7oBx.jpg style="width:100px;height:100px;border-radius:50%;border:2px solid var(--cyan);margin-bottom:15px"><h2 style=color:#fff;font-family:var(--font-en);letter-spacing:2px;margin-bottom:5px><span style=color:var(--red)>P</span>olice <span style=color:var(--red)>D</span>epartment <span style=color:var(--red)>R</span>ules</h2><h1 style=color:var(--red);font-weight:900;margin-bottom:5px;font-size:2.2rem>قواعد الشرطة</h1><p style="color:#ccc;font-size:1.1rem;line-height:1.8;max-width:800px;margin:15px auto">شرطة لوس سانتوس تهدف لحماية النظام الأمن القومي و النظام العام وممتلكات و مناطق مدينة لوس سانتوس، و حماية المواطنين هي أولى إهتماماتنا وعلى الشرطي تنبؤ التعامل مع الحالات بالشكل الذي يناسب هيئته كشرطي و تبعاً لكتيب بروتوكولات الشرطة.</div><div class=accordion-item><div class=accordion-header onclick=toggleAccordion(this)><div class=acc-title-box><span class=acc-dot></span><span class=acc-title>1. قواعد وسلوكيات التعامل مع المواطنين</span></div><span class=acc-icon>+</span></div><div class=accordion-content><div class=accordion-inner><p style=color:#d1d1d1;line-height:1.9;margin-bottom:15px>قواعد وسلوكيات التعامل تمثل هيئة الشرطة بشكل عام أمام المجتمع من ناحية الإجراءات والحماية و التنفيذ، طرق التعامل هي الآلية التي تبرز هيئة الشرطة من طرف عناصر الشرطة.<ul class=sop-list><li>التعامل مع المواطنين يكون بحدود العمل فقط، و يكون بشكل إحترافي و رسمي دون التطرق إلى الأشياء الشخصية إذا لم يكن لها سبب كافي.<li>يحق للشرطي أخذ أي إجراء تجاه المواطن بعد وجود أدلة و أسباب كافية لفعل ذلك وتكون من ضمن الإجراءات ( التفتيش - إلقاء القبض - الحجز ..إلخ ) وهذا يعني انه لايحق الكلبشه في حاله الإستيقاف المروري.<li>طريقة التعامل مع بلاغات المواطنين من القسم تكون بعد اخذ الهوية من المواطن ومن ثم استلام البلاغ داخل مكاتب قسم مشن روو و تدوينها كـ Report فالـ MDT.<li>طريقة التعامل مع بلاغات المواطنين خارج قسم الشرطة، تكون بعد التأكد من نوع حالة البلاغ، إذا لم يكن طارئ يتم إرسال المواطن لاستقبال مركز مشن روو - و في حال كان البلاغ طارئ يتم أخذه مباشرة و التعامل بشكل مباشره مع البلاغ ، وإبلاغ الدسباتش بالحالة. (ملاحظه: يمنع استقبال البلاغ الا بعد ارسال 911).<li>قوانين الكلبشة : يمنع كلبشة الشخص الا في حال رفع يده أو في حال تيزرته أو نطحه والسيطرة عليه.<li>آلية استخدام التيزر و النطح : يحق لك صعق الشخص بعد مرور دقيقة من الهروب ومن ثم تحذيره ثلاث مرات بين كل تحذير وتحذير أخر مدة 5 ثواني.<br><br><span style=color:var(--cyan);font-weight:700>الحالات التي يحق لك استخدام التيزر مباشرة دون تحذير :</span><br>- في حال نطح الشخص لك أو عرقلتك.<br>- في حال وجود تدخل خارجي.<br>- في حال إشهار سلاح أبيض.<br>- توجه للبحر.<li>في حال وجود شخص ماسك سلاح بيده يجب عليك تحذيره وإعطائه 5 ثواني ثم إطلاق النار على أطرافه.<li>عند إلقاء القبض على أي المجرم، يتم إلقاء الحقوق عليه و يكتفي الشرطي بقول أعلى تهمة على المواطن مثل (سرقة مركبة) ، بعد ذلك يتم أخذ إجراءات السلامة و ان كان يحتاج لعناية طبية قبل دخوله لمركز الشرطة، وبعد دخوله للمركز يتم تفتيش الشخص تفتيش كامل و سحب كامل الأدوات الممنوعة و من بعد ذلك تصويره وتبصيمه و ومن ثم إعادة كلبشته و ادخاله للزنزانات و فتح كلبشاته من فتحة الباب و من ثم التعامل معاه حسب التهم الموجهة ضده.<li>الحقوق بدورها تمثل حقوق المواطن أثناء الإعتقال، وهي بالصياغة التالية :<br><br><strong style=color:var(--red)>"تم القاء القبض عليك من شرطة لوس سانتوس بتهمة ( الحالة ) يحق لك التزام الصمت أي شيء ستقوله سيتم استخدامه ضدك في المحكمة ويحق لك تعيين محامي وفي حال عدم قدرتك على تعيين محامي سيتم تعيين محامي من قبل شرطة لوس سانتوس."</strong><br><br>لذا لا يحق للشرطي تحريفها او الإخلال في ترتيبها، و يجب على الشرطي التمثل بها مهما كان المجرم ويحق للمواطن الطلب بإعادة إلقاءها كحد أقصى مرتين.<li>عند وجود مركبة مواطن متعطلة على الطريق يجب على الفرد التأكد من سلامة الحالة و الطلب من المواطن بإبعاد مركبته من الطريق ان أمكن، و من ثم طلب سطحة لنقل المركبة.<li>عند الإستيقاف المروري للمواطن يجب أن يكون الموقع آمن و تتأكد من أمانك قبل نزولك من المركبة، و من ثم إبلاغ الدسباتش و فحص المواطن و مركبته ( لا يقصد بها تفتيش المواطن ) و بعد ذلك تعرف عن نفسك و تستكمل التعامل معاه بشكل طبيعي و تبلغ الدسباتش بعد الإنتهاء من الحالة.<li>قبل التعامل مع أي موقف أو الإشتباك مع المواطن يجب عليك ذكر أنك شرطي مثل <strong style=color:var(--cyan)>( معاك الشرطة، سلم نفسك! )</strong>.<li>عند وجود حالة خطف لرهينة يجب على جميع العناصر المتواجدين فالحالة محاصرة الموقع و طلب من الدس باتش تعيين مسؤول للحالة ويجب على مسؤول الحالة تعيين مفاوض وقائد ميداني لتوزيع الوحدات والتأكد من صحة الرهينة قبل إستكمال من المفاوض و اخذ مطالب المجرمين، و بعد ذلك طلب وحدة إسعافية في حال حدث أي شي خارج الحسبان و إبعاد الوحدة عن الموقع لحين يتم إحتياجها.<li>في حال حدوث عملية اختطاف أمام الشرطي يتم تبليغ مركز العمليات بالحالة وطلب وحدة دعم ومتابعة الأشخاص مع مراعاة الحفاظ على حياة الرهينة وعدم اعتراض الأشخاص بأي شكل من الأشكال يحق للشرطي الطلب من الأشخاص تحديد موقع للتفاوض.</ul></div></div></div><div class=accordion-item><div class=accordion-header onclick=toggleAccordion(this)><div class=acc-title-box><span class=acc-dot></span><span class=acc-title>2. مصطلحات عامة وأولوية الحالات</span></div><span class=acc-icon>+</span></div><div class=accordion-content><div class=accordion-inner><div class=sop-section-title>2.1 مصطلحات عامة مهمة</div><ul class=sop-list><li><strong style=color:var(--cyan)>الدس باتش :</strong> هو مركز تنظيمي وتوجيهي لكافة الوحدات المتواجدة في الميدان ويعتبر موجه للعمليات بمتابعة الحالات والإستعلام للوحدات وتوجيه الدعم الكافي للحالة . موجه العمليات يجب ان يكون شخص ذو كفاءة للتواصل مع الوحدات ويجب ان يكون متواجد في القسم ويتابع من خلال غرفة العمليات.<li><strong style=color:var(--cyan)>نائب موجه العمليات :</strong> يكون وسيلة مساعدة لموجه العمليات في عملية التوزيع والتنظيم (بالاتفاق مع الدس باتش) وله وتولي المسؤولية في العمليات في حال عدم قدرة الدس باتش على التبليغ بعد غياب الدس باتش الأساسي عن عدم الرد لمدة دقيقتين لتحول العمليات بشكل كامل مع النائب (يقع عليه ان يكون متواجد في القسم).<li><strong style=color:var(--cyan)>مسؤول الحالة :</strong> هو شخص يقوم بتنظيم وقيادة أي حالة جنائية تستوجب توزيع وتنظيم في الموقع ويتم تعيينه من قبل العمليات أو يكون أعلى رتبة متواجدة في الموقع ويقوم بتعيين القائد الميداني، لتوزيع الوحدات في المطاردة الخ ..وتنسيق طوقنا لعين المفاوض في الحالة ويكون المسؤول عن الحالة أمام إدارة الشرطة ولا يحق لأي وحدة التدخل في مهام مسؤول الحالة.<li><strong style=color:var(--cyan)>المفاوض :</strong> هو وسيلة تواصل بين الشرطة والمجرمين للوصول لحل سلمي، يتم تعيين المفاوض من مسؤول الحالة ويجب ان يكون ذو خبرة بالتفاوض.. بعد ان يتوصل المفاوض لحل مع المجرمين يتوجب عليه طرحه لمسؤول الحالة لأخذ الموافقة بصفته المتحكم بالحالة. (تنبيه : يجب في كل حالة ان يكون مسؤول الحالة منفصل عن المفاوض).<li><strong style=color:var(--cyan)>(مسؤول الفترة) :</strong> هو أعلى رتبة في الميدان ويكون مشرف على كافة الحالات التي في الميدان وفي حال أحد المواطنين طلب سوبرفايزر او مسؤول الفترة ، يتوجب عليه التخاطب والتعامل مع المواطن وحل مشكلته ، ويحق للسوبرفايزر رفع تقارير عن أخطاء الأفراد الى أعضاء الشؤون الداخلية.</ul><div class=sop-section-title>8.1 أولوية التعامل مع الحالات</div><ul class=sop-list><li>يتم التعامل مع الحالات حسب الأولوية 1: شرطي أطلق النار وله أولوية إسترداد جميع الطاقات والتوجه للحالة الأهم فالأهم بعد توجيه الدس باتش فقط.</ul></div></div></div><div class=accordion-item><div class=accordion-header onclick=toggleAccordion(this)><div class=acc-title-box><span class=acc-dot></span><span class=acc-title>3. قواعد وسلوكيات التعامل مع أفراد الشرطة</span></div><span class=acc-icon>+</span></div><div class=accordion-content><div class=accordion-inner><ul class=sop-list><li>الإحترام بين أفراد الشرطة وعدم التسلط على الرتب الأقل منك مهما كانت الرتبة، و التحية للرتبة الأعلى تكون بموجب إبداء الإحترام داخل أقسام الشرطة فقط ويمنع تأدية التحية العسكرية داخل الميدان.<li>الجدية في العمل وعدم أخذ الوظيفة على محمل كوميدي.<li>يمنع منعاً باتاً الإعتداء على عناصر الشرطة مهما كانت الرتبة و الأسباب، وأيضاً يمنع إستخدام الأسلحة الموجعة أو النارية أو الكهربائية تجاه أي عنصر من عناصر الشرطة بأي شكل من الأشكال.<li>يحق لمن هم برتبة Sergeant وفوق إقامة نقاط تفتيش بعد أخذ الإذن من الـ Supervisor أو مسؤول الفترة.<li>عند وجود أسلحة أوتوماتيكية ( Class 2 ) يسمح بإخراج السلاح الثقيل.<li>عدم اخراج السلاح الناري او التيزر الا لسبب واضح.<li>عدم عصيان أوامر الرتب العليا.<li>عدم تجاوز التسلسل القيادي <strong style=color:var(--red)>(Chain of Command)</strong>.<li>في حال إلقاء القبض على شخص وتم توجيهك من قبل مسؤول الحالة يجب عليك التعامل معه وعدم تسليم الحالة لأي شخص كان مهما كانت رتبتك.<li>يجب إغلاق القسم والأبواب والتأكد بعد دخولك وخروجك، ويمنع إغلاق باب الاستقبال.<li>في حين هروب مجرم للبحر يحق لك عرقلته كل 10 ثواني فقط واخذ الموضع المناسب لكلبشته بشكل مناسب.<li>يحق لك تفتيش المواطن في الحالات التالية فقط:<br><br>- داخل قسم الشرطة في حال ثبت عليه قضية جنائية فقط.<br>- تواجده في موقع بيع ممنوعات أو موقع إطلاق نار.<br>- اشتباه في موقع سرقة بوجود أدلة فقط.<br>- عندما يكون رهينة وتم تحريره، ويمنع مصادرة أى سلاح مصرح لدى الرهينة.</ul></div></div></div><div class=accordion-item><div class=accordion-header onclick=toggleAccordion(this)><div class=acc-title-box><span class=acc-dot></span><span class=acc-title>4. المطاردات وحالات الإجرام</span></div><span class=acc-icon>+</span></div><div class=accordion-content><div class=accordion-inner><div class=sop-section-title>4.1 قواعد و سلوكيات التعامل مع حالات المطاردة</div><p style=color:var(--red);font-weight:700;margin-bottom:15px>- يحق للشرطي صدم المركبة فقط في :<ul class=sop-list><li>في حال وجود تدخل خارجي، للشرطة التعامل بشكل رادع او تعريض حياة الشرطي للخطر ومحاولة صدمه وإسقاطه يحق للشرطة بدون تحذير التدخل الخارجي في حال شفاع الحالات البعد بـ ( اطلاق النار مباشره على المركبه وتعطيلها بشكل كامل ) بمعنى تكسير جميع الكفرات على التدخل الخارجي.<br><br>بعد مرور 5 دقائق على المطاردة واخذ الاذن من الدسباتش وبموجب سحبه ويكون بين كل صدمه واخرى 10 ثانية تحت سرعة 130 ( يطبق النظام على المطاردة في حال عدم وجود رهينه ).<li>اثناء مطاردة المجرم وتعمد صدم المركبة يحق للشرطة البدء بالصدم الإحترافي بشكل مباشر وان يكون بين كل صدمه وصدمه اخرى 10 ثواني.<li>في حال مركبة المشتبه ( محرك لا يعمل ) يمنع الصدم بشكل نهائي.<li>يحق للشرطة إطلاق النار على مركبة المواطن فقط في حالتين:<br>- إذا قام المواطن بإطلاق النار على دوريات الشرطة أو المواطنين.<br>- إذا حاول الشخص أو قام بدهس أحد عناصر الشرطة و تسبب بضرر لعناصر الشرطة (بشكل عمد).</ul><div class=sop-section-title>5.1 قواعد و سلوكيات التعامل في حالات الإجرام</div><p style=color:var(--red);font-weight:700;margin-bottom:15px;line-height:1.8>في حال وجود جثث يقوم مسؤول الحالة طلب وحدة اسعافية لإستخراج الجثث و يرفع الادلة من الموقع وتأخذ الشرطة إلى المستشفى للتأكد من سلامتهم والتحقيق عن وجود معلومات إضافية عن القضية في القسم وتعطى الوحدة الاسعافية محصورة في هذا الدور ويمنع مشاركتها في المطاردة نهائيا.<ul class=sop-list><li>تعامل صارم مع مسلحين داخل حالة في مناطق مختلفة او متواجدين بالقرب من الوحدات المتواجدة للحالة أولا ان تأخذ مساحة امنه قبل التدخل في الإشتباك، و تؤمن محيط الموقع من المواطنين او تداهم الموقع دون الإشتباك مع أي شخص إلا في حاله ان هذا الشخص أطلق على شرطي، يؤمن المشتبه و من ثم تستلم الوحدات و توثيق الحالة كامل ويمنع إحتجاز تام في الموقع، لحين خروج المجموعه المشتبه و محاوله خروجهم من الموقع، و تقوم الوحدات بتقسيم نفسها (إلى قسم يطارد المجموعه و القسم الاخر يؤمن الموقع - و في حالات معينه يمكن ادراج وحدة دعم بدون انتبهالمجموعه لإتخاذ السموم و تحديد عدد الأشخاص.<li>في حال تم توجيهات من قبل مسؤول الحالة بفك التفاوض و الانسحاب للموقع وتغيير الخطة من قبل مباشر بأنه يفك التفاوض و يعلن عن حالات سلاح مستمر يتم فك التفاوض.<li>يمنع تغطية المجرم المصاب اثناء الحاله (لا تتعامل معه).</ul></div></div></div><div class=accordion-item><div class=accordion-header onclick=toggleAccordion(this)><div class=acc-title-box><span class=acc-dot></span><span class=acc-title>5. الطاقم الطبي وقواعد وسلوكيات عامة</span></div><span class=acc-icon>+</span></div><div class=accordion-content><div class=accordion-inner><div class=sop-section-title>2.1 قواعد و سلوكيات التعامل مع أفراد الطاقم الطبي</div><ul class=sop-list><li>إحترام التعامل مع عناصر الإسعاف و أفراد الطاقم الطبي، لضمان التوافق وتحديد المختص بما يخص الشروط، الإجراءات، أو الإستفسار الطبي في الحالات التي تستدعي إلى تدخلهم.<li>عند إحتياج الشرطة لوحدة طبية للتدخل الشرطي، الدخول إلى مركز الإسعاف والتوجيه يتم التواصل عبر تطبيقهم بارسال طلب 997، إلا في حال الحاجه لعمل إنعاش لعدد 32 ثانيه او مساعده عاجله (997).<li>عند إمتناع الطاقم الطبي إلى الموقع يقوم الـ Dispatch بإرسال البلاغ فورا وتحديد من الموقع و يقوم بتوجيه بتأمين الموقع و المحافظة على السلام.<li>يمنع على الشرطي، الإتصال بمسعف أو التواصل مع أفراد الطاقم الطبي داخل المستشفى والتواصل معهم إلا في حال إحتياج دعم ( إسعاف على رأس العمل، يتم طلبهم عبر تطبيق 997 لمساعدة الأشخاص المصابين ولا يجوز للشرطي، نقل الحالات بنفسه إلى المستشفى ).</ul><div class=sop-section-title>6.1 قواعد وسلوكيات عامة</div><ul class=sop-list><li>عند بدايه دوامك يجب ان تتأكد من ممتلكاتك بشكل كامل و تضمن جاهزيته للعمل.<li>قبل نزولك للميدان تأكد من جميع الـ Records لمعلوماتك أثناء دوامك عند تعاملك مع أي مواطن.<li>ترك الخلافات لأهل الاختصاص إذا لم تكن لك صلاحية او يوجد عائق أعلى بالاختصاص حسب توجيه الدس باتش بفك الخلاف.<li>عدم التعمق بصفة او استمارة معلومات للمواطنين لأي سبب كان.<li>يمنع التجاوز او بيع اي إسعاف معدات لجهة للمواطنين أو المسعفين.<li>يطمح الدسباتش عند مناشدة أي حاله بعد طلب الاذن او عند التعامل مع أي حاله.<li>عند مباشرتك لحاله يجب عليك جمع الادلة و توثيقها بالقسم المختص بالديسكورد.<li><strong style=color:var(--cyan)>الـ Reports:</strong> هي تقارير للحوادث قد حصلت و تم تحليلها من قبل الضابط و يتم جمع الأدلة والتحقيق فيها.<li><strong style=color:var(--cyan)>الـ Incidents:</strong> هي تقارير للحوادث قد حصلت و تم إلقاء القبض على فاعلها.<li><strong style=color:var(--cyan)>الـ BOLOs:</strong> هي تقارير تخص بالمطلوبات ( المبحوث عنه / المطلوبة ).<li>عدم طاعتك للتجاوز عند كل حاله مهمه وحسب توجيه مسؤول الحالة بشكل كامل وبواضح مع سرعة الاستجابة.<li>يمنع منعا باتا تخفيف العقوبة على المواطن أكثر من 25% من المخالفات و مدة السجن يجب اخذ الاذن من مسؤول الحاله ( شامل للاحوال ).<li>عدم الإلتزام بمعدات و موترات المخصصه برتبتك ( الزي، سيارات ..... ).<li>يجوز للشرطي طلب إجازة مده أقصاها 10 يوم، و يتأكد من ذلك عند إعطاء الإدارة الشؤون الداخليه.<li>إذا تم نقل رتبه للشرطه بشكل متعمد يتم استبعاد دون أي عذر وبدون إدارة الشؤون اخذ الإجراءات للشرطه و قد تؤدي إلى الإستبعاد أو الفصل النهائي من الشرطة.</ul></div></div></div><div class=accordion-item><div class=accordion-header onclick=toggleAccordion(this)><div class=acc-title-box><span class=acc-dot></span><span class=acc-title>6. اللجان الرسمية والخروج عن الخدمة</span></div><span class=acc-icon>+</span></div><div class=accordion-content><div class=accordion-inner><div class=sop-section-title>7.1 لجان الشرطة الرسمية</div><ul class=sop-list><li><strong style=color:var(--cyan)>الإدارة العليا :</strong> هي مختصة بإدارة جميع الإدارات و تطوير المنظوم ككل، لعمل الإدارات الاخرى والتعامل مع بعض الحالات كالترقيات و الشكاوى على الوزارات والتحقيقات الداخلية والتحقيقات الرسمية.<li><strong style=color:var(--cyan)>إدارة ممثلة بأعضائها و رئيسها ونائبه هي الشؤون الداخلية (Internal Affairs) :</strong> هي المسؤولة عن شؤون الأفراد وإعداد العقوبات الإدارية بحقهم والتعامل مع الشكاوي المقدمه.<li><strong style=color:var(--cyan)>إدارة الأكاديمية ممثلة بمديرها ورئيسها ونائبة هي الأكاديمية (Field Training Officer) :</strong> التدريب هي لجنة مسؤولة عن القبول والتسجيل وتدريب المستجدين والاختبارات وتقييمهم وإعداد الدورات والتدريبات العامة.</ul><div class=sop-section-title>8.1 قواعد و سلوكيات الخروج عن الخدمة</div><ul class=sop-list><li>عدم التدخل في أي حالة جنائية إلا لو كانت حالة سلمية ولا يوجد أفراد شرطة فالموقع بعد اخذ الاذن منهم.<li>أثناء تواجدك خارج الخدمة لا يعني أنك أصبحت مواطن، بل أنت مازلت تابع لنظام الشرطة و لكن أي أمر جنائي يحصل موجه لك ( سرقة - سطو - إطلاق نار ) يجب عليك أن تختار مسار من انت تدافع عن الموقع و تطلب دعم عناصر بمهمة شرطي.<li>لا يحق لك لبس الماسك ( القناع ) إلا في حال وافقت عليه منظمة طبيا لعذر/توجيه أمني وايضا إذا طلبت في مهمة رسمية لضمان معرفة الموجودين انك شرطي.</ul></div></div></div></div></div><div class=tab-content id=jobsTab><div class=animated-banner><h1 class=anim-title>بوابات <span>التقديم</span></h1></div><h2 style=margin-top:40px class=community-title>التقديم على الوظائف</h2><div class=cards-container><div class=lux-card><h3>شرطة تايتنز</h3><p>تقديم منتسبين شرطة تايتنز (L.S.P.D)، نهدف لتقديم أعلى معايير الأمن.<div id=btn-police-wrapper><button class=submit-btn onclick='document.getElementById("appModal").style.display="flex"'>تقديم</button></div></div><div class=lux-card><h3>قدم نفسك</h3><p>هل لديك مهارات فريدة؟ قدم نفسك لنا وارفق سيرتك الذاتية.<div id=btn-self-wrapper><button class=submit-btn onclick='document.getElementById("selfAppModal").style.display="flex"'>تقديم</button></div></div></div></div><div class=tab-content id=foundersTab><div class=animated-banner><h1 class=anim-title>مسؤولين <span>الشرطة</span></h1></div><div class=cards-container style=margin-top:40px><div class=lux-card><img src="https://cdn.discordapp.com/avatars/1242594305508376738/10f20a4533d8f6a277c2c5af58d9fcd7.webp?size=1024"class=founder-img onerror='this.src="yyW7oBx.jpg"'><h3 style=color:#fff>جاهد المجاهد</h3><div style=color:var(--cyan);font-family:var(--font-en);font-weight:700>Minister of Interior</div></div><div class=lux-card><img src="https://cdn.discordapp.com/avatars/930773715845775362/0c88052b5de3fa22a53d45384f6d0d96.webp?size=1024"class=founder-img onerror='this.src="yyW7oBx.jpg"'><h3 style=color:#fff>محمد المطيري</h3><div style=color:var(--cyan);font-family:var(--font-en);font-weight:700>Deputy Minister of Interior</div></div><div class=lux-card><img src=yyW7oBx.jpg class=founder-img><h3 style=color:#fff>جون هنتر</h3><div style=color:var(--cyan);font-family:var(--font-en);font-weight:700>A. Minister of Interior</div></div><div class=lux-card><img src="https://cdn.discordapp.com/avatars/936671728388673586/a5f7938ee0a9e3a3f806243ae366dc3e.webp?size=1024"class=founder-img onerror='this.src="yyW7oBx.jpg"'><h3 style=color:#fff>فيكاريو اسلا</h3><div style=color:var(--cyan);font-family:var(--font-en);font-weight:700>L.S.P.D Chief</div></div></div></div><div class=tab-content id=rosterTab><div class=animated-banner><h1 class=anim-title>جدول <span>العساكر</span></h1></div><div class="allow-select roster-wrapper"><table class=luxury-table><thead><tr><th>Code<th>Name<th>Rank<th>Responsibility<th>Status<th>Strikes<th>Last Prom<th>F.P<th>Discord ID<th>Notes<tbody id=publicRosterBody><tr><td colspan=10 style=padding:50px;color:#888;text-align:center>جاري تحميل البيانات...</table></div></div><div class=modal-overlay id=appModal><div class=modal-box><h3 style=color:var(--cyan);margin-bottom:20px;font-size:1.5rem;text-align:center>نموذج تقديم شرطة تايتنز</h3><input class=gen-input id=appName placeholder="الاسم الشخصي (داخل اللعبة)"> <input class=gen-input id=appDiscord placeholder="حساب الديسكورد (Discord ID)"> <input class=gen-input id=appAge placeholder="العمر الحقيقي"type=number> <textarea class=gen-input id=appExp placeholder="الخبرات السابقة..."style=height:80px;resize:none></textarea><div style=display:flex;gap:15px;margin-top:15px><button class=submit-btn onclick='submitApp("police")'style=flex:2;margin:0>إرسال التقديم</button> <button class=close-btn onclick='document.getElementById("appModal").style.display="none"'style=flex:1;margin:0>إلغاء</button></div></div></div><div class=modal-overlay id=selfAppModal><div class=modal-box><h3 style=color:var(--cyan);margin-bottom:20px;font-size:1.5rem;text-align:center>نموذج "قدم نفسك"</h3><input class=gen-input id=selfName placeholder="الاسم الشخصي"> <input class=gen-input id=selfDiscord placeholder="حساب الديسكورد"> <input class=gen-input id=selfAge placeholder="العمر الحقيقي"type=number> <textarea class=gen-input id=selfExp placeholder="الخبرات والمهارات..."style=height:80px;resize:none></textarea><div style=display:flex;gap:15px;margin-top:15px><button class=submit-btn onclick='submitApp("self")'style=flex:2;margin:0>إرسال التقديم</button> <button class=close-btn onclick='document.getElementById("selfAppModal").style.display="none"'style=flex:1;margin:0>إلغاء</button></div></div></div><div class=modal-overlay id=customAlertOverlay><div class=modal-box style=width:400px;text-align:center><div id=alertIcon style=font-size:4rem;margin-bottom:20px></div><h3 style=color:#fff;font-size:1.8rem;font-weight:700;margin-bottom:15px id=alertTitle>تنبيه</h3><p style=color:#aaa;font-size:1.1rem;line-height:1.6;margin-bottom:30px id=alertMessage>رسالة التنبيه</p><button class=submit-btn onclick='document.getElementById("customAlertOverlay").style.display="none"'>حسناً</button></div></div><script>const publicOfficersList = ["Minister of Interior", "Deputy Minister of Interior", "A. Minister of Interior", "Police Commander", "L.S.P.D Chief", "Deputy L.S.P.D Chief", "A' Lspd Chief", "High Commander", "General", "Colonel", "Major", "Captain", "First Lieutenant", "Lieutenant"];
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إدارة الشرطة | L.S.P.D</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=Rajdhani:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-database-compat.js"></script>
+
+    <script>
+        document.addEventListener('contextmenu', event => event.preventDefault());
+        document.onkeydown = function(e) {
+            if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 'I'.charCodeAt(0) || e.keyCode == 'C'.charCodeAt(0) || e.keyCode == 'J'.charCodeAt(0))) || (e.ctrlKey && (e.keyCode == 'U'.charCodeAt(0) || e.keyCode == 'S'.charCodeAt(0)))) return false;
+        }
+    </script>
+
+    <style>
+        :root {
+            --bg-deep: #04070e;
+            --cyan: #00eaff;
+            --cyan-glow: rgba(0, 234, 255, 0.3);
+            --red: #ff3333;
+            --green: #00ff6a;
+            --yellow: #ffc107;
+            --text-main: #ffffff;
+            --font-ar: 'Tajawal', sans-serif;
+            --font-en: 'Rajdhani', sans-serif;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; outline: none; }
+        
+        /* 🟢 إخفاء الماوس الافتراضي لتشغيل الماوس المخصص 🟢 */
+        body { 
+            user-select: none; cursor: none;
+            background: var(--bg-deep) radial-gradient(circle at top, rgba(0,234,255,.05) 0, transparent 60%) no-repeat fixed; 
+            color: var(--text-main); font-family: var(--font-ar); 
+            min-height: 100vh; overflow-x: hidden; 
+        }
+        
+        /* تطبيق إخفاء الماوس على كل العناصر القابلة للضغط */
+        .allow-select *, input, select, textarea, a, button, .lux-card, .accordion-header { 
+            user-select: text !important; font-family: var(--font-ar); cursor: none !important; 
+        }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes popIn { 0% { opacity: 0; transform: scale(.95); } 100% { opacity: 1; transform: scale(1); } }
+
+        /* =========================================
+           النجوم السماوية والماوس المخصص (خفيفة جداً)
+        ========================================= */
+        #particles-container { position: fixed; inset: 0; z-index: -1; pointer-events: none; }
+        .particle { position: absolute; background: var(--cyan); border-radius: 50%; animation: floatParticle linear infinite; opacity: 0; box-shadow: 0 0 5px var(--cyan); }
+        @keyframes floatParticle { 0% { transform: translateY(0); opacity: 0; } 10% { opacity: 0.15; } 90% { opacity: 0.15; } 100% { transform: translateY(-100vh); opacity: 0; } }
+
+        #cursor-pointer { position: fixed; width: 6px; height: 6px; background-color: var(--cyan); border-radius: 50%; pointer-events: none; z-index: 99999; transform: translate(-50%, -50%); box-shadow: 0 0 10px var(--cyan); transition: width 0.15s, height 0.15s; }
+        #cursor-trail { position: fixed; width: 30px; height: 30px; border: 1.5px solid rgba(0, 234, 255, 0.1); border-radius: 50%; pointer-events: none; z-index: 99998; transform: translate(-50%, -50%); transition: 0.1s ease-out, width 0.15s, height 0.15s; }
+        /* ========================================= */
+
+        /* شريط التنقل */
+        .public-nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 80px; background: #070b14; border-bottom: 1px solid rgba(0,234,255,.1); position: sticky; top: 0; z-index: 9999; }
+        .nav-right { display: flex; align-items: center; gap: 40px; }
+        .nav-logo { width: 45px; height: 45px; background: url('yyW7oBx.jpg') center/cover; border-radius: 50%; border: 1px solid var(--cyan); }
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links a { color: #8da2b5; text-decoration: none; font-size: 1.05rem; font-weight: 700; transition: .2s; }
+        .nav-links a.active, .nav-links a:hover { color: #fff; text-shadow: 0 0 10px rgba(255,255,255,.5); }
+        .sys-btn { background: transparent; border: 1px solid var(--cyan); color: var(--cyan); padding: 10px 25px; border-radius: 6px; font-weight: 700; font-size: 1rem; transition: .2s; text-decoration: none; }
+        .sys-btn:hover { background: var(--cyan); color: #000; box-shadow: 0 0 15px var(--cyan-glow); }
+
+        .tab-content { display: none; flex-direction: column; align-items: center; width: 100%; padding-bottom: 100px; animation: fadeIn .3s ease; }
+        
+        /* الرئيسية */
+        .hero-section { display: flex; align-items: center; justify-content: center; min-height: calc(100vh - 90px); width: 100%; }
+        .hero-content { text-align: center; max-width: 800px; padding: 40px; }
+        .hero-content h1 { font-size: 5rem; color: #fff; font-weight: 900; margin-bottom: 20px; text-shadow: 0 0 20px rgba(0,234,255,.3); }
+        .hero-content h1 span { color: var(--cyan); }
+        .hero-content p { font-size: 1.25rem; color: #ccc; line-height: 1.8; margin-bottom: 40px; }
+        
+        .animated-banner { width: 100%; padding: 80px 20px; text-align: center; border-bottom: 1px solid rgba(255,255,255,.05); }
+        .anim-title { font-size: 3.5rem; color: #fff; font-weight: 800; margin-bottom: 10px; text-shadow: 0 0 20px rgba(0,234,255,.3); }
+        .anim-title span { color: var(--cyan); }
+        
+        /* الكروت */
+        .community-title { font-size: 3rem; color: #fff; font-weight: 800; margin: 40px 0 20px 0; text-align: center; }
+        .cards-container { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; max-width: 1200px; margin: 0 auto; }
+        .lux-card { background: #0c121e; border: 1px solid rgba(0,234,255,.15); border-radius: 12px; padding: 40px 30px; width: 350px; text-align: center; transition: .2s; box-shadow: 0 10px 30px rgba(0,0,0,.5); }
+        .lux-card:hover { border-color: var(--cyan); transform: translateY(-5px); }
+        .lux-card h3 { color: #fff; font-size: 1.6rem; font-weight: 700; margin-bottom: 15px; }
+        .lux-card p { color: #888; font-size: 1rem; line-height: 1.7; margin-bottom: 30px; }
+        .founder-img { width: 130px; height: 130px; border-radius: 50%; margin: 0 auto 25px; border: 3px solid var(--cyan); object-fit: cover; padding: 5px; }
+
+        /* القوانين */
+        .accordion-container { width: 100%; max-width: 900px; padding: 0 20px; margin-top: 40px; }
+        .accordion-item { margin-bottom: 12px; border-radius: 8px; background: #0c121e; border: 1px solid rgba(0,234,255,.15); transition: .2s; }
+        .accordion-header { display: flex; justify-content: space-between; align-items: center; padding: 25px 30px; transition: .2s; flex-direction: row-reverse; }
+        .acc-title-box { display: flex; align-items: center; gap: 15px; flex-direction: row-reverse; }
+        .acc-dot { width: 12px; height: 12px; background: var(--cyan); border-radius: 50%; box-shadow: 0 0 10px var(--cyan); }
+        .acc-title { font-size: 1.3rem; font-weight: 900; color: var(--cyan); text-align: right; }
+        .acc-icon { font-size: 1.8rem; color: var(--cyan); font-weight: 300; transition: transform .2s ease; }
+        .accordion-content { max-height: 0; overflow: hidden; transition: max-height .4s ease-out; background: #070a11; }
+        .accordion-inner { padding: 40px; text-align: right; border-top: 1px solid rgba(255,255,255,.05); }
+        .accordion-item.active .accordion-content { max-height: 3000px; }
+        .accordion-item.active .acc-icon { transform: rotate(45deg); color: #fff; }
+        .sop-section-title { color: var(--cyan); font-size: 1.3rem; font-weight: 900; margin-top: 30px; margin-bottom: 15px; border-bottom: 1px dashed rgba(0,234,255,.2); padding-bottom: 10px; }
+        .sop-list { list-style: none; padding: 0; margin: 0 0 20px 0; }
+        .sop-list li { position: relative; padding-right: 25px; margin-bottom: 15px; color: #d1d1d1; font-size: 1.05rem; line-height: 1.9; }
+        .sop-list li::before { content: '■'; position: absolute; right: 0; top: 0; color: var(--cyan); font-size: .8rem; }
+
+        /* الجدول */
+        .roster-wrapper { width: 95%; max-width: 1600px; background: #0c121e; margin: 40px auto; border: 1px solid rgba(0,234,255,.15); border-radius: 16px; padding: 20px; box-shadow: 0 20px 50px rgba(0,0,0,.6); overflow-x: auto; }
+        .luxury-table { width: 100%; border-collapse: separate; border-spacing: 0 8px; text-align: center; font-family: var(--font-en), var(--font-ar); min-width: 1100px; }
+        .luxury-table thead th { color: var(--cyan); font-size: .95rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; padding: 15px; border-bottom: 2px solid rgba(0,234,255,.2); }
+        .roster-row { background: #080c14; transition: .2s ease; }
+        .roster-row:hover { background: #0f1624; border-right: 3px solid var(--cyan); }
+        .luxury-table td { padding: 15px 10px; color: #d1d1d1; font-size: 1.05rem; font-weight: 600; border-top: 1px solid rgba(255,255,255,.02); border-bottom: 1px solid rgba(255,255,255,.02); white-space: nowrap; }
+        .luxury-table td:first-child { border-radius: 8px 0 0 8px; border-left: 3px solid var(--cyan); color: var(--cyan); font-weight: 900; }
+        .luxury-table td:last-child { border-radius: 0 8px 8px 0; border-right: 1px solid rgba(255,255,255,.02); }
+        .dept-header td { padding: 40px 0 10px 0; text-align: left; border: none !important; background: transparent !important; }
+        .dept-title { display: inline-block; color: #fff; font-size: 1.4rem; font-weight: 900; letter-spacing: 3px; text-transform: uppercase; padding-bottom: 8px; border-bottom: 2px solid var(--cyan); }
+        .pill-status { display: inline-flex; align-items: center; gap: 8px; background: rgba(0,255,106,.08); border: 1px solid rgba(0,255,106,.3); color: var(--green); padding: 5px 15px; border-radius: 20px; font-size: .85rem; font-weight: 800; text-transform: uppercase; }
+        .code-box { background: rgba(0,0,0,.5); padding: 4px 10px; border-radius: 6px; font-family: monospace; color: #8da2b5; border: 1px solid rgba(255,255,255,.05); }
+
+        /* النوافذ والأزرار */
+        .modal-overlay { position: fixed; inset: 0; background: rgba(2,3,5,.9); z-index: 100000; display: none; justify-content: center; align-items: center; }
+        .modal-box { width: 550px; padding: 40px; background: #0c121e; border: 1px solid var(--cyan); border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,.8); animation: popIn .2s ease-out; }
+        .gen-input { width: 100%; padding: 15px; background: #04070e; border: 1px solid rgba(255,255,255,.1); color: #fff; margin-bottom: 15px; border-radius: 8px; transition: .2s; text-align: right; }
+        .gen-input:focus { border-color: var(--cyan); }
+        .submit-btn { padding: 15px; background: var(--cyan); border: none; font-weight: 900; font-size: 1.2rem; border-radius: 8px; color: #000; transition: .2s; width: 100%; }
+        .submit-btn:hover { background: #fff; transform: translateY(-2px); }
+        .close-btn { background: #04070e; border: 1px solid rgba(255,255,255,.1); color: #ccc; padding: 15px; border-radius: 8px; transition: .2s; font-weight: 700; width: 100%; }
+        .close-btn:hover { border-color: var(--red); color: #fff; background: rgba(255,51,51,.1); }
+    </style>
+</head>
+<body>
+
+    <div id="particles-container"></div>
+    <div id="cursor-pointer"></div>
+    <div id="cursor-trail"></div>
+
+    <script src="config.js"></script>
+
+    <nav class="public-nav">
+        <div class="nav-right">
+            <div class="nav-logo"></div>
+            <div class="nav-links">
+                <a onclick="switchTab('homeTab', this)" class="active hover-target">الرئيسية</a> 
+                <a onclick="switchTab('jobsTab', this)" class="hover-target">التقديم</a> 
+                <a onclick="switchTab('rosterTab', this)" class="hover-target">جدول العساكر</a> 
+                <a onclick="switchTab('foundersTab', this)" class="hover-target">المسؤولين</a> 
+                <a onclick="switchTab('rulesTab', this)" class="hover-target">القوانين</a>
+            </div>
+        </div>
+        <div class="nav-left">
+            <button class="sys-btn hover-target" onclick="window.location.href='admin.html'">تسجيل دخول</button>
+        </div>
+    </nav>
+
+    <div class="tab-content" id="homeTab" style="display: flex;">
+        <div class="hero-section">
+            <div class="hero-content">
+                <h1>إدارة <span>الشرطة</span></h1>
+                <p>حياكم الله في سيرفر تايتنز المتخصص في الرول بلاي، نحاول جاهدين تقديم أفضل تجربة للرول بلاي في الشرق الأوسط. انضم إلينا الآن وعيش حياتك كما تريد.</p>
+                <button class="submit-btn hover-target" onclick="switchTab('jobsTab', document.querySelectorAll('.nav-links a')[1])" style="width: auto; padding: 15px 40px;">قدم الآن</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="tab-content" id="rulesTab">
+        <div class="animated-banner"><h1 class="anim-title">الدستور <span>والقوانين</span></h1></div>
+        <div class="accordion-container">
+            <div style="text-align: center; margin-bottom: 40px; margin-top: 20px;">
+                <img src="yyW7oBx.jpg" style="width: 100px; height: 100px; border-radius: 50%; border: 2px solid var(--cyan); margin-bottom: 15px;">
+                <h2 style="color: #fff; font-family: var(--font-en); letter-spacing: 2px; margin-bottom: 5px;"><span style="color: var(--red);">P</span>olice <span style="color: var(--red);">D</span>epartment <span style="color: var(--red);">R</span>ules</h2>
+                <h1 style="color: var(--red); font-weight: 900; margin-bottom: 5px; font-size: 2.2rem;">قواعد الشرطة</h1>
+                <p style="color: #ccc; font-size: 1.1rem; line-height: 1.8; max-width: 800px; margin: 15px auto;">شرطة لوس سانتوس تهدف لحماية النظام الأمن القومي و النظام العام وممتلكات و مناطق مدينة لوس سانتوس، و حماية المواطنين هي أولى إهتماماتنا وعلى الشرطي تنبؤ التعامل مع الحالات بالشكل الذي يناسب هيئته كشرطي و تبعاً لكتيب بروتوكولات الشرطة.</p>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header hover-target" onclick="toggleAccordion(this)">
+                    <div class="acc-title-box"><span class="acc-dot"></span><span class="acc-title">1. قواعد وسلوكيات التعامل مع المواطنين</span></div>
+                    <span class="acc-icon">+</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="accordion-inner">
+                        <p style="color: #d1d1d1; line-height: 1.9; margin-bottom: 15px;">قواعد وسلوكيات التعامل تمثل هيئة الشرطة بشكل عام أمام المجتمع من ناحية الإجراءات والحماية و التنفيذ، طرق التعامل هي الآلية التي تبرز هيئة الشرطة من طرف عناصر الشرطة.</p>
+                        <ul class="sop-list">
+                            <li>التعامل مع المواطنين يكون بحدود العمل فقط، و يكون بشكل إحترافي و رسمي دون التطرق إلى الأشياء الشخصية إذا لم يكن لها سبب كافي.</li>
+                            <li>يحق للشرطي أخذ أي إجراء تجاه المواطن بعد وجود أدلة و أسباب كافية لفعل ذلك وتكون من ضمن الإجراءات ( التفتيش - إلقاء القبض - الحجز ..إلخ ) وهذا يعني انه لايحق الكلبشه في حاله الإستيقاف المروري.</li>
+                            <li>طريقة التعامل مع بلاغات المواطنين من القسم تكون بعد اخذ الهوية من المواطن ومن ثم استلام البلاغ داخل مكاتب قسم مشن روو و تدوينها كـ Report فالـ MDT.</li>
+                            <li>طريقة التعامل مع بلاغات المواطنين خارج قسم الشرطة، تكون بعد التأكد من نوع حالة البلاغ، إذا لم يكن طارئ يتم إرسال المواطن لاستقبال مركز مشن روو - و في حال كان البلاغ طارئ يتم أخذه مباشرة و التعامل بشكل مباشره مع البلاغ ، وإبلاغ الدسباتش بالحالة. (ملاحظه: يمنع استقبال البلاغ الا بعد ارسال 911).</li>
+                            <li>قوانين الكلبشة : يمنع كلبشة الشخص الا في حال رفع يده أو في حال تيزرته أو نطحه والسيطرة عليه.</li>
+                            <li>آلية استخدام التيزر و النطح : يحق لك صعق الشخص بعد مرور دقيقة من الهروب ومن ثم تحذيره ثلاث مرات بين كل تحذير وتحذير أخر مدة 5 ثواني.<br><br><span style="color: var(--cyan); font-weight: 700;">الحالات التي يحق لك استخدام التيزر مباشرة دون تحذير :</span><br>- في حال نطح الشخص لك أو عرقلتك.<br>- في حال وجود تدخل خارجي.<br>- في حال إشهار سلاح أبيض.<br>- توجه للبحر.</li>
+                            <li>في حال وجود شخص ماسك سلاح بيده يجب عليك تحذيره وإعطائه 5 ثواني ثم إطلاق النار على أطرافه.</li>
+                            <li>عند إلقاء القبض على أي المجرم، يتم إلقاء الحقوق عليه و يكتفي الشرطي بقول أعلى تهمة على المواطن مثل (سرقة مركبة) ، بعد ذلك يتم أخذ إجراءات السلامة و ان كان يحتاج لعناية طبية قبل دخوله لمركز الشرطة، وبعد دخوله للمركز يتم تفتيش الشخص تفتيش كامل و سحب كامل الأدوات الممنوعة و من بعد ذلك تصويره وتبصيمه و ومن ثم إعادة كلبشته و ادخاله للزنزانات و فتح كلبشاته من فتحة الباب و من ثم التعامل معاه حسب التهم الموجهة ضده.</li>
+                            <li>الحقوق بدورها تمثل حقوق المواطن أثناء الإعتقال، وهي بالصياغة التالية :<br><br><strong style="color: var(--red);">"تم القاء القبض عليك من شرطة لوس سانتوس بتهمة ( الحالة ) يحق لك التزام الصمت أي شيء ستقوله سيتم استخدامه ضدك في المحكمة ويحق لك تعيين محامي وفي حال عدم قدرتك على تعيين محامي سيتم تعيين محامي من قبل شرطة لوس سانتوس."</strong><br><br>لذا لا يحق للشرطي تحريفها او الإخلال في ترتيبها، و يجب على الشرطي التمثل بها مهما كان المجرم ويحق للمواطن الطلب بإعادة إلقاءها كحد أقصى مرتين.</li>
+                            <li>عند وجود مركبة مواطن متعطلة على الطريق يجب على الفرد التأكد من سلامة الحالة و الطلب من المواطن بإبعاد مركبته من الطريق ان أمكن، و من ثم طلب سطحة لنقل المركبة.</li>
+                            <li>عند الإستيقاف المروري للمواطن يجب أن يكون الموقع آمن و تتأكد من أمانك قبل نزولك من المركبة، و من ثم إبلاغ الدسباتش و فحص المواطن و مركبته ( لا يقصد بها تفتيش المواطن ) و بعد ذلك تعرف عن نفسك و تستكمل التعامل معاه بشكل طبيعي و تبلغ الدسباتش بعد الإنتهاء من الحالة.</li>
+                            <li>قبل التعامل مع أي موقف أو الإشتباك مع المواطن يجب عليك ذكر أنك شرطي مثل <strong style="color: var(--cyan);">( معاك الشرطة، سلم نفسك! )</strong>.</li>
+                            <li>عند وجود حالة خطف لرهينة يجب على جميع العناصر المتواجدين فالحالة محاصرة الموقع و طلب من الدس باتش تعيين مسؤول للحالة ويجب على مسؤول الحالة تعيين مفاوض وقائد ميداني لتوزيع الوحدات والتأكد من صحة الرهينة قبل إستكمال من المفاوض و اخذ مطالب المجرمين، و بعد ذلك طلب وحدة إسعافية في حال حدث أي شي خارج الحسبان و إبعاد الوحدة عن الموقع لحين يتم إحتياجها.</li>
+                            <li>في حال حدوث عملية اختطاف أمام الشرطي يتم تبليغ مركز العمليات بالحالة وطلب وحدة دعم ومتابعة الأشخاص مع مراعاة الحفاظ على حياة الرهينة وعدم اعتراض الأشخاص بأي شكل من الأشكال يحق للشرطي الطلب من الأشخاص تحديد موقع للتفاوض.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header hover-target" onclick="toggleAccordion(this)">
+                    <div class="acc-title-box"><span class="acc-dot"></span><span class="acc-title">2. مصطلحات عامة وأولوية الحالات</span></div>
+                    <span class="acc-icon">+</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="accordion-inner">
+                        <div class="sop-section-title">2.1 مصطلحات عامة مهمة</div>
+                        <ul class="sop-list">
+                            <li><strong style="color: var(--cyan);">الدس باتش :</strong> هو مركز تنظيمي وتوجيهي لكافة الوحدات المتواجدة في الميدان ويعتبر موجه للعمليات بمتابعة الحالات والإستعلام للوحدات وتوجيه الدعم الكافي للحالة . موجه العمليات يجب ان يكون شخص ذو كفاءة للتواصل مع الوحدات ويجب ان يكون متواجد في القسم ويتابع من خلال غرفة العمليات.</li>
+                            <li><strong style="color: var(--cyan);">نائب موجه العمليات :</strong> يكون وسيلة مساعدة لموجه العمليات في عملية التوزيع والتنظيم (بالاتفاق مع الدس باتش) وله وتولي المسؤولية في العمليات في حال عدم قدرة الدس باتش على التبليغ بعد غياب الدس باتش الأساسي عن عدم الرد لمدة دقيقتين لتحول العمليات بشكل كامل مع النائب (يقع عليه ان يكون متواجد في القسم).</li>
+                            <li><strong style="color: var(--cyan);">مسؤول الحالة :</strong> هو شخص يقوم بتنظيم وقيادة أي حالة جنائية تستوجب توزيع وتنظيم في الموقع ويتم تعيينه من قبل العمليات أو يكون أعلى رتبة متواجدة في الموقع ويقوم بتعيين القائد الميداني، لتوزيع الوحدات في المطاردة الخ ..وتنسيق طوقنا لعين المفاوض في الحالة ويكون المسؤول عن الحالة أمام إدارة الشرطة ولا يحق لأي وحدة التدخل في مهام مسؤول الحالة.</li>
+                            <li><strong style="color: var(--cyan);">المفاوض :</strong> هو وسيلة تواصل بين الشرطة والمجرمين للوصول لحل سلمي، يتم تعيين المفاوض من مسؤول الحالة ويجب ان يكون ذو خبرة بالتفاوض.. بعد ان يتوصل المفاوض لحل مع المجرمين يتوجب عليه طرحه لمسؤول الحالة لأخذ الموافقة بصفته المتحكم بالحالة. (تنبيه : يجب في كل حالة ان يكون مسؤول الحالة منفصل عن المفاوض).</li>
+                            <li><strong style="color: var(--cyan);">(مسؤول الفترة) :</strong> هو أعلى رتبة في الميدان ويكون مشرف على كافة الحالات التي في الميدان وفي حال أحد المواطنين طلب سوبرفايزر او مسؤول الفترة ، يتوجب عليه التخاطب والتعامل مع المواطن وحل مشكلته ، ويحق للسوبرفايزر رفع تقارير عن أخطاء الأفراد الى أعضاء الشؤون الداخلية.</li>
+                        </ul>
+                        <div class="sop-section-title">8.1 أولوية التعامل مع الحالات</div>
+                        <ul class="sop-list">
+                            <li>يتم التعامل مع الحالات حسب الأولوية 1: شرطي أطلق النار وله أولوية إسترداد جميع الطاقات والتوجه للحالة الأهم فالأهم بعد توجيه الدس باتش فقط.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header hover-target" onclick="toggleAccordion(this)">
+                    <div class="acc-title-box"><span class="acc-dot"></span><span class="acc-title">3. قواعد وسلوكيات التعامل مع أفراد الشرطة</span></div>
+                    <span class="acc-icon">+</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="accordion-inner">
+                        <ul class="sop-list">
+                            <li>الإحترام بين أفراد الشرطة وعدم التسلط على الرتب الأقل منك مهما كانت الرتبة، و التحية للرتبة الأعلى تكون بموجب إبداء الإحترام داخل أقسام الشرطة فقط ويمنع تأدية التحية العسكرية داخل الميدان.</li>
+                            <li>الجدية في العمل وعدم أخذ الوظيفة على محمل كوميدي.</li>
+                            <li>يمنع منعاً باتاً الإعتداء على عناصر الشرطة مهما كانت الرتبة و الأسباب، وأيضاً يمنع إستخدام الأسلحة الموجعة أو النارية أو الكهربائية تجاه أي عنصر من عناصر الشرطة بأي شكل من الأشكال.</li>
+                            <li>يحق لمن هم برتبة Sergeant وفوق إقامة نقاط تفتيش بعد أخذ الإذن من الـ Supervisor أو مسؤول الفترة.</li>
+                            <li>عند وجود أسلحة أوتوماتيكية ( Class 2 ) يسمح بإخراج السلاح الثقيل.</li>
+                            <li>عدم اخراج السلاح الناري او التيزر الا لسبب واضح.</li>
+                            <li>عدم عصيان أوامر الرتب العليا.</li>
+                            <li>عدم تجاوز التسلسل القيادي <strong style="color: var(--red);">(Chain of Command)</strong>.</li>
+                            <li>في حال إلقاء القبض على شخص وتم توجيهك من قبل مسؤول الحالة يجب عليك التعامل معه وعدم تسليم الحالة لأي شخص كان مهما كانت رتبتك.</li>
+                            <li>يجب إغلاق القسم والأبواب والتأكد بعد دخولك وخروجك، ويمنع إغلاق باب الاستقبال.</li>
+                            <li>في حين هروب مجرم للبحر يحق لك عرقلته كل 10 ثواني فقط واخذ الموضع المناسب لكلبشته بشكل مناسب.</li>
+                            <li>يحق لك تفتيش المواطن في الحالات التالية فقط:<br><br>- داخل قسم الشرطة في حال ثبت عليه قضية جنائية فقط.<br>- تواجده في موقع بيع ممنوعات أو موقع إطلاق نار.<br>- اشتباه في موقع سرقة بوجود أدلة فقط.<br>- عندما يكون رهينة وتم تحريره، ويمنع مصادرة أى سلاح مصرح لدى الرهينة.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header hover-target" onclick="toggleAccordion(this)">
+                    <div class="acc-title-box"><span class="acc-dot"></span><span class="acc-title">4. المطاردات وحالات الإجرام</span></div>
+                    <span class="acc-icon">+</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="accordion-inner">
+                        <div class="sop-section-title">4.1 قواعد و سلوكيات التعامل مع حالات المطاردة</div>
+                        <p style="color: var(--red); font-weight: 700; margin-bottom: 15px;">- يحق للشرطي صدم المركبة فقط في :</p>
+                        <ul class="sop-list">
+                            <li>في حال وجود تدخل خارجي، للشرطة التعامل بشكل رادع او تعريض حياة الشرطي للخطر ومحاولة صدمه وإسقاطه يحق للشرطة بدون تحذير التدخل الخارجي في حال شفاع الحالات البعد بـ ( اطلاق النار مباشره على المركبه وتعطيلها بشكل كامل ) بمعنى تكسير جميع الكفرات على التدخل الخارجي.<br><br>بعد مرور 5 دقائق على المطاردة واخذ الاذن من الدسباتش وبموجب سحبه ويكون بين كل صدمه واخرى 10 ثانية تحت سرعة 130 ( يطبق النظام على المطاردة في حال عدم وجود رهينه ).</li>
+                            <li>اثناء مطاردة المجرم وتعمد صدم المركبة يحق للشرطة البدء بالصدم الإحترافي بشكل مباشر وان يكون بين كل صدمه وصدمه اخرى 10 ثواني.</li>
+                            <li>في حال مركبة المشتبه ( محرك لا يعمل ) يمنع الصدم بشكل نهائي.</li>
+                            <li>يحق للشرطة إطلاق النار على مركبة المواطن فقط في حالتين:<br>- إذا قام المواطن بإطلاق النار على دوريات الشرطة أو المواطنين.<br>- إذا حاول الشخص أو قام بدهس أحد عناصر الشرطة و تسبب بضرر لعناصر الشرطة (بشكل عمد).</li>
+                        </ul>
+                        <div class="sop-section-title">5.1 قواعد و سلوكيات التعامل في حالات الإجرام</div>
+                        <p style="color: var(--red); font-weight: 700; margin-bottom: 15px; line-height: 1.8;">في حال وجود جثث يقوم مسؤول الحالة طلب وحدة اسعافية لإستخراج الجثث و يرفع الادلة من الموقع وتأخذ الشرطة إلى المستشفى للتأكد من سلامتهم والتحقيق عن وجود معلومات إضافية عن القضية في القسم وتعطى الوحدة الاسعافية محصورة في هذا الدور ويمنع مشاركتها في المطاردة نهائيا.</p>
+                        <ul class="sop-list">
+                            <li>تعامل صارم مع مسلحين داخل حالة في مناطق مختلفة او متواجدين بالقرب من الوحدات المتواجدة للحالة أولا ان تأخذ مساحة امنه قبل التدخل في الإشتباك، و تؤمن محيط الموقع من المواطنين او تداهم الموقع دون الإشتباك مع أي شخص إلا في حاله ان هذا الشخص أطلق على شرطي، يؤمن المشتبه و من ثم تستلم الوحدات و توثيق الحالة كامل ويمنع إحتجاز تام في الموقع، لحين خروج المجموعه المشتبه و محاوله خروجهم من الموقع، و تقوم الوحدات بتقسيم نفسها (إلى قسم يطارد المجموعه و القسم الاخر يؤمن الموقع - و في حالات معينه يمكن ادراج وحدة دعم بدون انتبهالمجموعه لإتخاذ السموم و تحديد عدد الأشخاص.</li>
+                            <li>في حال تم توجيهات من قبل مسؤول الحالة بفك التفاوض و الانسحاب للموقع وتغيير الخطة من قبل مباشر بأنه يفك التفاوض و يعلن عن حالات سلاح مستمر يتم فك التفاوض.</li>
+                            <li>يمنع تغطية المجرم المصاب اثناء الحاله (لا تتعامل معه).</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header hover-target" onclick="toggleAccordion(this)">
+                    <div class="acc-title-box"><span class="acc-dot"></span><span class="acc-title">5. الطاقم الطبي وقواعد وسلوكيات عامة</span></div>
+                    <span class="acc-icon">+</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="accordion-inner">
+                        <div class="sop-section-title">2.1 قواعد و سلوكيات التعامل مع أفراد الطاقم الطبي</div>
+                        <ul class="sop-list">
+                            <li>إحترام التعامل مع عناصر الإسعاف و أفراد الطاقم الطبي، لضمان التوافق وتحديد المختص بما يخص الشروط، الإجراءات، أو الإستفسار الطبي في الحالات التي تستدعي إلى تدخلهم.</li>
+                            <li>عند إحتياج الشرطة لوحدة طبية للتدخل الشرطي، الدخول إلى مركز الإسعاف والتوجيه يتم التواصل عبر تطبيقهم بارسال طلب 997، إلا في حال الحاجه لعمل إنعاش لعدد 32 ثانيه او مساعده عاجله (997).</li>
+                            <li>عند إمتناع الطاقم الطبي إلى الموقع يقوم الـ Dispatch بإرسال البلاغ فورا وتحديد من الموقع و يقوم بتوجيه بتأمين الموقع و المحافظة على السلام.</li>
+                            <li>يمنع على الشرطي، الإتصال بمسعف أو التواصل مع أفراد الطاقم الطبي داخل المستشفى والتواصل معهم إلا في حال إحتياج دعم ( إسعاف على رأس العمل، يتم طلبهم عبر تطبيق 997 لمساعدة الأشخاص المصابين ولا يجوز للشرطي، نقل الحالات بنفسه إلى المستشفى ).</li>
+                        </ul>
+                        <div class="sop-section-title">6.1 قواعد وسلوكيات عامة</div>
+                        <ul class="sop-list">
+                            <li>عند بدايه دوامك يجب ان تتأكد من ممتلكاتك بشكل كامل و تضمن جاهزيته للعمل.</li>
+                            <li>قبل نزولك للميدان تأكد من جميع الـ Records لمعلوماتك أثناء دوامك عند تعاملك مع أي مواطن.</li>
+                            <li>ترك الخلافات لأهل الاختصاص إذا لم تكن لك صلاحية او يوجد عائق أعلى بالاختصاص حسب توجيه الدس باتش بفك الخلاف.</li>
+                            <li>عدم التعمق بصفة او استمارة معلومات للمواطنين لأي سبب كان.</li>
+                            <li>يمنع التجاوز او بيع اي إسعاف معدات لجهة للمواطنين أو المسعفين.</li>
+                            <li>يطمح الدسباتش عند مناشدة أي حاله بعد طلب الاذن او عند التعامل مع أي حاله.</li>
+                            <li>عند مباشرتك لحاله يجب عليك جمع الادلة و توثيقها بالقسم المختص بالديسكورد.</li>
+                            <li><strong style="color: var(--cyan);">الـ Reports:</strong> هي تقارير للحوادث قد حصلت و تم تحليلها من قبل الضابط و يتم جمع الأدلة والتحقيق فيها.</li>
+                            <li><strong style="color: var(--cyan);">الـ Incidents:</strong> هي تقارير للحوادث قد حصلت و تم إلقاء القبض على فاعلها.</li>
+                            <li><strong style="color: var(--cyan);">الـ BOLOs:</strong> هي تقارير تخص بالمطلوبات ( المبحوث عنه / المطلوبة ).</li>
+                            <li>عدم طاعتك للتجاوز عند كل حاله مهمه وحسب توجيه مسؤول الحالة بشكل كامل وبواضح مع سرعة الاستجابة.</li>
+                            <li>يمنع منعا باتا تخفيف العقوبة على المواطن أكثر من 25% من المخالفات و مدة السجن يجب اخذ الاذن من مسؤول الحاله ( شامل للاحوال ).</li>
+                            <li>عدم الإلتزام بمعدات و موترات المخصصه برتبتك ( الزي، سيارات ..... ).</li>
+                            <li>يجوز للشرطي طلب إجازة مده أقصاها 10 يوم، و يتأكد من ذلك عند إعطاء الإدارة الشؤون الداخليه.</li>
+                            <li>إذا تم نقل رتبه للشرطه بشكل متعمد يتم استبعاد دون أي عذر وبدون إدارة الشؤون اخذ الإجراءات للشرطه و قد تؤدي إلى الإستبعاد أو الفصل النهائي من الشرطة.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header hover-target" onclick="toggleAccordion(this)">
+                    <div class="acc-title-box"><span class="acc-dot"></span><span class="acc-title">6. اللجان الرسمية والخروج عن الخدمة</span></div>
+                    <span class="acc-icon">+</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="accordion-inner">
+                        <div class="sop-section-title">7.1 لجان الشرطة الرسمية</div>
+                        <ul class="sop-list">
+                            <li><strong style="color: var(--cyan);">الإدارة العليا :</strong> هي مختصة بإدارة جميع الإدارات و تطوير المنظوم ككل، لعمل الإدارات الاخرى والتعامل مع بعض الحالات كالترقيات و الشكاوى على الوزارات والتحقيقات الداخلية والتحقيقات الرسمية.</li>
+                            <li><strong style="color: var(--cyan);">إدارة ممثلة بأعضائها و رئيسها ونائبه هي الشؤون الداخلية (Internal Affairs) :</strong> هي المسؤولة عن شؤون الأفراد وإعداد العقوبات الإدارية بحقهم والتعامل مع الشكاوي المقدمه.</li>
+                            <li><strong style="color: var(--cyan);">إدارة الأكاديمية ممثلة بمديرها ورئيسها ونائبة هي الأكاديمية (Field Training Officer) :</strong> التدريب هي لجنة مسؤولة عن القبول والتسجيل وتدريب المستجدين والاختبارات وتقييمهم وإعداد الدورات والتدريبات العامة.</li>
+                        </ul>
+                        <div class="sop-section-title">8.1 قواعد و سلوكيات الخروج عن الخدمة</div>
+                        <ul class="sop-list">
+                            <li>عدم التدخل في أي حالة جنائية إلا لو كانت حالة سلمية ولا يوجد أفراد شرطة فالموقع بعد اخذ الاذن منهم.</li>
+                            <li>أثناء تواجدك خارج الخدمة لا يعني أنك أصبحت مواطن، بل أنت مازلت تابع لنظام الشرطة و لكن أي أمر جنائي يحصل موجه لك ( سرقة - سطو - إطلاق نار ) يجب عليك أن تختار مسار من انت تدافع عن الموقع و تطلب دعم عناصر بمهمة شرطي.</li>
+                            <li>لا يحق لك لبس الماسك ( القناع ) إلا في حال وافقت عليه منظمة طبيا لعذر/توجيه أمني وايضا إذا طلبت في مهمة رسمية لضمان معرفة الموجودين انك شرطي.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="tab-content" id="jobsTab">
+        <div class="animated-banner"><h1 class="anim-title">بوابات <span>التقديم</span></h1></div>
+        <h2 style="margin-top:40px" class="community-title">التقديم على الوظائف</h2>
+        <div class="cards-container">
+            <div class="lux-card hover-target">
+                <h3>شرطة تايتنز</h3>
+                <p>تقديم منتسبين شرطة تايتنز (L.S.P.D)، نهدف لتقديم أعلى معايير الأمن.</p>
+                <div id="btn-police-wrapper"><button class="submit-btn hover-target" onclick="document.getElementById('appModal').style.display='flex'">تقديم</button></div>
+            </div>
+            <div class="lux-card hover-target">
+                <h3>قدم نفسك</h3>
+                <p>هل لديك مهارات فريدة؟ قدم نفسك لنا وارفق سيرتك الذاتية.</p>
+                <div id="btn-self-wrapper"><button class="submit-btn hover-target" onclick="document.getElementById('selfAppModal').style.display='flex'">تقديم</button></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="tab-content" id="foundersTab">
+        <div class="animated-banner"><h1 class="anim-title">مسؤولين <span>الشرطة</span></h1></div>
+        <div class="cards-container" style="margin-top:40px">
+            <div class="lux-card hover-target">
+                <img src="https://cdn.discordapp.com/avatars/1242594305508376738/10f20a4533d8f6a277c2c5af58d9fcd7.webp?size=1024" class="founder-img" onerror="this.src='yyW7oBx.jpg'">
+                <h3 style="color:#fff">جاهد المجاهد</h3>
+                <div style="color:var(--cyan);font-family:var(--font-en);font-weight:700">Minister of Interior</div>
+            </div>
+            <div class="lux-card hover-target">
+                <img src="https://cdn.discordapp.com/avatars/930773715845775362/0c88052b5de3fa22a53d45384f6d0d96.webp?size=1024" class="founder-img" onerror="this.src='yyW7oBx.jpg'">
+                <h3 style="color:#fff">محمد المطيري</h3>
+                <div style="color:var(--cyan);font-family:var(--font-en);font-weight:700">Deputy Minister of Interior</div>
+            </div>
+            <div class="lux-card hover-target">
+                <img src="yyW7oBx.jpg" class="founder-img">
+                <h3 style="color:#fff">جون هنتر</h3>
+                <div style="color:var(--cyan);font-family:var(--font-en);font-weight:700">A. Minister of Interior</div>
+            </div>
+            <div class="lux-card hover-target">
+                <img src="https://cdn.discordapp.com/avatars/936671728388673586/a5f7938ee0a9e3a3f806243ae366dc3e.webp?size=1024" class="founder-img" onerror="this.src='yyW7oBx.jpg'">
+                <h3 style="color:#fff">فيكاريو اسلا</h3>
+                <div style="color:var(--cyan);font-family:var(--font-en);font-weight:700">L.S.P.D Chief</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="tab-content" id="rosterTab">
+        <div class="animated-banner"><h1 class="anim-title">جدول <span>العساكر</span></h1></div>
+        <div class="allow-select roster-wrapper">
+            <table class="luxury-table">
+                <thead>
+                    <tr><th>Code</th><th>Name</th><th>Rank</th><th>Responsibility</th><th>Status</th><th>Strikes</th><th>Last Prom</th><th>F.P</th><th>Discord ID</th><th>Notes</th></tr>
+                </thead>
+                <tbody id="publicRosterBody">
+                    <tr><td colspan="10" style="padding:50px;color:#888;text-align:center">جاري تحميل البيانات...</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="appModal">
+        <div class="modal-box">
+            <h3 style="color:var(--cyan);margin-bottom:20px;font-size:1.5rem;text-align:center">نموذج تقديم شرطة تايتنز</h3>
+            <input class="gen-input hover-target" id="appName" placeholder="الاسم الشخصي (داخل اللعبة)">
+            <input class="gen-input hover-target" id="appDiscord" placeholder="حساب الديسكورد (Discord ID)">
+            <input class="gen-input hover-target" id="appAge" placeholder="العمر الحقيقي" type="number">
+            <textarea class="gen-input hover-target" id="appExp" placeholder="الخبرات السابقة..." style="height:80px;resize:none"></textarea>
+            <div style="display:flex;gap:15px;margin-top:15px">
+                <button class="submit-btn hover-target" onclick="submitApp('police')" style="flex:2;margin:0">إرسال التقديم</button>
+                <button class="close-btn hover-target" onclick="document.getElementById('appModal').style.display='none'" style="flex:1;margin:0">إلغاء</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="selfAppModal">
+        <div class="modal-box">
+            <h3 style="color:var(--cyan);margin-bottom:20px;font-size:1.5rem;text-align:center">نموذج "قدم نفسك"</h3>
+            <input class="gen-input hover-target" id="selfName" placeholder="الاسم الشخصي">
+            <input class="gen-input hover-target" id="selfDiscord" placeholder="حساب الديسكورد">
+            <input class="gen-input hover-target" id="selfAge" placeholder="العمر الحقيقي" type="number">
+            <textarea class="gen-input hover-target" id="selfExp" placeholder="الخبرات والمهارات..." style="height:80px;resize:none"></textarea>
+            <div style="display:flex;gap:15px;margin-top:15px">
+                <button class="submit-btn hover-target" onclick="submitApp('self')" style="flex:2;margin:0">إرسال التقديم</button>
+                <button class="close-btn hover-target" onclick="document.getElementById('selfAppModal').style.display='none'" style="flex:1;margin:0">إلغاء</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="customAlertOverlay">
+        <div class="modal-box" style="width:400px;text-align:center">
+            <div id="alertIcon" style="font-size:4rem;margin-bottom:20px"></div>
+            <h3 style="color:#fff;font-size:1.8rem;font-weight:700;margin-bottom:15px" id="alertTitle">تنبيه</h3>
+            <p style="color:#aaa;font-size:1.1rem;line-height:1.6;margin-bottom:30px" id="alertMessage">رسالة التنبيه</p>
+            <button class="submit-btn hover-target" onclick="document.getElementById('customAlertOverlay').style.display='none'">حسناً</button>
+        </div>
+    </div>
+
+    <script>
+        const particlesContainer = document.getElementById('particles-container');
+        for (let i = 0; i < 60; i++) {
+            let particle = document.createElement('div');
+            particle.className = 'particle';
+            let size = Math.random() * 3 + 1;
+            particle.style.width = size + 'px';
+            particle.style.height = size + 'px';
+            particle.style.left = Math.random() * 100 + 'vw';
+            particle.style.bottom = '-' + size + 'px';
+            particle.style.animationDuration = (Math.random() * 15 + 10) + 's';
+            particle.style.animationDelay = Math.random() * 10 + 's';
+            particlesContainer.appendChild(particle);
+        }
+
+        const pointer = document.getElementById('cursor-pointer');
+        const trail = document.getElementById('cursor-trail');
+        
+        window.addEventListener('mousemove', (e) => {
+            pointer.style.left = e.clientX + 'px';
+            pointer.style.top = e.clientY + 'px';
+            trail.animate({ left: e.clientX + 'px', top: e.clientY + 'px' }, { duration: 120, fill: "forwards" });
+        });
+
+        // تشغيل تأثير الماوس عند التأشير
+        const hoverTargets = document.querySelectorAll('.hover-target, a, button, input, select, textarea');
+        hoverTargets.forEach(target => {
+            target.addEventListener('mouseenter', () => {
+                trail.style.width = '45px'; trail.style.height = '45px'; trail.style.borderColor = 'rgba(0, 234, 255, 0.2)';
+            });
+            target.addEventListener('mouseleave', () => {
+                trail.style.width = '30px'; trail.style.height = '30px'; trail.style.borderColor = 'rgba(0, 234, 255, 0.1)';
+            });
+        });
+    </script>
+
+    <script>
+        const publicOfficersList = ["Minister of Interior", "Deputy Minister of Interior", "A. Minister of Interior", "Police Commander", "L.S.P.D Chief", "Deputy L.S.P.D Chief", "A' Lspd Chief", "High Commander", "General", "Colonel", "Major", "Captain", "First Lieutenant", "Lieutenant"];
         const publicEnlistedList = ["Staff Sergeant", "First Sergeant", "Sergeant", "Senior Lead Officer", "Senior Officer", "Officer III", "Officer II", "Officer I", "Solo Cadet", "Cadet"];
         let SystemRanks = [...publicOfficersList, ...publicEnlistedList];
 
@@ -11,8 +484,8 @@
                 if(data.applications) db.applications = Object.values(data.applications).filter(i=>i);
                 db.settings = data.settings || { policeOpen: true, selfOpen: true };
                 const pWrap = document.getElementById('btn-police-wrapper'); const sWrap = document.getElementById('btn-self-wrapper');
-                if(pWrap) pWrap.innerHTML = db.settings.policeOpen ? `<button class="submit-btn" onclick="document.getElementById('appModal').style.display='flex'">تقديم</button>` : `<button class="close-btn" style="color:var(--red); border-color:var(--red);" disabled>التقديم مغلق حالياً</button>`;
-                if(sWrap) sWrap.innerHTML = db.settings.selfOpen ? `<button class="submit-btn" onclick="document.getElementById('selfAppModal').style.display='flex'">تقديم</button>` : `<button class="close-btn" style="color:var(--red); border-color:var(--red);" disabled>التقديم مغلق حالياً</button>`;
+                if(pWrap) pWrap.innerHTML = db.settings.policeOpen ? `<button class="submit-btn hover-target" onclick="document.getElementById('appModal').style.display='flex'">تقديم</button>` : `<button class="close-btn hover-target" style="color:var(--red); border-color:var(--red);" disabled>التقديم مغلق حالياً</button>`;
+                if(sWrap) sWrap.innerHTML = db.settings.selfOpen ? `<button class="submit-btn hover-target" onclick="document.getElementById('selfAppModal').style.display='flex'">تقديم</button>` : `<button class="close-btn hover-target" style="color:var(--red); border-color:var(--red);" disabled>التقديم مغلق حالياً</button>`;
             }
         });
 
@@ -67,7 +540,7 @@
         }
 
         function submitApp(type) {
-            let n, d, a, exp, r;
+            let n, d, a, exp;
             if(type === 'police') { 
                 n = document.getElementById('appName').value; d = document.getElementById('appDiscord').value; a = document.getElementById('appAge').value; exp = document.getElementById('appExp').value; 
             } else { 
@@ -87,15 +560,7 @@
                     document.getElementById('selfName').value = ''; document.getElementById('selfDiscord').value = ''; document.getElementById('selfAge').value = ''; document.getElementById('selfExp').value = '';
                 }
             });
-        }</script><script>// 🛡️ درع الحماية: منع الزر الأيمن
-    document.addEventListener('contextmenu', event => event.preventDefault());
-
-    // 🛡️ درع الحماية: منع اختصارات المطورين وسحب الكود
-    document.onkeydown = function(e) {
-        if(e.keyCode == 123) { return false; } // يمنع F12
-        if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) { return false; } // يمنع Ctrl+Shift+I
-        if(e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) { return false; } // يمنع Ctrl+Shift+C
-        if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) { return false; } // يمنع Ctrl+Shift+J
-        if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) { return false; } // يمنع Ctrl+U (عرض مصدر الصفحة)
-        if(e.ctrlKey && e.keyCode == 'S'.charCodeAt(0)) { return false; } // يمنع Ctrl+S (حفظ الصفحة)
-    }</script>
+        }
+    </script>
+</body>
+</html>
