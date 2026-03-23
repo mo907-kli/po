@@ -57,7 +57,7 @@ const ConfigUsers = [
     { user: "north__7", pass: "123", name: "جون هنتر", rank: "A. Minister of Interior", dept: "" },
     { user: "u1kx", pass: "123", name: "عوده الاحمري", rank: "A. Minister of Interior", dept: "" },
     { user: "notmiz.", pass: "123", name: "عيد علي", rank: "Police Commander", dept: "" },
-    { user: "ylt0", pass: "123", name: "فيكاريو  اسلا", rank: "L.S.P.D Chief", dept: "" },
+    { user: "73.7", pass: "123", name: "عبدالله علي", rank: "L.S.P.D Chief", dept: "" },
     { user: "iilother", pass: "123", name: "لوثر ماركوس", rank: "Deputy L.S.P.D Chief", dept: "" },
     { user: "mohammed9117956", pass: "123", name: "محمد الخالدي", rank: "Deputy L.S.P.D Chief", dept: "" },
     { user: "neax7", pass: "123", name: "سيف الدوسري", rank: "High Commander", dept: "" },
