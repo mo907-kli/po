@@ -310,11 +310,13 @@
 
         const pointer = document.getElementById('cursor-pointer');
         const trail = document.getElementById('cursor-trail');
+        
         window.addEventListener('mousemove', (e) => {
             pointer.style.left = e.clientX + 'px';
             pointer.style.top = e.clientY + 'px';
             trail.animate({ left: e.clientX + 'px', top: e.clientY + 'px' }, { duration: 120, fill: "forwards" });
         });
+
         const hoverTargets = document.querySelectorAll('.hover-target, button, input, select, .menu-btn');
         hoverTargets.forEach(target => {
             target.addEventListener('mouseenter', () => {
@@ -352,7 +354,7 @@
         firebase.initializeApp({ apiKey: "AIzaSyC5PL_fJEjiJVQS8rnx4m8j9uQNsILcQvs", authDomain: "police-depa.firebaseapp.com", databaseURL: "https://police-depa-default-rtdb.europe-west1.firebasedatabase.app", projectId: "police-depa" });
         const database = firebase.database();
 
-        // 🟢🟢 إضافة قسم اللوقات هنا 🟢🟢
+        // 🟢 موديول اللوقات
         const modules = [
             { id: 'settings', i18n_t: 'إعدادات التقديم', isSettingsView: true, reqOfficer: true },
             { id: 'applications', i18n_t: 'طلبات التقديم', isAppsView: true, reqOfficer: true },
@@ -365,14 +367,14 @@
             { id: 'notes', i18n_t: 'ملاحظات القيادة', inputsAr: ['الموضوع', 'النص'] },
             { id: 'crypto', i18n_t: 'قسم التشفير', isCrypto: true },
             { id: 'officials', i18n_t: 'إدارة الحسابات', isAccountsForm: true, reqOfficer: true },
-            { id: 'logs', i18n_t: 'سجلات النظام (Logs)', isLogsView: true } // 🟢 موديول اللوقات
+            { id: 'logs', i18n_t: 'سجلات النظام (Logs)', isLogsView: true }
         ];
 
         let db = { applications: [], reports: [], customUsers: [], live_roster: {}, system_logs: {}, settings: { policeOpen: true, selfOpen: true } }; 
         let currentModule = null; let isOfficer = false; let myName = ""; let myRank = ""; 
         let tempPDFBase64 = ""; 
 
-        // 🟢🟢 دالة إرسال اللوقات للفايربيس 🟢🟢
+        // 🟢 دالة التسجيل (اللوق)
         function logAction(actionText) {
             const t = new Date().toLocaleString('ar-SA');
             firebase.database().ref('lspd_db/system_logs').push({
@@ -413,7 +415,7 @@
                 db.reports = cleanArray(data.reports); 
                 db.customUsers = cleanArray(data.customUsers); 
                 db.settings = data.settings || { policeOpen: true, selfOpen: true };
-                db.system_logs = data.system_logs || {}; // 🟢 تحديث اللوقات
+                db.system_logs = data.system_logs || {};
                 modules.forEach(m => { if(m.inputsAr || m.isTable || m.isVideo) db[m.id] = cleanArray(data[m.id]); });
             }
             if (currentModule && document.getElementById('moduleView').style.display === 'flex' && !currentModule.isRosterAdmin) { openMod(currentModule.id); }
@@ -445,7 +447,7 @@
                 const savedImg = localStorage.getItem('user_id_img_' + myName);
                 if(savedImg) document.getElementById('cardImage').src = savedImg;
                 
-                logAction('تسجيل دخول للنظام'); // 🟢 لوق تسجيل دخول
+                logAction('تسجيل دخول للنظام'); // 🟢
                 renderModules();
             } else { document.getElementById('loginError').style.display = 'block'; }
         }
@@ -456,7 +458,11 @@
         function updateCardImg(input) {
             if (input.files && input.files[0]) {
                 const reader = new FileReader();
-                reader.onload = e => { document.getElementById('cardImage').src = e.target.result; localStorage.setItem('user_id_img_' + myName, e.target.result); };
+                reader.onload = e => { 
+                    document.getElementById('cardImage').src = e.target.result; 
+                    localStorage.setItem('user_id_img_' + myName, e.target.result); 
+                    logAction('قام بتحديث صورته الشخصية (الهوية)'); // 🟢
+                };
                 reader.readAsDataURL(input.files[0]);
             }
         }
@@ -483,10 +489,12 @@
             const c = document.getElementById('modulesContainer'); c.innerHTML = ''; 
             modules.forEach((m) => { 
                 if (m.reqOfficer && !isOfficer) return; 
-                // 🟢🟢 التحكم بمن يرى قسم اللوقات 🟢🟢
+                
+                // 🟢 التحقق من الصلاحيات لقسم اللوقات
                 if (m.isLogsView) {
-                    if (typeof AllowedLogUsers === 'undefined' || !AllowedLogUsers.includes(myName)) return; // إذا مو موجود بالقائمة، ما يطلع له الزر
+                    if (typeof AllowedLogUsers === 'undefined' || !AllowedLogUsers.includes(myName)) return; 
                 }
+                
                 c.innerHTML += `<div class="menu-btn hover-target" onclick="openMod('${m.id}')">${m.i18n_t}</div>`; 
             });
         }
@@ -541,7 +549,6 @@
                 inpArea.innerHTML = `<input type="text" id="v-title" class="gen-input hover-target" placeholder="عنوان الفيديو"><input type="text" id="v-yt" class="gen-input hover-target" placeholder="رابط يوتيوب (ID فقط أو الرابط كامل)">`;
                 renderVideoGrid(container);
             } else if (currentModule.isLogsView) { 
-                // 🟢 عرض قسم اللوقات 🟢
                 renderLogsView(container);
             } else if(currentModule.inputsAr) {
                 inputBlock.style.display = 'block';
@@ -550,7 +557,6 @@
             }
         }
 
-        // 🟢🟢 دالة عرض اللوقات 🟢🟢
         function renderLogsView(container) {
             const logsData = Object.values(db.system_logs || {});
             if(logsData.length === 0) { container.innerHTML = '<div style="text-align:center; padding:50px; color:#888; font-size:1.2rem;">لا يوجد سجلات عمليات حالياً.</div>'; return; }
@@ -782,7 +788,7 @@
             if(!isOfficer) return;
             if(type === 'police') db.settings.policeOpen = !db.settings.policeOpen;
             else if(type === 'self') db.settings.selfOpen = !db.settings.selfOpen;
-            logAction('تغيير حالة التقديم - ' + type); // 🟢 لوق
+            logAction('تغيير حالة بوابة التقديم: ' + (type === 'police' ? 'الشرطة' : 'قدم نفسك')); // 🟢 لوق
             saveDB(); showCustomAlert("نجاح", "تم التحديث", true); renderSettingsView(document.getElementById('dynamicContentArea'));
         }
 
@@ -796,15 +802,15 @@
                     <div style="text-align:right; color:#ccc; line-height:1.8; margin-bottom:15px; width:100%;">
                         <strong>العمر:</strong> ${app.age}<br><strong>الديسكورد:</strong> ${app.discord}<br><strong>الخبرة:</strong> ${app.exp}<br><strong>السبب:</strong> ${app.reason||'لا يوجد'}<br><strong style="color:#888; font-size:0.9rem;">التاريخ: ${app.date}</strong>
                     </div>
-                    ${isOfficer ? `<button class="action-btn-text btn-del-text hover-target" onclick="deleteApp(${idx})">حذف الطلب</button>` : ''}
+                    ${isOfficer ? `<button class="action-btn-text btn-del-text hover-target" onclick="deleteApp(${idx}, '${app.name}')">حذف الطلب</button>` : ''}
                 </div>`;
             });
             container.innerHTML = html;
         }
 
-        function deleteApp(idx) {
+        function deleteApp(idx, appName) {
             showCustomConfirm("حذف الطلب", "هل أنت متأكد من حذف هذا الطلب؟", () => {
-                logAction('حذف تقديم'); // 🟢 لوق
+                logAction('حذف تقديم يخص: ' + appName); // 🟢 لوق
                 db.applications.splice(idx, 1); saveDB(); renderApplications(document.getElementById('dynamicContentArea'));
             });
         }
@@ -814,7 +820,7 @@
             (db.customUsers || []).forEach((u, idx) => {
                 container.innerHTML += `<div class="rec-item allow-select">
                     <div style="text-align:right;"><span style="color:var(--cyan); font-weight:bold; font-size:1.1rem;">[${u.rank}]</span> ${u.name} (User: ${u.user})</div>
-                    ${isOfficer ? `<button class="action-btn-text btn-del-text hover-target" onclick="delAccount(${idx}, '${u.user}')">حذف الحساب</button>` : ''}
+                    ${isOfficer ? `<button class="action-btn-text btn-del-text hover-target" onclick="delAccount(${idx}, '${u.name}')">حذف الحساب</button>` : ''}
                 </div>`;
             });
         }
@@ -826,7 +832,7 @@
             });
         }
 
-        // 🟢🟢 التحديث الخطير للتقارير (معاينة الـ PDF بشكل تابلت فخم) 🟢🟢
+        // 🟢🟢 التحديث الخطير للتقارير (التابلت) 🟢🟢
         function renderSavedReports(container) {
             const data = db.reports || [];
             if(data.length === 0) { container.innerHTML = '<div style="text-align:center; padding:50px; color:#888; font-size:1.2rem;">لا يوجد تقارير محفوظة حالياً.</div>'; return; }
@@ -843,7 +849,7 @@
                     // التقارير النصية القديمة
                     html += `<div style="background:#131a2a; padding:20px; border-radius:12px; border:1px solid var(--glass-border); box-shadow: 0 10px 20px rgba(0,0,0,0.5);">
                         <div style="text-align:right; margin-bottom:15px; line-height:1.8; color:#ddd;" class="allow-select">${rec}</div>
-                        ${isOfficer ? `<button class="action-btn-text btn-del-text hover-target" onclick="delReport(${idx})">حذف التقرير</button>` : ''}
+                        ${isOfficer ? `<button class="action-btn-text btn-del-text hover-target" onclick="delReport(${idx}, 'تقرير نصي قديم')">حذف التقرير</button>` : ''}
                     </div>`;
                 } else {
                     // التقارير الفخمة بالتابلت
@@ -862,17 +868,15 @@
 
                         <div style="width: 220px; height: 280px; background:#fff; border:8px solid #1a233a; border-radius:16px; position:relative; overflow:hidden; box-shadow:0 0 25px rgba(0,0,0,0.8); flex-shrink:0;">
                             <div style="position:absolute; inset:0; z-index:50; cursor:not-allowed;" title="للقراءة يرجى تحميل التقرير"></div>
-                            
                             <embed src="${rec.pdf}#toolbar=0&navpanes=0&scrollbar=0&view=FitH" type="application/pdf" style="width:100%; height:100%; object-fit:cover; pointer-events:none;">
-                            
                             <div style="position:absolute; bottom:0; width:100%; background:rgba(0,234,255,0.85); color:#000; font-size:1.1rem; text-align:center; padding:8px 0; font-weight:900; z-index:60; letter-spacing:1px;">معاينة فقط</div>
                         </div>
 
                         <div style="flex:1; display:flex; flex-direction:column; gap:15px; align-items:flex-start;">
-                            <a href="${rec.pdf}" download="Report_${rec.badge}.pdf" class="hover-target" style="background:linear-gradient(90deg, var(--cyan), #00a2ff); color:#000; padding:15px 30px; border-radius:12px; text-decoration:none; font-weight:900; font-size:1.2rem; font-family:var(--font-ar); transition:0.3s; box-shadow:0 10px 20px rgba(0,234,255,0.3); display:flex; align-items:center; gap:10px; width:100%; justify-content:center;">
+                            <a href="${rec.pdf}" download="Report_${rec.badge}.pdf" class="hover-target" style="background:linear-gradient(90deg, var(--cyan), #00a2ff); color:#000; padding:15px 30px; border-radius:12px; text-decoration:none; font-weight:900; font-size:1.2rem; font-family:var(--font-ar); transition:0.3s; box-shadow:0 10px 20px rgba(0,234,255,0.3); display:flex; align-items:center; gap:10px; width:100%; justify-content:center;" onclick="logAction('تحميل تقرير يخص: ${rec.name}')">
                                 ⬇️ تحميل التقرير
                             </a>
-                            ${isOfficer ? `<button class="action-btn-text btn-del-text hover-target" style="width:100%; padding:15px; font-size:1.1rem; border-radius:12px; border:1px solid var(--red);" onclick="delReport(${idx})">🗑️ حذف التقرير</button>` : ''}
+                            ${isOfficer ? `<button class="action-btn-text btn-del-text hover-target" style="width:100%; padding:15px; font-size:1.1rem; border-radius:12px; border:1px solid var(--red);" onclick="delReport(${idx}, '${rec.name}')">🗑️ حذف التقرير</button>` : ''}
                         </div>
                         
                     </div>`;
@@ -887,7 +891,7 @@
             if(data.length === 0) { container.innerHTML = '<div style="text-align:center; padding:30px; color:#888; font-size:1.2rem;">لا يوجد مهام.</div>'; return; }
             let html = '<div class="roster-wrapper"><table class="luxury-table"><thead><tr><th>المستلم</th><th>المسؤول</th><th>المهمة</th><th>النقاط</th><th>الإجراء</th></tr></thead><tbody>';
             data.forEach((t, idx) => {
-                html += `<tr class="roster-row"><td>${t.assignee}</td><td>${t.officer}</td><td>${t.reason}</td><td><span style="color:var(--cyan);font-weight:bold;">${t.pts}</span></td><td>${isOfficer ? `<button class="action-btn-text btn-del-text hover-target" onclick="delRec(${idx})">حذف</button>` : ''}</td></tr>`;
+                html += `<tr class="roster-row"><td>${t.assignee}</td><td>${t.officer}</td><td>${t.reason}</td><td><span style="color:var(--cyan);font-weight:bold;">${t.pts}</span></td><td>${isOfficer ? `<button class="action-btn-text btn-del-text hover-target" onclick="delRec(${idx}, 'مهمة يخص ${t.assignee}')">حذف</button>` : ''}</td></tr>`;
             });
             container.innerHTML = html + '</tbody></table></div>';
         }
@@ -900,7 +904,7 @@
                 let ytId = v.yt.includes('v=') ? v.yt.split('v=')[1].split('&')[0] : v.yt.split('/').pop();
                 html += `<div style="background:#131a2a; padding:15px; border-radius:12px; border:1px solid var(--glass-border);">
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
-                        ${isOfficer ? `<button class="action-btn-text btn-del-text hover-target" onclick="delRec(${idx})">حذف</button>` : '<div></div>'}
+                        ${isOfficer ? `<button class="action-btn-text btn-del-text hover-target" onclick="delRec(${idx}, 'فيديو: ${v.title}')">حذف</button>` : '<div></div>'}
                         <strong style="color:var(--cyan); font-size:1.2rem;">${v.title}</strong>
                     </div>
                     <iframe src="https://www.youtube.com/embed/${ytId}" style="width:100%; aspect-ratio:16/9; border:none; border-radius:8px;"></iframe>
@@ -916,12 +920,19 @@
             data.forEach((rec, idx) => {
                 container.innerHTML += `<div class="rec-item allow-select" style="flex-direction:column; align-items:flex-end;">
                     <div style="width:100%; text-align:right; margin-bottom:10px; padding-bottom:10px; line-height:1.8;">${rec}</div>
-                    ${isOfficer ? `<button class="action-btn-text btn-del-text hover-target" onclick="delRec(${idx})">حذف</button>` : ''}
+                    ${isOfficer ? `<button class="action-btn-text btn-del-text hover-target" onclick="delRec(${idx}, 'سجل عام')">حذف</button>` : ''}
                 </div>`;
             });
         }
 
-        function doCrypto(type) { const v = document.getElementById('cryIn').value, out = document.getElementById('cryOut'); if(!v) return; try { out.innerText = (type === 'enc') ? btoa(unescape(encodeURIComponent(v))) : decodeURIComponent(escape(atob(v))); } catch(e) { out.innerText = "Error"; } }
+        function doCrypto(type) { 
+            const v = document.getElementById('cryIn').value, out = document.getElementById('cryOut'); 
+            if(!v) return; 
+            try { 
+                out.innerText = (type === 'enc') ? btoa(unescape(encodeURIComponent(v))) : decodeURIComponent(escape(atob(v))); 
+                logAction(`قام بـ ${type === 'enc' ? 'تشفير' : 'فك تشفير'} نص`); // 🟢 لوق
+            } catch(e) { out.innerText = "Error"; } 
+        }
         function copyCrypto() { navigator.clipboard.writeText(document.getElementById('cryOut').innerText); showCustomAlert("نجاح", "تم نسخ النص", true); }
 
         function addRecord() {
@@ -929,7 +940,7 @@
                 const u=document.getElementById('o-user').value, p=document.getElementById('o-pass').value, n=document.getElementById('o-name').value, r=document.getElementById('o-rank').value;
                 if(!u || !p || !n) return showCustomAlert("خطأ", "يرجى تعبئة الحقول", false);
                 db.customUsers = cleanArray(db.customUsers); db.customUsers.push({user:u, pass:p, name:n, rank:r}); saveDB(); 
-                logAction('إضافة حساب إداري جديد: ' + u); // 🟢 لوق
+                logAction('إضافة حساب إداري جديد: ' + n); // 🟢 لوق
                 renderAccounts(document.getElementById('dynamicContentArea'));
             
             } else if(currentModule.isReportForm) {
@@ -957,13 +968,13 @@
                 const a=document.getElementById('t-assignee').value, o=document.getElementById('t-officer').value, r=document.getElementById('t-reason').value, p=document.getElementById('t-pts').value;
                 if(!a || !o || !r || !p) return showCustomAlert("خطأ", "يرجى تعبئة الحقول", false);
                 db.tasks = cleanArray(db.tasks); db.tasks.push({assignee:a, officer:o, reason:r, pts:p}); saveDB(); 
-                logAction('إضافة سجل لـ: ' + currentModule.i18n_t); // 🟢 لوق
+                logAction(`إضافة مهمة للمدعو: ${a} (${p} نقطة)`); // 🟢 لوق
                 renderTasksTable(document.getElementById('dynamicContentArea'));
             } else if(currentModule.isVideo) {
                 const t=document.getElementById('v-title').value, y=document.getElementById('v-yt').value;
                 if(!t || !y) return showCustomAlert("خطأ", "يرجى تعبئة الحقول", false);
                 db.video = cleanArray(db.video); db.video.push({title:t, yt:y}); saveDB(); 
-                logAction('إضافة سجل لـ: ' + currentModule.i18n_t); // 🟢 لوق
+                logAction('إضافة مقطع فيديو: ' + t); // 🟢 لوق
                 renderVideoGrid(document.getElementById('dynamicContentArea'));
             } else {
                 let vals = []; const arr = currentModule.inputsAr; if(!arr) return;
@@ -972,16 +983,16 @@
                 db[currentModule.id] = cleanArray(db[currentModule.id]);
                 let str = ''; vals.forEach((v, i) => str += `<strong style="color:var(--cyan);">${arr[i]}:</strong> ${v} <br>`);
                 db[currentModule.id].push(str); saveDB(); 
-                logAction('إضافة سجل لـ: ' + currentModule.i18n_t); // 🟢 لوق
+                logAction('إضافة سجل عام في قسم: ' + currentModule.i18n_t); // 🟢 لوق
                 renderRecordsList(document.getElementById('dynamicContentArea'));
             }
             showCustomAlert("نجاح", "تمت الإضافة بنجاح!", true);
             document.querySelectorAll('#mInputs input, #mInputs textarea, #mInputs select').forEach(el => el.value = '');
         }
 
-        function delReport(idx) {
+        function delReport(idx, rName) {
             showCustomConfirm("حذف تقرير", "هل أنت متأكد من حذف هذا التقرير نهائياً؟", () => {
-                logAction('حذف تقرير'); // 🟢 لوق
+                logAction('حذف تقرير يخص: ' + rName); // 🟢 لوق
                 db.reports.splice(idx, 1); saveDB(); 
                 renderSavedReports(document.getElementById('dynamicContentArea'));
             });
@@ -995,9 +1006,9 @@
             });
         }
 
-        function delRec(idx) {
+        function delRec(idx, infoText) {
             showCustomConfirm("حذف سجل", "هل أنت متأكد من الحذف؟", () => {
-                logAction('حذف سجل من: ' + currentModule.i18n_t); // 🟢 لوق
+                logAction('حذف سجل: ' + infoText); // 🟢 لوق
                 db[currentModule.id].splice(idx, 1); saveDB(); 
                 if(currentModule.isTable) renderTasksTable(document.getElementById('dynamicContentArea'));
                 else if(currentModule.isVideo) renderVideoGrid(document.getElementById('dynamicContentArea'));
