@@ -22,6 +22,7 @@
         :root {
             --bg-deep: #050a15; --glass-bg: #0f1626; --glass-border: rgba(0, 234, 255, 0.2);
             --cyan: #00eaff; --cyan-glow: rgba(0, 234, 255, 0.2); --red: #ff3333; --green: #00ff6a; --yellow: #ffc107;
+            --blue: #0055ff; --text-main: #ffffff;
             --font-ar: 'Tajawal', sans-serif; --font-en: 'Rajdhani', sans-serif;
         }
 
@@ -47,7 +48,7 @@
         .bg-shape-1 { position: absolute; top: 10%; left: 20%; width: 300px; height: 300px; background: rgba(0, 234, 255, 0.1); border-radius: 50%; filter: blur(80px); pointer-events: none; }
         .bg-shape-2 { position: absolute; bottom: 10%; right: 20%; width: 400px; height: 400px; background: rgba(0, 100, 255, 0.05); border-radius: 50%; filter: blur(100px); pointer-events: none; }
         
-        .login-box { position: relative; width: 450px; background: rgba(15, 22, 38, 0.4); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 24px; padding: 50px 40px; text-align: center; box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5); animation: popIn 0.5s ease-out; z-index: 10; }
+        .login-box { position: relative; width: 450px; background: rgba(15, 22, 38, 0.4); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 24px; padding: 50px 40px; text-align: center; box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5); animation: popIn 0.5s ease-out; z-index: 10; }
         .logo-container { margin-bottom: 25px; }
         .logo-container img { width: 120px; height: 120px; border-radius: 50%; border: 2px solid rgba(255, 255, 255, 0.2); padding: 5px; background: rgba(0,0,0,0.3); }
         .login-box .title { font-family: 'Rajdhani', sans-serif; font-size: 2.2rem; font-weight: 700; color: #00eaff; letter-spacing: 3px; margin-bottom: 35px; }
@@ -55,7 +56,7 @@
         .login-box .input-label { display: block; color: #8da2b5; font-size: 0.9rem; font-weight: 700; margin-bottom: 8px; margin-right: 5px; }
         
         .custom-input { width: 100%; background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); padding: 15px 20px; color: #fff; border-radius: 12px; font-family: 'Tajawal', sans-serif; font-size: 1.05rem; transition: 0.3s; outline: none; text-align: right; }
-        .custom-input:focus { background: rgba(0, 0, 0, 0.5); border-color: #00eaff; box-shadow: 0 0 15px rgba(0, 234, 255, 0.1); }
+        .custom-input:focus { background: rgba(0, 0, 0, 0.5); border-color: var(--cyan); box-shadow: 0 0 15px rgba(0, 234, 255, 0.1); }
         
         .neon-pulse-btn { width: 100%; padding: 15px; background: rgba(0, 0, 0, 0.5); color: var(--cyan); border: 2px solid var(--cyan); border-radius: 12px; cursor: none; transition: 0.3s; margin-top: 15px; font-family: var(--font-ar); font-weight: 900; font-size: 1.2rem; box-shadow: 0 0 10px var(--cyan-glow); animation: neonPulse 2s infinite ease-in-out; }
         .neon-pulse-btn:hover { background: var(--cyan); color: #000; box-shadow: 0 0 30px var(--cyan), inset 0 0 10px rgba(255,255,255,0.5); animation: none; }
@@ -345,9 +346,13 @@
             "Solo Cadet": { prefix: "U-", min: 130, max: 199 }, "Cadet": { prefix: "U-", min: 200, max: 400 }
         };
 
+        const respOptionsData = ["N/A", "Police Administration", "Commission Office", "High Command", "Command", "Head Of Internal Affairs", "Intern Affairs Member", "Detective Supervisor", "Supervisor", "Detective", "Motorcycle Unit Leader", "Motorcycle Unit CO-Leader", "Motorcycle Supervisor", "Air Unit Leader", "Air Unit CO-Leader", "Speed Unit Leader", "Speed Unit CO-Leader", "GANG UNIT Leader", "GANG UNIT CO- Leader", "Assistants", "Trooper", "GANG UNIT", "HEAD OF COMMAND", "Air Fleet Commander", "Police Wings Commander", "Commander Of P.A", "Deputy Of P.A", "deputy air fleet", "Advisor of air fleet", "War Commander", "S.W.A.T Commander", "Deputy S.W.A.T Commander"];
+        const strikesOptionsData = ["N/A", "WARN 1", "WARN 2", "WARN 3", "Strike Point 1", "Strike Point 2", "Strike Point 3", "Strike Point 4", "Strike Point 5", "Strike Point 6", "Strike Point 7"];
+
         firebase.initializeApp({ apiKey: "AIzaSyC5PL_fJEjiJVQS8rnx4m8j9uQNsILcQvs", authDomain: "police-depa.firebaseapp.com", databaseURL: "https://police-depa-default-rtdb.europe-west1.firebasedatabase.app", projectId: "police-depa" });
         const database = firebase.database();
 
+        // 🟢🟢 إضافة قسم اللوقات هنا 🟢🟢
         const modules = [
             { id: 'settings', i18n_t: 'إعدادات التقديم', isSettingsView: true, reqOfficer: true },
             { id: 'applications', i18n_t: 'طلبات التقديم', isAppsView: true, reqOfficer: true },
@@ -359,12 +364,24 @@
             { id: 'wanted', i18n_t: 'المطلوبين للعدالة', inputsAr: ['اسم الهدف', 'التهمة', 'الخطورة'] },
             { id: 'notes', i18n_t: 'ملاحظات القيادة', inputsAr: ['الموضوع', 'النص'] },
             { id: 'crypto', i18n_t: 'قسم التشفير', isCrypto: true },
-            { id: 'officials', i18n_t: 'إدارة الحسابات', isAccountsForm: true, reqOfficer: true }
+            { id: 'officials', i18n_t: 'إدارة الحسابات', isAccountsForm: true, reqOfficer: true },
+            { id: 'logs', i18n_t: 'سجلات النظام (Logs)', isLogsView: true } // 🟢 موديول اللوقات
         ];
 
-        let db = { applications: [], reports: [], customUsers: [], live_roster: {}, settings: { policeOpen: true, selfOpen: true } }; 
+        let db = { applications: [], reports: [], customUsers: [], live_roster: {}, system_logs: {}, settings: { policeOpen: true, selfOpen: true } }; 
         let currentModule = null; let isOfficer = false; let myName = ""; let myRank = ""; 
         let tempPDFBase64 = ""; 
+
+        // 🟢🟢 دالة إرسال اللوقات للفايربيس 🟢🟢
+        function logAction(actionText) {
+            const t = new Date().toLocaleString('ar-SA');
+            firebase.database().ref('lspd_db/system_logs').push({
+                user: myName || 'غير معروف',
+                rank: myRank || '-',
+                action: actionText,
+                time: t
+            });
+        }
 
         let pendingConfirmAction = null;
         function showCustomConfirm(title, message, callback) {
@@ -392,7 +409,11 @@
         database.ref('lspd_db').on('value', (snapshot) => {
             const data = snapshot.val();
             if (data) {
-                db.applications = cleanArray(data.applications); db.reports = cleanArray(data.reports); db.customUsers = cleanArray(data.customUsers); db.settings = data.settings || { policeOpen: true, selfOpen: true };
+                db.applications = cleanArray(data.applications); 
+                db.reports = cleanArray(data.reports); 
+                db.customUsers = cleanArray(data.customUsers); 
+                db.settings = data.settings || { policeOpen: true, selfOpen: true };
+                db.system_logs = data.system_logs || {}; // 🟢 تحديث اللوقات
                 modules.forEach(m => { if(m.inputsAr || m.isTable || m.isVideo) db[m.id] = cleanArray(data[m.id]); });
             }
             if (currentModule && document.getElementById('moduleView').style.display === 'flex' && !currentModule.isRosterAdmin) { openMod(currentModule.id); }
@@ -405,12 +426,8 @@
 
         function saveDB() { database.ref('lspd_db').set(db).catch(e => { showCustomAlert("خطأ", "فشل الحفظ.", false); }); }
 
-        document.getElementById('userInput').addEventListener('keydown', function(e) {
-            if(e.key === 'Enter') login();
-        });
-        document.getElementById('passInput').addEventListener('keydown', function(e) {
-            if(e.key === 'Enter') login();
-        });
+        document.getElementById('userInput').addEventListener('keydown', function(e) { if(e.key === 'Enter') login(); });
+        document.getElementById('passInput').addEventListener('keydown', function(e) { if(e.key === 'Enter') login(); });
 
         function login() {
             const u = document.getElementById('userInput').value.trim(), p = document.getElementById('passInput').value.trim();
@@ -427,6 +444,8 @@
                 
                 const savedImg = localStorage.getItem('user_id_img_' + myName);
                 if(savedImg) document.getElementById('cardImage').src = savedImg;
+                
+                logAction('تسجيل دخول للنظام'); // 🟢 لوق تسجيل دخول
                 renderModules();
             } else { document.getElementById('loginError').style.display = 'block'; }
         }
@@ -464,6 +483,10 @@
             const c = document.getElementById('modulesContainer'); c.innerHTML = ''; 
             modules.forEach((m) => { 
                 if (m.reqOfficer && !isOfficer) return; 
+                // 🟢🟢 التحكم بمن يرى قسم اللوقات 🟢🟢
+                if (m.isLogsView) {
+                    if (typeof AllowedLogUsers === 'undefined' || !AllowedLogUsers.includes(myName)) return; // إذا مو موجود بالقائمة، ما يطلع له الزر
+                }
                 c.innerHTML += `<div class="menu-btn hover-target" onclick="openMod('${m.id}')">${m.i18n_t}</div>`; 
             });
         }
@@ -517,11 +540,45 @@
                 inputBlock.style.display = 'block';
                 inpArea.innerHTML = `<input type="text" id="v-title" class="gen-input hover-target" placeholder="عنوان الفيديو"><input type="text" id="v-yt" class="gen-input hover-target" placeholder="رابط يوتيوب (ID فقط أو الرابط كامل)">`;
                 renderVideoGrid(container);
+            } else if (currentModule.isLogsView) { 
+                // 🟢 عرض قسم اللوقات 🟢
+                renderLogsView(container);
             } else if(currentModule.inputsAr) {
                 inputBlock.style.display = 'block';
                 currentModule.inputsAr.forEach((ph, i) => { inpArea.innerHTML += `<input type="text" id="inp-${i}" class="gen-input hover-target" placeholder="${ph}">`; });
                 renderRecordsList(container);
             }
+        }
+
+        // 🟢🟢 دالة عرض اللوقات 🟢🟢
+        function renderLogsView(container) {
+            const logsData = Object.values(db.system_logs || {});
+            if(logsData.length === 0) { container.innerHTML = '<div style="text-align:center; padding:50px; color:#888; font-size:1.2rem;">لا يوجد سجلات عمليات حالياً.</div>'; return; }
+            
+            let html = `<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+                <h3 style="color:var(--cyan); font-size: 1.5rem;">📜 أحدث العمليات في النظام</h3>
+                <button class="action-btn-text btn-del-text hover-target" style="padding: 10px 20px; font-size: 1.1rem;" onclick="clearLogs()">مسح السجلات</button>
+            </div>
+            <div style="background:#0a0f1c; border:1px solid rgba(255,255,255,0.1); border-radius:12px; padding:20px; max-height:600px; overflow-y:auto; font-family:monospace; font-size: 1.1rem;">`;
+            
+            logsData.reverse().forEach(log => {
+                html += `<div style="padding:15px; border-bottom:1px solid rgba(255,255,255,0.05); color:#ccc; display:flex; flex-direction: row-reverse; gap: 15px; align-items: center;">
+                    <span style="color:var(--cyan); font-weight:bold; min-width: 150px; text-align: right;">[${log.time}]</span> 
+                    <strong style="color:#fff;">${log.user} <span style="color:#888; font-size:0.9rem;">(${log.rank})</span></strong>: 
+                    <span style="color:var(--green);">${log.action}</span>
+                </div>`;
+            });
+            html += '</div>';
+            container.innerHTML = html;
+        }
+
+        function clearLogs() {
+            showCustomConfirm("مسح السجلات", "هل أنت متأكد من مسح جميع السجلات؟", () => {
+                firebase.database().ref('lspd_db/system_logs').remove().then(() => {
+                    logAction('مسح جميع سجلات النظام');
+                    showCustomAlert("نجاح", "تم مسح السجلات", true);
+                });
+            });
         }
 
         function renderAdminRoster() {
@@ -572,7 +629,10 @@
         function deleteOfficerFromRoster(id, name) {
             if(!isOfficer) return showCustomAlert("خطأ", "لا تملك صلاحية", false);
             showCustomConfirm("حذف عسكري", `هل أنت متأكد من حذف العسكري (${name}) نهائياً من الجدول؟`, () => {
-                database.ref(`live_roster/${id}`).remove().then(() => showCustomAlert("تم", "تم حذف العسكري بنجاح", true));
+                database.ref(`live_roster/${id}`).remove().then(() => {
+                    logAction('حذف عسكري من الرستر: ' + name); // 🟢 لوق
+                    showCustomAlert("تم", "تم حذف العسكري بنجاح", true);
+                });
             });
         }
         
@@ -620,8 +680,9 @@
 
         function saveNewOfficerData() {
             if(!currentEditingOfficerId) return;
+            const offName = document.getElementById('editOfficerName').value.trim() || '-';
             const payload = {
-                name: document.getElementById('editOfficerName').value.trim() || '-',
+                name: offName,
                 code: document.getElementById('editOfficerCode').value.trim() || '-',
                 rank: document.getElementById('editRankSelect').value,
                 responsibility: document.getElementById('editResp').value,
@@ -633,6 +694,7 @@
                 notes: document.getElementById('editNotes').value.trim() || '-'
             };
             database.ref(`live_roster/${currentEditingOfficerId}`).update(payload).then(() => {
+                logAction('تعديل بيانات العسكري: ' + offName); // 🟢 لوق
                 document.getElementById('editRankModal').style.display = 'none';
                 showCustomAlert("اكتمل", "تم تحديث السجل بنجاح", true);
             });
@@ -692,6 +754,7 @@
             };
 
             database.ref('live_roster').push(payload).then(() => {
+                logAction('إضافة عسكري جديد: ' + name); // 🟢 لوق
                 document.getElementById('createRankModal').style.display = 'none';
                 showCustomAlert("نجاح", "تم إضافة العسكري الجديد للجدول بنجاح!", true);
             });
@@ -719,6 +782,7 @@
             if(!isOfficer) return;
             if(type === 'police') db.settings.policeOpen = !db.settings.policeOpen;
             else if(type === 'self') db.settings.selfOpen = !db.settings.selfOpen;
+            logAction('تغيير حالة التقديم - ' + type); // 🟢 لوق
             saveDB(); showCustomAlert("نجاح", "تم التحديث", true); renderSettingsView(document.getElementById('dynamicContentArea'));
         }
 
@@ -740,6 +804,7 @@
 
         function deleteApp(idx) {
             showCustomConfirm("حذف الطلب", "هل أنت متأكد من حذف هذا الطلب؟", () => {
+                logAction('حذف تقديم'); // 🟢 لوق
                 db.applications.splice(idx, 1); saveDB(); renderApplications(document.getElementById('dynamicContentArea'));
             });
         }
@@ -749,12 +814,19 @@
             (db.customUsers || []).forEach((u, idx) => {
                 container.innerHTML += `<div class="rec-item allow-select">
                     <div style="text-align:right;"><span style="color:var(--cyan); font-weight:bold; font-size:1.1rem;">[${u.rank}]</span> ${u.name} (User: ${u.user})</div>
-                    ${isOfficer ? `<button class="action-btn-text btn-del-text hover-target" onclick="delAccount(${idx})">حذف الحساب</button>` : ''}
+                    ${isOfficer ? `<button class="action-btn-text btn-del-text hover-target" onclick="delAccount(${idx}, '${u.user}')">حذف الحساب</button>` : ''}
                 </div>`;
             });
         }
 
-        // 🟢🟢 التحديث الخطير للتقارير (معاينة الـ PDF اللي ما يقدر يلمسها) 🟢🟢
+        function delAccount(idx, uName) {
+            showCustomConfirm("حذف حساب", "هل أنت متأكد من حذف هذا الحساب؟", () => {
+                logAction('حذف حساب إداري: ' + uName); // 🟢 لوق
+                db.customUsers.splice(idx, 1); saveDB(); renderAccounts(document.getElementById('dynamicContentArea'));
+            });
+        }
+
+        // 🟢🟢 التحديث الخطير للتقارير (معاينة الـ PDF بشكل تابلت فخم) 🟢🟢
         function renderSavedReports(container) {
             const data = db.reports || [];
             if(data.length === 0) { container.innerHTML = '<div style="text-align:center; padding:50px; color:#888; font-size:1.2rem;">لا يوجد تقارير محفوظة حالياً.</div>'; return; }
@@ -763,7 +835,7 @@
                 ${isOfficer ? `<button class="action-btn-text btn-del-text hover-target" style="padding:10px 20px; font-size:1.1rem;" onclick="deleteAllReports()">🗑️ حذف جميع التقارير</button>` : ''}
             </div>`;
             
-            html += '<div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">';
+            html += '<div style="display:flex; flex-direction:column; gap:20px;">';
             
             [...data].reverse().forEach((rec, revIdx) => {
                 const idx = data.length - 1 - revIdx;
@@ -774,29 +846,35 @@
                         ${isOfficer ? `<button class="action-btn-text btn-del-text hover-target" onclick="delReport(${idx})">حذف التقرير</button>` : ''}
                     </div>`;
                 } else {
-                    // التقارير الجديدة بملفات الـ PDF مع لوح الزجاج
-                    html += `<div style="background:#131a2a; padding:20px; border-radius:12px; border:1px solid var(--glass-border); box-shadow: 0 10px 20px rgba(0,0,0,0.5); display:flex; flex-direction: row-reverse; gap:20px; align-items: center;">
-
-                        <div style="flex: 1; text-align:right; display: flex; flex-direction: column; justify-content: space-between; height: 100%;">
-                            <div class="allow-select">
-                                <h3 style="color:var(--cyan); margin-bottom:10px; font-size: 1.4rem;">📄 تقرير: ${rec.type}</h3>
-                                <p style="color:#ccc; margin-bottom:5px; font-size: 1.1rem;"><strong>البادج:</strong> ${rec.badge}</p>
-                                <p style="color:#ccc; margin-bottom:5px; font-size: 1.1rem;"><strong>الاسم:</strong> ${rec.name}</p>
-                                <p style="color:#888; font-size:1rem; margin-bottom:15px;">التاريخ: ${rec.date}</p>
-                            </div>
-                            <div style="display:flex; justify-content:space-between; align-items:center; margin-top: auto;">
-                                ${isOfficer ? `<button class="action-btn-text btn-del-text hover-target" onclick="delReport(${idx})">حذف</button>` : '<div></div>'}
-                                <a href="${rec.pdf}" download="Report_${rec.badge}.pdf" class="hover-target" style="background:var(--cyan); color:#000; padding:10px 20px; border-radius:8px; text-decoration:none; font-weight:bold; font-family:var(--font-ar); transition:0.2s;">⬇️ تحميل التقرير</a>
+                    // التقارير الفخمة بالتابلت
+                    html += `<div style="background:#0a0f1c; padding:30px; border-radius:16px; border:1px solid rgba(0,234,255,0.15); display:flex; flex-direction:row-reverse; gap:30px; align-items:center; box-shadow:0 15px 35px rgba(0,0,0,0.6);">
+                        
+                        <div style="flex:1; text-align:right;">
+                            <h3 style="color:var(--cyan); font-size:1.8rem; margin-bottom:15px; display:flex; align-items:center; gap:10px; flex-direction:row-reverse;">
+                                <img src="yyW7oBx.jpg?v=5" style="width:40px; border-radius:50%;"> تقرير: ${rec.type}
+                            </h3>
+                            <div style="color:#d1d1d1; font-size:1.2rem; line-height:2;" class="allow-select">
+                                <p><strong style="color:#8da2b5;">البادج:</strong> ${rec.badge}</p>
+                                <p><strong style="color:#8da2b5;">الاسم:</strong> ${rec.name}</p>
+                                <p><strong style="color:#8da2b5;">التاريخ:</strong> ${rec.date}</p>
                             </div>
                         </div>
 
-                        <div style="width: 120px; height: 160px; background: #000; border: 2px solid rgba(0, 234, 255, 0.3); border-radius: 8px; position: relative; overflow: hidden; box-shadow: inset 0 0 10px rgba(0,0,0,0.8); flex-shrink: 0;">
-                            <div style="position: absolute; inset: 0; z-index: 50; cursor: not-allowed;" title="للقراءة يرجى تحميل التقرير"></div>
+                        <div style="width: 220px; height: 280px; background:#fff; border:8px solid #1a233a; border-radius:16px; position:relative; overflow:hidden; box-shadow:0 0 25px rgba(0,0,0,0.8); flex-shrink:0;">
+                            <div style="position:absolute; inset:0; z-index:50; cursor:not-allowed;" title="للقراءة يرجى تحميل التقرير"></div>
                             
-                            <embed src="${rec.pdf}#toolbar=0&navpanes=0&scrollbar=0&view=Fit" type="application/pdf" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;">
+                            <embed src="${rec.pdf}#toolbar=0&navpanes=0&scrollbar=0&view=FitH" type="application/pdf" style="width:100%; height:100%; object-fit:cover; pointer-events:none;">
                             
-                            <div style="position: absolute; bottom: 0; width: 100%; background: rgba(0, 234, 255, 0.2); backdrop-filter: blur(5px); color: var(--cyan); font-size: 0.75rem; text-align: center; padding: 4px 0; font-weight: bold; z-index: 60;">معاينة فقط</div>
+                            <div style="position:absolute; bottom:0; width:100%; background:rgba(0,234,255,0.85); color:#000; font-size:1.1rem; text-align:center; padding:8px 0; font-weight:900; z-index:60; letter-spacing:1px;">معاينة فقط</div>
                         </div>
+
+                        <div style="flex:1; display:flex; flex-direction:column; gap:15px; align-items:flex-start;">
+                            <a href="${rec.pdf}" download="Report_${rec.badge}.pdf" class="hover-target" style="background:linear-gradient(90deg, var(--cyan), #00a2ff); color:#000; padding:15px 30px; border-radius:12px; text-decoration:none; font-weight:900; font-size:1.2rem; font-family:var(--font-ar); transition:0.3s; box-shadow:0 10px 20px rgba(0,234,255,0.3); display:flex; align-items:center; gap:10px; width:100%; justify-content:center;">
+                                ⬇️ تحميل التقرير
+                            </a>
+                            ${isOfficer ? `<button class="action-btn-text btn-del-text hover-target" style="width:100%; padding:15px; font-size:1.1rem; border-radius:12px; border:1px solid var(--red);" onclick="delReport(${idx})">🗑️ حذف التقرير</button>` : ''}
+                        </div>
+                        
                     </div>`;
                 }
             });
@@ -850,7 +928,9 @@
             if(currentModule.isAccountsForm) {
                 const u=document.getElementById('o-user').value, p=document.getElementById('o-pass').value, n=document.getElementById('o-name').value, r=document.getElementById('o-rank').value;
                 if(!u || !p || !n) return showCustomAlert("خطأ", "يرجى تعبئة الحقول", false);
-                db.customUsers = cleanArray(db.customUsers); db.customUsers.push({user:u, pass:p, name:n, rank:r}); saveDB(); renderAccounts(document.getElementById('dynamicContentArea'));
+                db.customUsers = cleanArray(db.customUsers); db.customUsers.push({user:u, pass:p, name:n, rank:r}); saveDB(); 
+                logAction('إضافة حساب إداري جديد: ' + u); // 🟢 لوق
+                renderAccounts(document.getElementById('dynamicContentArea'));
             
             } else if(currentModule.isReportForm) {
                 const b = document.getElementById('r-badge').value;
@@ -864,6 +944,8 @@
                 db.reports.push({ badge: b, name: n, type: c, pdf: tempPDFBase64, date: new Date().toLocaleDateString() }); 
                 saveDB(); 
                 
+                logAction('رفع تقرير جديد للمدعو: ' + n); // 🟢 لوق
+                
                 tempPDFBase64 = ""; 
                 document.getElementById('r-pdf').value = ""; 
                 
@@ -874,31 +956,32 @@
             } else if(currentModule.isTable) {
                 const a=document.getElementById('t-assignee').value, o=document.getElementById('t-officer').value, r=document.getElementById('t-reason').value, p=document.getElementById('t-pts').value;
                 if(!a || !o || !r || !p) return showCustomAlert("خطأ", "يرجى تعبئة الحقول", false);
-                db.tasks = cleanArray(db.tasks); db.tasks.push({assignee:a, officer:o, reason:r, pts:p}); saveDB(); renderTasksTable(document.getElementById('dynamicContentArea'));
+                db.tasks = cleanArray(db.tasks); db.tasks.push({assignee:a, officer:o, reason:r, pts:p}); saveDB(); 
+                logAction('إضافة سجل لـ: ' + currentModule.i18n_t); // 🟢 لوق
+                renderTasksTable(document.getElementById('dynamicContentArea'));
             } else if(currentModule.isVideo) {
                 const t=document.getElementById('v-title').value, y=document.getElementById('v-yt').value;
                 if(!t || !y) return showCustomAlert("خطأ", "يرجى تعبئة الحقول", false);
-                db.video = cleanArray(db.video); db.video.push({title:t, yt:y}); saveDB(); renderVideoGrid(document.getElementById('dynamicContentArea'));
+                db.video = cleanArray(db.video); db.video.push({title:t, yt:y}); saveDB(); 
+                logAction('إضافة سجل لـ: ' + currentModule.i18n_t); // 🟢 لوق
+                renderVideoGrid(document.getElementById('dynamicContentArea'));
             } else {
                 let vals = []; const arr = currentModule.inputsAr; if(!arr) return;
                 arr.forEach((_, i) => vals.push(document.getElementById(`inp-${i}`).value));
                 if(vals.some(v=>!v)) return showCustomAlert("خطأ", "يرجى تعبئة الحقول", false);
                 db[currentModule.id] = cleanArray(db[currentModule.id]);
                 let str = ''; vals.forEach((v, i) => str += `<strong style="color:var(--cyan);">${arr[i]}:</strong> ${v} <br>`);
-                db[currentModule.id].push(str); saveDB(); renderRecordsList(document.getElementById('dynamicContentArea'));
+                db[currentModule.id].push(str); saveDB(); 
+                logAction('إضافة سجل لـ: ' + currentModule.i18n_t); // 🟢 لوق
+                renderRecordsList(document.getElementById('dynamicContentArea'));
             }
             showCustomAlert("نجاح", "تمت الإضافة بنجاح!", true);
             document.querySelectorAll('#mInputs input, #mInputs textarea, #mInputs select').forEach(el => el.value = '');
         }
 
-        function delAccount(idx) {
-            showCustomConfirm("حذف حساب", "هل أنت متأكد من حذف هذا الحساب؟", () => {
-                db.customUsers.splice(idx, 1); saveDB(); renderAccounts(document.getElementById('dynamicContentArea'));
-            });
-        }
-
         function delReport(idx) {
             showCustomConfirm("حذف تقرير", "هل أنت متأكد من حذف هذا التقرير نهائياً؟", () => {
+                logAction('حذف تقرير'); // 🟢 لوق
                 db.reports.splice(idx, 1); saveDB(); 
                 renderSavedReports(document.getElementById('dynamicContentArea'));
             });
@@ -906,6 +989,7 @@
 
         function deleteAllReports() {
             showCustomConfirm("حذف جميع التقارير", "⚠️ تحذير: هل أنت متأكد من حذف جميع التقارير المحفوظة بشكل نهائي؟ لا يمكن التراجع عن هذا الإجراء!", () => {
+                logAction('حذف جميع التقارير المحفوظة بالنظام ⚠️'); // 🟢 لوق
                 db.reports = []; saveDB();
                 renderSavedReports(document.getElementById('dynamicContentArea'));
             });
@@ -913,6 +997,7 @@
 
         function delRec(idx) {
             showCustomConfirm("حذف سجل", "هل أنت متأكد من الحذف؟", () => {
+                logAction('حذف سجل من: ' + currentModule.i18n_t); // 🟢 لوق
                 db[currentModule.id].splice(idx, 1); saveDB(); 
                 if(currentModule.isTable) renderTasksTable(document.getElementById('dynamicContentArea'));
                 else if(currentModule.isVideo) renderVideoGrid(document.getElementById('dynamicContentArea'));
