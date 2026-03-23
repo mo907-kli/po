@@ -310,13 +310,11 @@
 
         const pointer = document.getElementById('cursor-pointer');
         const trail = document.getElementById('cursor-trail');
-        
         window.addEventListener('mousemove', (e) => {
             pointer.style.left = e.clientX + 'px';
             pointer.style.top = e.clientY + 'px';
             trail.animate({ left: e.clientX + 'px', top: e.clientY + 'px' }, { duration: 120, fill: "forwards" });
         });
-
         const hoverTargets = document.querySelectorAll('.hover-target, button, input, select, .menu-btn');
         hoverTargets.forEach(target => {
             target.addEventListener('mouseenter', () => {
@@ -354,7 +352,6 @@
         firebase.initializeApp({ apiKey: "AIzaSyC5PL_fJEjiJVQS8rnx4m8j9uQNsILcQvs", authDomain: "police-depa.firebaseapp.com", databaseURL: "https://police-depa-default-rtdb.europe-west1.firebasedatabase.app", projectId: "police-depa" });
         const database = firebase.database();
 
-        // 🟢 موديول اللوقات
         const modules = [
             { id: 'settings', i18n_t: 'إعدادات التقديم', isSettingsView: true, reqOfficer: true },
             { id: 'applications', i18n_t: 'طلبات التقديم', isAppsView: true, reqOfficer: true },
@@ -557,13 +554,17 @@
             }
         }
 
+        // 🟢 دالة عرض اللوقات وإضافة زر التحميل 🟢
         function renderLogsView(container) {
             const logsData = Object.values(db.system_logs || {});
             if(logsData.length === 0) { container.innerHTML = '<div style="text-align:center; padding:50px; color:#888; font-size:1.2rem;">لا يوجد سجلات عمليات حالياً.</div>'; return; }
             
             let html = `<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
                 <h3 style="color:var(--cyan); font-size: 1.5rem;">📜 أحدث العمليات في النظام</h3>
-                <button class="action-btn-text btn-del-text hover-target" style="padding: 10px 20px; font-size: 1.1rem;" onclick="clearLogs()">مسح السجلات</button>
+                <div style="display: flex; gap: 15px;">
+                    <button class="action-btn-text hover-target" style="padding: 10px 20px; font-size: 1.1rem; background: rgba(0, 234, 255, 0.1); color: var(--cyan); border: 1px solid var(--cyan); border-radius: 6px;" onclick="downloadLogs()">⬇️ تنزيل اللوقات</button>
+                    <button class="action-btn-text btn-del-text hover-target" style="padding: 10px 20px; font-size: 1.1rem;" onclick="clearLogs()">مسح السجلات</button>
+                </div>
             </div>
             <div style="background:#0a0f1c; border:1px solid rgba(255,255,255,0.1); border-radius:12px; padding:20px; max-height:600px; overflow-y:auto; font-family:monospace; font-size: 1.1rem;">`;
             
@@ -576,6 +577,35 @@
             });
             html += '</div>';
             container.innerHTML = html;
+        }
+
+        // 🟢 دالة تنزيل اللوقات كملف TXT 🟢
+        function downloadLogs() {
+            const logsData = Object.values(db.system_logs || {});
+            if (logsData.length === 0) {
+                showCustomAlert("تنبيه", "لا يوجد سجلات لتحميلها.", false);
+                return;
+            }
+
+            let txtContent = "=== سجلات نظام L.S.P.D ===\n\n";
+            logsData.reverse().forEach(log => {
+                txtContent += `[${log.time}] ${log.user} (${log.rank}) : ${log.action}\n`;
+            });
+
+            const blob = new Blob([txtContent], { type: 'text/plain;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            
+            const dateStr = new Date().toLocaleDateString('en-GB').replace(/\//g, '-');
+            a.download = `LSPD_Logs_${dateStr}.txt`;
+            
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+
+            logAction('قام بتنزيل ملف سجلات النظام (TXT)'); // 🟢 يسجل الحركة هذي بعد!
         }
 
         function clearLogs() {
@@ -832,7 +862,6 @@
             });
         }
 
-        // 🟢🟢 التحديث الخطير للتقارير (التابلت) 🟢🟢
         function renderSavedReports(container) {
             const data = db.reports || [];
             if(data.length === 0) { container.innerHTML = '<div style="text-align:center; padding:50px; color:#888; font-size:1.2rem;">لا يوجد تقارير محفوظة حالياً.</div>'; return; }
@@ -891,7 +920,7 @@
             if(data.length === 0) { container.innerHTML = '<div style="text-align:center; padding:30px; color:#888; font-size:1.2rem;">لا يوجد مهام.</div>'; return; }
             let html = '<div class="roster-wrapper"><table class="luxury-table"><thead><tr><th>المستلم</th><th>المسؤول</th><th>المهمة</th><th>النقاط</th><th>الإجراء</th></tr></thead><tbody>';
             data.forEach((t, idx) => {
-                html += `<tr class="roster-row"><td>${t.assignee}</td><td>${t.officer}</td><td>${t.reason}</td><td><span style="color:var(--cyan);font-weight:bold;">${t.pts}</span></td><td>${isOfficer ? `<button class="action-btn-text btn-del-text hover-target" onclick="delRec(${idx}, 'مهمة يخص ${t.assignee}')">حذف</button>` : ''}</td></tr>`;
+                html += `<tr class="roster-row"><td>${t.assignee}</td><td>${t.officer}</td><td>${t.reason}</td><td><span style="color:var(--cyan);font-weight:bold;">${t.pts}</span></td><td>${isOfficer ? `<button class="action-btn-text btn-del-text hover-target" onclick="delRec(${idx}, 'مهمة تخص ${t.assignee}')">حذف</button>` : ''}</td></tr>`;
             });
             container.innerHTML = html + '</tbody></table></div>';
         }
