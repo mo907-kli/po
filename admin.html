@@ -32,6 +32,7 @@
 
         #bgEffects { position: fixed; inset: 0; z-index: -5; pointer-events: none; background-color: var(--bg-deep); }
 
+        /* 🟢 الماوس الخفيف 🟢 */
         #particles-container { position: fixed; inset: 0; z-index: -1; pointer-events: none; }
         .particle { position: absolute; background: var(--cyan); border-radius: 50%; animation: floatParticle linear infinite; opacity: 0; box-shadow: 0 0 5px var(--cyan); }
         @keyframes floatParticle { 0% { transform: translateY(0); opacity: 0; } 10% { opacity: 0.15; } 90% { opacity: 0.15; } 100% { transform: translateY(-100vh); opacity: 0; } }
@@ -42,6 +43,7 @@
         @keyframes popIn { 0% { opacity: 0; transform: scale(0.98); } 100% { opacity: 1; transform: scale(1); } }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
+        /* شاشة تسجيل الدخول */
         #loginScreen { position: fixed; inset: 0; z-index: 99999; background: linear-gradient(135deg, #040814 0%, #0a1224 100%); display: flex; justify-content: center; align-items: center; transition: 0.4s; }
         .bg-shape-1 { position: absolute; top: 10%; left: 20%; width: 300px; height: 300px; background: rgba(0, 234, 255, 0.1); border-radius: 50%; filter: blur(80px); pointer-events: none; }
         .bg-shape-2 { position: absolute; bottom: 10%; right: 20%; width: 400px; height: 400px; background: rgba(0, 100, 255, 0.05); border-radius: 50%; filter: blur(100px); pointer-events: none; }
@@ -60,9 +62,13 @@
         .neon-pulse-btn:hover { background: var(--cyan); color: #000; box-shadow: 0 0 30px var(--cyan), inset 0 0 10px rgba(255,255,255,0.5); animation: none; }
         @keyframes neonPulse { 0%, 100% { box-shadow: 0 0 10px var(--cyan-glow); border-color: var(--cyan); } 50% { box-shadow: 0 0 25px var(--cyan), inset 0 0 5px var(--cyan-glow); border-color: #fff; } }
 
+        /* 🟢 تأثير كروت المطلوبين الجديدة 🟢 */
+        @keyframes glitch-red { 0%, 100% { text-shadow: 2px 0 0 rgba(255,0,0,0.5); } 50% { text-shadow: -2px 0 0 rgba(255,0,0,0.5); } }
+
         .back-link { display: inline-block; margin-top: 25px; color: #666; font-size: 0.95rem; text-decoration: none; transition: 0.3s; font-weight: bold; }
         .back-link:hover { color: #fff; }
 
+        /* لوحة القيادة العامة */
         #mainWrapper { display: none; flex-direction: column; min-height: 100vh; animation: fadeIn 0.3s ease;}
         header { display: flex; justify-content: space-between; align-items: center; padding: 20px 40px; border-bottom: 1px solid rgba(255,255,255,0.05); background: #0a0f1c;}
         .header-side { display: flex; gap: 15px; align-items: center; }
@@ -84,6 +90,7 @@
         .menu-btn { background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 12px; padding: 30px 20px; text-align: center; color: #fff; font-size: 1.25rem; font-weight: 800; cursor: pointer; transition: 0.2s;}
         .menu-btn:hover { border-color: var(--cyan); background: #151e32; transform: translateY(-3px); }
 
+        /* الأقسام الداخلية */
         #moduleView { display: none; flex-direction: column; width: 95%; max-width: 1600px; margin: 0 auto; padding-top: 30px; animation: popIn 0.2s ease; }
         .roster-wrapper { width: 100%; background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 12px; padding: 20px; overflow-x: auto; margin-bottom:30px;}
         .roster-wrapper::-webkit-scrollbar { height: 6px; } .roster-wrapper::-webkit-scrollbar-thumb { background: var(--cyan); border-radius: 6px; }
@@ -113,11 +120,13 @@
 
         .rec-item { padding: 15px; background: #131a2a; border-radius: 8px; margin-bottom: 10px; border: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; align-items: center; color: #ddd; font-size: 1.05rem; }
 
+        /* النوافذ المنبثقة */
         .modal-overlay { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.85); z-index: 100000; display: none; justify-content: center; align-items: center; }
         .modal-box { width: 600px; padding: 30px; background: #0b101e; border: 1px solid var(--cyan); border-radius: 12px; animation: popIn 0.2s ease; }
         .close-btn { background: #131a2a; border: 1px solid rgba(255,255,255,0.2); color: #ccc; padding: 12px; border-radius: 8px; cursor: none; transition: 0.2s; font-weight: bold; width: 100%; font-family:var(--font-ar); font-size:1.1rem;}
         .close-btn:hover { background: var(--red); border-color: var(--red); color: #fff;}
 
+        /* بطاقة الهوية */
         #idCardOverlay .modal-box { width: 650px; background: #05080f; border: 1px solid rgba(255,255,255,0.05); border-right: 3px solid var(--cyan); display: flex; flex-direction: row-reverse; align-items: center; padding: 30px; }
         .profile-img-wrapper { width: 150px; height: 150px; border-radius: 16px; border: 2px solid var(--cyan); padding: 4px; background: rgba(0, 234, 255, 0.05); margin-right:auto;}
         .card-right { display: flex; flex-direction: column; align-items: flex-end; text-align: right; width: calc(100% - 200px); }
@@ -340,9 +349,13 @@
             "Solo Cadet": { prefix: "U-", min: 130, max: 199 }, "Cadet": { prefix: "U-", min: 200, max: 400 }
         };
 
+        const respOptionsData = ["N/A", "Police Administration", "Commission Office", "High Command", "Command", "Head Of Internal Affairs", "Intern Affairs Member", "Detective Supervisor", "Supervisor", "Detective", "Motorcycle Unit Leader", "Motorcycle Unit CO-Leader", "Motorcycle Supervisor", "Air Unit Leader", "Air Unit CO-Leader", "Speed Unit Leader", "Speed Unit CO-Leader", "GANG UNIT Leader", "GANG UNIT CO- Leader", "Assistants", "Trooper", "GANG UNIT", "HEAD OF COMMAND", "Air Fleet Commander", "Police Wings Commander", "Commander Of P.A", "Deputy Of P.A", "deputy air fleet", "Advisor of air fleet", "War Commander", "S.W.A.T Commander", "Deputy S.W.A.T Commander"];
+        const strikesOptionsData = ["N/A", "WARN 1", "WARN 2", "WARN 3", "Strike Point 1", "Strike Point 2", "Strike Point 3", "Strike Point 4", "Strike Point 5", "Strike Point 6", "Strike Point 7"];
+
         firebase.initializeApp({ apiKey: "AIzaSyC5PL_fJEjiJVQS8rnx4m8j9uQNsILcQvs", authDomain: "police-depa.firebaseapp.com", databaseURL: "https://police-depa-default-rtdb.europe-west1.firebasedatabase.app", projectId: "police-depa" });
         const database = firebase.database();
 
+        // 🟢 أضفنا قسم المطلوبين كـ موديول مخصص (isWantedForm: true)
         const modules = [
             { id: 'settings', i18n_t: 'إعدادات التقديم', isSettingsView: true, reqOfficer: true },
             { id: 'applications', i18n_t: 'طلبات التقديم', isAppsView: true, reqOfficer: true },
@@ -351,16 +364,17 @@
             { id: 'saved', i18n_t: 'التقارير المحفوظة', isSavedReports: true },
             { id: 'tasks', i18n_t: 'المهام والنقاط', isTable: true },
             { id: 'video', i18n_t: 'قسم الفيديو', isVideo: true },
-            { id: 'wanted', i18n_t: 'المطلوبين للعدالة', inputsAr: ['اسم الهدف', 'التهمة', 'الخطورة'] },
+            { id: 'wanted', i18n_t: 'المطلوبين للعدالة', isWantedForm: true }, // 🟢 تحديث هنا
             { id: 'notes', i18n_t: 'ملاحظات القيادة', inputsAr: ['الموضوع', 'النص'] },
             { id: 'crypto', i18n_t: 'قسم التشفير', isCrypto: true },
             { id: 'officials', i18n_t: 'إدارة الحسابات', isAccountsForm: true, reqOfficer: true },
             { id: 'logs', i18n_t: 'سجلات النظام (Logs)', isLogsView: true }
         ];
 
-        let db = { applications: [], reports: [], customUsers: [], live_roster: {}, system_logs: {}, settings: { policeOpen: true, selfOpen: true } }; 
+        let db = { applications: [], reports: [], customUsers: [], wanted: [], live_roster: {}, system_logs: {}, settings: { policeOpen: true, selfOpen: true } }; 
         let currentModule = null; let isOfficer = false; let myName = ""; let myRank = ""; 
         let tempPDFBase64 = ""; 
+        let tempWantedImgBase64 = ""; // 🟢 متغير لصورة المطلوب
 
         function logAction(actionText) {
             const t = new Date().toLocaleString('ar-SA');
@@ -401,6 +415,7 @@
                 db.applications = cleanArray(data.applications); 
                 db.reports = cleanArray(data.reports); 
                 db.customUsers = cleanArray(data.customUsers); 
+                db.wanted = cleanArray(data.wanted); // 🟢 تحديث بيانات المطلوبين
                 db.settings = data.settings || { policeOpen: true, selfOpen: true };
                 db.system_logs = data.system_logs || {};
                 modules.forEach(m => { if(m.inputsAr || m.isTable || m.isVideo) db[m.id] = cleanArray(data[m.id]); });
@@ -472,6 +487,15 @@
             reader.readAsDataURL(file);
         }
 
+        // 🟢 دالة رفع صورة المطلوب 🟢
+        function handleWantedImgUpload(input) {
+            const file = input.files[0];
+            if (!file) { tempWantedImgBase64 = ""; return; }
+            const reader = new FileReader();
+            reader.onload = (e) => { tempWantedImgBase64 = e.target.result; };
+            reader.readAsDataURL(file);
+        }
+
         function renderModules() {
             const c = document.getElementById('modulesContainer'); c.innerHTML = ''; 
             modules.forEach((m) => { 
@@ -534,6 +558,18 @@
                 inputBlock.style.display = 'block';
                 inpArea.innerHTML = `<input type="text" id="v-title" class="gen-input hover-target" placeholder="عنوان الفيديو"><input type="text" id="v-yt" class="gen-input hover-target" placeholder="رابط يوتيوب (ID فقط أو الرابط كامل)">`;
                 renderVideoGrid(container);
+            } else if (currentModule.isWantedForm) {
+                // 🟢 نموذج المطلوبين الجديد مع زر الصورة 🟢
+                inputBlock.style.display = 'block';
+                inpArea.innerHTML = `
+                    <input type="text" id="w-name" class="gen-input hover-target" placeholder="اسم الهدف">
+                    <input type="text" id="w-charge" class="gen-input hover-target" placeholder="التهمة">
+                    <input type="text" id="w-danger" class="gen-input hover-target" placeholder="الخطورة (مثال: قصوى)">
+                    <div style="grid-column: span 2; background: rgba(0,0,0,0.3); padding: 15px; border-radius: 8px; border: 1px dashed var(--red); text-align: center;">
+                        <div style="color: #fff; margin-bottom: 10px; font-weight: bold;">📸 إرفاق صورة المطلوب:</div>
+                        <input type="file" id="w-img" accept="image/*" class="gen-input hover-target" style="width: auto; margin: 0 auto; display: block;" onchange="handleWantedImgUpload(this)">
+                    </div>`;
+                renderWantedGrid(container);
             } else if (currentModule.isLogsView) { 
                 renderLogsView(container);
             } else if(currentModule.inputsAr) {
@@ -541,6 +577,35 @@
                 currentModule.inputsAr.forEach((ph, i) => { inpArea.innerHTML += `<input type="text" id="inp-${i}" class="gen-input hover-target" placeholder="${ph}">`; });
                 renderRecordsList(container);
             }
+        }
+
+        // 🟢 دالة عرض كروت المطلوبين الـ 3D 🟢
+        function renderWantedGrid(container) {
+            const data = db.wanted || [];
+            if(data.length === 0) { container.innerHTML = '<div style="text-align:center; padding:30px; color:#888; font-size:1.2rem;">لا يوجد مطلوبين.</div>'; return; }
+            
+            let html = '<div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); gap:20px;">';
+            data.forEach((w, idx) => {
+                if(typeof w === 'string') {
+                    // توافق مع البيانات القديمة لو كانت نصية
+                    html += `<div class="rec-item allow-select">${w} ${isOfficer ? `<button class="action-btn-text btn-del-text" onclick="delRec(${idx}, 'سجل مطلوبين قديم')">حذف</button>` : ''}</div>`;
+                } else {
+                    let imgSrc = w.image || 'https://via.placeholder.com/150/222/555?text=NO+IMAGE';
+                    html += `
+                    <div style="background: #0a0a0a; border: 2px solid var(--red); box-shadow: 0 0 15px rgba(255,0,60,0.3); border-radius: 8px; padding: 15px; text-align: center; position: relative;">
+                        <h3 style="color: var(--red); font-family: var(--font-en); font-size: 2rem; letter-spacing: 3px; margin-bottom: 10px; animation: glitch-red 2s infinite;">WANTED</h3>
+                        <div style="width: 100%; height: 180px; background: url('${imgSrc}') center/cover; border: 1px solid #333; margin-bottom: 15px; filter: grayscale(50%) contrast(120%); border-radius: 4px;"></div>
+                        <div style="text-align: right; color: #ccc; line-height: 1.8;" class="allow-select">
+                            <p><strong style="color: var(--cyan);">الاسم:</strong> ${w.name}</p>
+                            <p><strong style="color: var(--cyan);">التهمة:</strong> ${w.charge}</p>
+                            <p><strong style="color: var(--cyan);">الخطورة:</strong> <span style="color: var(--red); font-weight:bold;">${w.danger}</span></p>
+                        </div>
+                        ${isOfficer ? `<button class="action-btn-text btn-del-text hover-target" style="width: 100%; margin-top: 15px; padding: 10px; border: 1px solid var(--red); font-size: 1.1rem; border-radius: 6px;" onclick="delRec(${idx}, 'حذف مطلوب: ${w.name}')">🗑️ إزالة المطلوب</button>` : ''}
+                    </div>`;
+                }
+            });
+            html += '</div>';
+            container.innerHTML = html;
         }
 
         function renderLogsView(container) {
@@ -604,372 +669,6 @@
             });
         }
 
-        function renderAdminRoster() {
-            const container = document.getElementById('dynamicContentArea');
-            const data = db.live_roster;
-            if (!data || Object.keys(data).length === 0) { container.innerHTML = '<div style="text-align:center; padding:50px; color:#888;">لا يوجد بيانات.</div>'; return; }
-            
-            let htmlString = `
-            <div class="roster-wrapper">
-                <table class="luxury-table">
-                    <thead>
-                        <tr>
-                            <th>Code</th><th>Name</th><th>Rank</th><th>Responsibility</th><th>Status</th><th>Strikes</th><th>Last Prom</th><th>F.P</th><th>Discord ID</th><th>Notes</th><th>الإجراءات</th>
-                        </tr>
-                    </thead>
-                    <tbody>`;
-            
-            const groups = {};
-            Object.keys(data).forEach(key => { const off = data[key]; off.id = key; const r = off.rank || 'غير محدد'; if(!groups[r]) groups[r] = []; groups[r].push(off); });
-            const sortedRanks = Object.keys(groups).sort((a, b) => { let iA = SystemRanks.indexOf(a), iB = SystemRanks.indexOf(b); return (iA===-1?999:iA) - (iB===-1?999:iB); });
-
-            sortedRanks.forEach(rankName => {
-                htmlString += `<tr><td colspan="11" style="border:none;"><div class="dept-title">${rankName}</div></td></tr>`;
-                
-                groups[rankName].sort((a, b) => (a.code || '').localeCompare(b.code || '')).forEach(off => {
-                    htmlString += `
-                    <tr class="roster-row">
-                        <td style="color: var(--cyan); font-weight: 900;">${off.code || '-'}</td>
-                        <td style="color: #fff; font-family: var(--font-ar);">${off.name || '-'}</td>
-                        <td style="color: #ccc;">${off.rank || '-'}</td>
-                        <td style="color: #ccc;">${off.responsibility || '-'}</td>
-                        <td><div style="background: rgba(0, 255, 106, 0.1); border: 1px solid rgba(0, 255, 106, 0.3); color: var(--green); padding: 5px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: 800;">${off.status || 'ACTIVE'}</div></td>
-                        <td style="color: #888;">${off.strikes || '-'}</td>
-                        <td style="color: #888;">${off.lastProm || '-'}</td>
-                        <td style="color: #888;">${off.fp || '-'}</td>
-                        <td><span style="background: rgba(0,0,0,0.4); padding: 5px 10px; border-radius: 6px; font-family: monospace; color: #8da2b5; border: 1px solid rgba(255,255,255,0.05);">${off.discordId || '-'}</span></td>
-                        <td style="color: #888; font-size:0.9rem; max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${off.notes || '-'}</td>
-                        <td>
-                            <button onclick="editOfficerData('${off.id}', '${off.name}', '${off.rank}', '${off.code}', '${off.responsibility}', '${off.status}', '${off.strikes}', '${off.lastProm}', '${off.fp}', '${off.discordId}', '${off.notes}')" class="action-btn-text btn-edit-text hover-target" title="تعديل">تعديل</button>
-                            <button onclick="deleteOfficerFromRoster('${off.id}', '${off.name}')" class="action-btn-text btn-del-text hover-target" title="حذف">حذف</button>
-                        </td>
-                    </tr>`;
-                });
-            });
-            container.innerHTML = htmlString + '</tbody></table></div>';
-        }
-
-        function deleteOfficerFromRoster(id, name) {
-            if(!isOfficer) return showCustomAlert("خطأ", "لا تملك صلاحية", false);
-            showCustomConfirm("حذف عسكري", `هل أنت متأكد من حذف العسكري (${name}) نهائياً من الجدول؟`, () => {
-                database.ref(`live_roster/${id}`).remove().then(() => {
-                    logAction('حذف عسكري من الرستر: ' + name); 
-                    showCustomAlert("تم", "تم حذف العسكري بنجاح", true);
-                });
-            });
-        }
-        
-        let currentEditingOfficerId = null;
-
-        function editOfficerData(id, name, currentRank, code, resp, status, strikes, prom, fp, discord, notes) {
-            currentEditingOfficerId = id;
-            document.getElementById('editOfficerName').value = name || '';
-            document.getElementById('editOfficerCode').value = code || '';
-            
-            let respHtml = ''; respOptionsData.forEach(r => { respHtml += `<option value="${r}" ${r===resp ? 'selected' : ''}>${r}</option>`; });
-            document.getElementById('editResp').innerHTML = respHtml;
-
-            document.getElementById('editStatus').value = status || 'ACTIVE';
-            
-            let strikesHtml = ''; strikesOptionsData.forEach(s => { strikesHtml += `<option value="${s}" ${s===strikes ? 'selected' : ''}>${s}</option>`; });
-            document.getElementById('editStrikes').innerHTML = strikesHtml;
-
-            document.getElementById('editProm').value = prom === '-' ? '' : prom;
-            document.getElementById('editFP').value = fp === '-' ? '' : fp;
-            document.getElementById('editDiscord').value = discord === '-' ? '' : discord;
-            document.getElementById('editNotes').value = notes === '-' ? '' : notes;
-            
-            let rankOptions = ''; SystemRanks.forEach(r => { rankOptions += `<option value="${r}" ${r===currentRank ? 'selected' : ''}>${r}</option>`; });
-            document.getElementById('editRankSelect').innerHTML = rankOptions;
-            
-            document.getElementById('editRankModal').style.display = 'flex';
-        }
-
-        function autoGenerateCode() {
-            const rank = document.getElementById('editRankSelect').value;
-            const safeRoleName = rank.toLowerCase();
-            if (rankExactCodes[rank]) { document.getElementById('editOfficerCode').value = rankExactCodes[rank]; } 
-            else if (rankRanges[rank]) {
-                const range = rankRanges[rank];
-                const currentCode = document.getElementById('editOfficerCode').value;
-                let numberPart = currentCode.match(/\d+/);
-                if (numberPart && numberPart[0] >= range.min && numberPart[0] <= range.max) { document.getElementById('editOfficerCode').value = `${range.prefix}${numberPart[0]}`; } 
-                else { document.getElementById('editOfficerCode').value = `${range.prefix}${Math.floor(Math.random() * (range.max - range.min + 1)) + range.min}`; }
-            } else {
-                let prefix = safeRoleName.includes("officer") || safeRoleName.includes("sergeant") || safeRoleName.includes("cadet") ? "U-" : "C-";
-                document.getElementById('editOfficerCode').value = `${prefix}00`;
-            }
-        }
-
-        function saveNewOfficerData() {
-            if(!currentEditingOfficerId) return;
-            const offName = document.getElementById('editOfficerName').value.trim() || '-';
-            const payload = {
-                name: offName,
-                code: document.getElementById('editOfficerCode').value.trim() || '-',
-                rank: document.getElementById('editRankSelect').value,
-                responsibility: document.getElementById('editResp').value,
-                status: document.getElementById('editStatus').value,
-                strikes: document.getElementById('editStrikes').value,
-                lastProm: document.getElementById('editProm').value.trim() || '-',
-                fp: document.getElementById('editFP').value.trim() || '-',
-                discordId: document.getElementById('editDiscord').value.trim() || '-',
-                notes: document.getElementById('editNotes').value.trim() || '-'
-            };
-            database.ref(`live_roster/${currentEditingOfficerId}`).update(payload).then(() => {
-                logAction('تعديل بيانات العسكري: ' + offName); 
-                document.getElementById('editRankModal').style.display = 'none';
-                showCustomAlert("اكتمل", "تم تحديث السجل بنجاح", true);
-            });
-        }
-
-        function openCreateModal() {
-            document.getElementById('createOfficerName').value = '';
-            document.getElementById('createOfficerCode').value = '';
-            
-            let respHtml = ''; respOptionsData.forEach(r => { respHtml += `<option value="${r}">${r}</option>`; });
-            document.getElementById('createResp').innerHTML = respHtml;
-            document.getElementById('createStatus').value = 'ACTIVE';
-            
-            let strikesHtml = ''; strikesOptionsData.forEach(s => { strikesHtml += `<option value="${s}">${s}</option>`; });
-            document.getElementById('createStrikes').innerHTML = strikesHtml;
-
-            document.getElementById('createProm').value = '';
-            document.getElementById('createFP').value = '';
-            document.getElementById('createDiscord').value = '';
-            document.getElementById('createNotes').value = '';
-            
-            let rankOptions = ''; SystemRanks.forEach(r => { rankOptions += `<option value="${r}">${r}</option>`; });
-            document.getElementById('createRankSelect').innerHTML = rankOptions;
-            
-            autoGenerateCreateCode(); 
-            document.getElementById('createRankModal').style.display = 'flex';
-        }
-
-        function autoGenerateCreateCode() {
-            const rank = document.getElementById('createRankSelect').value;
-            const safeRoleName = rank.toLowerCase();
-            if (rankExactCodes[rank]) { document.getElementById('createOfficerCode').value = rankExactCodes[rank]; } 
-            else if (rankRanges[rank]) {
-                const range = rankRanges[rank];
-                document.getElementById('createOfficerCode').value = `${range.prefix}${Math.floor(Math.random() * (range.max - range.min + 1)) + range.min}`;
-            } else {
-                let prefix = safeRoleName.includes("officer") || safeRoleName.includes("sergeant") || safeRoleName.includes("cadet") ? "U-" : "C-";
-                document.getElementById('createOfficerCode').value = `${prefix}00`;
-            }
-        }
-
-        function saveNewCreatedOfficer() {
-            const name = document.getElementById('createOfficerName').value.trim();
-            if(!name) { showCustomAlert("خطأ", "يجب إدخال اسم العسكري على الأقل!", false); return; }
-
-            const payload = {
-                name: name,
-                code: document.getElementById('createOfficerCode').value.trim() || '-',
-                rank: document.getElementById('createRankSelect').value,
-                responsibility: document.getElementById('createResp').value,
-                status: document.getElementById('createStatus').value,
-                strikes: document.getElementById('createStrikes').value,
-                lastProm: document.getElementById('createProm').value.trim() || '-',
-                fp: document.getElementById('createFP').value.trim() || '-',
-                discordId: document.getElementById('createDiscord').value.trim() || '-',
-                notes: document.getElementById('createNotes').value.trim() || '-'
-            };
-
-            database.ref('live_roster').push(payload).then(() => {
-                logAction('إضافة عسكري جديد: ' + name); 
-                document.getElementById('createRankModal').style.display = 'none';
-                showCustomAlert("نجاح", "تم إضافة العسكري الجديد للجدول بنجاح!", true);
-            });
-        }
-
-        function renderSettingsView(container) {
-            let pOpen = db.settings.policeOpen; let sOpen = db.settings.selfOpen;
-            container.innerHTML = `<div style="background:#0f1626; border:1px solid var(--glass-border); border-radius:12px; padding:40px; text-align:center; max-width:800px; margin:0 auto;">
-                <h3 style="color:var(--cyan); margin-bottom:30px; font-size:1.8rem;">التحكم في بوابات التقديم</h3>
-                <div style="font-size: 1.3rem; margin-bottom: 15px; color: #fff; background: #05080f; padding: 15px; border-radius: 8px; display:flex; justify-content:space-between; align-items:center;">
-                    <span>تقديم شرطة تايتنز:</span> <span>${pOpen ? '<span style="color:var(--green);">مفتوح 🟢</span>' : '<span style="color:var(--red);">مغلق 🔴</span>'}</span>
-                </div>
-                <div style="font-size: 1.3rem; margin-bottom: 25px; color: #fff; background: #05080f; padding: 15px; border-radius: 8px; display:flex; justify-content:space-between; align-items:center;">
-                    <span>تقديم قدم نفسك:</span> <span>${sOpen ? '<span style="color:var(--green);">مفتوح 🟢</span>' : '<span style="color:var(--red);">مغلق 🔴</span>'}</span>
-                </div>
-                ${isOfficer ? `
-                <div style="display:flex; gap:15px;">
-                    <button class="submit-btn hover-target" onclick="toggleAppStatus('police')" style="margin:0;">تغيير حالة (شرطة)</button>
-                    <button class="submit-btn hover-target" onclick="toggleAppStatus('self')" style="margin:0;">تغيير حالة (قدم نفسك)</button>
-                </div>
-                
-                <hr style="border-top: 1px dashed rgba(0, 234, 255, 0.2); margin: 30px 0; border-bottom: none; border-left: none; border-right: none;">
-                
-                <div style="display:flex; justify-content:space-between; align-items:center; background: rgba(255, 51, 51, 0.05); padding: 20px; border-radius: 8px; border: 1px solid rgba(255, 51, 51, 0.2);">
-                    <div style="text-align:right;">
-                        <h4 style="color:var(--yellow); font-size:1.2rem; margin-bottom:5px;">🔄 رستارت التقديم</h4>
-                        <p style="color:#aaa; font-size:0.9rem;">يمسح كل الطلبات السابقة عشان الناس تقدر تقدم من جديد (يفك الحظر عن اللي قدموا).</p>
-                    </div>
-                    <button class="head-btn btn-red hover-target" style="padding: 12px 25px; font-size:1.1rem; margin:0;" onclick="restartApplications()">رستارت التقديم</button>
-                </div>
-                ` : ''}
-            </div>`;
-        }
-
-        function restartApplications() {
-            showCustomConfirm("رستارت التقديم", "هل أنت متأكد؟ هذا الإجراء سيقوم بمسح جميع الطلبات الحالية للسماح للأشخاص بالتقديم من جديد.", () => {
-                db.applications = [];
-                logAction('قام بعمل رستارت لطلبات التقديم (مسح الكل)'); 
-                saveDB(); 
-                showCustomAlert("نجاح", "تم عمل رستارت للتقديم بنجاح!", true); 
-                renderSettingsView(document.getElementById('dynamicContentArea'));
-            });
-        }
-
-        function toggleAppStatus(type) {
-            if(!isOfficer) return;
-            if(type === 'police') db.settings.policeOpen = !db.settings.policeOpen;
-            else if(type === 'self') db.settings.selfOpen = !db.settings.selfOpen;
-            logAction('تغيير حالة بوابة التقديم: ' + (type === 'police' ? 'الشرطة' : 'قدم نفسك')); 
-            saveDB(); showCustomAlert("نجاح", "تم التحديث", true); renderSettingsView(document.getElementById('dynamicContentArea'));
-        }
-
-        function renderApplications(container) {
-            if(db.applications.length === 0) { container.innerHTML = '<div style="text-align:center; padding:30px; color:#888; font-size:1.2rem;">لا يوجد طلبات.</div>'; return; }
-            let html = '';
-            [...db.applications].reverse().forEach((app, revIdx) => {
-                const idx = db.applications.length - 1 - revIdx;
-                html += `<div class="rec-item allow-select" style="flex-direction:column; align-items:flex-end;">
-                    <div style="color:var(--cyan); font-weight:bold; font-size:1.3rem; margin-bottom:10px;">طلب مقدم من: ${app.name} (${app.type==='self'?'قدم نفسك':'شرطة'})</div>
-                    <div style="text-align:right; color:#ccc; line-height:1.8; margin-bottom:15px; width:100%;">
-                        <strong>العمر:</strong> ${app.age}<br><strong>الديسكورد:</strong> ${app.discord}<br><strong>الخبرة:</strong> ${app.exp}<br><strong>السبب:</strong> ${app.reason||'لا يوجد'}<br><strong style="color:#888; font-size:0.9rem;">التاريخ: ${app.date}</strong>
-                    </div>
-                    ${isOfficer ? `<button class="action-btn-text btn-del-text hover-target" onclick="deleteApp(${idx}, '${app.name}')">حذف الطلب</button>` : ''}
-                </div>`;
-            });
-            container.innerHTML = html;
-        }
-
-        function deleteApp(idx, appName) {
-            showCustomConfirm("حذف الطلب", "هل أنت متأكد من حذف هذا الطلب؟", () => {
-                logAction('حذف تقديم يخص: ' + appName); 
-                db.applications.splice(idx, 1); saveDB(); renderApplications(document.getElementById('dynamicContentArea'));
-            });
-        }
-
-        function renderAccounts(container) {
-            container.innerHTML = '';
-            (db.customUsers || []).forEach((u, idx) => {
-                container.innerHTML += `<div class="rec-item allow-select">
-                    <div style="text-align:right;"><span style="color:var(--cyan); font-weight:bold; font-size:1.1rem;">[${u.rank}]</span> ${u.name} (User: ${u.user})</div>
-                    ${isOfficer ? `<button class="action-btn-text btn-del-text hover-target" onclick="delAccount(${idx}, '${u.name}')">حذف الحساب</button>` : ''}
-                </div>`;
-            });
-        }
-
-        function delAccount(idx, uName) {
-            showCustomConfirm("حذف حساب", "هل أنت متأكد من حذف هذا الحساب؟", () => {
-                logAction('حذف حساب إداري: ' + uName); 
-                db.customUsers.splice(idx, 1); saveDB(); renderAccounts(document.getElementById('dynamicContentArea'));
-            });
-        }
-
-        function renderSavedReports(container) {
-            const data = db.reports || [];
-            if(data.length === 0) { container.innerHTML = '<div style="text-align:center; padding:50px; color:#888; font-size:1.2rem;">لا يوجد تقارير محفوظة حالياً.</div>'; return; }
-            
-            let html = `<div style="display:flex; justify-content:flex-end; margin-bottom:20px;">
-                ${isOfficer ? `<button class="action-btn-text btn-del-text hover-target" style="padding:10px 20px; font-size:1.1rem;" onclick="deleteAllReports()">🗑️ حذف جميع التقارير</button>` : ''}
-            </div>`;
-            
-            html += '<div style="display:flex; flex-direction:column; gap:20px;">';
-            
-            [...data].reverse().forEach((rec, revIdx) => {
-                const idx = data.length - 1 - revIdx;
-                if (typeof rec === 'string') {
-                    html += `<div style="background:#131a2a; padding:20px; border-radius:12px; border:1px solid var(--glass-border); box-shadow: 0 10px 20px rgba(0,0,0,0.5);">
-                        <div style="text-align:right; margin-bottom:15px; line-height:1.8; color:#ddd;" class="allow-select">${rec}</div>
-                        ${isOfficer ? `<button class="action-btn-text btn-del-text hover-target" onclick="delReport(${idx}, 'تقرير نصي قديم')">حذف التقرير</button>` : ''}
-                    </div>`;
-                } else {
-                    html += `<div style="background:#0a0f1c; padding:30px; border-radius:16px; border:1px solid rgba(0,234,255,0.15); display:flex; flex-direction:row-reverse; gap:30px; align-items:center; box-shadow:0 15px 35px rgba(0,0,0,0.6);">
-                        
-                        <div style="flex:1; text-align:right;">
-                            <h3 style="color:var(--cyan); font-size:1.8rem; margin-bottom:15px; display:flex; align-items:center; gap:10px; flex-direction:row-reverse;">
-                                <img src="yyW7oBx.jpg?v=5" style="width:40px; border-radius:50%;"> تقرير: ${rec.type}
-                            </h3>
-                            <div style="color:#d1d1d1; font-size:1.2rem; line-height:2;" class="allow-select">
-                                <p><strong style="color:#8da2b5;">البادج:</strong> ${rec.badge}</p>
-                                <p><strong style="color:#8da2b5;">الاسم:</strong> ${rec.name}</p>
-                                <p><strong style="color:#8da2b5;">التاريخ:</strong> ${rec.date}</p>
-                            </div>
-                        </div>
-
-                        <div style="width: 220px; height: 280px; background:#fff; border:8px solid #1a233a; border-radius:16px; position:relative; overflow:hidden; box-shadow:0 0 25px rgba(0,0,0,0.8); flex-shrink:0;">
-                            <div style="position:absolute; inset:0; z-index:50; cursor:not-allowed;" title="للقراءة يرجى تحميل التقرير"></div>
-                            <embed src="${rec.pdf}#toolbar=0&navpanes=0&scrollbar=0&view=FitH" type="application/pdf" style="width:100%; height:100%; object-fit:cover; pointer-events:none;">
-                            <div style="position:absolute; bottom:0; width:100%; background:rgba(0,234,255,0.85); color:#000; font-size:1.1rem; text-align:center; padding:8px 0; font-weight:900; z-index:60; letter-spacing:1px;">معاينة فقط</div>
-                        </div>
-
-                        <div style="flex:1; display:flex; flex-direction:column; gap:15px; align-items:flex-start;">
-                            <a href="${rec.pdf}" download="Report_${rec.badge}.pdf" class="hover-target" style="background:linear-gradient(90deg, var(--cyan), #00a2ff); color:#000; padding:15px 30px; border-radius:12px; text-decoration:none; font-weight:900; font-size:1.2rem; font-family:var(--font-ar); transition:0.3s; box-shadow:0 10px 20px rgba(0,234,255,0.3); display:flex; align-items:center; gap:10px; width:100%; justify-content:center;" onclick="logAction('تحميل تقرير يخص: ${rec.name}')">
-                                ⬇️ تحميل التقرير
-                            </a>
-                            ${isOfficer ? `<button class="action-btn-text btn-del-text hover-target" style="width:100%; padding:15px; font-size:1.1rem; border-radius:12px; border:1px solid var(--red);" onclick="delReport(${idx}, '${rec.name}')">🗑️ حذف التقرير</button>` : ''}
-                        </div>
-                        
-                    </div>`;
-                }
-            });
-            html += '</div>';
-            container.innerHTML = html;
-        }
-
-        function renderTasksTable(container) {
-            const data = db.tasks || [];
-            if(data.length === 0) { container.innerHTML = '<div style="text-align:center; padding:30px; color:#888; font-size:1.2rem;">لا يوجد مهام.</div>'; return; }
-            let html = '<div class="roster-wrapper"><table class="luxury-table"><thead><tr><th>المستلم</th><th>المسؤول</th><th>المهمة</th><th>النقاط</th><th>الإجراء</th></tr></thead><tbody>';
-            data.forEach((t, idx) => {
-                html += `<tr class="roster-row"><td>${t.assignee}</td><td>${t.officer}</td><td>${t.reason}</td><td><span style="color:var(--cyan);font-weight:bold;">${t.pts}</span></td><td>${isOfficer ? `<button class="action-btn-text btn-del-text hover-target" onclick="delRec(${idx}, 'مهمة تخص ${t.assignee}')">حذف</button>` : ''}</td></tr>`;
-            });
-            container.innerHTML = html + '</tbody></table></div>';
-        }
-
-        function renderVideoGrid(container) {
-            const data = db.video || [];
-            if(data.length === 0) { container.innerHTML = '<div style="text-align:center; padding:30px; color:#888; font-size:1.2rem;">لا يوجد مقاطع.</div>'; return; }
-            let html = '<div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">';
-            data.forEach((v, idx) => {
-                let ytId = v.yt.includes('v=') ? v.yt.split('v=')[1].split('&')[0] : v.yt.split('/').pop();
-                html += `<div style="background:#131a2a; padding:15px; border-radius:12px; border:1px solid var(--glass-border);">
-                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
-                        ${isOfficer ? `<button class="action-btn-text btn-del-text hover-target" onclick="delRec(${idx}, 'فيديو: ${v.title}')">حذف</button>` : '<div></div>'}
-                        <strong style="color:var(--cyan); font-size:1.2rem;">${v.title}</strong>
-                    </div>
-                    <iframe src="https://www.youtube.com/embed/${ytId}" style="width:100%; aspect-ratio:16/9; border:none; border-radius:8px;"></iframe>
-                </div>`;
-            });
-            container.innerHTML = html + '</div>';
-        }
-
-        function renderRecordsList(container) {
-            container.innerHTML = '';
-            const data = db[currentModule.id] || [];
-            if(data.length === 0) { container.innerHTML = '<div style="text-align:center; padding:30px; color:#888; font-size:1.2rem;">لا يوجد بيانات.</div>'; return; }
-            data.forEach((rec, idx) => {
-                container.innerHTML += `<div class="rec-item allow-select" style="flex-direction:column; align-items:flex-end;">
-                    <div style="width:100%; text-align:right; margin-bottom:10px; padding-bottom:10px; line-height:1.8;">${rec}</div>
-                    ${isOfficer ? `<button class="action-btn-text btn-del-text hover-target" onclick="delRec(${idx}, 'سجل عام')">حذف</button>` : ''}
-                </div>`;
-            });
-        }
-
-        function doCrypto(type) { 
-            const v = document.getElementById('cryIn').value, out = document.getElementById('cryOut'); 
-            if(!v) return; 
-            try { 
-                out.innerText = (type === 'enc') ? btoa(unescape(encodeURIComponent(v))) : decodeURIComponent(escape(atob(v))); 
-                logAction(`قام بـ ${type === 'enc' ? 'تشفير' : 'فك تشفير'} نص`); 
-            } catch(e) { out.innerText = "Error"; } 
-        }
-        function copyCrypto() { navigator.clipboard.writeText(document.getElementById('cryOut').innerText); showCustomAlert("نجاح", "تم نسخ النص", true); }
-
         function addRecord() {
             if(currentModule.isAccountsForm) {
                 const u=document.getElementById('o-user').value, p=document.getElementById('o-pass').value, n=document.getElementById('o-name').value, r=document.getElementById('o-rank').value;
@@ -989,15 +688,30 @@
                 db.reports = cleanArray(db.reports); 
                 db.reports.push({ badge: b, name: n, type: c, pdf: tempPDFBase64, date: new Date().toLocaleDateString() }); 
                 saveDB(); 
-                
                 logAction('رفع تقرير جديد للمدعو: ' + n); 
                 
-                tempPDFBase64 = ""; 
-                document.getElementById('r-pdf').value = ""; 
-                
+                tempPDFBase64 = ""; document.getElementById('r-pdf').value = ""; 
                 showCustomAlert("نجاح", "تم حفظ التقرير بنجاح وإرساله للتقارير المحفوظة!", true);
                 document.querySelectorAll('#mInputs input').forEach(el => el.value = '');
                 return; 
+
+            } else if(currentModule.isWantedForm) {
+                // 🟢 دالة إضافة المطلوب مع الصورة 🟢
+                const n = document.getElementById('w-name').value;
+                const c = document.getElementById('w-charge').value;
+                const d = document.getElementById('w-danger').value;
+                if(!n || !c || !d) return showCustomAlert("خطأ", "يرجى تعبئة الحقول الأساسية", false);
+                
+                db.wanted = cleanArray(db.wanted); 
+                db.wanted.push({ name: n, charge: c, danger: d, image: tempWantedImgBase64 }); 
+                saveDB(); 
+                logAction('إضافة مطلوب للعدالة: ' + n); 
+                
+                tempWantedImgBase64 = ""; document.getElementById('w-img').value = ""; 
+                showCustomAlert("نجاح", "تمت الإضافة بنجاح!", true);
+                document.querySelectorAll('#mInputs input').forEach(el => el.value = '');
+                renderWantedGrid(document.getElementById('dynamicContentArea'));
+                return;
 
             } else if(currentModule.isTable) {
                 const a=document.getElementById('t-assignee').value, o=document.getElementById('t-officer').value, r=document.getElementById('t-reason').value, p=document.getElementById('t-pts').value;
@@ -1045,8 +759,11 @@
             showCustomConfirm("حذف سجل", "هل أنت متأكد من الحذف؟", () => {
                 logAction('حذف سجل: ' + infoText); 
                 db[currentModule.id].splice(idx, 1); saveDB(); 
+                
+                // 🟢 تحديث الواجهة حسب القسم 🟢
                 if(currentModule.isTable) renderTasksTable(document.getElementById('dynamicContentArea'));
                 else if(currentModule.isVideo) renderVideoGrid(document.getElementById('dynamicContentArea'));
+                else if(currentModule.isWantedForm) renderWantedGrid(document.getElementById('dynamicContentArea'));
                 else renderRecordsList(document.getElementById('dynamicContentArea'));
             });
         }
