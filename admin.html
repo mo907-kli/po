@@ -414,18 +414,14 @@
             if (currentModule && document.getElementById('moduleView').style.display === 'flex' && !currentModule.isRosterAdmin) { openMod(currentModule.id); }
         });
 
-        // 🟢 الحل الجذري لمشكلة "الجدول معلق" 🟢
         database.ref('live_roster').on('value', (snapshot) => {
             const rosterData = snapshot.val() || {};
             const cleanedRoster = {};
-            
-            // فلترة أي بيانات فارغة (null) تسبب تعليق الجدول
             Object.keys(rosterData).forEach(k => {
                 if (rosterData[k] !== null && rosterData[k] !== undefined) {
                     cleanedRoster[k] = rosterData[k];
                 }
             });
-            
             db.live_roster = cleanedRoster;
             if(document.getElementById('moduleView').style.display === 'flex' && document.getElementById('mTitle').innerText === 'إدارة جدول العساكر') { renderAdminRoster(); }
         });
@@ -579,12 +575,11 @@
             }
         }
 
-        // 🟢 كروت المطلوبين الجديدة (شكل فخم ومستطيل صغير) 🟢
+        // 🟢 كروت المطلوبين المصغرة الفخمة 🟢
         function renderWantedGrid(container) {
             const data = db.wanted || [];
             if(data.length === 0) { container.innerHTML = '<div style="text-align:center; padding:30px; color:#888; font-size:1.2rem;">لا يوجد مطلوبين.</div>'; return; }
             
-            // استخدمنا grid عشان نرتب الكروت جنب بعض بمسافات ممتازة
             let html = '<div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; width: 100%; padding: 10px;">';
             data.forEach((w, idx) => {
                 if(typeof w === 'string') {
@@ -675,7 +670,6 @@
             });
         }
 
-        // 🟢 الحماية القوية للجدول 🟢
         function renderAdminRoster() {
             const container = document.getElementById('dynamicContentArea');
             const data = db.live_roster;
@@ -694,7 +688,7 @@
             const groups = {};
             Object.keys(data).forEach(key => { 
                 const off = data[key]; 
-                if(!off) return; // 🟢 هذي اللي كانت تخلي الجدول يعلق (أضفنا الحماية) 🟢
+                if(!off) return;
                 off.id = key; 
                 const r = off.rank || 'غير محدد'; 
                 if(!groups[r]) groups[r] = []; 
@@ -893,11 +887,12 @@
 
         function restartApplications() {
             showCustomConfirm("رستارت التقديم", "هل أنت متأكد؟ هذا الإجراء سيقوم بمسح جميع الطلبات الحالية للسماح للأشخاص بالتقديم من جديد.", () => {
-                db.applications = [];
-                logAction('قام بعمل رستارت لطلبات التقديم (مسح الكل)'); 
-                saveDB(); 
-                showCustomAlert("نجاح", "تم عمل رستارت للتقديم بنجاح!", true); 
-                renderSettingsView(document.getElementById('dynamicContentArea'));
+                firebase.database().ref('lspd_db/applications').remove().then(() => {
+                    db.applications = [];
+                    logAction('قام بعمل رستارت لطلبات التقديم (مسح الكل)'); 
+                    showCustomAlert("نجاح", "تم عمل رستارت للتقديم بنجاح!", true); 
+                    renderSettingsView(document.getElementById('dynamicContentArea'));
+                });
             });
         }
 
@@ -905,8 +900,11 @@
             if(!isOfficer) return;
             if(type === 'police') db.settings.policeOpen = !db.settings.policeOpen;
             else if(type === 'self') db.settings.selfOpen = !db.settings.selfOpen;
-            logAction('تغيير حالة بوابة التقديم: ' + (type === 'police' ? 'الشرطة' : 'قدم نفسك')); 
-            saveDB(); showCustomAlert("نجاح", "تم التحديث", true); renderSettingsView(document.getElementById('dynamicContentArea'));
+            firebase.database().ref('lspd_db/settings').set(db.settings).then(() => {
+                logAction('تغيير حالة بوابة التقديم: ' + (type === 'police' ? 'الشرطة' : 'قدم نفسك')); 
+                showCustomAlert("نجاح", "تم التحديث", true); 
+                renderSettingsView(document.getElementById('dynamicContentArea'));
+            }).catch(e => showCustomAlert("خطأ", "لم يتم الحفظ", false));
         }
 
         function renderApplications(container) {
@@ -937,7 +935,7 @@
             (db.customUsers || []).forEach((u, idx) => {
                 container.innerHTML += `<div class="rec-item allow-select">
                     <div style="text-align:right;"><span style="color:var(--cyan); font-weight:bold; font-size:1.1rem;">[${u.rank}]</span> ${u.name} (User: ${u.user})</div>
-                    ${isOfficer ? `<button class="action-btn-text btn-del-text hover-target" onclick="delAccount(${idx}, '${u.name}')">حذف الحساب</button>` : ''}
+                    ${isOfficer ? `<button class="action-btn-text btn-del-text hover-target" onclick="delAccount(${idx}, '${u.user}')">حذف الحساب</button>` : ''}
                 </div>`;
             });
         }
