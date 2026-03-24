@@ -32,7 +32,6 @@
 
         #bgEffects { position: fixed; inset: 0; z-index: -5; pointer-events: none; background-color: var(--bg-deep); }
 
-        /* 🟢 الماوس الخفيف 🟢 */
         #particles-container { position: fixed; inset: 0; z-index: -1; pointer-events: none; }
         .particle { position: absolute; background: var(--cyan); border-radius: 50%; animation: floatParticle linear infinite; opacity: 0; box-shadow: 0 0 5px var(--cyan); }
         @keyframes floatParticle { 0% { transform: translateY(0); opacity: 0; } 10% { opacity: 0.15; } 90% { opacity: 0.15; } 100% { transform: translateY(-100vh); opacity: 0; } }
@@ -43,7 +42,6 @@
         @keyframes popIn { 0% { opacity: 0; transform: scale(0.98); } 100% { opacity: 1; transform: scale(1); } }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* شاشة تسجيل الدخول */
         #loginScreen { position: fixed; inset: 0; z-index: 99999; background: linear-gradient(135deg, #040814 0%, #0a1224 100%); display: flex; justify-content: center; align-items: center; transition: 0.4s; }
         .bg-shape-1 { position: absolute; top: 10%; left: 20%; width: 300px; height: 300px; background: rgba(0, 234, 255, 0.1); border-radius: 50%; filter: blur(80px); pointer-events: none; }
         .bg-shape-2 { position: absolute; bottom: 10%; right: 20%; width: 400px; height: 400px; background: rgba(0, 100, 255, 0.05); border-radius: 50%; filter: blur(100px); pointer-events: none; }
@@ -65,7 +63,6 @@
         .back-link { display: inline-block; margin-top: 25px; color: #666; font-size: 0.95rem; text-decoration: none; transition: 0.3s; font-weight: bold; }
         .back-link:hover { color: #fff; }
 
-        /* لوحة القيادة العامة */
         #mainWrapper { display: none; flex-direction: column; min-height: 100vh; animation: fadeIn 0.3s ease;}
         header { display: flex; justify-content: space-between; align-items: center; padding: 20px 40px; border-bottom: 1px solid rgba(255,255,255,0.05); background: #0a0f1c;}
         .header-side { display: flex; gap: 15px; align-items: center; }
@@ -87,7 +84,6 @@
         .menu-btn { background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 12px; padding: 30px 20px; text-align: center; color: #fff; font-size: 1.25rem; font-weight: 800; cursor: pointer; transition: 0.2s;}
         .menu-btn:hover { border-color: var(--cyan); background: #151e32; transform: translateY(-3px); }
 
-        /* الأقسام الداخلية */
         #moduleView { display: none; flex-direction: column; width: 95%; max-width: 1600px; margin: 0 auto; padding-top: 30px; animation: popIn 0.2s ease; }
         .roster-wrapper { width: 100%; background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 12px; padding: 20px; overflow-x: auto; margin-bottom:30px;}
         .roster-wrapper::-webkit-scrollbar { height: 6px; } .roster-wrapper::-webkit-scrollbar-thumb { background: var(--cyan); border-radius: 6px; }
@@ -117,13 +113,11 @@
 
         .rec-item { padding: 15px; background: #131a2a; border-radius: 8px; margin-bottom: 10px; border: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; align-items: center; color: #ddd; font-size: 1.05rem; }
 
-        /* النوافذ المنبثقة */
         .modal-overlay { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.85); z-index: 100000; display: none; justify-content: center; align-items: center; }
         .modal-box { width: 600px; padding: 30px; background: #0b101e; border: 1px solid var(--cyan); border-radius: 12px; animation: popIn 0.2s ease; }
         .close-btn { background: #131a2a; border: 1px solid rgba(255,255,255,0.2); color: #ccc; padding: 12px; border-radius: 8px; cursor: none; transition: 0.2s; font-weight: bold; width: 100%; font-family:var(--font-ar); font-size:1.1rem;}
         .close-btn:hover { background: var(--red); border-color: var(--red); color: #fff;}
 
-        /* بطاقة الهوية */
         #idCardOverlay .modal-box { width: 650px; background: #05080f; border: 1px solid rgba(255,255,255,0.05); border-right: 3px solid var(--cyan); display: flex; flex-direction: row-reverse; align-items: center; padding: 30px; }
         .profile-img-wrapper { width: 150px; height: 150px; border-radius: 16px; border: 2px solid var(--cyan); padding: 4px; background: rgba(0, 234, 255, 0.05); margin-right:auto;}
         .card-right { display: flex; flex-direction: column; align-items: flex-end; text-align: right; width: calc(100% - 200px); }
@@ -346,9 +340,6 @@
             "Solo Cadet": { prefix: "U-", min: 130, max: 199 }, "Cadet": { prefix: "U-", min: 200, max: 400 }
         };
 
-        const respOptionsData = ["N/A", "Police Administration", "Commission Office", "High Command", "Command", "Head Of Internal Affairs", "Intern Affairs Member", "Detective Supervisor", "Supervisor", "Detective", "Motorcycle Unit Leader", "Motorcycle Unit CO-Leader", "Motorcycle Supervisor", "Air Unit Leader", "Air Unit CO-Leader", "Speed Unit Leader", "Speed Unit CO-Leader", "GANG UNIT Leader", "GANG UNIT CO- Leader", "Assistants", "Trooper", "GANG UNIT", "HEAD OF COMMAND", "Air Fleet Commander", "Police Wings Commander", "Commander Of P.A", "Deputy Of P.A", "deputy air fleet", "Advisor of air fleet", "War Commander", "S.W.A.T Commander", "Deputy S.W.A.T Commander"];
-        const strikesOptionsData = ["N/A", "WARN 1", "WARN 2", "WARN 3", "Strike Point 1", "Strike Point 2", "Strike Point 3", "Strike Point 4", "Strike Point 5", "Strike Point 6", "Strike Point 7"];
-
         firebase.initializeApp({ apiKey: "AIzaSyC5PL_fJEjiJVQS8rnx4m8j9uQNsILcQvs", authDomain: "police-depa.firebaseapp.com", databaseURL: "https://police-depa-default-rtdb.europe-west1.firebasedatabase.app", projectId: "police-depa" });
         const database = firebase.database();
 
@@ -371,7 +362,6 @@
         let currentModule = null; let isOfficer = false; let myName = ""; let myRank = ""; 
         let tempPDFBase64 = ""; 
 
-        // 🟢 دالة التسجيل (اللوق)
         function logAction(actionText) {
             const t = new Date().toLocaleString('ar-SA');
             firebase.database().ref('lspd_db/system_logs').push({
@@ -444,7 +434,7 @@
                 const savedImg = localStorage.getItem('user_id_img_' + myName);
                 if(savedImg) document.getElementById('cardImage').src = savedImg;
                 
-                logAction('تسجيل دخول للنظام'); // 🟢
+                logAction('تسجيل دخول للنظام');
                 renderModules();
             } else { document.getElementById('loginError').style.display = 'block'; }
         }
@@ -458,7 +448,7 @@
                 reader.onload = e => { 
                     document.getElementById('cardImage').src = e.target.result; 
                     localStorage.setItem('user_id_img_' + myName, e.target.result); 
-                    logAction('قام بتحديث صورته الشخصية (الهوية)'); // 🟢
+                    logAction('قام بتحديث صورته الشخصية (الهوية)');
                 };
                 reader.readAsDataURL(input.files[0]);
             }
@@ -487,7 +477,6 @@
             modules.forEach((m) => { 
                 if (m.reqOfficer && !isOfficer) return; 
                 
-                // 🟢 التحقق من الصلاحيات لقسم اللوقات
                 if (m.isLogsView) {
                     if (typeof AllowedLogUsers === 'undefined' || !AllowedLogUsers.includes(myName)) return; 
                 }
@@ -554,7 +543,6 @@
             }
         }
 
-        // 🟢 دالة عرض اللوقات وإضافة زر التحميل 🟢
         function renderLogsView(container) {
             const logsData = Object.values(db.system_logs || {});
             if(logsData.length === 0) { container.innerHTML = '<div style="text-align:center; padding:50px; color:#888; font-size:1.2rem;">لا يوجد سجلات عمليات حالياً.</div>'; return; }
@@ -579,7 +567,6 @@
             container.innerHTML = html;
         }
 
-        // 🟢 دالة تنزيل اللوقات كملف TXT 🟢
         function downloadLogs() {
             const logsData = Object.values(db.system_logs || {});
             if (logsData.length === 0) {
@@ -605,7 +592,7 @@
             document.body.removeChild(a);
             URL.revokeObjectURL(url);
 
-            logAction('قام بتنزيل ملف سجلات النظام (TXT)'); // 🟢 يسجل الحركة هذي بعد!
+            logAction('قام بتنزيل ملف سجلات النظام (TXT)'); 
         }
 
         function clearLogs() {
@@ -666,7 +653,7 @@
             if(!isOfficer) return showCustomAlert("خطأ", "لا تملك صلاحية", false);
             showCustomConfirm("حذف عسكري", `هل أنت متأكد من حذف العسكري (${name}) نهائياً من الجدول؟`, () => {
                 database.ref(`live_roster/${id}`).remove().then(() => {
-                    logAction('حذف عسكري من الرستر: ' + name); // 🟢 لوق
+                    logAction('حذف عسكري من الرستر: ' + name); 
                     showCustomAlert("تم", "تم حذف العسكري بنجاح", true);
                 });
             });
@@ -730,7 +717,7 @@
                 notes: document.getElementById('editNotes').value.trim() || '-'
             };
             database.ref(`live_roster/${currentEditingOfficerId}`).update(payload).then(() => {
-                logAction('تعديل بيانات العسكري: ' + offName); // 🟢 لوق
+                logAction('تعديل بيانات العسكري: ' + offName); 
                 document.getElementById('editRankModal').style.display = 'none';
                 showCustomAlert("اكتمل", "تم تحديث السجل بنجاح", true);
             });
@@ -790,7 +777,7 @@
             };
 
             database.ref('live_roster').push(payload).then(() => {
-                logAction('إضافة عسكري جديد: ' + name); // 🟢 لوق
+                logAction('إضافة عسكري جديد: ' + name); 
                 document.getElementById('createRankModal').style.display = 'none';
                 showCustomAlert("نجاح", "تم إضافة العسكري الجديد للجدول بنجاح!", true);
             });
@@ -810,15 +797,36 @@
                 <div style="display:flex; gap:15px;">
                     <button class="submit-btn hover-target" onclick="toggleAppStatus('police')" style="margin:0;">تغيير حالة (شرطة)</button>
                     <button class="submit-btn hover-target" onclick="toggleAppStatus('self')" style="margin:0;">تغيير حالة (قدم نفسك)</button>
-                </div>` : ''}
+                </div>
+                
+                <hr style="border-top: 1px dashed rgba(0, 234, 255, 0.2); margin: 30px 0; border-bottom: none; border-left: none; border-right: none;">
+                
+                <div style="display:flex; justify-content:space-between; align-items:center; background: rgba(255, 51, 51, 0.05); padding: 20px; border-radius: 8px; border: 1px solid rgba(255, 51, 51, 0.2);">
+                    <div style="text-align:right;">
+                        <h4 style="color:var(--yellow); font-size:1.2rem; margin-bottom:5px;">🔄 رستارت التقديم</h4>
+                        <p style="color:#aaa; font-size:0.9rem;">يمسح كل الطلبات السابقة عشان الناس تقدر تقدم من جديد (يفك الحظر عن اللي قدموا).</p>
+                    </div>
+                    <button class="head-btn btn-red hover-target" style="padding: 12px 25px; font-size:1.1rem; margin:0;" onclick="restartApplications()">رستارت التقديم</button>
+                </div>
+                ` : ''}
             </div>`;
+        }
+
+        function restartApplications() {
+            showCustomConfirm("رستارت التقديم", "هل أنت متأكد؟ هذا الإجراء سيقوم بمسح جميع الطلبات الحالية للسماح للأشخاص بالتقديم من جديد.", () => {
+                db.applications = [];
+                logAction('قام بعمل رستارت لطلبات التقديم (مسح الكل)'); 
+                saveDB(); 
+                showCustomAlert("نجاح", "تم عمل رستارت للتقديم بنجاح!", true); 
+                renderSettingsView(document.getElementById('dynamicContentArea'));
+            });
         }
 
         function toggleAppStatus(type) {
             if(!isOfficer) return;
             if(type === 'police') db.settings.policeOpen = !db.settings.policeOpen;
             else if(type === 'self') db.settings.selfOpen = !db.settings.selfOpen;
-            logAction('تغيير حالة بوابة التقديم: ' + (type === 'police' ? 'الشرطة' : 'قدم نفسك')); // 🟢 لوق
+            logAction('تغيير حالة بوابة التقديم: ' + (type === 'police' ? 'الشرطة' : 'قدم نفسك')); 
             saveDB(); showCustomAlert("نجاح", "تم التحديث", true); renderSettingsView(document.getElementById('dynamicContentArea'));
         }
 
@@ -840,7 +848,7 @@
 
         function deleteApp(idx, appName) {
             showCustomConfirm("حذف الطلب", "هل أنت متأكد من حذف هذا الطلب؟", () => {
-                logAction('حذف تقديم يخص: ' + appName); // 🟢 لوق
+                logAction('حذف تقديم يخص: ' + appName); 
                 db.applications.splice(idx, 1); saveDB(); renderApplications(document.getElementById('dynamicContentArea'));
             });
         }
@@ -857,7 +865,7 @@
 
         function delAccount(idx, uName) {
             showCustomConfirm("حذف حساب", "هل أنت متأكد من حذف هذا الحساب؟", () => {
-                logAction('حذف حساب إداري: ' + uName); // 🟢 لوق
+                logAction('حذف حساب إداري: ' + uName); 
                 db.customUsers.splice(idx, 1); saveDB(); renderAccounts(document.getElementById('dynamicContentArea'));
             });
         }
@@ -875,13 +883,11 @@
             [...data].reverse().forEach((rec, revIdx) => {
                 const idx = data.length - 1 - revIdx;
                 if (typeof rec === 'string') {
-                    // التقارير النصية القديمة
                     html += `<div style="background:#131a2a; padding:20px; border-radius:12px; border:1px solid var(--glass-border); box-shadow: 0 10px 20px rgba(0,0,0,0.5);">
                         <div style="text-align:right; margin-bottom:15px; line-height:1.8; color:#ddd;" class="allow-select">${rec}</div>
                         ${isOfficer ? `<button class="action-btn-text btn-del-text hover-target" onclick="delReport(${idx}, 'تقرير نصي قديم')">حذف التقرير</button>` : ''}
                     </div>`;
                 } else {
-                    // التقارير الفخمة بالتابلت
                     html += `<div style="background:#0a0f1c; padding:30px; border-radius:16px; border:1px solid rgba(0,234,255,0.15); display:flex; flex-direction:row-reverse; gap:30px; align-items:center; box-shadow:0 15px 35px rgba(0,0,0,0.6);">
                         
                         <div style="flex:1; text-align:right;">
@@ -959,7 +965,7 @@
             if(!v) return; 
             try { 
                 out.innerText = (type === 'enc') ? btoa(unescape(encodeURIComponent(v))) : decodeURIComponent(escape(atob(v))); 
-                logAction(`قام بـ ${type === 'enc' ? 'تشفير' : 'فك تشفير'} نص`); // 🟢 لوق
+                logAction(`قام بـ ${type === 'enc' ? 'تشفير' : 'فك تشفير'} نص`); 
             } catch(e) { out.innerText = "Error"; } 
         }
         function copyCrypto() { navigator.clipboard.writeText(document.getElementById('cryOut').innerText); showCustomAlert("نجاح", "تم نسخ النص", true); }
@@ -969,7 +975,7 @@
                 const u=document.getElementById('o-user').value, p=document.getElementById('o-pass').value, n=document.getElementById('o-name').value, r=document.getElementById('o-rank').value;
                 if(!u || !p || !n) return showCustomAlert("خطأ", "يرجى تعبئة الحقول", false);
                 db.customUsers = cleanArray(db.customUsers); db.customUsers.push({user:u, pass:p, name:n, rank:r}); saveDB(); 
-                logAction('إضافة حساب إداري جديد: ' + n); // 🟢 لوق
+                logAction('إضافة حساب إداري جديد: ' + n); 
                 renderAccounts(document.getElementById('dynamicContentArea'));
             
             } else if(currentModule.isReportForm) {
@@ -984,7 +990,7 @@
                 db.reports.push({ badge: b, name: n, type: c, pdf: tempPDFBase64, date: new Date().toLocaleDateString() }); 
                 saveDB(); 
                 
-                logAction('رفع تقرير جديد للمدعو: ' + n); // 🟢 لوق
+                logAction('رفع تقرير جديد للمدعو: ' + n); 
                 
                 tempPDFBase64 = ""; 
                 document.getElementById('r-pdf').value = ""; 
@@ -997,13 +1003,13 @@
                 const a=document.getElementById('t-assignee').value, o=document.getElementById('t-officer').value, r=document.getElementById('t-reason').value, p=document.getElementById('t-pts').value;
                 if(!a || !o || !r || !p) return showCustomAlert("خطأ", "يرجى تعبئة الحقول", false);
                 db.tasks = cleanArray(db.tasks); db.tasks.push({assignee:a, officer:o, reason:r, pts:p}); saveDB(); 
-                logAction(`إضافة مهمة للمدعو: ${a} (${p} نقطة)`); // 🟢 لوق
+                logAction(`إضافة مهمة للمدعو: ${a} (${p} نقطة)`); 
                 renderTasksTable(document.getElementById('dynamicContentArea'));
             } else if(currentModule.isVideo) {
                 const t=document.getElementById('v-title').value, y=document.getElementById('v-yt').value;
                 if(!t || !y) return showCustomAlert("خطأ", "يرجى تعبئة الحقول", false);
                 db.video = cleanArray(db.video); db.video.push({title:t, yt:y}); saveDB(); 
-                logAction('إضافة مقطع فيديو: ' + t); // 🟢 لوق
+                logAction('إضافة مقطع فيديو: ' + t); 
                 renderVideoGrid(document.getElementById('dynamicContentArea'));
             } else {
                 let vals = []; const arr = currentModule.inputsAr; if(!arr) return;
@@ -1012,7 +1018,7 @@
                 db[currentModule.id] = cleanArray(db[currentModule.id]);
                 let str = ''; vals.forEach((v, i) => str += `<strong style="color:var(--cyan);">${arr[i]}:</strong> ${v} <br>`);
                 db[currentModule.id].push(str); saveDB(); 
-                logAction('إضافة سجل عام في قسم: ' + currentModule.i18n_t); // 🟢 لوق
+                logAction('إضافة سجل عام في قسم: ' + currentModule.i18n_t); 
                 renderRecordsList(document.getElementById('dynamicContentArea'));
             }
             showCustomAlert("نجاح", "تمت الإضافة بنجاح!", true);
@@ -1021,7 +1027,7 @@
 
         function delReport(idx, rName) {
             showCustomConfirm("حذف تقرير", "هل أنت متأكد من حذف هذا التقرير نهائياً؟", () => {
-                logAction('حذف تقرير يخص: ' + rName); // 🟢 لوق
+                logAction('حذف تقرير يخص: ' + rName); 
                 db.reports.splice(idx, 1); saveDB(); 
                 renderSavedReports(document.getElementById('dynamicContentArea'));
             });
@@ -1029,7 +1035,7 @@
 
         function deleteAllReports() {
             showCustomConfirm("حذف جميع التقارير", "⚠️ تحذير: هل أنت متأكد من حذف جميع التقارير المحفوظة بشكل نهائي؟ لا يمكن التراجع عن هذا الإجراء!", () => {
-                logAction('حذف جميع التقارير المحفوظة بالنظام ⚠️'); // 🟢 لوق
+                logAction('حذف جميع التقارير المحفوظة بالنظام ⚠️'); 
                 db.reports = []; saveDB();
                 renderSavedReports(document.getElementById('dynamicContentArea'));
             });
@@ -1037,7 +1043,7 @@
 
         function delRec(idx, infoText) {
             showCustomConfirm("حذف سجل", "هل أنت متأكد من الحذف؟", () => {
-                logAction('حذف سجل: ' + infoText); // 🟢 لوق
+                logAction('حذف سجل: ' + infoText); 
                 db[currentModule.id].splice(idx, 1); saveDB(); 
                 if(currentModule.isTable) renderTasksTable(document.getElementById('dynamicContentArea'));
                 else if(currentModule.isVideo) renderVideoGrid(document.getElementById('dynamicContentArea'));
