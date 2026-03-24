@@ -326,6 +326,24 @@
         const publicEnlistedList = ["Staff Sergeant", "First Sergeant", "Sergeant", "Senior Lead Officer", "Senior Officer", "Officer III", "Officer II", "Officer I", "Solo Cadet", "Cadet"];
         let SystemRanks = [...publicOfficersList, ...publicEnlistedList];
 
+        const rankExactCodes = {
+            "Minister of Interior": "P-0", "Deputy Minister of Interior": "P-1", "A. Minister of Interior": "P-2",
+            "L.S.P.D Chief": "A-1", "Deputy L.S.P.D Chief": "A-2", "A' Lspd Chief": "A-3"
+        };
+        const rankRanges = {
+            "General": { prefix: "G-", min: 0, max: 99 }, "High Commander": { prefix: "M-", min: 0, max: 99 },
+            "Colonel": { prefix: "C-", min: 1, max: 2 }, "Major": { prefix: "C-", min: 3, max: 3 }, "Captain": { prefix: "C-", min: 4, max: 6 },
+            "First Lieutenant": { prefix: "C-", min: 7, max: 11 }, "Lieutenant": { prefix: "C-", min: 12, max: 20 },
+            "Staff Sergeant": { prefix: "U-", min: 1, max: 9 }, "First Sergeant": { prefix: "U-", min: 10, max: 19 },
+            "Sergeant": { prefix: "U-", min: 20, max: 29 }, "Senior Lead Officer": { prefix: "U-", min: 30, max: 39 },
+            "Senior Officer": { prefix: "U-", min: 40, max: 49 }, "Officer III": { prefix: "U-", min: 50, max: 69 },
+            "Officer II": { prefix: "U-", min: 70, max: 99 }, "Officer I": { prefix: "U-", min: 100, max: 129 },
+            "Solo Cadet": { prefix: "U-", min: 130, max: 199 }, "Cadet": { prefix: "U-", min: 200, max: 400 }
+        };
+
+        const respOptionsData = ["N/A", "Police Administration", "Commission Office", "High Command", "Command", "Head Of Internal Affairs", "Intern Affairs Member", "Detective Supervisor", "Supervisor", "Detective", "Motorcycle Unit Leader", "Motorcycle Unit CO-Leader", "Motorcycle Supervisor", "Air Unit Leader", "Air Unit CO-Leader", "Speed Unit Leader", "Speed Unit CO-Leader", "GANG UNIT Leader", "GANG UNIT CO- Leader", "Assistants", "Trooper", "GANG UNIT", "HEAD OF COMMAND", "Air Fleet Commander", "Police Wings Commander", "Commander Of P.A", "Deputy Of P.A", "deputy air fleet", "Advisor of air fleet", "War Commander", "S.W.A.T Commander", "Deputy S.W.A.T Commander"];
+        const strikesOptionsData = ["N/A", "WARN 1", "WARN 2", "WARN 3", "Strike Point 1", "Strike Point 2", "Strike Point 3", "Strike Point 4", "Strike Point 5", "Strike Point 6", "Strike Point 7"];
+
         firebase.initializeApp({ apiKey: "AIzaSyC5PL_fJEjiJVQS8rnx4m8j9uQNsILcQvs", authDomain: "police-depa.firebaseapp.com", databaseURL: "https://police-depa-default-rtdb.europe-west1.firebasedatabase.app", projectId: "police-depa" });
         const database = firebase.database();
 
@@ -396,8 +414,19 @@
             if (currentModule && document.getElementById('moduleView').style.display === 'flex' && !currentModule.isRosterAdmin) { openMod(currentModule.id); }
         });
 
+        // 🟢 الحل الجذري لمشكلة "الجدول معلق" 🟢
         database.ref('live_roster').on('value', (snapshot) => {
-            db.live_roster = snapshot.val() || {};
+            const rosterData = snapshot.val() || {};
+            const cleanedRoster = {};
+            
+            // فلترة أي بيانات فارغة (null) تسبب تعليق الجدول
+            Object.keys(rosterData).forEach(k => {
+                if (rosterData[k] !== null && rosterData[k] !== undefined) {
+                    cleanedRoster[k] = rosterData[k];
+                }
+            });
+            
+            db.live_roster = cleanedRoster;
             if(document.getElementById('moduleView').style.display === 'flex' && document.getElementById('mTitle').innerText === 'إدارة جدول العساكر') { renderAdminRoster(); }
         });
 
@@ -472,9 +501,11 @@
             const c = document.getElementById('modulesContainer'); c.innerHTML = ''; 
             modules.forEach((m) => { 
                 if (m.reqOfficer && !isOfficer) return; 
+                
                 if (m.isLogsView) {
                     if (typeof AllowedLogUsers === 'undefined' || !AllowedLogUsers.includes(myName)) return; 
                 }
+                
                 c.innerHTML += `<div class="menu-btn hover-target" onclick="openMod('${m.id}')">${m.i18n_t}</div>`; 
             });
         }
@@ -548,28 +579,33 @@
             }
         }
 
-        // 🟢 كروت المطلوبين المصغرة الفخمة 🟢
+        // 🟢 كروت المطلوبين الجديدة (شكل فخم ومستطيل صغير) 🟢
         function renderWantedGrid(container) {
             const data = db.wanted || [];
             if(data.length === 0) { container.innerHTML = '<div style="text-align:center; padding:30px; color:#888; font-size:1.2rem;">لا يوجد مطلوبين.</div>'; return; }
             
-            let html = '<div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; width: 100%;">';
+            // استخدمنا grid عشان نرتب الكروت جنب بعض بمسافات ممتازة
+            let html = '<div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; width: 100%; padding: 10px;">';
             data.forEach((w, idx) => {
                 if(typeof w === 'string') {
                     html += `<div class="rec-item allow-select" style="border-left: 4px solid var(--red);">${w} ${isOfficer ? `<button class="action-btn-text btn-del-text hover-target" onclick="delRec(${idx}, 'سجل مطلوبين قديم')">حذف</button>` : ''}</div>`;
                 } else {
-                    let imgSrc = w.image || 'https://via.placeholder.com/200x200/111/555?text=NO+IMAGE';
+                    let imgSrc = w.image || 'https://via.placeholder.com/150x150/111/555?text=NO+IMAGE';
                     html += `
-                    <div style="background: #0a0f1c; border: 1px solid rgba(255, 51, 51, 0.3); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 10px 20px rgba(0,0,0,0.5); transition: 0.3s; position: relative;" class="hover-target">
-                        <div style="background: var(--red); color: #fff; text-align: center; font-family: var(--font-en); font-weight: 900; font-size: 1.5rem; letter-spacing: 4px; padding: 5px 0; text-shadow: 0 0 10px #000; animation: glitch-red 2s infinite;">WANTED</div>
-                        <div style="height: 180px; width: 100%; background: url('${imgSrc}') center/cover; border-bottom: 2px solid var(--red); filter: grayscale(40%) contrast(110%);"></div>
-                        <div style="padding: 15px; text-align: right; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; gap: 10px;" class="allow-select">
+                    <div style="background: #070a14; border: 1px solid rgba(255, 51, 51, 0.4); border-radius: 8px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 5px 15px rgba(0,0,0,0.8); transition: 0.3s; position: relative;" class="hover-target">
+                        
+                        <div style="background: rgba(255,0,60,0.1); color: var(--red); text-align: center; font-family: var(--font-en); font-weight: 900; font-size: 1.4rem; letter-spacing: 3px; padding: 5px 0; text-shadow: 0 0 10px rgba(255,0,60,0.8); border-bottom: 1px solid rgba(255,51,51,0.3); animation: glitch-red 2s infinite;">WANTED</div>
+                        
+                        <div style="height: 160px; width: 100%; background: url('${imgSrc}') center/cover; filter: grayscale(50%) contrast(120%); border-bottom: 1px solid #222;"></div>
+                        
+                        <div style="padding: 12px; text-align: right; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; gap: 10px;" class="allow-select">
                             <div>
-                                <div style="color: #fff; font-size: 1.2rem; font-weight: bold; margin-bottom: 5px;">${w.name}</div>
-                                <div style="color: #aaa; font-size: 0.95rem; margin-bottom: 5px;"><strong style="color: var(--cyan);">التهمة:</strong> ${w.charge}</div>
-                                <div style="color: #aaa; font-size: 0.95rem;"><strong style="color: var(--cyan);">الخطورة:</strong> <span style="color: var(--red); font-weight: bold;">${w.danger}</span></div>
+                                <div style="color: #fff; font-size: 1.1rem; font-weight: bold; margin-bottom: 5px; border-bottom: 1px dashed #333; padding-bottom: 5px;">${w.name}</div>
+                                <div style="color: #aaa; font-size: 0.9rem; margin-bottom: 4px;"><strong style="color: var(--cyan);">التهمة:</strong> ${w.charge}</div>
+                                <div style="color: #aaa; font-size: 0.9rem;"><strong style="color: var(--cyan);">الخطورة:</strong> <span style="color: var(--red); font-weight: bold;">${w.danger}</span></div>
                             </div>
-                            ${isOfficer ? `<button class="action-btn-text btn-del-text hover-target" style="width: 100%; padding: 8px; border-radius: 6px; font-size: 1rem; border: 1px solid var(--red); background: rgba(255, 51, 51, 0.1); margin: 0;" onclick="delRec(${idx}, 'حذف مطلوب: ${w.name}')">🗑️ إزالة</button>` : ''}
+                            
+                            ${isOfficer ? `<button class="action-btn-text btn-del-text hover-target" style="width: 100%; padding: 8px; border-radius: 4px; font-size: 0.95rem; border: 1px solid rgba(255,51,51,0.5); background: transparent; transition: 0.2s; margin: 0;" onmouseover="this.style.background='var(--red)'; this.style.color='#fff';" onmouseout="this.style.background='transparent'; this.style.color='var(--red)';" onclick="delRec(${idx}, 'حذف مطلوب: ${w.name}')">إزالة من القائمة</button>` : ''}
                         </div>
                     </div>`;
                 }
@@ -636,6 +672,193 @@
                     logAction('مسح جميع سجلات النظام');
                     showCustomAlert("نجاح", "تم مسح السجلات", true);
                 });
+            });
+        }
+
+        // 🟢 الحماية القوية للجدول 🟢
+        function renderAdminRoster() {
+            const container = document.getElementById('dynamicContentArea');
+            const data = db.live_roster;
+            if (!data || Object.keys(data).length === 0) { container.innerHTML = '<div style="text-align:center; padding:50px; color:#888;">لا يوجد بيانات.</div>'; return; }
+            
+            let htmlString = `
+            <div class="roster-wrapper">
+                <table class="luxury-table">
+                    <thead>
+                        <tr>
+                            <th>Code</th><th>Name</th><th>Rank</th><th>Responsibility</th><th>Status</th><th>Strikes</th><th>Last Prom</th><th>F.P</th><th>Discord ID</th><th>Notes</th><th>الإجراءات</th>
+                        </tr>
+                    </thead>
+                    <tbody>`;
+            
+            const groups = {};
+            Object.keys(data).forEach(key => { 
+                const off = data[key]; 
+                if(!off) return; // 🟢 هذي اللي كانت تخلي الجدول يعلق (أضفنا الحماية) 🟢
+                off.id = key; 
+                const r = off.rank || 'غير محدد'; 
+                if(!groups[r]) groups[r] = []; 
+                groups[r].push(off); 
+            });
+            const sortedRanks = Object.keys(groups).sort((a, b) => { let iA = SystemRanks.indexOf(a), iB = SystemRanks.indexOf(b); return (iA===-1?999:iA) - (iB===-1?999:iB); });
+
+            sortedRanks.forEach(rankName => {
+                htmlString += `<tr><td colspan="11" style="border:none;"><div class="dept-title">${rankName}</div></td></tr>`;
+                
+                groups[rankName].sort((a, b) => (a.code || '').localeCompare(b.code || '')).forEach(off => {
+                    htmlString += `
+                    <tr class="roster-row">
+                        <td style="color: var(--cyan); font-weight: 900;">${off.code || '-'}</td>
+                        <td style="color: #fff; font-family: var(--font-ar);">${off.name || '-'}</td>
+                        <td style="color: #ccc;">${off.rank || '-'}</td>
+                        <td style="color: #ccc;">${off.responsibility || '-'}</td>
+                        <td><div style="background: rgba(0, 255, 106, 0.1); border: 1px solid rgba(0, 255, 106, 0.3); color: var(--green); padding: 5px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: 800;">${off.status || 'ACTIVE'}</div></td>
+                        <td style="color: #888;">${off.strikes || '-'}</td>
+                        <td style="color: #888;">${off.lastProm || '-'}</td>
+                        <td style="color: #888;">${off.fp || '-'}</td>
+                        <td><span style="background: rgba(0,0,0,0.4); padding: 5px 10px; border-radius: 6px; font-family: monospace; color: #8da2b5; border: 1px solid rgba(255,255,255,0.05);">${off.discordId || '-'}</span></td>
+                        <td style="color: #888; font-size:0.9rem; max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${off.notes || '-'}</td>
+                        <td>
+                            <button onclick="editOfficerData('${off.id}', '${off.name}', '${off.rank}', '${off.code}', '${off.responsibility}', '${off.status}', '${off.strikes}', '${off.lastProm}', '${off.fp}', '${off.discordId}', '${off.notes}')" class="action-btn-text btn-edit-text hover-target" title="تعديل">تعديل</button>
+                            <button onclick="deleteOfficerFromRoster('${off.id}', '${off.name}')" class="action-btn-text btn-del-text hover-target" title="حذف">حذف</button>
+                        </td>
+                    </tr>`;
+                });
+            });
+            container.innerHTML = htmlString + '</tbody></table></div>';
+        }
+
+        function deleteOfficerFromRoster(id, name) {
+            if(!isOfficer) return showCustomAlert("خطأ", "لا تملك صلاحية", false);
+            showCustomConfirm("حذف عسكري", `هل أنت متأكد من حذف العسكري (${name}) نهائياً من الجدول؟`, () => {
+                database.ref(`live_roster/${id}`).remove().then(() => {
+                    logAction('حذف عسكري من الرستر: ' + name); 
+                    showCustomAlert("تم", "تم حذف العسكري بنجاح", true);
+                });
+            });
+        }
+        
+        let currentEditingOfficerId = null;
+
+        function editOfficerData(id, name, currentRank, code, resp, status, strikes, prom, fp, discord, notes) {
+            currentEditingOfficerId = id;
+            document.getElementById('editOfficerName').value = name || '';
+            document.getElementById('editOfficerCode').value = code || '';
+            
+            let respHtml = ''; respOptionsData.forEach(r => { respHtml += `<option value="${r}" ${r===resp ? 'selected' : ''}>${r}</option>`; });
+            document.getElementById('editResp').innerHTML = respHtml;
+
+            document.getElementById('editStatus').value = status || 'ACTIVE';
+            
+            let strikesHtml = ''; strikesOptionsData.forEach(s => { strikesHtml += `<option value="${s}" ${s===strikes ? 'selected' : ''}>${s}</option>`; });
+            document.getElementById('editStrikes').innerHTML = strikesHtml;
+
+            document.getElementById('editProm').value = prom === '-' ? '' : prom;
+            document.getElementById('editFP').value = fp === '-' ? '' : fp;
+            document.getElementById('editDiscord').value = discord === '-' ? '' : discord;
+            document.getElementById('editNotes').value = notes === '-' ? '' : notes;
+            
+            let rankOptions = ''; SystemRanks.forEach(r => { rankOptions += `<option value="${r}" ${r===currentRank ? 'selected' : ''}>${r}</option>`; });
+            document.getElementById('editRankSelect').innerHTML = rankOptions;
+            
+            document.getElementById('editRankModal').style.display = 'flex';
+        }
+
+        function autoGenerateCode() {
+            const rank = document.getElementById('editRankSelect').value;
+            const safeRoleName = rank.toLowerCase();
+            if (rankExactCodes[rank]) { document.getElementById('editOfficerCode').value = rankExactCodes[rank]; } 
+            else if (rankRanges[rank]) {
+                const range = rankRanges[rank];
+                const currentCode = document.getElementById('editOfficerCode').value;
+                let numberPart = currentCode.match(/\d+/);
+                if (numberPart && numberPart[0] >= range.min && numberPart[0] <= range.max) { document.getElementById('editOfficerCode').value = `${range.prefix}${numberPart[0]}`; } 
+                else { document.getElementById('editOfficerCode').value = `${range.prefix}${Math.floor(Math.random() * (range.max - range.min + 1)) + range.min}`; }
+            } else {
+                let prefix = safeRoleName.includes("officer") || safeRoleName.includes("sergeant") || safeRoleName.includes("cadet") ? "U-" : "C-";
+                document.getElementById('editOfficerCode').value = `${prefix}00`;
+            }
+        }
+
+        function saveNewOfficerData() {
+            if(!currentEditingOfficerId) return;
+            const offName = document.getElementById('editOfficerName').value.trim() || '-';
+            const payload = {
+                name: offName,
+                code: document.getElementById('editOfficerCode').value.trim() || '-',
+                rank: document.getElementById('editRankSelect').value,
+                responsibility: document.getElementById('editResp').value,
+                status: document.getElementById('editStatus').value,
+                strikes: document.getElementById('editStrikes').value,
+                lastProm: document.getElementById('editProm').value.trim() || '-',
+                fp: document.getElementById('editFP').value.trim() || '-',
+                discordId: document.getElementById('editDiscord').value.trim() || '-',
+                notes: document.getElementById('editNotes').value.trim() || '-'
+            };
+            database.ref(`live_roster/${currentEditingOfficerId}`).update(payload).then(() => {
+                logAction('تعديل بيانات العسكري: ' + offName); 
+                document.getElementById('editRankModal').style.display = 'none';
+                showCustomAlert("اكتمل", "تم تحديث السجل بنجاح", true);
+            });
+        }
+
+        function openCreateModal() {
+            document.getElementById('createOfficerName').value = '';
+            document.getElementById('createOfficerCode').value = '';
+            
+            let respHtml = ''; respOptionsData.forEach(r => { respHtml += `<option value="${r}">${r}</option>`; });
+            document.getElementById('createResp').innerHTML = respHtml;
+            document.getElementById('createStatus').value = 'ACTIVE';
+            
+            let strikesHtml = ''; strikesOptionsData.forEach(s => { strikesHtml += `<option value="${s}">${s}</option>`; });
+            document.getElementById('createStrikes').innerHTML = strikesHtml;
+
+            document.getElementById('createProm').value = '';
+            document.getElementById('createFP').value = '';
+            document.getElementById('createDiscord').value = '';
+            document.getElementById('createNotes').value = '';
+            
+            let rankOptions = ''; SystemRanks.forEach(r => { rankOptions += `<option value="${r}">${r}</option>`; });
+            document.getElementById('createRankSelect').innerHTML = rankOptions;
+            
+            autoGenerateCreateCode(); 
+            document.getElementById('createRankModal').style.display = 'flex';
+        }
+
+        function autoGenerateCreateCode() {
+            const rank = document.getElementById('createRankSelect').value;
+            const safeRoleName = rank.toLowerCase();
+            if (rankExactCodes[rank]) { document.getElementById('createOfficerCode').value = rankExactCodes[rank]; } 
+            else if (rankRanges[rank]) {
+                const range = rankRanges[rank];
+                document.getElementById('createOfficerCode').value = `${range.prefix}${Math.floor(Math.random() * (range.max - range.min + 1)) + range.min}`;
+            } else {
+                let prefix = safeRoleName.includes("officer") || safeRoleName.includes("sergeant") || safeRoleName.includes("cadet") ? "U-" : "C-";
+                document.getElementById('createOfficerCode').value = `${prefix}00`;
+            }
+        }
+
+        function saveNewCreatedOfficer() {
+            const name = document.getElementById('createOfficerName').value.trim();
+            if(!name) { showCustomAlert("خطأ", "يجب إدخال اسم العسكري على الأقل!", false); return; }
+
+            const payload = {
+                name: name,
+                code: document.getElementById('createOfficerCode').value.trim() || '-',
+                rank: document.getElementById('createRankSelect').value,
+                responsibility: document.getElementById('createResp').value,
+                status: document.getElementById('createStatus').value,
+                strikes: document.getElementById('createStrikes').value,
+                lastProm: document.getElementById('createProm').value.trim() || '-',
+                fp: document.getElementById('createFP').value.trim() || '-',
+                discordId: document.getElementById('createDiscord').value.trim() || '-',
+                notes: document.getElementById('createNotes').value.trim() || '-'
+            };
+
+            database.ref('live_roster').push(payload).then(() => {
+                logAction('إضافة عسكري جديد: ' + name); 
+                document.getElementById('createRankModal').style.display = 'none';
+                showCustomAlert("نجاح", "تم إضافة العسكري الجديد للجدول بنجاح!", true);
             });
         }
 
