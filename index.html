@@ -135,11 +135,11 @@
 
         .modal-overlay { position: fixed; inset: 0; background: rgba(2,3,5,.9); z-index: 100000; display: none; justify-content: center; align-items: center; }
         .modal-box { width: 550px; padding: 40px; background: #0c121e; border: 1px solid var(--cyan); border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,.8); animation: popIn .2s ease-out; }
-        .gen-input { width: 100%; padding: 15px; background: #04070e; border: 1px solid rgba(255,255,255,.1); color: #fff; margin-bottom: 15px; border-radius: 8px; transition: .2s; text-align: right; font-family: var(--font-ar); }
+        .gen-input { width: 100%; padding: 15px; background: #04070e; border: 1px solid rgba(255,255,255,.1); color: #fff; margin-bottom: 15px; border-radius: 8px; transition: .2s; text-align: right; }
         .gen-input:focus { border-color: var(--cyan); }
-        .submit-btn { padding: 15px; background: var(--cyan); border: none; font-weight: 900; font-size: 1.2rem; border-radius: 8px; color: #000; transition: .2s; width: 100%; cursor: none; font-family: var(--font-ar);}
+        .submit-btn { padding: 15px; background: var(--cyan); border: none; font-weight: 900; font-size: 1.2rem; border-radius: 8px; color: #000; transition: .2s; width: 100%; cursor: none;}
         .submit-btn:hover { background: #fff; transform: translateY(-2px); }
-        .close-btn { background: #04070e; border: 1px solid rgba(255,255,255,.1); color: #ccc; padding: 15px; border-radius: 8px; transition: .2s; font-weight: 700; width: 100%; cursor: none; font-family: var(--font-ar);}
+        .close-btn { background: #04070e; border: 1px solid rgba(255,255,255,.1); color: #ccc; padding: 15px; border-radius: 8px; transition: .2s; font-weight: 700; width: 100%; cursor: none;}
         .close-btn:hover { border-color: var(--red); color: #fff; background: rgba(255,51,51,.1); }
     </style>
 </head>
@@ -148,6 +148,8 @@
     <div id="particles-container"></div>
     <div id="cursor-pointer"></div>
     <div id="cursor-trail"></div>
+
+    <script src="config.js"></script>
 
     <nav class="public-nav">
         <div class="nav-right">
@@ -182,7 +184,7 @@
                 <img src="yyW7oBx.jpg?v=5" style="width: 100px; height: 100px; border-radius: 50%; border: 2px solid var(--cyan); margin-bottom: 15px;">
                 <h2 style="color: #fff; font-family: var(--font-en); letter-spacing: 2px; margin-bottom: 5px;"><span style="color: var(--red);">P</span>olice <span style="color: var(--red);">D</span>epartment <span style="color: var(--red);">R</span>ules</h2>
                 <h1 style="color: var(--red); font-weight: 900; margin-bottom: 5px; font-size: 2.2rem;">قواعد الشرطة</h1>
-                <p style="color: #ccc; font-size: 1.1rem; line-height: 1.8; max-width: 800px; margin: 15px auto;">شرطة لوس سانتوس تهدف لحماية النظام الأمن القومي و النظام العام وممتلكات و مناطق مدينة لوس سانتوس، و حماية المواطنين هي أولى إهتماماتنا وعلى الشرطي تنبؤ التعامل مع الحالات بالشكل الذي يناسب هيئته كشرطي و تبعاً لكتيب بروتوكولات الشرطة.</p>
+                <p style="color: #ccc; font-size: 1.1rem; line-height: 1.8; max-width: 800px; margin: 15px auto;">شرطة لوس سانتوس تهدف لحماية النظام الأمن القومي و النظام العام وممتلكات و مناطق مدينة لوس سانتوس.</p>
             </div>
 
             <div class="accordion-item">
@@ -193,9 +195,9 @@
                 <div class="accordion-content">
                     <div class="accordion-inner">
                         <ul class="sop-list">
-                            <li>التعامل مع المواطنين يكون بحدود العمل فقط، و يكون بشكل إحترافي و رسمي.</li>
-                            <li>يحق للشرطي أخذ أي إجراء تجاه المواطن بعد وجود أدلة و أسباب كافية لفعل ذلك وتكون من ضمن الإجراءات.</li>
-                            <li>قوانين الكلبشة : يمنع كلبشة الشخص الا في حال رفع يده أو في حال تيزرته أو نطحه والسيطرة عليه.</li>
+                            <li>التعامل مع المواطنين يكون بحدود العمل فقط، و يكون بشكل إحترافي.</li>
+                            <li>يحق للشرطي أخذ أي إجراء تجاه المواطن بعد وجود أدلة و أسباب كافية.</li>
+                            <li>قوانين الكلبشة : يمنع كلبشة الشخص الا في حال رفع يده أو في حال تيزرته.</li>
                         </ul>
                     </div>
                 </div>
@@ -372,7 +374,6 @@
             const data = snapshot.val();
             if (data) {
                 if(data.applications) {
-                    // حماية عشان ما يعلق لو فيه بيانات فارغة
                     db.applications = Object.values(data.applications).filter(i => i !== null && i !== undefined);
                 } else {
                     db.applications = [];
@@ -462,17 +463,31 @@
             
             if(!n || !d || !a || !exp) return showCustomAlert("خطأ", "يرجى تعبئة جميع الحقول المطلوبة!", false);
             
-            // 🟢 جدار الحماية (مانع السبام) - يفحص لو الديسكورد مسجل 🟢
+            // 🟢 جدار الحماية ضد السبام 🟢
+
+            // 1. حماية عن طريق المتصفح (الجهاز)
+            if(localStorage.getItem('lspd_applied')) {
+                return showCustomAlert("حظر مؤقت", "لقد قمت بتقديم طلب مسبقاً من هذا الجهاز! لا يمكنك تقديم طلب آخر حالياً.", false);
+            }
+
+            // 2. حماية عن طريق الفحص الدقيق (الاسم أو الديسكورد)
             let apps = db.applications || [];
-            let isSpam = apps.find(app => app.discord.toLowerCase() === d.toLowerCase());
+            let isSpam = apps.find(app => 
+                app.discord.toLowerCase() === d.toLowerCase() || 
+                app.name.toLowerCase() === n.toLowerCase()
+            );
             
             if(isSpam) {
-                return showCustomAlert("مرفوض", "تم التقديم مسبقاً بهذا الديسكورد! يرجى انتظار الرد.", false);
+                return showCustomAlert("مرفوض", "هذا الاسم أو الديسكورد مسجل لدينا مسبقاً! يرجى انتظار الرد.", false);
             }
             
             apps.push({ type: type, name: n, discord: d, age: a, exp: exp, date: new Date().toLocaleDateString(), status: 'pending' });
             
             firebase.database().ref('lspd_db').update({ applications: apps }).then(() => {
+                
+                // نقفل عليه الجهاز بعد ما نجح الإرسال
+                localStorage.setItem('lspd_applied', 'true');
+
                 logAction(`قام بتقديم طلب توظيف (${type === 'police' ? 'شرطة' : 'قدم نفسك'}) باسم: ${n}`);
                 
                 document.getElementById(type === 'police' ? 'appModal' : 'selfAppModal').style.display='none';
