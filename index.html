@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>إدارة الشرطة | L.S.P.D</title>
     
-    <link rel="icon" href="yyW7oBx.jpg?v=3" type="image/jpeg">
+    <link rel="icon" href="yyW7oBx.jpg?v=5" type="image/jpeg">
     
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=Rajdhani:wght@500;600;700;800;900&display=swap" rel="stylesheet">
     <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
@@ -20,50 +20,43 @@
 
     <style>
         :root {
-            --bg-deep: #04070e;
-            --cyan: #00eaff;
-            --cyan-glow: rgba(0, 234, 255, 0.3);
-            --red: #ff3333;
-            --green: #00ff6a;
-            --yellow: #ffc107;
-            --blue: #0055ff;
-            --text-main: #ffffff;
-            --font-ar: 'Tajawal', sans-serif;
-            --font-en: 'Rajdhani', sans-serif;
+            --bg-deep: #04070e; --cyan: #00eaff; --cyan-glow: rgba(0, 234, 255, 0.3);
+            --red: #ff3333; --green: #00ff6a; --yellow: #ffc107; --blue: #0055ff;
+            --text-main: #ffffff; --font-ar: 'Tajawal', sans-serif; --font-en: 'Rajdhani', sans-serif;
         }
 
-        /* 🟢 إجبار إخفاء الماوس العادي في كل مكان بالموقع 🟢 */
-        * { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; outline: none; cursor: none !important; }
+        * { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; outline: none; }
         
         body { 
+            user-select: none; cursor: none;
             background: var(--bg-deep) radial-gradient(circle at top, rgba(0,234,255,.05) 0, transparent 60%) no-repeat fixed; 
             color: var(--text-main); font-family: var(--font-ar); 
             min-height: 100vh; overflow-x: hidden; 
-            user-select: none;
         }
         
-        .allow-select *, input, select, textarea { user-select: text !important; }
+        .allow-select *, input, select, textarea, a, button, .lux-card, .accordion-header { 
+            user-select: text !important; font-family: var(--font-ar); cursor: none !important; 
+        }
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes popIn { 0% { opacity: 0; transform: scale(.95); } 100% { opacity: 1; transform: scale(1); } }
 
         /* =========================================
-           🟢 الماوس الخفيف (تم رفع الطبقة لأعلى مستوى) 🟢
+           الخلفية والماوس الخفيف
         ========================================= */
         #particles-container { position: fixed; inset: 0; z-index: -1; pointer-events: none; }
         .particle { position: absolute; background: var(--cyan); border-radius: 50%; animation: floatParticle linear infinite; opacity: 0; box-shadow: 0 0 5px var(--cyan); }
         @keyframes floatParticle { 0% { transform: translateY(0); opacity: 0; } 10% { opacity: 0.15; } 90% { opacity: 0.15; } 100% { transform: translateY(-100vh); opacity: 0; } }
 
-        /* لاحظ رقم z-index الفلكي عشان يكون فوق كل شيء */
-        #cursor-pointer { position: fixed; width: 6px; height: 6px; background-color: var(--cyan); border-radius: 50%; pointer-events: none; z-index: 9999999 !important; transform: translate(-50%, -50%); box-shadow: 0 0 10px var(--cyan); transition: width 0.15s, height 0.15s; }
-        #cursor-trail { position: fixed; width: 30px; height: 30px; border: 1.5px solid rgba(0, 234, 255, 0.1); border-radius: 50%; pointer-events: none; z-index: 9999998 !important; transform: translate(-50%, -50%); transition: 0.1s ease-out, width 0.15s, height 0.15s; }
+        #cursor-pointer { position: fixed; width: 6px; height: 6px; background-color: var(--cyan); border-radius: 50%; pointer-events: none; z-index: 9999999; transform: translate(-50%, -50%); box-shadow: 0 0 10px var(--cyan); transition: width 0.15s, height 0.15s; }
+        #cursor-trail { position: fixed; width: 30px; height: 30px; border: 1.5px solid rgba(0, 234, 255, 0.1); border-radius: 50%; pointer-events: none; z-index: 9999998; transform: translate(-50%, -50%); transition: 0.1s ease-out, width 0.15s, height 0.15s; }
 
         /* =========================================
            1. الزر السائل (Liquid Morph)
         ========================================= */
         .liquid-btn { 
             padding: 15px 50px; font-family: var(--font-ar); font-size: 1.3rem; font-weight: bold; color: #fff; 
-            background: linear-gradient(45deg, var(--cyan), var(--blue)); border: none; outline: none; 
+            background: linear-gradient(45deg, var(--cyan), var(--blue)); border: none; outline: none; cursor: none; 
             border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; animation: liquid-morph 3s linear infinite; 
             box-shadow: 0 10px 30px rgba(0, 234, 255, 0.4); transition: 0.3s; margin-top: 15px;
         }
@@ -73,14 +66,14 @@
         /* =========================================
            2. فك التشفير (Decrypt Text)
         ========================================= */
-        .decrypt-text { font-family: var(--font-en); color: var(--cyan); display: inline-block; min-width: 150px; }
+        .decrypt-text { font-family: var(--font-en); color: var(--cyan); display: inline-block; min-width: 150px; cursor: none; }
 
         /* =========================================
            3. إضاءة الافتار (Avatar Glow)
         ========================================= */
         .avatar-glow { 
             position: relative; width: 130px; height: 130px; margin: 0 auto 25px; border-radius: 50%; 
-            display: flex; align-items: center; justify-content: center; transition: 0.3s; z-index: 1;
+            display: flex; align-items: center; justify-content: center; transition: 0.3s; z-index: 1; cursor: none;
         }
         .avatar-glow::after { 
             content: ''; position: absolute; inset: -5px; border-radius: 50%; 
@@ -91,12 +84,11 @@
         .avatar-glow:hover { transform: scale(1.08); }
         .avatar-glow img { width: 100%; height: 100%; border-radius: 50%; border: 3px solid var(--cyan); object-fit: cover; padding: 4px; background: var(--bg-deep); }
         @keyframes spin-avatar { 100% { transform: rotate(360deg); } }
-        /* ========================================= */
 
         /* شريط التنقل */
         .public-nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 80px; background: #070b14; border-bottom: 1px solid rgba(0,234,255,.1); position: sticky; top: 0; z-index: 9999; }
         .nav-right { display: flex; align-items: center; gap: 40px; }
-        .nav-logo { width: 45px; height: 45px; background: url('yyW7oBx.jpg') center/cover; border-radius: 50%; border: 1px solid var(--cyan); }
+        .nav-logo { width: 45px; height: 45px; background: url('yyW7oBx.jpg?v=5') center/cover; border-radius: 50%; border: 1px solid var(--cyan); }
         .nav-links { display: flex; gap: 30px; }
         .nav-links a { color: #8da2b5; text-decoration: none; font-size: 1.05rem; font-weight: 700; transition: .2s; }
         .nav-links a.active, .nav-links a:hover { color: #fff; text-shadow: 0 0 10px rgba(255,255,255,.5); }
@@ -159,9 +151,9 @@
         .modal-box { width: 550px; padding: 40px; background: #0c121e; border: 1px solid var(--cyan); border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,.8); animation: popIn .2s ease-out; }
         .gen-input { width: 100%; padding: 15px; background: #04070e; border: 1px solid rgba(255,255,255,.1); color: #fff; margin-bottom: 15px; border-radius: 8px; transition: .2s; text-align: right; }
         .gen-input:focus { border-color: var(--cyan); }
-        .submit-btn { padding: 15px; background: var(--cyan); border: none; font-weight: 900; font-size: 1.2rem; border-radius: 8px; color: #000; transition: .2s; width: 100%; }
+        .submit-btn { padding: 15px; background: var(--cyan); border: none; font-weight: 900; font-size: 1.2rem; border-radius: 8px; color: #000; transition: .2s; width: 100%; cursor: none;}
         .submit-btn:hover { background: #fff; transform: translateY(-2px); }
-        .close-btn { background: #04070e; border: 1px solid rgba(255,255,255,.1); color: #ccc; padding: 15px; border-radius: 8px; transition: .2s; font-weight: 700; width: 100%; }
+        .close-btn { background: #04070e; border: 1px solid rgba(255,255,255,.1); color: #ccc; padding: 15px; border-radius: 8px; transition: .2s; font-weight: 700; width: 100%; cursor: none;}
         .close-btn:hover { border-color: var(--red); color: #fff; background: rgba(255,51,51,.1); }
     </style>
 </head>
@@ -204,7 +196,7 @@
         <div class="animated-banner"><h1 class="anim-title">الدستور <span>والقوانين</span></h1></div>
         <div class="accordion-container">
             <div style="text-align: center; margin-bottom: 40px; margin-top: 20px;">
-                <img src="yyW7oBx.jpg" style="width: 100px; height: 100px; border-radius: 50%; border: 2px solid var(--cyan); margin-bottom: 15px;">
+                <img src="yyW7oBx.jpg?v=5" style="width: 100px; height: 100px; border-radius: 50%; border: 2px solid var(--cyan); margin-bottom: 15px;">
                 <h2 style="color: #fff; font-family: var(--font-en); letter-spacing: 2px; margin-bottom: 5px;"><span style="color: var(--red);">P</span>olice <span style="color: var(--red);">D</span>epartment <span style="color: var(--red);">R</span>ules</h2>
                 <h1 style="color: var(--red); font-weight: 900; margin-bottom: 5px; font-size: 2.2rem;">قواعد الشرطة</h1>
                 <p style="color: #ccc; font-size: 1.1rem; line-height: 1.8; max-width: 800px; margin: 15px auto;">شرطة لوس سانتوس تهدف لحماية النظام الأمن القومي و النظام العام وممتلكات و مناطق مدينة لوس سانتوس، و حماية المواطنين هي أولى إهتماماتنا وعلى الشرطي تنبؤ التعامل مع الحالات بالشكل الذي يناسب هيئته كشرطي و تبعاً لكتيب بروتوكولات الشرطة.</p>
@@ -469,6 +461,7 @@
     </div>
 
     <script>
+        // النجوم السماوية
         const particlesContainer = document.getElementById('particles-container');
         for (let i = 0; i < 60; i++) {
             let particle = document.createElement('div');
@@ -483,6 +476,7 @@
             particlesContainer.appendChild(particle);
         }
 
+        // الماوس
         const pointer = document.getElementById('cursor-pointer');
         const trail = document.getElementById('cursor-trail');
         window.addEventListener('mousemove', (e) => {
@@ -500,6 +494,7 @@
             });
         });
 
+        // 🟢 تأثير فك التشفير للعنوان 🟢
         function decryptEffect(element) {
             const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*";
             let iteration = 0;
@@ -516,7 +511,9 @@
         }
 
         document.querySelectorAll('.decrypt-text').forEach(el => {
+            // يتشفر أول ما يفتح الموقع
             setTimeout(() => decryptEffect(el), 500);
+            // يتشفر إذا أشرت عليه
             el.addEventListener('mouseenter', () => decryptEffect(el));
         });
     </script>
@@ -528,6 +525,17 @@
 
         firebase.initializeApp({ apiKey: "AIzaSyC5PL_fJEjiJVQS8rnx4m8j9uQNsILcQvs", authDomain: "police-depa.firebaseapp.com", databaseURL: "https://police-depa-default-rtdb.europe-west1.firebasedatabase.app", projectId: "police-depa" });
         let db = { applications: [], live_roster: {}, settings: {} };
+
+        // 🟢 دالة إرسال اللوقات للوحة التحكم 🟢
+        function logAction(actionText) {
+            const t = new Date().toLocaleString('ar-SA');
+            firebase.database().ref('lspd_db/system_logs').push({
+                user: 'زائر (موقع عام)',
+                rank: 'مواطن',
+                action: actionText,
+                time: t
+            });
+        }
 
         firebase.database().ref('lspd_db').on('value', (snapshot) => {
             const data = snapshot.val();
@@ -602,6 +610,10 @@
             
             db.applications.push({ type: type, name: n, discord: d, age: a, exp: exp, date: new Date().toLocaleDateString(), status: 'pending' });
             firebase.database().ref('lspd_db').update({ applications: db.applications }).then(() => {
+                
+                // 🟢 إرسال اللوق بمجرد التقديم 🟢
+                logAction(`قام بتقديم طلب توظيف (${type === 'police' ? 'شرطة' : 'قدم نفسك'}) باسم: ${n}`);
+                
                 document.getElementById(type === 'police' ? 'appModal' : 'selfAppModal').style.display='none';
                 showCustomAlert("نجاح", "تم الإرسال للقيادة بنجاح!", true);
                 
