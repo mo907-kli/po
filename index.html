@@ -41,6 +41,7 @@
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes popIn { 0% { opacity: 0; transform: scale(.95); } 100% { opacity: 1; transform: scale(1); } }
 
+        /* النجوم والماوس */
         #particles-container { position: fixed; inset: 0; z-index: -1; pointer-events: none; }
         .particle { position: absolute; background: var(--cyan); border-radius: 50%; animation: floatParticle linear infinite; opacity: 0; box-shadow: 0 0 5px var(--cyan); }
         @keyframes floatParticle { 0% { transform: translateY(0); opacity: 0; } 10% { opacity: 0.15; } 90% { opacity: 0.15; } 100% { transform: translateY(-100vh); opacity: 0; } }
@@ -48,6 +49,7 @@
         #cursor-pointer { position: fixed; width: 6px; height: 6px; background-color: var(--cyan); border-radius: 50%; pointer-events: none; z-index: 9999999; transform: translate(-50%, -50%); box-shadow: 0 0 10px var(--cyan); transition: width 0.15s, height 0.15s; }
         #cursor-trail { position: fixed; width: 30px; height: 30px; border: 1.5px solid rgba(0, 234, 255, 0.1); border-radius: 50%; pointer-events: none; z-index: 9999998; transform: translate(-50%, -50%); transition: 0.1s ease-out, width 0.15s, height 0.15s; }
 
+        /* الزر السائل */
         .liquid-btn { 
             padding: 15px 50px; font-family: var(--font-ar); font-size: 1.3rem; font-weight: bold; color: #fff; 
             background: linear-gradient(45deg, var(--cyan), var(--blue)); border: none; outline: none; cursor: none; 
@@ -57,8 +59,10 @@
         .liquid-btn:hover { transform: scale(1.05); box-shadow: 0 10px 40px rgba(0, 234, 255, 0.6); color: #fff;}
         @keyframes liquid-morph { 0%, 100% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; } 34% { border-radius: 70% 30% 50% 50% / 30% 30% 70% 70%; } 67% { border-radius: 100% 60% 60% 100% / 100% 100% 60% 60%; } }
 
+        /* فك التشفير */
         .decrypt-text { font-family: var(--font-en); color: var(--cyan); display: inline-block; min-width: 150px; cursor: none; }
 
+        /* إضاءة الافتار */
         .avatar-glow { 
             position: relative; width: 130px; height: 130px; margin: 0 auto 25px; border-radius: 50%; 
             display: flex; align-items: center; justify-content: center; transition: 0.3s; z-index: 1; cursor: none;
@@ -131,11 +135,11 @@
 
         .modal-overlay { position: fixed; inset: 0; background: rgba(2,3,5,.9); z-index: 100000; display: none; justify-content: center; align-items: center; }
         .modal-box { width: 550px; padding: 40px; background: #0c121e; border: 1px solid var(--cyan); border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,.8); animation: popIn .2s ease-out; }
-        .gen-input { width: 100%; padding: 15px; background: #04070e; border: 1px solid rgba(255,255,255,.1); color: #fff; margin-bottom: 15px; border-radius: 8px; transition: .2s; text-align: right; }
+        .gen-input { width: 100%; padding: 15px; background: #04070e; border: 1px solid rgba(255,255,255,.1); color: #fff; margin-bottom: 15px; border-radius: 8px; transition: .2s; text-align: right; font-family: var(--font-ar); }
         .gen-input:focus { border-color: var(--cyan); }
-        .submit-btn { padding: 15px; background: var(--cyan); border: none; font-weight: 900; font-size: 1.2rem; border-radius: 8px; color: #000; transition: .2s; width: 100%; cursor: none;}
+        .submit-btn { padding: 15px; background: var(--cyan); border: none; font-weight: 900; font-size: 1.2rem; border-radius: 8px; color: #000; transition: .2s; width: 100%; cursor: none; font-family: var(--font-ar);}
         .submit-btn:hover { background: #fff; transform: translateY(-2px); }
-        .close-btn { background: #04070e; border: 1px solid rgba(255,255,255,.1); color: #ccc; padding: 15px; border-radius: 8px; transition: .2s; font-weight: 700; width: 100%; cursor: none;}
+        .close-btn { background: #04070e; border: 1px solid rgba(255,255,255,.1); color: #ccc; padding: 15px; border-radius: 8px; transition: .2s; font-weight: 700; width: 100%; cursor: none; font-family: var(--font-ar);}
         .close-btn:hover { border-color: var(--red); color: #fff; background: rgba(255,51,51,.1); }
     </style>
 </head>
@@ -144,8 +148,6 @@
     <div id="particles-container"></div>
     <div id="cursor-pointer"></div>
     <div id="cursor-trail"></div>
-
-    <script src="config.js"></script>
 
     <nav class="public-nav">
         <div class="nav-right">
@@ -180,7 +182,7 @@
                 <img src="yyW7oBx.jpg?v=5" style="width: 100px; height: 100px; border-radius: 50%; border: 2px solid var(--cyan); margin-bottom: 15px;">
                 <h2 style="color: #fff; font-family: var(--font-en); letter-spacing: 2px; margin-bottom: 5px;"><span style="color: var(--red);">P</span>olice <span style="color: var(--red);">D</span>epartment <span style="color: var(--red);">R</span>ules</h2>
                 <h1 style="color: var(--red); font-weight: 900; margin-bottom: 5px; font-size: 2.2rem;">قواعد الشرطة</h1>
-                <p style="color: #ccc; font-size: 1.1rem; line-height: 1.8; max-width: 800px; margin: 15px auto;">شرطة لوس سانتوس تهدف لحماية النظام الأمن القومي و النظام العام وممتلكات و مناطق مدينة لوس سانتوس.</p>
+                <p style="color: #ccc; font-size: 1.1rem; line-height: 1.8; max-width: 800px; margin: 15px auto;">شرطة لوس سانتوس تهدف لحماية النظام الأمن القومي و النظام العام وممتلكات و مناطق مدينة لوس سانتوس، و حماية المواطنين هي أولى إهتماماتنا وعلى الشرطي تنبؤ التعامل مع الحالات بالشكل الذي يناسب هيئته كشرطي و تبعاً لكتيب بروتوكولات الشرطة.</p>
             </div>
 
             <div class="accordion-item">
@@ -191,9 +193,9 @@
                 <div class="accordion-content">
                     <div class="accordion-inner">
                         <ul class="sop-list">
-                            <li>التعامل مع المواطنين يكون بحدود العمل فقط، و يكون بشكل إحترافي.</li>
-                            <li>يحق للشرطي أخذ أي إجراء تجاه المواطن بعد وجود أدلة و أسباب كافية.</li>
-                            <li>قوانين الكلبشة : يمنع كلبشة الشخص الا في حال رفع يده أو في حال تيزرته.</li>
+                            <li>التعامل مع المواطنين يكون بحدود العمل فقط، و يكون بشكل إحترافي و رسمي.</li>
+                            <li>يحق للشرطي أخذ أي إجراء تجاه المواطن بعد وجود أدلة و أسباب كافية لفعل ذلك وتكون من ضمن الإجراءات.</li>
+                            <li>قوانين الكلبشة : يمنع كلبشة الشخص الا في حال رفع يده أو في حال تيزرته أو نطحه والسيطرة عليه.</li>
                         </ul>
                     </div>
                 </div>
@@ -369,16 +371,33 @@
         firebase.database().ref('lspd_db').on('value', (snapshot) => {
             const data = snapshot.val();
             if (data) {
-                if(data.applications) db.applications = Object.values(data.applications).filter(i=>i);
+                if(data.applications) {
+                    // حماية عشان ما يعلق لو فيه بيانات فارغة
+                    db.applications = Object.values(data.applications).filter(i => i !== null && i !== undefined);
+                } else {
+                    db.applications = [];
+                }
+                
                 db.settings = data.settings || { policeOpen: true, selfOpen: true };
-                const pWrap = document.getElementById('btn-police-wrapper'); const sWrap = document.getElementById('btn-self-wrapper');
+                
+                const pWrap = document.getElementById('btn-police-wrapper'); 
+                const sWrap = document.getElementById('btn-self-wrapper');
+                
                 if(pWrap) pWrap.innerHTML = db.settings.policeOpen ? `<button class="submit-btn hover-target" onclick="document.getElementById('appModal').style.display='flex'">تقديم</button>` : `<button class="close-btn hover-target" style="color:var(--red); border-color:var(--red);" disabled>التقديم مغلق حالياً</button>`;
                 if(sWrap) sWrap.innerHTML = db.settings.selfOpen ? `<button class="submit-btn hover-target" onclick="document.getElementById('selfAppModal').style.display='flex'">تقديم</button>` : `<button class="close-btn hover-target" style="color:var(--red); border-color:var(--red);" disabled>التقديم مغلق حالياً</button>`;
             }
         });
 
         firebase.database().ref('live_roster').on('value', (snapshot) => {
-            db.live_roster = snapshot.val() || {};
+            const rosterData = snapshot.val() || {};
+            const cleanedRoster = {};
+            Object.keys(rosterData).forEach(k => {
+                if (rosterData[k] !== null && rosterData[k] !== undefined) {
+                    cleanedRoster[k] = rosterData[k];
+                }
+            });
+            db.live_roster = cleanedRoster;
+            
             const tbody = document.getElementById('publicRosterBody');
             if (Object.keys(db.live_roster).length === 0) { tbody.innerHTML = '<tr><td colspan="10" style="padding:40px; color:#888; text-align:center;">لا يوجد عساكر مسجلين حالياً.</td></tr>'; return; }
             
@@ -430,21 +449,30 @@
         function submitApp(type) {
             let n, d, a, exp;
             if(type === 'police') { 
-                n = document.getElementById('appName').value; d = document.getElementById('appDiscord').value; a = document.getElementById('appAge').value; exp = document.getElementById('appExp').value; 
+                n = document.getElementById('appName').value.trim(); 
+                d = document.getElementById('appDiscord').value.trim(); 
+                a = document.getElementById('appAge').value.trim(); 
+                exp = document.getElementById('appExp').value.trim(); 
             } else { 
-                n = document.getElementById('selfName').value; d = document.getElementById('selfDiscord').value; a = document.getElementById('selfAge').value; exp = document.getElementById('selfExp').value; 
+                n = document.getElementById('selfName').value.trim(); 
+                d = document.getElementById('selfDiscord').value.trim(); 
+                a = document.getElementById('selfAge').value.trim(); 
+                exp = document.getElementById('selfExp').value.trim(); 
             }
             
             if(!n || !d || !a || !exp) return showCustomAlert("خطأ", "يرجى تعبئة جميع الحقول المطلوبة!", false);
             
-            // 🟢 منع التكرار: فحص الديسكورد 🟢
-            let alreadyApplied = db.applications.find(app => app.discord === d);
-            if(alreadyApplied) {
-                return showCustomAlert("مرفوض", "لقد قمت بتقديم طلب مسبقاً بهذا الديسكورد! يرجى انتظار الرد.", false);
+            // 🟢 جدار الحماية (مانع السبام) - يفحص لو الديسكورد مسجل 🟢
+            let apps = db.applications || [];
+            let isSpam = apps.find(app => app.discord.toLowerCase() === d.toLowerCase());
+            
+            if(isSpam) {
+                return showCustomAlert("مرفوض", "تم التقديم مسبقاً بهذا الديسكورد! يرجى انتظار الرد.", false);
             }
             
-            db.applications.push({ type: type, name: n, discord: d, age: a, exp: exp, date: new Date().toLocaleDateString(), status: 'pending' });
-            firebase.database().ref('lspd_db').update({ applications: db.applications }).then(() => {
+            apps.push({ type: type, name: n, discord: d, age: a, exp: exp, date: new Date().toLocaleDateString(), status: 'pending' });
+            
+            firebase.database().ref('lspd_db').update({ applications: apps }).then(() => {
                 logAction(`قام بتقديم طلب توظيف (${type === 'police' ? 'شرطة' : 'قدم نفسك'}) باسم: ${n}`);
                 
                 document.getElementById(type === 'police' ? 'appModal' : 'selfAppModal').style.display='none';
