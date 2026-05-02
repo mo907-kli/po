@@ -4,1153 +4,959 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>لوحة القيادة | L.S.P.D</title>
-    
     <link rel="icon" href="yyW7oBx.jpg?v=5" type="image/jpeg">
-    
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=Rajdhani:wght@500;600;700;800;900&display=swap" rel="stylesheet">
     <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-database-compat.js"></script>
-
     <script>
-        document.addEventListener('contextmenu', event => event.preventDefault());
-        document.onkeydown = function(e) {
-            if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 'I'.charCodeAt(0) || e.keyCode == 'C'.charCodeAt(0) || e.keyCode == 'J'.charCodeAt(0))) || (e.ctrlKey && (e.keyCode == 'U'.charCodeAt(0) || e.keyCode == 'S'.charCodeAt(0)))) return false;
-        }
+        document.addEventListener('contextmenu',e=>e.preventDefault());
+        document.onkeydown=function(e){if(e.keyCode==123||(e.ctrlKey&&e.shiftKey&&(e.keyCode=='I'.charCodeAt(0)||e.keyCode=='C'.charCodeAt(0)||e.keyCode=='J'.charCodeAt(0)))||(e.ctrlKey&&(e.keyCode=='U'.charCodeAt(0)||e.keyCode=='S'.charCodeAt(0))))return false;}
     </script>
-
     <style>
+        /* ========= VARIABLES ========= */
         :root {
-            --bg-deep: #050a15; --glass-bg: #0f1626; --glass-border: rgba(0, 234, 255, 0.2);
-            --cyan: #00eaff; --cyan-glow: rgba(0, 234, 255, 0.2); --red: #ff3333; --green: #00ff6a; --yellow: #ffc107;
-            --blue: #0055ff; --text-main: #ffffff;
-            --font-ar: 'Tajawal', sans-serif; --font-en: 'Rajdhani', sans-serif;
+            --bg:       #020509;
+            --bg2:      #070d1a;
+            --bg3:      #0a1224;
+            --glass:    rgba(255,255,255,.03);
+            --glass-b:  rgba(255,255,255,.07);
+            --cyan:     #00eaff;
+            --cyan-dim: rgba(0,234,255,.15);
+            --cyan-glow:rgba(0,234,255,.35);
+            --red:      #ff3b3b;
+            --green:    #00ff7a;
+            --yellow:   #ffc107;
+            --blue:     #0066ff;
+            --purple:   #a855f7;
+            --orange:   #f97316;
+            --text:     #ffffff;
+            --muted:    #6b7fa0;
+            --font-ar:  'Tajawal', sans-serif;
+            --font-en:  'Rajdhani',sans-serif;
+            --radius:   12px;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; outline: none;}
-        body { background: radial-gradient(circle at top, #0a1128 0%, #020305 100%); background-attachment: fixed; color: #fff; font-family: var(--font-ar); min-height: 100vh; overflow-x: hidden; user-select: none; cursor: none;}
-        input, textarea, select, .allow-select *, button, a { user-select: text !important; outline: none; font-family: var(--font-ar); cursor: none !important;}
+        /* ========= RESET ========= */
+        *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+        body{
+            background:radial-gradient(ellipse 100% 60% at 50% 0%,#0a1228,#020509 60%);
+            background-attachment:fixed;
+            color:var(--text);font-family:var(--font-ar);
+            min-height:100vh;overflow-x:hidden;user-select:none;cursor:none;
+        }
+        input,textarea,select,.allow-select *,button,a{user-select:text!important;outline:none;font-family:var(--font-ar);cursor:none!important;}
 
-        #bgEffects { position: fixed; inset: 0; z-index: -5; pointer-events: none; background-color: var(--bg-deep); }
+        /* ========= CURSOR ========= */
+        #cursor-dot { position:fixed;width:6px;height:6px;background:var(--cyan);border-radius:50%;pointer-events:none;z-index:9999999!important;transform:translate(-50%,-50%);box-shadow:0 0 10px var(--cyan);transition:width .15s,height .15s; }
+        #cursor-ring{ position:fixed;width:30px;height:30px;border:1.5px solid rgba(0,234,255,.12);border-radius:50%;pointer-events:none;z-index:9999998!important;transform:translate(-50%,-50%);transition:.1s ease-out,width .15s,height .15s; }
 
-        #particles-container { position: fixed; inset: 0; z-index: -1; pointer-events: none; }
-        .particle { position: absolute; background: var(--cyan); border-radius: 50%; animation: floatParticle linear infinite; opacity: 0; box-shadow: 0 0 5px var(--cyan); }
-        @keyframes floatParticle { 0% { transform: translateY(0); opacity: 0; } 10% { opacity: 0.15; } 90% { opacity: 0.15; } 100% { transform: translateY(-100vh); opacity: 0; } }
+        /* ========= PARTICLES ========= */
+        #particles{position:fixed;inset:0;z-index:-1;pointer-events:none;}
+        .particle{position:absolute;background:var(--cyan);border-radius:50%;animation:floatP linear infinite;opacity:0;box-shadow:0 0 5px var(--cyan);}
+        @keyframes floatP{0%{transform:translateY(0);opacity:0;}10%{opacity:.12;}90%{opacity:.12;}100%{transform:translateY(-100vh);opacity:0;}}
 
-        #cursor-pointer { position: fixed; width: 6px; height: 6px; background-color: var(--cyan); border-radius: 50%; pointer-events: none; z-index: 9999999 !important; transform: translate(-50%, -50%); box-shadow: 0 0 10px var(--cyan); transition: width 0.15s, height 0.15s; }
-        #cursor-trail { position: fixed; width: 30px; height: 30px; border: 1.5px solid rgba(0, 234, 255, 0.1); border-radius: 50%; pointer-events: none; z-index: 9999998 !important; transform: translate(-50%, -50%); transition: 0.1s ease-out, width 0.15s, height 0.15s; }
+        /* ========= ANIMATIONS ========= */
+        @keyframes fadeIn  {from{opacity:0;}to{opacity:1;}}
+        @keyframes popIn   {from{opacity:0;transform:scale(.96);}to{opacity:1;transform:scale(1);}}
+        @keyframes slideIn {from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+        @keyframes neonPulse{0%,100%{box-shadow:0 0 10px var(--cyan-dim);border-color:var(--cyan);}50%{box-shadow:0 0 25px var(--cyan),inset 0 0 8px var(--cyan-dim);border-color:#fff;}}
+        @keyframes glitch-red{0%,100%{text-shadow:2px 0 0 rgba(255,0,0,.5);}50%{text-shadow:-2px 0 0 rgba(255,0,0,.5);}}
+        @keyframes shimmerBg{0%{background-position:200% 0;}100%{background-position:-200% 0;}}
 
-        @keyframes popIn { 0% { opacity: 0; transform: scale(0.98); } 100% { opacity: 1; transform: scale(1); } }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes glitch-red { 0%, 100% { text-shadow: 2px 0 0 rgba(255,0,0,0.5); } 50% { text-shadow: -2px 0 0 rgba(255,0,0,0.5); } }
+        /* ========= LOGIN SCREEN ========= */
+        #loginScreen{
+            position:fixed;inset:0;z-index:99999;
+            background:linear-gradient(135deg,#030712 0%,#070f1f 100%);
+            display:flex;justify-content:center;align-items:center;
+        }
+        .lg-blob1{position:absolute;top:5%;left:15%;width:360px;height:360px;background:rgba(0,234,255,.06);border-radius:50%;filter:blur(90px);pointer-events:none;}
+        .lg-blob2{position:absolute;bottom:10%;right:15%;width:450px;height:450px;background:rgba(0,100,255,.04);border-radius:50%;filter:blur(120px);pointer-events:none;}
 
-        #loginScreen { position: fixed; inset: 0; z-index: 99999; background: linear-gradient(135deg, #040814 0%, #0a1224 100%); display: flex; justify-content: center; align-items: center; transition: 0.4s; }
-        .bg-shape-1 { position: absolute; top: 10%; left: 20%; width: 300px; height: 300px; background: rgba(0, 234, 255, 0.1); border-radius: 50%; filter: blur(80px); pointer-events: none; }
-        .bg-shape-2 { position: absolute; bottom: 10%; right: 20%; width: 400px; height: 400px; background: rgba(0, 100, 255, 0.05); border-radius: 50%; filter: blur(100px); pointer-events: none; }
-        
-        .login-box { position: relative; width: 450px; background: rgba(15, 22, 38, 0.4); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 24px; padding: 50px 40px; text-align: center; box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5); animation: popIn 0.5s ease-out; z-index: 10; }
-        .logo-container { margin-bottom: 25px; }
-        .logo-container img { width: 120px; height: 120px; border-radius: 50%; border: 2px solid rgba(255, 255, 255, 0.2); padding: 5px; background: rgba(0,0,0,0.3); }
-        .login-box .title { font-family: 'Rajdhani', sans-serif; font-size: 2.2rem; font-weight: 700; color: #00eaff; letter-spacing: 3px; margin-bottom: 35px; }
-        .login-box .input-group { position: relative; margin-bottom: 20px; text-align: right; }
-        .login-box .input-label { display: block; color: #8da2b5; font-size: 0.9rem; font-weight: 700; margin-bottom: 8px; margin-right: 5px; }
-        
-        .custom-input { width: 100%; background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); padding: 15px 20px; color: #fff; border-radius: 12px; font-family: 'Tajawal', sans-serif; font-size: 1.05rem; transition: 0.3s; outline: none; text-align: right; }
-        .custom-input:focus { background: rgba(0, 0, 0, 0.5); border-color: var(--cyan); box-shadow: 0 0 15px rgba(0, 234, 255, 0.1); }
-        
-        .neon-pulse-btn { width: 100%; padding: 15px; background: rgba(0, 0, 0, 0.5); color: var(--cyan); border: 2px solid var(--cyan); border-radius: 12px; cursor: none; transition: 0.3s; margin-top: 15px; font-family: var(--font-ar); font-weight: 900; font-size: 1.2rem; box-shadow: 0 0 10px var(--cyan-glow); animation: neonPulse 2s infinite ease-in-out; }
-        .neon-pulse-btn:hover { background: var(--cyan); color: #000; box-shadow: 0 0 30px var(--cyan), inset 0 0 10px rgba(255,255,255,0.5); animation: none; }
-        @keyframes neonPulse { 0%, 100% { box-shadow: 0 0 10px var(--cyan-glow); border-color: var(--cyan); } 50% { box-shadow: 0 0 25px var(--cyan), inset 0 0 5px var(--cyan-glow); border-color: #fff; } }
+        .login-box{
+            position:relative;width:min(440px,92vw);
+            background:rgba(10,16,30,.5);
+            backdrop-filter:blur(24px);
+            border:1px solid rgba(255,255,255,.09);
+            border-radius:22px;padding:46px 38px;text-align:center;
+            box-shadow:0 30px 70px rgba(0,0,0,.6),0 0 60px rgba(0,234,255,.04);
+            animation:popIn .5s ease-out;z-index:10;
+        }
+        .login-box::before{content:'';position:absolute;top:0;inset-inline-start:0;width:100%;height:1.5px;border-radius:22px 22px 0 0;background:linear-gradient(90deg,transparent,var(--cyan),transparent);}
 
-        .back-link { display: inline-block; margin-top: 25px; color: #666; font-size: 0.95rem; text-decoration: none; transition: 0.3s; font-weight: bold; }
-        .back-link:hover { color: #fff; }
+        .lg-logo{margin-bottom:22px;}
+        .lg-logo img{width:110px;height:110px;border-radius:50%;border:2px solid rgba(0,234,255,.3);padding:4px;background:rgba(0,0,0,.4);}
+        .lg-title{font-family:var(--font-en);font-size:2rem;font-weight:800;color:var(--cyan);letter-spacing:4px;margin-bottom:28px;}
 
-        #mainWrapper { display: none; flex-direction: column; min-height: 100vh; animation: fadeIn 0.3s ease;}
-        header { display: flex; justify-content: space-between; align-items: center; padding: 20px 40px; border-bottom: 1px solid rgba(255,255,255,0.05); background: #0a0f1c;}
-        .header-side { display: flex; gap: 15px; align-items: center; }
-        .head-btn { background: #0f1626; border: 1px solid rgba(255,255,255,0.1); padding: 10px 25px; border-radius: 8px; color: #ccc; font-weight: bold; cursor: pointer; transition: 0.2s; font-family: var(--font-ar); text-decoration: none; display: flex; align-items: center; gap: 8px;}
-        .head-btn:hover { background: rgba(255,255,255,0.1); color: #fff; }
-        .btn-red { border-color: var(--red); color: var(--red); }
-        .btn-red:hover { background: var(--red); color: #fff; }
-        .btn-cyan { border-color: var(--cyan); color: var(--cyan); }
-        .btn-cyan:hover { background: var(--cyan); color: #000; }
+        .input-group{text-align:right;margin-bottom:18px;}
+        .input-label{display:block;color:var(--muted);font-size:.88rem;font-weight:700;margin-bottom:7px;margin-inline-end:4px;}
+        .custom-input{
+            width:100%;background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.06);
+            padding:14px 18px;color:#fff;border-radius:10px;font-size:1rem;text-align:right;
+            transition:.3s;
+        }
+        .custom-input:focus{background:rgba(0,0,0,.55);border-color:var(--cyan);box-shadow:0 0 15px rgba(0,234,255,.1);}
 
-        .create-btn { background: linear-gradient(90deg, #00ff6a, #00cc55); color: #000; border: none; padding: 10px 25px; border-radius: 8px; font-family: var(--font-ar); font-weight: 900; font-size: 1.1rem; cursor: pointer; box-shadow: 0 0 15px rgba(0, 255, 106, 0.3); transition: 0.3s; display: none; }
-        .create-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(0, 255, 106, 0.6); color: #fff; }
+        .neon-btn{
+            width:100%;padding:14px;background:rgba(0,0,0,.5);color:var(--cyan);
+            border:2px solid var(--cyan);border-radius:11px;cursor:none;
+            font-weight:900;font-size:1.15rem;margin-top:12px;
+            animation:neonPulse 2.5s infinite;transition:.3s;font-family:var(--font-ar);
+        }
+        .neon-btn:hover{background:var(--cyan);color:#000;box-shadow:0 0 35px var(--cyan);animation:none;}
 
-        .sys-title { font-size: 1.4rem; font-weight: 900; letter-spacing: 2px; }
-        #dashboardView { flex: 1; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 40px; position: relative;}
-        .watermark-logo { width: 350px; height: 350px; opacity: 0.03; background: url('yyW7oBx.jpg?v=5') center/cover; border-radius: 50%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none;}
-        .main-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; width: 100%; max-width: 1000px; position: relative; z-index: 10;}
-        
-        .menu-btn { background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 12px; padding: 30px 20px; text-align: center; color: #fff; font-size: 1.25rem; font-weight: 800; cursor: pointer; transition: 0.2s;}
-        .menu-btn:hover { border-color: var(--cyan); background: #151e32; transform: translateY(-3px); }
+        #loginError{display:none;color:var(--red);margin-top:14px;font-weight:700;background:rgba(255,59,59,.08);border:1px solid rgba(255,59,59,.25);padding:10px;border-radius:8px;font-size:.93rem;}
 
-        #moduleView { display: none; flex-direction: column; width: 95%; max-width: 1600px; margin: 0 auto; padding-top: 30px; animation: popIn 0.2s ease; }
-        .roster-wrapper { width: 100%; background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 12px; padding: 20px; overflow-x: auto; margin-bottom:30px;}
-        .roster-wrapper::-webkit-scrollbar { height: 6px; } .roster-wrapper::-webkit-scrollbar-thumb { background: var(--cyan); border-radius: 6px; }
-        
-        .luxury-table { width: 100%; border-collapse: separate; border-spacing: 0 6px; text-align: center; font-family: 'Rajdhani', 'Tajawal', sans-serif; min-width: 1300px;}
-        .luxury-table thead th { color: var(--cyan); font-size: 0.95rem; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; padding: 15px; border-bottom: 2px solid rgba(0,234,255,0.2); }
-        .roster-row { background: #131a2a; transition: 0.2s; }
-        .roster-row:hover { background: #1c263d; border-right: 3px solid var(--cyan); }
-        .luxury-table td { padding: 12px; color: #d1d1d1; font-size: 1.05rem; font-weight: 600; white-space: nowrap; border-top: 1px solid rgba(255,255,255,0.02); border-bottom: 1px solid rgba(255,255,255,0.02);}
-        .luxury-table td:first-child { border-radius: 6px 0 0 6px; border-left: 3px solid var(--cyan); color: var(--cyan); font-weight: 900;}
-        .luxury-table td:last-child { border-radius: 0 6px 6px 0; border-right: 1px solid rgba(255,255,255,0.02); }
-        .dept-title { color: #fff; font-size: 1.5rem; font-weight: 900; padding: 20px 0 5px 0; text-align: left; border-bottom: 2px solid var(--cyan); display: inline-block; letter-spacing: 2px;}
+        .back-link{display:inline-block;margin-top:22px;color:var(--muted);font-size:.92rem;text-decoration:none;transition:.3s;font-weight:bold;}
+        .back-link:hover{color:#fff;}
 
-        .action-btn-text { background: #0a0f1c; border: 1px solid rgba(255,255,255,0.2); border-radius: 6px; padding: 6px 12px; cursor: pointer; transition: 0.2s; margin: 0 4px; color: #fff; font-family:var(--font-ar); font-weight:bold; font-size:0.9rem;}
-        .btn-edit-text:hover { border-color: var(--yellow); color: var(--yellow); }
-        .btn-del-text { color: var(--red); border-color: rgba(255,51,51,0.4);}
-        .btn-del-text:hover { border-color: var(--red); background: var(--red); color: #fff;}
+        /* ========= MAIN WRAPPER ========= */
+        #mainWrapper{display:none;flex-direction:column;min-height:100vh;animation:fadeIn .35s ease;}
 
-        .submit-btn { appearance: none; -webkit-appearance: none; width: 100%; padding: 15px; background: var(--cyan); border: none; color: #000; font-weight: 900; font-size: 1.2rem; border-radius: 8px; cursor: none; transition: 0.2s; box-shadow: 0 0 20px rgba(0, 234, 255, 0.3); font-family: var(--font-ar); }
-        .submit-btn:hover { background: #fff; transform: translateY(-2px); }
+        /* ========= HEADER ========= */
+        header{
+            display:flex;justify-content:space-between;align-items:center;
+            padding:0 36px;height:66px;
+            background:rgba(5,9,18,.8);
+            backdrop-filter:blur(16px);
+            border-bottom:1px solid rgba(255,255,255,.04);
+            position:sticky;top:0;z-index:500;
+        }
+        .hd-side{display:flex;gap:10px;align-items:center;}
+        .hd-brand{display:flex;align-items:center;gap:10px;}
+        .hd-logo{width:36px;height:36px;border-radius:50%;background:url('yyW7oBx.jpg?v=5') center/cover;border:1.5px solid var(--cyan);}
+        .hd-name{font-family:var(--font-en);font-size:1.1rem;font-weight:800;letter-spacing:2px;color:#fff;}
 
-        .input-section { background: var(--glass-bg); border: 1px solid var(--glass-border); padding: 25px; border-radius: 12px; margin-bottom:20px; }
-        .gen-input { width: 100%; padding: 12px; background: #05080f; border: 1px solid rgba(255,255,255,0.2); color: #fff; margin-bottom: 15px; border-radius: 6px; text-align: right; font-family: var(--font-ar); font-size:1.05rem;}
-        .gen-input:focus { border-color: var(--cyan); }
-        select.gen-input option { background: #05080f; }
-        .grid-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .hd-btn{
+            background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);
+            padding:8px 20px;border-radius:8px;color:#ccc;font-weight:700;
+            cursor:pointer;transition:.2s;font-family:var(--font-ar);text-decoration:none;
+            display:flex;align-items:center;gap:6px;font-size:.93rem;
+        }
+        .hd-btn:hover{background:rgba(255,255,255,.1);color:#fff;}
+        .btn-red{border-color:rgba(255,59,59,.4);color:var(--red);}
+        .btn-red:hover{background:var(--red);color:#fff;border-color:var(--red);}
+        .btn-cyan{border-color:var(--cyan-dim);color:var(--cyan);}
+        .btn-cyan:hover{background:var(--cyan);color:#000;}
 
-        .rec-item { padding: 15px; background: #131a2a; border-radius: 8px; margin-bottom: 10px; border: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; align-items: center; color: #ddd; font-size: 1.05rem; }
+        /* ========= DASHBOARD ========= */
+        #dashboardView{
+            flex:1;display:flex;align-items:flex-start;justify-content:center;
+            flex-direction:column;padding:36px 40px;gap:32px;
+        }
 
-        .modal-overlay { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.85); z-index: 100000; display: none; justify-content: center; align-items: center; }
-        .modal-box { width: 600px; padding: 30px; background: #0b101e; border: 1px solid var(--cyan); border-radius: 12px; animation: popIn 0.2s ease; }
-        .close-btn { background: #131a2a; border: 1px solid rgba(255,255,255,0.2); color: #ccc; padding: 12px; border-radius: 8px; cursor: none; transition: 0.2s; font-weight: bold; width: 100%; font-family:var(--font-ar); font-size:1.1rem;}
-        .close-btn:hover { background: var(--red); border-color: var(--red); color: #fff;}
+        /* Stats row */
+        .db-stats{display:flex;gap:16px;flex-wrap:wrap;width:100%;}
+        .db-stat{
+            flex:1;min-width:160px;background:var(--bg2);border:1px solid rgba(0,234,255,.1);
+            border-radius:var(--radius);padding:18px 22px;position:relative;overflow:hidden;
+        }
+        .db-stat::after{content:'';position:absolute;top:0;left:0;right:0;height:1.5px;background:var(--stat-color,var(--cyan));opacity:.5;}
+        .db-stat-num{font-family:var(--font-en);font-size:2rem;font-weight:900;color:var(--stat-color,var(--cyan));line-height:1;}
+        .db-stat-lbl{font-size:.82rem;color:var(--muted);margin-top:4px;font-weight:700;}
 
-        #idCardOverlay .modal-box { width: 650px; background: #05080f; border: 1px solid rgba(255,255,255,0.05); border-right: 3px solid var(--cyan); display: flex; flex-direction: row-reverse; align-items: center; padding: 30px; }
-        .profile-img-wrapper { width: 150px; height: 150px; border-radius: 16px; border: 2px solid var(--cyan); padding: 4px; background: rgba(0, 234, 255, 0.05); margin-right:auto;}
-        .card-right { display: flex; flex-direction: column; align-items: flex-end; text-align: right; width: calc(100% - 200px); }
+        /* Grid */
+        .db-section-title{color:var(--muted);font-size:.8rem;font-weight:800;letter-spacing:3px;text-transform:uppercase;width:100%;}
+        .main-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;width:100%;}
+
+        .module-tile{
+            background:var(--bg2);border:1px solid rgba(255,255,255,.06);
+            border-radius:14px;padding:22px 18px 18px;text-align:center;
+            cursor:pointer;transition:.25s;position:relative;overflow:hidden;
+        }
+        .module-tile::before{
+            content:'';position:absolute;top:0;inset-inline-start:0;inset-inline-end:0;
+            height:2px;background:var(--tile-color,var(--cyan));opacity:.4;transition:.25s;
+        }
+        .module-tile:hover{background:rgba(255,255,255,.04);border-color:var(--tile-color,var(--cyan));transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,.4);}
+        .module-tile:hover::before{opacity:1;}
+        .tile-icon{font-size:2rem;margin-bottom:10px;display:block;}
+        .tile-name{color:#fff;font-size:1rem;font-weight:800;}
+        .tile-desc{color:var(--muted);font-size:.78rem;margin-top:4px;}
+
+        .watermark{width:300px;height:300px;opacity:.025;background:url('yyW7oBx.jpg?v=5') center/cover;border-radius:50%;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;}
+
+        /* ========= MODULE VIEW ========= */
+        #moduleView{display:none;flex-direction:column;width:95%;max-width:1600px;margin:0 auto;padding:28px 0 60px;animation:popIn .22s ease;}
+        .mod-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;gap:16px;flex-wrap:wrap;}
+        .mod-title{color:var(--cyan);font-size:1.8rem;font-weight:900;}
+        .mod-actions{display:flex;gap:12px;align-items:center;}
+
+        .create-btn{
+            background:linear-gradient(90deg,var(--green),#00cc55);color:#000;border:none;
+            padding:10px 22px;border-radius:8px;font-weight:900;font-size:1rem;
+            cursor:pointer;box-shadow:0 0 15px rgba(0,255,106,.25);transition:.3s;display:none;font-family:var(--font-ar);
+        }
+        .create-btn:hover{transform:translateY(-2px);box-shadow:0 5px 25px rgba(0,255,106,.5);}
+
+        /* ========= TABLE ========= */
+        .roster-wrapper{width:100%;background:var(--bg2);border:1px solid rgba(0,234,255,.12);border-radius:12px;padding:18px;overflow-x:auto;margin-bottom:24px;}
+        .roster-wrapper::-webkit-scrollbar{height:5px;}
+        .roster-wrapper::-webkit-scrollbar-thumb{background:var(--cyan);border-radius:4px;}
+        .luxury-table{width:100%;border-collapse:separate;border-spacing:0 5px;text-align:center;font-family:var(--font-en),var(--font-ar);min-width:1300px;}
+        .luxury-table thead th{color:var(--cyan);font-size:.85rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;padding:14px;border-bottom:1px solid rgba(0,234,255,.15);}
+        .roster-row{background:#0b1120;transition:.2s;}
+        .roster-row:hover{background:#111b30;}
+        .luxury-table td{padding:12px;color:#ccd;font-size:.98rem;font-weight:600;white-space:nowrap;border-top:1px solid rgba(255,255,255,.02);border-bottom:1px solid rgba(255,255,255,.02);}
+        .luxury-table td:first-child{border-radius:6px 0 0 6px;border-inline-start:2px solid var(--cyan);color:var(--cyan);font-weight:900;}
+        .luxury-table td:last-child{border-radius:0 6px 6px 0;}
+        .dept-title{color:#fff;font-size:1.2rem;font-weight:900;padding:18px 0 5px 0;text-align:start;border-bottom:1.5px solid var(--cyan);display:inline-block;letter-spacing:2px;}
+
+        /* ========= INPUT SECTION ========= */
+        .input-section{background:var(--bg2);border:1px solid rgba(0,234,255,.12);padding:24px;border-radius:12px;margin-bottom:18px;}
+        .gen-input{width:100%;padding:12px 14px;background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.08);color:#fff;margin-bottom:14px;border-radius:8px;text-align:right;font-size:1rem;transition:.2s;}
+        .gen-input:focus{border-color:var(--cyan);background:rgba(0,234,255,.03);}
+        select.gen-input option{background:#050a14;}
+        .grid-inputs{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+        .submit-btn{width:100%;padding:14px;background:var(--cyan);border:none;color:#000;font-weight:900;font-size:1.1rem;border-radius:8px;cursor:none;transition:.2s;box-shadow:0 0 20px rgba(0,234,255,.25);font-family:var(--font-ar);}
+        .submit-btn:hover{background:#fff;transform:translateY(-2px);}
+
+        /* ========= REC ITEM ========= */
+        .rec-item{padding:14px;background:#0b1120;border-radius:8px;margin-bottom:10px;border:1px solid rgba(255,255,255,.05);display:flex;justify-content:space-between;align-items:center;color:#ddd;font-size:1rem;}
+
+        /* ========= ACTION BUTTONS ========= */
+        .action-btn-text{background:#080e1c;border:1px solid rgba(255,255,255,.15);border-radius:6px;padding:5px 12px;cursor:pointer;transition:.2s;margin:0 3px;color:#fff;font-family:var(--font-ar);font-weight:700;font-size:.88rem;}
+        .btn-edit-text:hover{border-color:var(--yellow);color:var(--yellow);}
+        .btn-del-text{color:var(--red);border-color:rgba(255,59,59,.3);}
+        .btn-del-text:hover{border-color:var(--red);background:var(--red);color:#fff;}
+
+        /* ========= MODALS ========= */
+        .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.88);backdrop-filter:blur(10px);z-index:100000;display:none;justify-content:center;align-items:center;padding:20px;}
+        .modal-box{width:min(600px,100%);padding:30px;background:linear-gradient(145deg,#080e1c,#050911);border:1px solid rgba(0,234,255,.2);border-radius:14px;animation:popIn .22s ease;position:relative;overflow:hidden;}
+        .modal-box::before{content:'';position:absolute;top:0;inset-inline-start:0;width:100%;height:1.5px;background:linear-gradient(90deg,transparent,var(--cyan),transparent);}
+        .close-btn{background:#0b1120;border:1px solid rgba(255,255,255,.12);color:#ccc;padding:12px;border-radius:8px;cursor:none;transition:.2s;font-weight:700;width:100%;font-family:var(--font-ar);font-size:1rem;}
+        .close-btn:hover{background:var(--red);border-color:var(--red);color:#fff;}
+
+        /* ID Card */
+        #idCardOverlay .modal-box{width:min(650px,100%);background:#040710;border:none;border-inline-end:3px solid var(--cyan);display:flex;flex-direction:row-reverse;align-items:center;padding:28px;}
+        .profile-img-wrapper{width:150px;height:150px;border-radius:14px;border:2px solid var(--cyan);padding:4px;background:rgba(0,234,255,.05);margin-inline-start:auto;}
+        .card-right{display:flex;flex-direction:column;align-items:flex-end;text-align:right;width:calc(100% - 180px);}
+
+        /* Confirm */
+        @media(max-width:600px){
+            #dashboardView{padding:20px 16px;gap:20px;}
+            .db-stats{gap:10px;}
+            .main-grid{grid-template-columns:repeat(2,1fr);gap:10px;}
+            .header{padding:0 16px;}
+            header{padding:0 16px;}
+            .mod-head{flex-direction:column;align-items:flex-start;}
+        }
     </style>
 </head>
 <body>
 
-    <div id="particles-container"></div>
-    <div id="cursor-pointer"></div>
-    <div id="cursor-trail"></div>
+<div id="particles"></div>
+<div id="cursor-dot"></div>
+<div id="cursor-ring"></div>
 
-    <script src="config.js"></script>
+<!-- ========= LOGIN ========= -->
+<div id="loginScreen">
+    <div class="lg-blob1"></div>
+    <div class="lg-blob2"></div>
+    <div class="login-box">
+        <div class="lg-logo"><img src="yyW7oBx.jpg?v=5" alt="Logo" onerror="this.src='https://via.placeholder.com/100/000000/00eaff?text=LSPD'"></div>
+        <div class="lg-title">L.S.P.D</div>
+        <div class="input-group">
+            <label class="input-label">اسم المستخدم</label>
+            <input type="text"     id="userInput" class="custom-input" placeholder="أدخل اسم المستخدم...">
+        </div>
+        <div class="input-group">
+            <label class="input-label">كلمة المرور</label>
+            <input type="password" id="passInput" class="custom-input" placeholder="••••••••••">
+        </div>
+        <button class="neon-btn" id="loginBtn" onclick="login()">تسجيل الدخول للنظام</button>
+        <div id="loginError">بيانات الدخول غير صحيحة! ❌</div>
+        <a href="index.html" class="back-link">← العودة للموقع الرئيسي</a>
+    </div>
+</div>
 
-    <div id="bgEffects"></div>
+<!-- ========= MAIN WRAPPER ========= -->
+<div id="mainWrapper">
 
-    <div id="loginScreen">
-        <div class="bg-shape-1"></div><div class="bg-shape-2"></div>
-        <div class="login-box">
-            <div class="logo-container"><img src="yyW7oBx.jpg?v=5" alt="Logo" onerror="this.src='https://via.placeholder.com/100/000000/00eaff?text=LSPD'"></div>
-            <div class="title">L.S.P.D</div>
-            <div class="input-group">
-                <label class="input-label">اسم المستخدم</label>
-                <input type="text" id="userInput" class="custom-input hover-target" placeholder="أدخل البيانات هنا...">
+    <!-- Header -->
+    <header>
+        <div class="hd-side">
+            <button class="hd-btn btn-red" onclick="logout()">🚪 خروج</button>
+            <a class="hd-btn" href="index.html">🏠 الرئيسية</a>
+        </div>
+        <div class="hd-brand">
+            <div class="hd-logo"></div>
+            <span class="hd-name">L.S.P.D COMMAND</span>
+        </div>
+        <div class="hd-side">
+            <button class="hd-btn btn-cyan" onclick="document.getElementById('idCardOverlay').style.display='flex'">
+                🪪 <span id="rankNameDisp">--</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Dashboard -->
+    <div id="dashboardView">
+        <div class="watermark"></div>
+
+        <!-- Stats -->
+        <div class="db-stats" id="dbStats">
+            <div class="db-stat" style="--stat-color:var(--cyan)"><div class="db-stat-num" id="st-officers">--</div><div class="db-stat-lbl">عسكري مسجل</div></div>
+            <div class="db-stat" style="--stat-color:var(--yellow)"><div class="db-stat-num" id="st-apps">--</div><div class="db-stat-lbl">طلب تقديم</div></div>
+            <div class="db-stat" style="--stat-color:var(--red)"><div class="db-stat-num" id="st-wanted">--</div><div class="db-stat-lbl">مطلوب</div></div>
+            <div class="db-stat" style="--stat-color:var(--green)"><div class="db-stat-num" id="st-reports">--</div><div class="db-stat-lbl">تقرير محفوظ</div></div>
+        </div>
+
+        <div class="db-section-title">الأقسام والأدوات</div>
+        <div class="main-grid" id="modulesContainer"></div>
+    </div>
+
+    <!-- Module View -->
+    <div id="moduleView">
+        <div class="mod-head">
+            <h2 class="mod-title" id="mTitle">--</h2>
+            <div class="mod-actions">
+                <button id="createOfficerBtn" class="create-btn" onclick="openCreateModal()">➕ إضافة عسكري</button>
+                <button class="hd-btn" onclick="goHome()">➡️ لوحة القيادة</button>
             </div>
-            <div class="input-group">
-                <label class="input-label">كلمة المرور</label>
-                <input type="password" id="passInput" class="custom-input hover-target" placeholder="••••••••••">
-            </div>
-            <button class="neon-pulse-btn hover-target" id="loginBtn" onclick="login()">تسجيل الدخول للنظام</button>
-            <div id="loginError" style="display: none; color: #ff3333; margin-top: 15px; font-weight: bold; background: rgba(255,51,51,0.1); border: 1px solid rgba(255,51,51,0.3); padding: 10px; border-radius: 8px; font-size: 0.95rem;">بيانات الدخول غير صحيحة!</div>
-            <a href="index.html" class="back-link hover-target">العودة للموقع الرئيسي</a>
+        </div>
+        <div id="dynamicContentArea" class="allow-select"></div>
+        <div class="input-section" id="inputSectionBlock" style="display:none">
+            <div id="mInputs" class="grid-inputs"></div>
+            <button class="submit-btn" id="submitBtn" onclick="addRecord()" style="margin-top:14px">إضافة / حفظ</button>
         </div>
     </div>
 
-    <div id="mainWrapper">
-        <header>
-            <div class="header-side">
-                <button class="head-btn btn-red hover-target" onclick="logout()">🚪 خروج</button>
-                <button class="head-btn hover-target" onclick="window.location.href='index.html'">🏠 الرئيسية</button>
-            </div>
-            <div class="sys-title">إدارة L.S.P.D</div>
-            <div class="header-side">
-                <button class="head-btn btn-cyan hover-target" onclick="document.getElementById('idCardOverlay').style.display='flex'">🪪 <span id="rankNameDisp">--</span></button>
-            </div>
-        </header>
+</div>
 
-        <div id="dashboardView">
-            <div class="watermark-logo"></div>
-            <div class="main-grid" id="modulesContainer"></div>
+<!-- ========= MODALS ========= -->
+
+<!-- Create Officer -->
+<div class="modal-overlay" id="createRankModal">
+    <div class="modal-box" style="width:min(700px,100%);border-color:rgba(0,255,122,.2)">
+        <h3 style="color:var(--green);margin-bottom:22px;font-size:1.5rem;text-align:center">➕ إضافة عسكري جديد</h3>
+        <div class="grid-inputs">
+            <div><div style="text-align:right;color:var(--muted);font-weight:700;margin-bottom:5px">الاسم:</div><input type="text" id="createOfficerName" class="gen-input" placeholder="اسم العسكري داخل اللعبة"></div>
+            <div><div style="text-align:right;color:var(--muted);font-weight:700;margin-bottom:5px">الرتبة:</div><select id="createRankSelect" class="gen-input" dir="ltr" onchange="autoGenerateCreateCode()"></select></div>
+            <div><div style="text-align:right;color:var(--muted);font-weight:700;margin-bottom:5px">الكود:</div><input type="text" id="createOfficerCode" class="gen-input" style="font-family:monospace;text-align:left" dir="ltr"></div>
+            <div><div style="text-align:right;color:var(--muted);font-weight:700;margin-bottom:5px">المهام:</div><select id="createResp" class="gen-input" dir="ltr"></select></div>
+            <div><div style="text-align:right;color:var(--muted);font-weight:700;margin-bottom:5px">الحالة:</div><select id="createStatus" class="gen-input" dir="ltr"><option value="ACTIVE">ACTIVE</option><option value="INACTIVE">INACTIVE</option><option value="LOA">LOA</option><option value="SUSPENDED">SUSPENDED</option></select></div>
+            <div><div style="text-align:right;color:var(--muted);font-weight:700;margin-bottom:5px">الإنذارات:</div><select id="createStrikes" class="gen-input" dir="ltr"></select></div>
+            <div><div style="text-align:right;color:var(--muted);font-weight:700;margin-bottom:5px">تاريخ الترقية:</div><input type="text" id="createProm" class="gen-input" placeholder="N/A -"></div>
+            <div><div style="text-align:right;color:var(--muted);font-weight:700;margin-bottom:5px">النقاط (F.P):</div><input type="text" id="createFP" class="gen-input" placeholder="N/A -"></div>
+            <div style="grid-column:span 2"><div style="text-align:right;color:var(--muted);font-weight:700;margin-bottom:5px">ديسكورد آيدي:</div><input type="text" id="createDiscord" class="gen-input" style="text-align:left" dir="ltr" placeholder="<@123456789>"></div>
+            <div style="grid-column:span 2"><div style="text-align:right;color:var(--muted);font-weight:700;margin-bottom:5px">ملاحظات:</div><textarea id="createNotes" class="gen-input" style="height:60px;resize:none"></textarea></div>
         </div>
+        <div style="display:flex;gap:12px;margin-top:10px">
+            <button class="submit-btn" style="background:var(--green)" onclick="saveNewCreatedOfficer()">إنشاء العسكري</button>
+            <button class="close-btn" onclick="document.getElementById('createRankModal').style.display='none'">إلغاء</button>
+        </div>
+    </div>
+</div>
 
-        <div id="moduleView">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                <h2 id="mTitle" style="color: var(--cyan); font-size: 2rem; font-weight: 900;">--</h2>
-                <div style="display: flex; gap: 15px; align-items: center;">
-                    <button id="createOfficerBtn" class="create-btn hover-target" onclick="openCreateModal()">➕ إنشاء عسكري جديد</button>
-                    <button class="head-btn hover-target" onclick="goHome()">➡️ العودة للوحة القيادة</button>
+<!-- Crypto -->
+<div class="modal-overlay" id="cryptoModal">
+    <div class="modal-box">
+        <h3 style="color:var(--cyan);margin-bottom:18px;font-size:1.4rem;text-align:center">🔐 قسم التشفير</h3>
+        <textarea id="cryIn" class="gen-input" placeholder="أدخل النص هنا..." style="height:90px;resize:none;text-align:right"></textarea>
+        <div style="display:flex;gap:10px;margin-bottom:14px">
+            <button class="submit-btn" onclick="doCrypto('enc')" style="margin:0">🔒 تشفير</button>
+            <button class="submit-btn" onclick="doCrypto('dec')" style="margin:0;background:#fff;color:#000">🔓 فك التشفير</button>
+        </div>
+        <div style="position:relative">
+            <div class="gen-input allow-select" id="cryOut" style="min-height:50px;font-family:monospace;word-break:break-all;padding-inline-end:44px;text-align:left" dir="ltr">النتيجة...</div>
+            <span onclick="copyCrypto()" style="position:absolute;top:50%;transform:translateY(-50%);right:14px;font-size:1.3rem;cursor:none">📋</span>
+        </div>
+        <button class="close-btn" onclick="document.getElementById('cryptoModal').style.display='none'" style="margin-top:12px">إغلاق</button>
+    </div>
+</div>
+
+<!-- Edit Officer -->
+<div class="modal-overlay" id="editRankModal">
+    <div class="modal-box" style="width:min(700px,100%)">
+        <h3 style="color:var(--cyan);margin-bottom:22px;font-size:1.5rem;text-align:center">✏️ تعديل السجل العسكري</h3>
+        <div class="grid-inputs">
+            <div><div style="text-align:right;color:var(--muted);font-weight:700;margin-bottom:5px">الاسم:</div><input type="text" id="editOfficerName" class="gen-input"></div>
+            <div><div style="text-align:right;color:var(--muted);font-weight:700;margin-bottom:5px">الرتبة:</div><select id="editRankSelect" class="gen-input" dir="ltr" onchange="autoGenerateCode()"></select></div>
+            <div><div style="text-align:right;color:var(--muted);font-weight:700;margin-bottom:5px">الكود:</div><input type="text" id="editOfficerCode" class="gen-input" style="font-family:monospace;text-align:left" dir="ltr"></div>
+            <div><div style="text-align:right;color:var(--muted);font-weight:700;margin-bottom:5px">المهام:</div><select id="editResp" class="gen-input" dir="ltr"></select></div>
+            <div><div style="text-align:right;color:var(--muted);font-weight:700;margin-bottom:5px">الحالة:</div><select id="editStatus" class="gen-input" dir="ltr"><option value="ACTIVE">ACTIVE</option><option value="INACTIVE">INACTIVE</option><option value="LOA">LOA</option><option value="SUSPENDED">SUSPENDED</option></select></div>
+            <div><div style="text-align:right;color:var(--muted);font-weight:700;margin-bottom:5px">الإنذارات:</div><select id="editStrikes" class="gen-input" dir="ltr"></select></div>
+            <div><div style="text-align:right;color:var(--muted);font-weight:700;margin-bottom:5px">تاريخ الترقية:</div><input type="text" id="editProm" class="gen-input" placeholder="N/A -"></div>
+            <div><div style="text-align:right;color:var(--muted);font-weight:700;margin-bottom:5px">النقاط (F.P):</div><input type="text" id="editFP" class="gen-input" placeholder="N/A -"></div>
+            <div style="grid-column:span 2"><div style="text-align:right;color:var(--muted);font-weight:700;margin-bottom:5px">ديسكورد آيدي:</div><input type="text" id="editDiscord" class="gen-input" style="text-align:left" dir="ltr"></div>
+            <div style="grid-column:span 2"><div style="text-align:right;color:var(--muted);font-weight:700;margin-bottom:5px">ملاحظات:</div><textarea id="editNotes" class="gen-input" style="height:60px;resize:none"></textarea></div>
+        </div>
+        <div style="display:flex;gap:12px;margin-top:10px">
+            <button class="submit-btn" onclick="saveNewOfficerData()" style="flex:2;margin:0">حفظ التعديلات</button>
+            <button class="close-btn" onclick="document.getElementById('editRankModal').style.display='none'" style="flex:1;margin:0">إلغاء</button>
+        </div>
+    </div>
+</div>
+
+<!-- ID Card -->
+<div class="modal-overlay" id="idCardOverlay">
+    <div style="text-align:center">
+        <div class="modal-box" style="padding:0;overflow:hidden;border:none;border-inline-end:3px solid var(--cyan);">
+            <div style="display:flex;flex-direction:row-reverse;align-items:center;padding:28px;gap:24px">
+                <div class="profile-img-wrapper"><img id="cardImage" src="https://cdn.discordapp.com/attachments/1079065638502404167/1476016754705567824/D25Todl.png" style="width:100%;height:100%;object-fit:cover;border-radius:10px"></div>
+                <div class="card-right">
+                    <div style="color:#444;font-family:var(--font-en);font-weight:800;letter-spacing:3px;margin-bottom:4px;font-size:.8rem">L.S.P.D EXECUTIVE ID</div>
+                    <h2 id="cardNameOverlay" style="margin:0;font-size:2.4rem;font-weight:900;color:#fff;font-family:var(--font-en)">--</h2>
+                    <div id="cardRankOverlay" style="color:var(--cyan);font-family:var(--font-en);font-size:1.1rem;font-weight:900;letter-spacing:1px;text-transform:uppercase;margin:4px 0 18px">--</div>
+                    <div style="border-top:1px solid rgba(255,255,255,.05);width:100%;margin-bottom:18px"></div>
+                    <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(0,255,122,.05);border:1px solid rgba(0,255,122,.25);padding:7px 18px;border-radius:8px;font-family:var(--font-en);font-weight:800;color:var(--green);flex-direction:row-reverse;font-size:.85rem">SYSTEM ACTIVE <span style="width:7px;height:7px;background:var(--green);border-radius:50%"></span></div>
                 </div>
             </div>
-            
-            <div id="dynamicContentArea" class="allow-select"></div>
-            
-            <div class="input-section" id="inputSectionBlock" style="display:none;">
-                <div id="mInputs" class="grid-inputs"></div>
-                <button class="submit-btn hover-target" id="submitBtn" onclick="addRecord()" style="margin-top: 15px;">إضافة / حفظ السجل</button>
-            </div>
+        </div>
+        <div style="margin-top:20px;display:flex;justify-content:center;gap:12px">
+            <label class="hd-btn btn-cyan" style="padding:10px 24px">📷 تغيير الصورة<input type="file" accept="image/*" style="display:none" onchange="updateCardImg(this)"></label>
+            <button class="hd-btn btn-red" onclick="document.getElementById('idCardOverlay').style.display='none'" style="padding:10px 32px">إغلاق</button>
         </div>
     </div>
+</div>
 
-    <div class="modal-overlay" id="createRankModal">
-        <div class="modal-box" style="width: 700px; border-color: var(--green);">
-            <h3 style="color:var(--green); margin-bottom:25px; font-size:1.6rem; text-align:center;">➕ إضافة عسكري جديد للنظام</h3>
-            <div class="grid-inputs">
-                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">الاسم (Name):</div><input type="text" id="createOfficerName" class="gen-input hover-target" placeholder="اسم العسكري داخل اللعبة"></div>
-                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">الرتبة (Rank):</div><select id="createRankSelect" class="gen-input hover-target" style="text-align: left;" dir="ltr" onchange="autoGenerateCreateCode()"></select></div>
-                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">الكود (Code):</div><input type="text" id="createOfficerCode" class="gen-input hover-target" style="font-family: monospace; text-align:left;" dir="ltr"></div>
-                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">المهام (Responsibility):</div><select id="createResp" class="gen-input hover-target" style="text-align: left;" dir="ltr"></select></div>
-                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">الحالة (Status):</div><select id="createStatus" class="gen-input hover-target" style="text-align: left;" dir="ltr"><option value="ACTIVE">ACTIVE</option><option value="INACTIVE">INACTIVE</option><option value="LOA">LOA</option><option value="SUSPENDED">SUSPENDED</option></select></div>
-                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">الإنذارات (Strikes):</div><select id="createStrikes" class="gen-input hover-target" style="text-align: left;" dir="ltr"></select></div>
-                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">تاريخ الترقية:</div><input type="text" id="createProm" class="gen-input hover-target" placeholder="N/A -"></div>
-                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">النقاط (F.P):</div><input type="text" id="createFP" class="gen-input hover-target" placeholder="N/A -"></div>
-                <div style="grid-column: span 2;"><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">ديسكورد آيدي:</div><input type="text" id="createDiscord" class="gen-input hover-target" style="text-align:left;" dir="ltr" placeholder="مثال: <@123456789>"></div>
-                <div style="grid-column: span 2;"><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">ملاحظات (Notes):</div><textarea id="createNotes" class="gen-input hover-target" style="height: 60px; resize:none;"></textarea></div>
-            </div>
-            <div style="display:flex; gap:15px; margin-top: 10px;">
-                <button class="submit-btn hover-target" style="background: var(--green);" onclick="saveNewCreatedOfficer()" style="flex: 2; margin: 0;">إنشاء العسكري</button>
-                <button class="close-btn hover-target" onclick="document.getElementById('createRankModal').style.display='none'" style="flex: 1; margin: 0;">إلغاء</button>
-            </div>
+<!-- Confirm -->
+<div class="modal-overlay" id="customConfirmOverlay">
+    <div class="modal-box" style="max-width:420px;text-align:center;border-color:rgba(255,59,59,.3)">
+        <div style="font-size:3.5rem;margin-bottom:16px">⚠️</div>
+        <h3 style="color:#fff;font-size:1.6rem;font-weight:800;margin-bottom:12px" id="confirmTitle">تأكيد</h3>
+        <p  style="color:#8a9ab5;font-size:1rem;line-height:1.7;margin-bottom:26px" id="confirmMessage">هل أنت متأكد؟</p>
+        <div style="display:flex;gap:12px">
+            <button class="submit-btn" style="background:var(--red);color:#fff;margin:0" onclick="executeConfirm()">نعم، تأكيد</button>
+            <button class="close-btn" style="margin:0" onclick="cancelConfirm()">إلغاء</button>
         </div>
     </div>
+</div>
 
-    <div class="modal-overlay" id="cryptoModal">
-        <div class="modal-box">
-            <h3 style="color:var(--cyan); margin-bottom:20px; font-size:1.5rem; text-align:center;">قسم التشفير</h3>
-            <textarea id="cryIn" class="gen-input hover-target" placeholder="أدخل النص هنا..." style="height: 100px; resize: none; text-align:right;"></textarea>
-            <div style="display:flex; gap:10px; margin-bottom:15px;">
-                <button class="submit-btn hover-target" onclick="doCrypto('enc')" style="margin:0;">🔒 تشفير النص</button>
-                <button class="submit-btn hover-target" onclick="doCrypto('dec')" style="margin:0; background:#fff; color:#000;">🔓 فك التشفير</button>
-            </div>
-            <div style="position:relative;">
-                <div class="gen-input allow-select hover-target" id="cryOut" style="min-height: 50px; font-family: monospace; word-break: break-all; padding-inline-end: 45px; text-align:left;" dir="ltr">النتيجة...</div>
-                <span class="hover-target" onclick="copyCrypto()" style="position: absolute; top: 50%; transform: translateY(-50%); right: 20px; font-size: 1.3rem;">📋</span>
-            </div>
-            <button class="close-btn hover-target" onclick="document.getElementById('cryptoModal').style.display='none'">إغلاق</button>
-        </div>
+<!-- Alert -->
+<div class="modal-overlay" id="customAlertOverlay">
+    <div class="modal-box" style="max-width:380px;text-align:center">
+        <div id="alertIcon" style="font-size:3.5rem;margin-bottom:16px"></div>
+        <h3 id="alertTitle"   style="color:#fff;font-size:1.6rem;font-weight:800;margin-bottom:12px">تنبيه</h3>
+        <p  id="alertMessage" style="color:#8a9ab5;font-size:1rem;line-height:1.7;margin-bottom:26px">رسالة التنبيه</p>
+        <button class="submit-btn" onclick="document.getElementById('customAlertOverlay').style.display='none'">حسناً</button>
     </div>
+</div>
 
-    <div class="modal-overlay" id="editRankModal">
-        <div class="modal-box" style="width: 700px;">
-            <h3 style="color:var(--cyan); margin-bottom:25px; font-size:1.6rem; text-align:center;">تعديل السجل العسكري</h3>
-            <div class="grid-inputs">
-                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">الاسم (Name):</div><input type="text" id="editOfficerName" class="gen-input hover-target"></div>
-                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">الرتبة (Rank):</div><select id="editRankSelect" class="gen-input hover-target" style="text-align: left;" dir="ltr" onchange="autoGenerateCode()"></select></div>
-                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">الكود (Code):</div><input type="text" id="editOfficerCode" class="gen-input hover-target" style="font-family: monospace; text-align:left;" dir="ltr"></div>
-                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">المهام (Responsibility):</div><select id="editResp" class="gen-input hover-target" style="text-align: left;" dir="ltr"></select></div>
-                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">الحالة (Status):</div><select id="editStatus" class="gen-input hover-target" style="text-align: left;" dir="ltr"><option value="ACTIVE">ACTIVE</option><option value="INACTIVE">INACTIVE</option><option value="LOA">LOA</option><option value="SUSPENDED">SUSPENDED</option></select></div>
-                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">الإنذارات (Strikes):</div><select id="editStrikes" class="gen-input hover-target" style="text-align: left;" dir="ltr"></select></div>
-                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">تاريخ الترقية:</div><input type="text" id="editProm" class="gen-input hover-target" placeholder="N/A -"></div>
-                <div><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">النقاط (F.P):</div><input type="text" id="editFP" class="gen-input hover-target" placeholder="N/A -"></div>
-                <div style="grid-column: span 2;"><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">ديسكورد آيدي:</div><input type="text" id="editDiscord" class="gen-input hover-target" style="text-align:left;" dir="ltr"></div>
-                <div style="grid-column: span 2;"><div style="text-align: right; color: #8da2b5; font-weight:bold; margin-bottom: 5px;">ملاحظات (Notes):</div><textarea id="editNotes" class="gen-input hover-target" style="height: 60px; resize:none;"></textarea></div>
-            </div>
-            <div style="display:flex; gap:15px; margin-top: 10px;">
-                <button class="submit-btn hover-target" onclick="saveNewOfficerData()" style="flex: 2; margin: 0;">حفظ التعديلات</button>
-                <button class="close-btn hover-target" onclick="document.getElementById('editRankModal').style.display='none'" style="flex: 1; margin: 0;">إلغاء</button>
-            </div>
-        </div>
-    </div>
+<!-- ========= SCRIPTS ========= -->
+<script src="config.js"></script>
 
-    <div class="modal-overlay" id="idCardOverlay">
-        <div style="text-align: center;">
-            <div class="modal-box executive-card" style="padding:0; overflow:hidden; border:none; border-right: 3px solid var(--cyan);">
-                <div class="card-left"><div class="profile-img-wrapper"><img id="cardImage" src="https://cdn.discordapp.com/attachments/1079065638502404167/1476016754705567824/D25Todl.png" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;"></div></div>
-                <div class="card-right" style="padding: 30px;">
-                    <div style="color: #666; font-family: var(--font-en); font-weight: 800; letter-spacing: 3px; margin-bottom:5px;">L.S.P.D EXECUTIVE ID</div>
-                    <h2 id="cardNameOverlay" style="margin: 0; font-size: 2.8rem; font-weight: 900; color: #fff; font-family: var(--font-en);">--</h2>
-                    <div id="cardRankOverlay" style="color: var(--cyan); font-family: var(--font-en); font-size: 1.3rem; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; margin: 5px 0 20px 0;">--</div>
-                    <div style="border-top: 1px solid rgba(255,255,255,0.05); width: 100%; margin-bottom: 20px;"></div>
-                    <div style="display: inline-flex; align-items: center; gap: 10px; background: rgba(0, 255, 106, 0.05); border: 1px solid rgba(0, 255, 106, 0.3); padding: 8px 20px; border-radius: 8px; font-family: var(--font-en); font-weight: 800; color: var(--green); flex-direction: row-reverse;">SYSTEM ACTIVE <span style="width: 8px; height: 8px; background: var(--green); border-radius: 50%;"></span></div>
-                </div>
-            </div>
-            <div style="margin-top: 25px; display: flex; justify-content: center; gap: 15px;">
-                <label class="head-btn btn-cyan hover-target" style="padding: 12px 30px;">📷 تغيير الصورة<input type="file" accept="image/*" style="display: none;" onchange="updateCardImg(this)"></label>
-                <button class="head-btn btn-red hover-target" onclick="document.getElementById('idCardOverlay').style.display='none'" style="padding: 12px 40px;">إغلاق</button>
-            </div>
-        </div>
-    </div>
+<script>
+    /* --- Particles --- */
+    const pCont=document.getElementById('particles');
+    for(let i=0;i<55;i++){let p=document.createElement('div');p.className='particle';let s=Math.random()*3+1;p.style.cssText=`width:${s}px;height:${s}px;left:${Math.random()*100}vw;bottom:-${s}px;animation-duration:${Math.random()*15+10}s;animation-delay:${Math.random()*12}s`;pCont.appendChild(p);}
 
-    <div class="modal-overlay" id="customConfirmOverlay">
-        <div class="modal-box" style="width: 450px; text-align: center; border-color: var(--red);">
-            <div style="font-size: 4rem; margin-bottom: 20px;">⚠️</div>
-            <h3 style="color: #fff; font-size: 1.8rem; font-weight: bold; margin-bottom: 15px;" id="confirmTitle">تأكيد الحذف</h3>
-            <p style="color: #aaa; font-size: 1.1rem; line-height: 1.6; margin-bottom: 30px;" id="confirmMessage">هل أنت متأكد؟</p>
-            <div style="display: flex; gap: 15px;">
-                <button class="submit-btn hover-target" style="background:var(--red); color:#fff; margin:0;" onclick="executeConfirm()">نعم، احذف</button>
-                <button class="close-btn hover-target" style="margin:0;" onclick="cancelConfirm()">إلغاء</button>
-            </div>
-        </div>
-    </div>
+    /* --- Cursor --- */
+    const dot=document.getElementById('cursor-dot'),ring=document.getElementById('cursor-ring');
+    window.addEventListener('mousemove',e=>{dot.style.left=e.clientX+'px';dot.style.top=e.clientY+'px';ring.animate({left:e.clientX+'px',top:e.clientY+'px'},{duration:110,fill:'forwards'});});
+    document.querySelectorAll('button,input,select,.module-tile').forEach(el=>{
+        el.addEventListener('mouseenter',()=>{ring.style.width='44px';ring.style.height='44px';ring.style.borderColor='rgba(0,234,255,.2)';});
+        el.addEventListener('mouseleave',()=>{ring.style.width='30px';ring.style.height='30px';ring.style.borderColor='rgba(0,234,255,.12)';});
+    });
 
-    <div class="modal-overlay" id="customAlertOverlay">
-        <div class="modal-box" id="customAlertBox" style="width: 400px; text-align: center;">
-            <div id="alertIcon" style="font-size: 4rem; margin-bottom: 20px;"></div>
-            <h3 style="color: #fff; font-size: 1.8rem; font-weight: bold; margin-bottom: 15px;" id="alertTitle">تنبيه</h3>
-            <p style="color: #aaa; font-size: 1.1rem; line-height: 1.6; margin-bottom: 30px;" id="alertMessage">رسالة التنبيه</p>
-            <button class="submit-btn hover-target" onclick="document.getElementById('customAlertOverlay').style.display='none'">حسناً</button>
-        </div>
-    </div>
+    document.getElementById('userInput').addEventListener('keydown',e=>{if(e.key==='Enter')login();});
+    document.getElementById('passInput').addEventListener('keydown',e=>{if(e.key==='Enter')login();});
+</script>
 
-    <script>
-        const particlesContainer = document.getElementById('particles-container');
-        for (let i = 0; i < 60; i++) {
-            let particle = document.createElement('div');
-            particle.className = 'particle';
-            let size = Math.random() * 3 + 1;
-            particle.style.width = size + 'px';
-            particle.style.height = size + 'px';
-            particle.style.left = Math.random() * 100 + 'vw';
-            particle.style.bottom = '-' + size + 'px';
-            particle.style.animationDuration = (Math.random() * 15 + 10) + 's';
-            particle.style.animationDelay = Math.random() * 10 + 's';
-            particlesContainer.appendChild(particle);
+<script>
+    const publicOfficersList=["Minister of Interior","Deputy Minister of Interior","A. Minister of Interior","Police Commander","L.S.P.D Chief","Deputy L.S.P.D Chief","A' Lspd Chief","High Commander","General","Colonel","Major","Captain","First Lieutenant","Lieutenant"];
+    const publicEnlistedList=["Staff Sergeant","First Sergeant","Sergeant","Senior Lead Officer","Senior Officer","Officer III","Officer II","Officer I","Solo Cadet","Cadet"];
+    let SystemRanks=[...publicOfficersList,...publicEnlistedList];
+
+    const rankExactCodes={"Minister of Interior":"P-0","Deputy Minister of Interior":"P-1","A. Minister of Interior":"P-2","L.S.P.D Chief":"A-1","Deputy L.S.P.D Chief":"A-2","A' Lspd Chief":"A-3"};
+    const rankRanges={"General":{prefix:"G-",min:0,max:99},"High Commander":{prefix:"M-",min:0,max:99},"Colonel":{prefix:"C-",min:1,max:2},"Major":{prefix:"C-",min:3,max:3},"Captain":{prefix:"C-",min:4,max:6},"First Lieutenant":{prefix:"C-",min:7,max:11},"Lieutenant":{prefix:"C-",min:12,max:20},"Staff Sergeant":{prefix:"U-",min:1,max:9},"First Sergeant":{prefix:"U-",min:10,max:19},"Sergeant":{prefix:"U-",min:20,max:29},"Senior Lead Officer":{prefix:"U-",min:30,max:39},"Senior Officer":{prefix:"U-",min:40,max:49},"Officer III":{prefix:"U-",min:50,max:69},"Officer II":{prefix:"U-",min:70,max:99},"Officer I":{prefix:"U-",min:100,max:129},"Solo Cadet":{prefix:"U-",min:130,max:199},"Cadet":{prefix:"U-",min:200,max:400}};
+    const respOptionsData=["N/A","Police Administration","Commission Office","High Command","Command","Head Of Internal Affairs","Intern Affairs Member","Detective Supervisor","Supervisor","Detective","Motorcycle Unit Leader","Motorcycle Unit CO-Leader","Motorcycle Supervisor","Air Unit Leader","Air Unit CO-Leader","Speed Unit Leader","Speed Unit CO-Leader","GANG UNIT Leader","GANG UNIT CO- Leader","Assistants","Trooper","GANG UNIT","HEAD OF COMMAND","Air Fleet Commander","Police Wings Commander","Commander Of P.A","Deputy Of P.A","deputy air fleet","Advisor of air fleet","War Commander","S.W.A.T Commander","Deputy S.W.A.T Commander"];
+    const strikesOptionsData=["N/A","WARN 1","WARN 2","WARN 3","Strike Point 1","Strike Point 2","Strike Point 3","Strike Point 4","Strike Point 5","Strike Point 6","Strike Point 7"];
+
+    /* Module definitions with icons & colors */
+    const modules=[
+        {id:'settings',   i18n_t:'إعدادات التقديم',   icon:'⚙️', color:'var(--muted)',  desc:'فتح/إغلاق بوابات التقديم', isSettingsView:true, reqOfficer:true},
+        {id:'applications',i18n_t:'طلبات التقديم',    icon:'📋', color:'var(--yellow)', desc:'عرض وإدارة الطلبات المقدمة', isAppsView:true, reqOfficer:true},
+        {id:'roster_admin',i18n_t:'إدارة جدول العساكر',icon:'🛡️', color:'var(--cyan)',   desc:'إضافة وتعديل بيانات العساكر', isRosterAdmin:true, reqOfficer:true},
+        {id:'reports',     i18n_t:'رفع التقارير',      icon:'📝', color:'var(--blue)',   desc:'رفع تقارير PDF جديدة', isReportForm:true},
+        {id:'saved',       i18n_t:'التقارير المحفوظة', icon:'📁', color:'var(--blue)',   desc:'عرض وتحميل التقارير', isSavedReports:true},
+        {id:'tasks',       i18n_t:'المهام والنقاط',    icon:'⭐', color:'var(--yellow)', desc:'توزيع المهام وتسجيل النقاط', isTable:true},
+        {id:'video',       i18n_t:'قسم الفيديو',       icon:'🎬', color:'var(--red)',    desc:'إضافة مقاطع يوتيوب', isVideo:true},
+        {id:'wanted',      i18n_t:'المطلوبون',          icon:'🔴', color:'var(--red)',    desc:'إدارة قائمة المطلوبين', isWantedForm:true},
+        {id:'notes',       i18n_t:'ملاحظات القيادة',   icon:'📌', color:'var(--orange)', desc:'تسجيل ملاحظات وقرارات', inputsAr:['الموضوع','النص']},
+        {id:'crypto',      i18n_t:'التشفير',            icon:'🔐', color:'var(--purple)', desc:'تشفير وفك تشفير النصوص', isCrypto:true},
+        {id:'officials',   i18n_t:'إدارة الحسابات',    icon:'👤', color:'var(--cyan)',   desc:'إنشاء وحذف الحسابات', isAccountsForm:true, reqOfficer:true},
+        {id:'logs',        i18n_t:'سجلات النظام',       icon:'📜', color:'var(--green)',  desc:'عرض وتنزيل اللوقات', isLogsView:true}
+    ];
+
+    firebase.initializeApp({apiKey:"AIzaSyC5PL_fJEjiJVQS8rnx4m8j9uQNsILcQvs",authDomain:"police-depa.firebaseapp.com",databaseURL:"https://police-depa-default-rtdb.europe-west1.firebasedatabase.app",projectId:"police-depa"});
+    const database=firebase.database();
+
+    let db={applications:[],reports:[],customUsers:[],wanted:[],live_roster:{},system_logs:{},settings:{policeOpen:true,selfOpen:true}};
+    let currentModule=null, isOfficer=false, myName="", myRank="";
+    let tempPDFBase64="", tempWantedImgBase64="";
+
+    function logAction(txt){
+        const t=new Date().toLocaleString('ar-SA');
+        firebase.database().ref('lspd_db/system_logs').push({user:myName||'غير معروف',rank:myRank||'-',action:txt,time:t});
+    }
+
+    let pendingConfirmAction=null;
+    function showCustomConfirm(title,message,cb){document.getElementById('confirmTitle').innerText=title;document.getElementById('confirmMessage').innerText=message;document.getElementById('customConfirmOverlay').style.display='flex';pendingConfirmAction=cb;}
+    function executeConfirm(){if(pendingConfirmAction)pendingConfirmAction();document.getElementById('customConfirmOverlay').style.display='none';pendingConfirmAction=null;}
+    function cancelConfirm(){document.getElementById('customConfirmOverlay').style.display='none';pendingConfirmAction=null;}
+    function showCustomAlert(title,msg,ok){document.getElementById('alertTitle').innerText=title;document.getElementById('alertMessage').innerText=msg;document.getElementById('alertIcon').innerText=ok?'✅':'❌';document.getElementById('customAlertOverlay').style.display='flex';}
+
+    function cleanArray(data){if(!data)return[];if(Array.isArray(data))return data.filter(i=>i!=null);return Object.values(data).filter(i=>i!=null);}
+
+    /* --- Firebase --- */
+    database.ref('lspd_db').on('value',snap=>{
+        const data=snap.val();
+        if(data){
+            db.applications=cleanArray(data.applications);
+            db.reports=cleanArray(data.reports);
+            db.customUsers=cleanArray(data.customUsers);
+            db.wanted=cleanArray(data.wanted);
+            db.settings=data.settings||{policeOpen:true,selfOpen:true};
+            db.system_logs=data.system_logs||{};
+            modules.forEach(m=>{if(m.inputsAr||m.isTable||m.isVideo)db[m.id]=cleanArray(data[m.id]);});
         }
+        /* Update stats */
+        document.getElementById('st-apps').innerText=db.applications.length;
+        document.getElementById('st-wanted').innerText=db.wanted.length;
+        document.getElementById('st-reports').innerText=db.reports.length;
+        if(currentModule&&document.getElementById('moduleView').style.display==='flex'&&!currentModule.isRosterAdmin){openMod(currentModule.id);}
+    });
 
-        const pointer = document.getElementById('cursor-pointer');
-        const trail = document.getElementById('cursor-trail');
-        window.addEventListener('mousemove', (e) => {
-            pointer.style.left = e.clientX + 'px';
-            pointer.style.top = e.clientY + 'px';
-            trail.animate({ left: e.clientX + 'px', top: e.clientY + 'px' }, { duration: 120, fill: "forwards" });
-        });
-        const hoverTargets = document.querySelectorAll('.hover-target, button, input, select, .menu-btn');
-        hoverTargets.forEach(target => {
-            target.addEventListener('mouseenter', () => {
-                trail.style.width = '45px'; trail.style.height = '45px'; trail.style.borderColor = 'rgba(0, 234, 255, 0.2)';
-            });
-            target.addEventListener('mouseleave', () => {
-                trail.style.width = '30px'; trail.style.height = '30px'; trail.style.borderColor = 'rgba(0, 234, 255, 0.1)';
-            });
-        });
-    </script>
+    database.ref('live_roster').on('value',snap=>{
+        const raw=snap.val()||{};
+        db.live_roster={};
+        Object.keys(raw).forEach(k=>{if(raw[k])db.live_roster[k]=raw[k];});
+        document.getElementById('st-officers').innerText=Object.keys(db.live_roster).length;
+        if(document.getElementById('moduleView').style.display==='flex'&&document.getElementById('mTitle').innerText==='إدارة جدول العساكر'){renderAdminRoster();}
+    });
 
-    <script>
-        const publicOfficersList = ["Minister of Interior", "Deputy Minister of Interior", "A. Minister of Interior", "Police Commander", "L.S.P.D Chief", "Deputy L.S.P.D Chief", "A' Lspd Chief", "High Commander", "General", "Colonel", "Major", "Captain", "First Lieutenant", "Lieutenant"];
-        const publicEnlistedList = ["Staff Sergeant", "First Sergeant", "Sergeant", "Senior Lead Officer", "Senior Officer", "Officer III", "Officer II", "Officer I", "Solo Cadet", "Cadet"];
-        let SystemRanks = [...publicOfficersList, ...publicEnlistedList];
+    function saveDB(){database.ref('lspd_db').set(db).catch(()=>showCustomAlert('خطأ','فشل الحفظ.',false));}
 
-        const rankExactCodes = {
-            "Minister of Interior": "P-0", "Deputy Minister of Interior": "P-1", "A. Minister of Interior": "P-2",
-            "L.S.P.D Chief": "A-1", "Deputy L.S.P.D Chief": "A-2", "A' Lspd Chief": "A-3"
-        };
-        const rankRanges = {
-            "General": { prefix: "G-", min: 0, max: 99 }, "High Commander": { prefix: "M-", min: 0, max: 99 },
-            "Colonel": { prefix: "C-", min: 1, max: 2 }, "Major": { prefix: "C-", min: 3, max: 3 }, "Captain": { prefix: "C-", min: 4, max: 6 },
-            "First Lieutenant": { prefix: "C-", min: 7, max: 11 }, "Lieutenant": { prefix: "C-", min: 12, max: 20 },
-            "Staff Sergeant": { prefix: "U-", min: 1, max: 9 }, "First Sergeant": { prefix: "U-", min: 10, max: 19 },
-            "Sergeant": { prefix: "U-", min: 20, max: 29 }, "Senior Lead Officer": { prefix: "U-", min: 30, max: 39 },
-            "Senior Officer": { prefix: "U-", min: 40, max: 49 }, "Officer III": { prefix: "U-", min: 50, max: 69 },
-            "Officer II": { prefix: "U-", min: 70, max: 99 }, "Officer I": { prefix: "U-", min: 100, max: 129 },
-            "Solo Cadet": { prefix: "U-", min: 130, max: 199 }, "Cadet": { prefix: "U-", min: 200, max: 400 }
-        };
-
-        const respOptionsData = ["N/A", "Police Administration", "Commission Office", "High Command", "Command", "Head Of Internal Affairs", "Intern Affairs Member", "Detective Supervisor", "Supervisor", "Detective", "Motorcycle Unit Leader", "Motorcycle Unit CO-Leader", "Motorcycle Supervisor", "Air Unit Leader", "Air Unit CO-Leader", "Speed Unit Leader", "Speed Unit CO-Leader", "GANG UNIT Leader", "GANG UNIT CO- Leader", "Assistants", "Trooper", "GANG UNIT", "HEAD OF COMMAND", "Air Fleet Commander", "Police Wings Commander", "Commander Of P.A", "Deputy Of P.A", "deputy air fleet", "Advisor of air fleet", "War Commander", "S.W.A.T Commander", "Deputy S.W.A.T Commander"];
-        const strikesOptionsData = ["N/A", "WARN 1", "WARN 2", "WARN 3", "Strike Point 1", "Strike Point 2", "Strike Point 3", "Strike Point 4", "Strike Point 5", "Strike Point 6", "Strike Point 7"];
-
-        firebase.initializeApp({ apiKey: "AIzaSyC5PL_fJEjiJVQS8rnx4m8j9uQNsILcQvs", authDomain: "police-depa.firebaseapp.com", databaseURL: "https://police-depa-default-rtdb.europe-west1.firebasedatabase.app", projectId: "police-depa" });
-        const database = firebase.database();
-
-        const modules = [
-            { id: 'settings', i18n_t: 'إعدادات التقديم', isSettingsView: true, reqOfficer: true },
-            { id: 'applications', i18n_t: 'طلبات التقديم', isAppsView: true, reqOfficer: true },
-            { id: 'roster_admin', i18n_t: 'إدارة جدول العساكر', isRosterAdmin: true, reqOfficer: true },
-            { id: 'reports', i18n_t: 'التقارير', isReportForm: true },
-            { id: 'saved', i18n_t: 'التقارير المحفوظة', isSavedReports: true },
-            { id: 'tasks', i18n_t: 'المهام والنقاط', isTable: true },
-            { id: 'video', i18n_t: 'قسم الفيديو', isVideo: true },
-            { id: 'wanted', i18n_t: 'المطلوبين للعدالة', isWantedForm: true }, 
-            { id: 'notes', i18n_t: 'ملاحظات القيادة', inputsAr: ['الموضوع', 'النص'] },
-            { id: 'crypto', i18n_t: 'قسم التشفير', isCrypto: true },
-            { id: 'officials', i18n_t: 'إدارة الحسابات', isAccountsForm: true, reqOfficer: true },
-            { id: 'logs', i18n_t: 'سجلات النظام (Logs)', isLogsView: true }
-        ];
-
-        let db = { applications: [], reports: [], customUsers: [], wanted: [], live_roster: {}, system_logs: {}, settings: { policeOpen: true, selfOpen: true } }; 
-        let currentModule = null; let isOfficer = false; let myName = ""; let myRank = ""; 
-        let tempPDFBase64 = ""; 
-        let tempWantedImgBase64 = "";
-
-        function logAction(actionText) {
-            const t = new Date().toLocaleString('ar-SA');
-            firebase.database().ref('lspd_db/system_logs').push({
-                user: myName || 'غير معروف',
-                rank: myRank || '-',
-                action: actionText,
-                time: t
-            });
+    /* --- Login --- */
+    function login(){
+        const u=document.getElementById('userInput').value.trim(),p=document.getElementById('passInput').value.trim();
+        let confUsers=(typeof ConfigUsers!=='undefined')?ConfigUsers:[];
+        let found=[...confUsers,...(db.customUsers||[])].find(x=>x.user===u&&x.pass===p);
+        if(found){
+            document.getElementById('loginScreen').style.display='none';
+            document.getElementById('mainWrapper').style.display='flex';
+            isOfficer=publicOfficersList.includes(found.rank);
+            myName=found.name; myRank=found.rank;
+            document.getElementById('rankNameDisp').innerText=myName;
+            document.getElementById('cardNameOverlay').innerText=myName;
+            document.getElementById('cardRankOverlay').innerText=myRank;
+            const savedImg=localStorage.getItem('user_id_img_'+myName);
+            if(savedImg)document.getElementById('cardImage').src=savedImg;
+            logAction('تسجيل دخول للنظام');
+            renderModules();
+        } else {
+            const err=document.getElementById('loginError');
+            err.style.display='block';
+            err.animate([{transform:'translateX(-6px)'},{transform:'translateX(6px)'},{transform:'translateX(0)'}],{duration:300,iterations:2});
         }
+    }
 
-        let pendingConfirmAction = null;
-        function showCustomConfirm(title, message, callback) {
-            document.getElementById('confirmTitle').innerText = title;
-            document.getElementById('confirmMessage').innerText = message;
-            document.getElementById('customConfirmOverlay').style.display = 'flex';
-            pendingConfirmAction = callback;
-        }
-        function executeConfirm() {
-            if(pendingConfirmAction) pendingConfirmAction();
-            document.getElementById('customConfirmOverlay').style.display = 'none';
-            pendingConfirmAction = null;
-        }
-        function cancelConfirm() {
-            document.getElementById('customConfirmOverlay').style.display = 'none';
-            pendingConfirmAction = null;
-        }
+    function logout(){window.location.href='index.html';}
+    function goHome(){document.getElementById('moduleView').style.display='none';document.getElementById('dashboardView').style.display='flex';}
 
-        function cleanArray(data) {
-            if (!data) return [];
-            if (Array.isArray(data)) return data.filter(item => item !== null && item !== undefined);
-            return Object.values(data).filter(item => item !== null && item !== undefined);
-        }
-
-        database.ref('lspd_db').on('value', (snapshot) => {
-            const data = snapshot.val();
-            if (data) {
-                db.applications = cleanArray(data.applications); 
-                db.reports = cleanArray(data.reports); 
-                db.customUsers = cleanArray(data.customUsers); 
-                db.wanted = cleanArray(data.wanted); 
-                db.settings = data.settings || { policeOpen: true, selfOpen: true };
-                db.system_logs = data.system_logs || {};
-                modules.forEach(m => { if(m.inputsAr || m.isTable || m.isVideo) db[m.id] = cleanArray(data[m.id]); });
-            }
-            if (currentModule && document.getElementById('moduleView').style.display === 'flex' && !currentModule.isRosterAdmin) { openMod(currentModule.id); }
-        });
-
-        database.ref('live_roster').on('value', (snapshot) => {
-            const rosterData = snapshot.val() || {};
-            const cleanedRoster = {};
-            Object.keys(rosterData).forEach(k => {
-                if (rosterData[k] !== null && rosterData[k] !== undefined) {
-                    cleanedRoster[k] = rosterData[k];
-                }
-            });
-            db.live_roster = cleanedRoster;
-            if(document.getElementById('moduleView').style.display === 'flex' && document.getElementById('mTitle').innerText === 'إدارة جدول العساكر') { renderAdminRoster(); }
-        });
-
-        function saveDB() { database.ref('lspd_db').set(db).catch(e => { showCustomAlert("خطأ", "فشل الحفظ.", false); }); }
-
-        document.getElementById('userInput').addEventListener('keydown', function(e) { if(e.key === 'Enter') login(); });
-        document.getElementById('passInput').addEventListener('keydown', function(e) { if(e.key === 'Enter') login(); });
-
-        function login() {
-            const u = document.getElementById('userInput').value.trim(), p = document.getElementById('passInput').value.trim();
-            let confUsers = (typeof ConfigUsers !== 'undefined') ? ConfigUsers : [];
-            let foundUser = [...confUsers, ...(db.customUsers || [])].find(x => x.user === u && x.pass === p);
-            
-            if(foundUser) {
-                document.getElementById('loginScreen').style.display = 'none'; 
-                document.getElementById('mainWrapper').style.display = 'flex'; 
-                isOfficer = publicOfficersList.includes(foundUser.rank); myName = foundUser.name; myRank = foundUser.rank;
-                document.getElementById('rankNameDisp').innerText = myName; 
-                document.getElementById('cardNameOverlay').innerText = myName;
-                document.getElementById('cardRankOverlay').innerText = myRank;
-                
-                const savedImg = localStorage.getItem('user_id_img_' + myName);
-                if(savedImg) document.getElementById('cardImage').src = savedImg;
-                
-                logAction('تسجيل دخول للنظام');
-                renderModules();
-            } else { document.getElementById('loginError').style.display = 'block'; }
-        }
-
-        function logout() { window.location.href='index.html'; }
-        function goHome() { document.getElementById('moduleView').style.display = 'none'; document.getElementById('dashboardView').style.display = 'flex'; }
-
-        function updateCardImg(input) {
-            if (input.files && input.files[0]) {
-                const reader = new FileReader();
-                reader.onload = e => { 
-                    document.getElementById('cardImage').src = e.target.result; 
-                    localStorage.setItem('user_id_img_' + myName, e.target.result); 
-                    logAction('قام بتحديث صورته الشخصية (الهوية)');
-                };
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-
-        function handlePDFUpload(input) {
-            const file = input.files[0];
-            if (!file) { tempPDFBase64 = ""; return; }
-            if (file.type !== "application/pdf") {
-                showCustomAlert("خطأ", "يجب إرفاق ملف بصيغة PDF فقط!", false);
-                input.value = "";
-                return;
-            }
-            if (file.size > 5 * 1024 * 1024) { 
-                showCustomAlert("خطأ", "حجم الملف كبير جداً! (الحد الأقصى 5 ميجابايت)", false);
-                input.value = "";
-                return;
-            }
-            const reader = new FileReader();
-            reader.onload = (e) => { tempPDFBase64 = e.target.result; };
-            reader.readAsDataURL(file);
-        }
-
-        function handleWantedImgUpload(input) {
-            const file = input.files[0];
-            if (!file) { tempWantedImgBase64 = ""; return; }
-            const reader = new FileReader();
-            reader.onload = (e) => { tempWantedImgBase64 = e.target.result; };
-            reader.readAsDataURL(file);
-        }
-
-        function renderModules() {
-            const c = document.getElementById('modulesContainer'); c.innerHTML = ''; 
-            modules.forEach((m) => { 
-                if (m.reqOfficer && !isOfficer) return; 
-                
-                if (m.isLogsView) {
-                    if (typeof AllowedLogUsers === 'undefined' || !AllowedLogUsers.includes(myName)) return; 
-                }
-                
-                c.innerHTML += `<div class="menu-btn hover-target" onclick="openMod('${m.id}')">${m.i18n_t}</div>`; 
-            });
-        }
-
-        function openMod(id) {
-            currentModule = modules.find(m => m.id === id);
-            if(currentModule.isCrypto) { document.getElementById('cryptoModal').style.display = 'flex'; return; }
-            
-            document.getElementById('dashboardView').style.display = 'none'; 
-            document.getElementById('moduleView').style.display = 'flex';
-            document.getElementById('mTitle').innerText = currentModule.i18n_t;
-            
-            const container = document.getElementById('dynamicContentArea'), inpArea = document.getElementById('mInputs'), inputBlock = document.getElementById('inputSectionBlock');
-            container.innerHTML = ''; inputBlock.style.display = 'none'; inpArea.innerHTML = '';
-
-            if(currentModule.isRosterAdmin) {
-                document.getElementById('createOfficerBtn').style.display = 'block';
-                renderAdminRoster();
-            } else {
-                document.getElementById('createOfficerBtn').style.display = 'none';
-            }
-
-            if (currentModule.isAppsView) {
-                renderApplications(container);
-            } else if (currentModule.isSettingsView) {
-                renderSettingsView(container);
-            } else if(currentModule.isAccountsForm) {
-                if(!isOfficer) return;
-                inputBlock.style.display = 'block';
-                let rankOptions = ''; SystemRanks.forEach(r => { rankOptions += `<option value="${r}">${r}</option>`; });
-                inpArea.innerHTML = `<input type="text" id="o-user" class="gen-input hover-target" placeholder="اسم المستخدم"><input type="password" id="o-pass" class="gen-input hover-target" placeholder="كلمة المرور"><input type="text" id="o-name" class="gen-input hover-target" placeholder="الاسم الكامل"><select id="o-rank" class="gen-input hover-target"><option value="" disabled selected>اختر الرتبة</option>${rankOptions}</select>`;
-                renderAccounts(container);
-            } else if(currentModule.isReportForm) {
-                inputBlock.style.display = 'block';
-                inpArea.innerHTML = `
-                    <input type="text" id="r-badge" class="gen-input hover-target" placeholder="البادج العسكري">
-                    <input type="text" id="r-name" class="gen-input hover-target" placeholder="الاسم الكامل">
-                    <input type="text" id="r-crim" class="gen-input hover-target" placeholder="نوع التقرير" style="grid-column: span 2;">
-                    <div style="grid-column: span 2; background: rgba(0,0,0,0.3); padding: 15px; border-radius: 8px; border: 1px dashed var(--cyan); text-align: center;">
-                        <div style="color: #fff; margin-bottom: 10px; font-weight: bold;">📄 إرفاق ملف التقرير (PDF):</div>
-                        <input type="file" id="r-pdf" accept="application/pdf" class="gen-input hover-target" style="width: auto; margin: 0 auto; display: block;" onchange="handlePDFUpload(this)">
-                    </div>`;
-                container.innerHTML = '<div style="text-align:center; padding:30px; color:#aaa; font-size:1.1rem;">ملاحظة: سيتم إرسال التقرير المرفق مباشرة إلى قسم "التقارير المحفوظة".</div>';
-            } else if (currentModule.isSavedReports) {
-                renderSavedReports(container);
-            } else if(currentModule.isTable) {
-                inputBlock.style.display = 'block';
-                inpArea.innerHTML = `<input type="text" id="t-assignee" class="gen-input hover-target" placeholder="المستلم"><input type="text" id="t-officer" class="gen-input hover-target" placeholder="المسؤول"><input type="text" id="t-reason" class="gen-input hover-target" placeholder="المهمة الموكلة"><input type="number" id="t-pts" class="gen-input hover-target" placeholder="النقاط">`;
-                renderTasksTable(container);
-            } else if(currentModule.isVideo) {
-                inputBlock.style.display = 'block';
-                inpArea.innerHTML = `<input type="text" id="v-title" class="gen-input hover-target" placeholder="عنوان الفيديو"><input type="text" id="v-yt" class="gen-input hover-target" placeholder="رابط يوتيوب (ID فقط أو الرابط كامل)">`;
-                renderVideoGrid(container);
-            } else if (currentModule.isWantedForm) {
-                inputBlock.style.display = 'block';
-                inpArea.innerHTML = `
-                    <input type="text" id="w-name" class="gen-input hover-target" placeholder="اسم الهدف">
-                    <input type="text" id="w-charge" class="gen-input hover-target" placeholder="التهمة">
-                    <input type="text" id="w-danger" class="gen-input hover-target" placeholder="الخطورة (مثال: قصوى)">
-                    <div style="grid-column: span 2; background: rgba(0,0,0,0.3); padding: 15px; border-radius: 8px; border: 1px dashed var(--red); text-align: center;">
-                        <div style="color: #fff; margin-bottom: 10px; font-weight: bold;">📸 إرفاق صورة المطلوب:</div>
-                        <input type="file" id="w-img" accept="image/*" class="gen-input hover-target" style="width: auto; margin: 0 auto; display: block;" onchange="handleWantedImgUpload(this)">
-                    </div>`;
-                renderWantedGrid(container);
-            } else if (currentModule.isLogsView) { 
-                renderLogsView(container);
-            } else if(currentModule.inputsAr) {
-                inputBlock.style.display = 'block';
-                currentModule.inputsAr.forEach((ph, i) => { inpArea.innerHTML += `<input type="text" id="inp-${i}" class="gen-input hover-target" placeholder="${ph}">`; });
-                renderRecordsList(container);
-            }
-        }
-
-        // 🟢 كروت المطلوبين المصغرة الفخمة 🟢
-        function renderWantedGrid(container) {
-            const data = db.wanted || [];
-            if(data.length === 0) { container.innerHTML = '<div style="text-align:center; padding:30px; color:#888; font-size:1.2rem;">لا يوجد مطلوبين.</div>'; return; }
-            
-            let html = '<div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; width: 100%; padding: 10px;">';
-            data.forEach((w, idx) => {
-                if(typeof w === 'string') {
-                    html += `<div class="rec-item allow-select" style="border-left: 4px solid var(--red);">${w} ${isOfficer ? `<button class="action-btn-text btn-del-text hover-target" onclick="delRec(${idx}, 'سجل مطلوبين قديم')">حذف</button>` : ''}</div>`;
-                } else {
-                    let imgSrc = w.image || 'https://via.placeholder.com/150x150/111/555?text=NO+IMAGE';
-                    html += `
-                    <div style="background: #070a14; border: 1px solid rgba(255, 51, 51, 0.4); border-radius: 8px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 5px 15px rgba(0,0,0,0.8); transition: 0.3s; position: relative;" class="hover-target">
-                        
-                        <div style="background: rgba(255,0,60,0.1); color: var(--red); text-align: center; font-family: var(--font-en); font-weight: 900; font-size: 1.4rem; letter-spacing: 3px; padding: 5px 0; text-shadow: 0 0 10px rgba(255,0,60,0.8); border-bottom: 1px solid rgba(255,51,51,0.3); animation: glitch-red 2s infinite;">WANTED</div>
-                        
-                        <div style="height: 160px; width: 100%; background: url('${imgSrc}') center/cover; filter: grayscale(50%) contrast(120%); border-bottom: 1px solid #222;"></div>
-                        
-                        <div style="padding: 12px; text-align: right; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; gap: 10px;" class="allow-select">
-                            <div>
-                                <div style="color: #fff; font-size: 1.1rem; font-weight: bold; margin-bottom: 5px; border-bottom: 1px dashed #333; padding-bottom: 5px;">${w.name}</div>
-                                <div style="color: #aaa; font-size: 0.9rem; margin-bottom: 4px;"><strong style="color: var(--cyan);">التهمة:</strong> ${w.charge}</div>
-                                <div style="color: #aaa; font-size: 0.9rem;"><strong style="color: var(--cyan);">الخطورة:</strong> <span style="color: var(--red); font-weight: bold;">${w.danger}</span></div>
-                            </div>
-                            
-                            ${isOfficer ? `<button class="action-btn-text btn-del-text hover-target" style="width: 100%; padding: 8px; border-radius: 4px; font-size: 0.95rem; border: 1px solid rgba(255,51,51,0.5); background: transparent; transition: 0.2s; margin: 0;" onmouseover="this.style.background='var(--red)'; this.style.color='#fff';" onmouseout="this.style.background='transparent'; this.style.color='var(--red)';" onclick="delRec(${idx}, 'حذف مطلوب: ${w.name}')">إزالة من القائمة</button>` : ''}
-                        </div>
-                    </div>`;
-                }
-            });
-            html += '</div>';
-            container.innerHTML = html;
-        }
-
-        function renderLogsView(container) {
-            const logsData = Object.values(db.system_logs || {});
-            if(logsData.length === 0) { container.innerHTML = '<div style="text-align:center; padding:50px; color:#888; font-size:1.2rem;">لا يوجد سجلات عمليات حالياً.</div>'; return; }
-            
-            let html = `<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
-                <h3 style="color:var(--cyan); font-size: 1.5rem;">📜 أحدث العمليات في النظام</h3>
-                <div style="display: flex; gap: 15px;">
-                    <button class="action-btn-text hover-target" style="padding: 10px 20px; font-size: 1.1rem; background: rgba(0, 234, 255, 0.1); color: var(--cyan); border: 1px solid var(--cyan); border-radius: 6px;" onclick="downloadLogs()">⬇️ تنزيل اللوقات</button>
-                    <button class="action-btn-text btn-del-text hover-target" style="padding: 10px 20px; font-size: 1.1rem;" onclick="clearLogs()">مسح السجلات</button>
-                </div>
-            </div>
-            <div style="background:#0a0f1c; border:1px solid rgba(255,255,255,0.1); border-radius:12px; padding:20px; max-height:600px; overflow-y:auto; font-family:monospace; font-size: 1.1rem;">`;
-            
-            logsData.reverse().forEach(log => {
-                html += `<div style="padding:15px; border-bottom:1px solid rgba(255,255,255,0.05); color:#ccc; display:flex; flex-direction: row-reverse; gap: 15px; align-items: center;">
-                    <span style="color:var(--cyan); font-weight:bold; min-width: 150px; text-align: right;">[${log.time}]</span> 
-                    <strong style="color:#fff;">${log.user} <span style="color:#888; font-size:0.9rem;">(${log.rank})</span></strong>: 
-                    <span style="color:var(--green);">${log.action}</span>
-                </div>`;
-            });
-            html += '</div>';
-            container.innerHTML = html;
-        }
-
-        function downloadLogs() {
-            const logsData = Object.values(db.system_logs || {});
-            if (logsData.length === 0) {
-                showCustomAlert("تنبيه", "لا يوجد سجلات لتحميلها.", false);
-                return;
-            }
-
-            let txtContent = "=== سجلات نظام L.S.P.D ===\n\n";
-            logsData.reverse().forEach(log => {
-                txtContent += `[${log.time}] ${log.user} (${log.rank}) : ${log.action}\n`;
-            });
-
-            const blob = new Blob([txtContent], { type: 'text/plain;charset=utf-8' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            
-            const dateStr = new Date().toLocaleDateString('en-GB').replace(/\//g, '-');
-            a.download = `LSPD_Logs_${dateStr}.txt`;
-            
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-
-            logAction('قام بتنزيل ملف سجلات النظام (TXT)'); 
-        }
-
-        function clearLogs() {
-            showCustomConfirm("مسح السجلات", "هل أنت متأكد من مسح جميع السجلات؟", () => {
-                firebase.database().ref('lspd_db/system_logs').remove().then(() => {
-                    logAction('مسح جميع سجلات النظام');
-                    showCustomAlert("نجاح", "تم مسح السجلات", true);
-                });
-            });
-        }
-
-        function renderAdminRoster() {
-            const container = document.getElementById('dynamicContentArea');
-            const data = db.live_roster;
-            if (!data || Object.keys(data).length === 0) { container.innerHTML = '<div style="text-align:center; padding:50px; color:#888;">لا يوجد بيانات.</div>'; return; }
-            
-            let htmlString = `
-            <div class="roster-wrapper">
-                <table class="luxury-table">
-                    <thead>
-                        <tr>
-                            <th>Code</th><th>Name</th><th>Rank</th><th>Responsibility</th><th>Status</th><th>Strikes</th><th>Last Prom</th><th>F.P</th><th>Discord ID</th><th>Notes</th><th>الإجراءات</th>
-                        </tr>
-                    </thead>
-                    <tbody>`;
-            
-            const groups = {};
-            Object.keys(data).forEach(key => { 
-                const off = data[key]; 
-                if(!off) return;
-                off.id = key; 
-                const r = off.rank || 'غير محدد'; 
-                if(!groups[r]) groups[r] = []; 
-                groups[r].push(off); 
-            });
-            const sortedRanks = Object.keys(groups).sort((a, b) => { let iA = SystemRanks.indexOf(a), iB = SystemRanks.indexOf(b); return (iA===-1?999:iA) - (iB===-1?999:iB); });
-
-            sortedRanks.forEach(rankName => {
-                htmlString += `<tr><td colspan="11" style="border:none;"><div class="dept-title">${rankName}</div></td></tr>`;
-                
-                groups[rankName].sort((a, b) => (a.code || '').localeCompare(b.code || '')).forEach(off => {
-                    htmlString += `
-                    <tr class="roster-row">
-                        <td style="color: var(--cyan); font-weight: 900;">${off.code || '-'}</td>
-                        <td style="color: #fff; font-family: var(--font-ar);">${off.name || '-'}</td>
-                        <td style="color: #ccc;">${off.rank || '-'}</td>
-                        <td style="color: #ccc;">${off.responsibility || '-'}</td>
-                        <td><div style="background: rgba(0, 255, 106, 0.1); border: 1px solid rgba(0, 255, 106, 0.3); color: var(--green); padding: 5px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: 800;">${off.status || 'ACTIVE'}</div></td>
-                        <td style="color: #888;">${off.strikes || '-'}</td>
-                        <td style="color: #888;">${off.lastProm || '-'}</td>
-                        <td style="color: #888;">${off.fp || '-'}</td>
-                        <td><span style="background: rgba(0,0,0,0.4); padding: 5px 10px; border-radius: 6px; font-family: monospace; color: #8da2b5; border: 1px solid rgba(255,255,255,0.05);">${off.discordId || '-'}</span></td>
-                        <td style="color: #888; font-size:0.9rem; max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${off.notes || '-'}</td>
-                        <td>
-                            <button onclick="editOfficerData('${off.id}', '${off.name}', '${off.rank}', '${off.code}', '${off.responsibility}', '${off.status}', '${off.strikes}', '${off.lastProm}', '${off.fp}', '${off.discordId}', '${off.notes}')" class="action-btn-text btn-edit-text hover-target" title="تعديل">تعديل</button>
-                            <button onclick="deleteOfficerFromRoster('${off.id}', '${off.name}')" class="action-btn-text btn-del-text hover-target" title="حذف">حذف</button>
-                        </td>
-                    </tr>`;
-                });
-            });
-            container.innerHTML = htmlString + '</tbody></table></div>';
-        }
-
-        function deleteOfficerFromRoster(id, name) {
-            if(!isOfficer) return showCustomAlert("خطأ", "لا تملك صلاحية", false);
-            showCustomConfirm("حذف عسكري", `هل أنت متأكد من حذف العسكري (${name}) نهائياً من الجدول؟`, () => {
-                database.ref(`live_roster/${id}`).remove().then(() => {
-                    logAction('حذف عسكري من الرستر: ' + name); 
-                    showCustomAlert("تم", "تم حذف العسكري بنجاح", true);
-                });
-            });
-        }
-        
-        let currentEditingOfficerId = null;
-
-        function editOfficerData(id, name, currentRank, code, resp, status, strikes, prom, fp, discord, notes) {
-            currentEditingOfficerId = id;
-            document.getElementById('editOfficerName').value = name || '';
-            document.getElementById('editOfficerCode').value = code || '';
-            
-            let respHtml = ''; respOptionsData.forEach(r => { respHtml += `<option value="${r}" ${r===resp ? 'selected' : ''}>${r}</option>`; });
-            document.getElementById('editResp').innerHTML = respHtml;
-
-            document.getElementById('editStatus').value = status || 'ACTIVE';
-            
-            let strikesHtml = ''; strikesOptionsData.forEach(s => { strikesHtml += `<option value="${s}" ${s===strikes ? 'selected' : ''}>${s}</option>`; });
-            document.getElementById('editStrikes').innerHTML = strikesHtml;
-
-            document.getElementById('editProm').value = prom === '-' ? '' : prom;
-            document.getElementById('editFP').value = fp === '-' ? '' : fp;
-            document.getElementById('editDiscord').value = discord === '-' ? '' : discord;
-            document.getElementById('editNotes').value = notes === '-' ? '' : notes;
-            
-            let rankOptions = ''; SystemRanks.forEach(r => { rankOptions += `<option value="${r}" ${r===currentRank ? 'selected' : ''}>${r}</option>`; });
-            document.getElementById('editRankSelect').innerHTML = rankOptions;
-            
-            document.getElementById('editRankModal').style.display = 'flex';
-        }
-
-        function autoGenerateCode() {
-            const rank = document.getElementById('editRankSelect').value;
-            const safeRoleName = rank.toLowerCase();
-            if (rankExactCodes[rank]) { document.getElementById('editOfficerCode').value = rankExactCodes[rank]; } 
-            else if (rankRanges[rank]) {
-                const range = rankRanges[rank];
-                const currentCode = document.getElementById('editOfficerCode').value;
-                let numberPart = currentCode.match(/\d+/);
-                if (numberPart && numberPart[0] >= range.min && numberPart[0] <= range.max) { document.getElementById('editOfficerCode').value = `${range.prefix}${numberPart[0]}`; } 
-                else { document.getElementById('editOfficerCode').value = `${range.prefix}${Math.floor(Math.random() * (range.max - range.min + 1)) + range.min}`; }
-            } else {
-                let prefix = safeRoleName.includes("officer") || safeRoleName.includes("sergeant") || safeRoleName.includes("cadet") ? "U-" : "C-";
-                document.getElementById('editOfficerCode').value = `${prefix}00`;
-            }
-        }
-
-        function saveNewOfficerData() {
-            if(!currentEditingOfficerId) return;
-            const offName = document.getElementById('editOfficerName').value.trim() || '-';
-            const payload = {
-                name: offName,
-                code: document.getElementById('editOfficerCode').value.trim() || '-',
-                rank: document.getElementById('editRankSelect').value,
-                responsibility: document.getElementById('editResp').value,
-                status: document.getElementById('editStatus').value,
-                strikes: document.getElementById('editStrikes').value,
-                lastProm: document.getElementById('editProm').value.trim() || '-',
-                fp: document.getElementById('editFP').value.trim() || '-',
-                discordId: document.getElementById('editDiscord').value.trim() || '-',
-                notes: document.getElementById('editNotes').value.trim() || '-'
-            };
-            database.ref(`live_roster/${currentEditingOfficerId}`).update(payload).then(() => {
-                logAction('تعديل بيانات العسكري: ' + offName); 
-                document.getElementById('editRankModal').style.display = 'none';
-                showCustomAlert("اكتمل", "تم تحديث السجل بنجاح", true);
-            });
-        }
-
-        function openCreateModal() {
-            document.getElementById('createOfficerName').value = '';
-            document.getElementById('createOfficerCode').value = '';
-            
-            let respHtml = ''; respOptionsData.forEach(r => { respHtml += `<option value="${r}">${r}</option>`; });
-            document.getElementById('createResp').innerHTML = respHtml;
-            document.getElementById('createStatus').value = 'ACTIVE';
-            
-            let strikesHtml = ''; strikesOptionsData.forEach(s => { strikesHtml += `<option value="${s}">${s}</option>`; });
-            document.getElementById('createStrikes').innerHTML = strikesHtml;
-
-            document.getElementById('createProm').value = '';
-            document.getElementById('createFP').value = '';
-            document.getElementById('createDiscord').value = '';
-            document.getElementById('createNotes').value = '';
-            
-            let rankOptions = ''; SystemRanks.forEach(r => { rankOptions += `<option value="${r}">${r}</option>`; });
-            document.getElementById('createRankSelect').innerHTML = rankOptions;
-            
-            autoGenerateCreateCode(); 
-            document.getElementById('createRankModal').style.display = 'flex';
-        }
-
-        function autoGenerateCreateCode() {
-            const rank = document.getElementById('createRankSelect').value;
-            const safeRoleName = rank.toLowerCase();
-            if (rankExactCodes[rank]) { document.getElementById('createOfficerCode').value = rankExactCodes[rank]; } 
-            else if (rankRanges[rank]) {
-                const range = rankRanges[rank];
-                document.getElementById('createOfficerCode').value = `${range.prefix}${Math.floor(Math.random() * (range.max - range.min + 1)) + range.min}`;
-            } else {
-                let prefix = safeRoleName.includes("officer") || safeRoleName.includes("sergeant") || safeRoleName.includes("cadet") ? "U-" : "C-";
-                document.getElementById('createOfficerCode').value = `${prefix}00`;
-            }
-        }
-
-        function saveNewCreatedOfficer() {
-            const name = document.getElementById('createOfficerName').value.trim();
-            if(!name) { showCustomAlert("خطأ", "يجب إدخال اسم العسكري على الأقل!", false); return; }
-
-            const payload = {
-                name: name,
-                code: document.getElementById('createOfficerCode').value.trim() || '-',
-                rank: document.getElementById('createRankSelect').value,
-                responsibility: document.getElementById('createResp').value,
-                status: document.getElementById('createStatus').value,
-                strikes: document.getElementById('createStrikes').value,
-                lastProm: document.getElementById('createProm').value.trim() || '-',
-                fp: document.getElementById('createFP').value.trim() || '-',
-                discordId: document.getElementById('createDiscord').value.trim() || '-',
-                notes: document.getElementById('createNotes').value.trim() || '-'
-            };
-
-            database.ref('live_roster').push(payload).then(() => {
-                logAction('إضافة عسكري جديد: ' + name); 
-                document.getElementById('createRankModal').style.display = 'none';
-                showCustomAlert("نجاح", "تم إضافة العسكري الجديد للجدول بنجاح!", true);
-            });
-        }
-
-        function renderSettingsView(container) {
-            let pOpen = db.settings.policeOpen; let sOpen = db.settings.selfOpen;
-            container.innerHTML = `<div style="background:#0f1626; border:1px solid var(--glass-border); border-radius:12px; padding:40px; text-align:center; max-width:800px; margin:0 auto;">
-                <h3 style="color:var(--cyan); margin-bottom:30px; font-size:1.8rem;">التحكم في بوابات التقديم</h3>
-                <div style="font-size: 1.3rem; margin-bottom: 15px; color: #fff; background: #05080f; padding: 15px; border-radius: 8px; display:flex; justify-content:space-between; align-items:center;">
-                    <span>تقديم شرطة تايتنز:</span> <span>${pOpen ? '<span style="color:var(--green);">مفتوح 🟢</span>' : '<span style="color:var(--red);">مغلق 🔴</span>'}</span>
-                </div>
-                <div style="font-size: 1.3rem; margin-bottom: 25px; color: #fff; background: #05080f; padding: 15px; border-radius: 8px; display:flex; justify-content:space-between; align-items:center;">
-                    <span>تقديم قدم نفسك:</span> <span>${sOpen ? '<span style="color:var(--green);">مفتوح 🟢</span>' : '<span style="color:var(--red);">مغلق 🔴</span>'}</span>
-                </div>
-                ${isOfficer ? `
-                <div style="display:flex; gap:15px;">
-                    <button class="submit-btn hover-target" onclick="toggleAppStatus('police')" style="margin:0;">تغيير حالة (شرطة)</button>
-                    <button class="submit-btn hover-target" onclick="toggleAppStatus('self')" style="margin:0;">تغيير حالة (قدم نفسك)</button>
-                </div>
-                
-                <hr style="border-top: 1px dashed rgba(0, 234, 255, 0.2); margin: 30px 0; border-bottom: none; border-left: none; border-right: none;">
-                
-                <div style="display:flex; justify-content:space-between; align-items:center; background: rgba(255, 51, 51, 0.05); padding: 20px; border-radius: 8px; border: 1px solid rgba(255, 51, 51, 0.2);">
-                    <div style="text-align:right;">
-                        <h4 style="color:var(--yellow); font-size:1.2rem; margin-bottom:5px;">🔄 رستارت التقديم</h4>
-                        <p style="color:#aaa; font-size:0.9rem;">يمسح كل الطلبات السابقة عشان الناس تقدر تقدم من جديد (يفك الحظر عن اللي قدموا).</p>
-                    </div>
-                    <button class="head-btn btn-red hover-target" style="padding: 12px 25px; font-size:1.1rem; margin:0;" onclick="restartApplications()">رستارت التقديم</button>
-                </div>
-                ` : ''}
+    /* --- Render modules --- */
+    function renderModules(){
+        const c=document.getElementById('modulesContainer'); c.innerHTML='';
+        modules.forEach(m=>{
+            if(m.reqOfficer&&!isOfficer)return;
+            if(m.isLogsView){if(typeof AllowedLogUsers==='undefined'||!AllowedLogUsers.includes(myName))return;}
+            c.innerHTML+=`<div class="module-tile" style="--tile-color:${m.color}" onclick="openMod('${m.id}')">
+                <span class="tile-icon">${m.icon}</span>
+                <div class="tile-name">${m.i18n_t}</div>
+                <div class="tile-desc">${m.desc||''}</div>
             </div>`;
-        }
+        });
+    }
 
-        function restartApplications() {
-            showCustomConfirm("رستارت التقديم", "هل أنت متأكد؟ هذا الإجراء سيقوم بمسح جميع الطلبات الحالية للسماح للأشخاص بالتقديم من جديد.", () => {
-                firebase.database().ref('lspd_db/applications').remove().then(() => {
-                    db.applications = [];
-                    logAction('قام بعمل رستارت لطلبات التقديم (مسح الكل)'); 
-                    showCustomAlert("نجاح", "تم عمل رستارت للتقديم بنجاح!", true); 
-                    renderSettingsView(document.getElementById('dynamicContentArea'));
-                });
+    /* --- Open module --- */
+    function openMod(id){
+        currentModule=modules.find(m=>m.id===id);
+        if(currentModule.isCrypto){document.getElementById('cryptoModal').style.display='flex';return;}
+        document.getElementById('dashboardView').style.display='none';
+        document.getElementById('moduleView').style.display='flex';
+        document.getElementById('mTitle').innerText=currentModule.i18n_t;
+        const container=document.getElementById('dynamicContentArea'),inpArea=document.getElementById('mInputs'),inputBlock=document.getElementById('inputSectionBlock');
+        container.innerHTML='';inputBlock.style.display='none';inpArea.innerHTML='';
+
+        if(currentModule.isRosterAdmin){document.getElementById('createOfficerBtn').style.display='block';renderAdminRoster();}
+        else{document.getElementById('createOfficerBtn').style.display='none';}
+
+        if(currentModule.isAppsView){renderApplications(container);}
+        else if(currentModule.isSettingsView){renderSettingsView(container);}
+        else if(currentModule.isAccountsForm){
+            if(!isOfficer)return;
+            inputBlock.style.display='block';
+            let ro='';SystemRanks.forEach(r=>{ro+=`<option value="${r}">${r}</option>`;});
+            inpArea.innerHTML=`<input type="text" id="o-user" class="gen-input" placeholder="اسم المستخدم"><input type="password" id="o-pass" class="gen-input" placeholder="كلمة المرور"><input type="text" id="o-name" class="gen-input" placeholder="الاسم الكامل"><select id="o-rank" class="gen-input" dir="ltr">${ro}</select>`;
+            renderAccounts(container);
+        }
+        else if(currentModule.isSavedReports){renderSavedReports(container);}
+        else if(currentModule.isReportForm){
+            inputBlock.style.display='block';
+            inpArea.innerHTML=`<input type="text" id="r-badge" class="gen-input" placeholder="رقم البادج"><input type="text" id="r-name" class="gen-input" placeholder="اسم المتهم/الضابط"><input type="text" id="r-crim" class="gen-input" placeholder="نوع التقرير"><div style="grid-column:span 2"><label style="color:var(--muted);font-size:.9rem;font-weight:700;margin-bottom:5px;display:block">ملف التقرير (PDF فقط - 5MB):</label><input type="file" id="r-pdf" class="gen-input" accept="application/pdf" onchange="handlePDFUpload(this)" style="padding:8px"></div>`;
+        }
+        else if(currentModule.isTable){
+            inputBlock.style.display='block';
+            inpArea.innerHTML=`<input type="text" id="t-assignee" class="gen-input" placeholder="اسم المستلم"><input type="text" id="t-officer" class="gen-input" placeholder="المسؤول / الضابط"><input type="text" id="t-reason" class="gen-input" placeholder="وصف المهمة"><input type="text" id="t-pts" class="gen-input" placeholder="النقاط" type="number">`;
+            renderTasksTable(container);
+        }
+        else if(currentModule.isVideo){
+            inputBlock.style.display='block';
+            inpArea.innerHTML=`<input type="text" id="v-title" class="gen-input" placeholder="عنوان الفيديو"><input type="text" id="v-yt" class="gen-input" placeholder="رابط يوتيوب" dir="ltr" style="text-align:left">`;
+            renderVideoGrid(container);
+        }
+        else if(currentModule.isWantedForm){
+            inputBlock.style.display='block';
+            inpArea.innerHTML=`<input type="text" id="w-name" class="gen-input" placeholder="اسم المطلوب"><input type="text" id="w-charge" class="gen-input" placeholder="التهمة / الجريمة"><input type="text" id="w-danger" class="gen-input" placeholder="مستوى الخطورة"><div style="grid-column:span 2"><label style="color:var(--muted);font-size:.9rem;font-weight:700;margin-bottom:5px;display:block">صورة المطلوب (اختياري):</label><input type="file" id="w-img" class="gen-input" accept="image/*" onchange="handleWantedImgUpload(this)" style="padding:8px"></div>`;
+            renderWantedGrid(container);
+        }
+        else if(currentModule.isLogsView){renderLogsView(container);}
+        else if(currentModule.inputsAr){
+            inputBlock.style.display='block';
+            currentModule.inputsAr.forEach((ph,i)=>{inpArea.innerHTML+=`<input type="text" id="inp-${i}" class="gen-input" placeholder="${ph}">`;});
+            renderRecordsList(container);
+        }
+    }
+
+    /* --- Roster Admin --- */
+    function renderAdminRoster(){
+        const container=document.getElementById('dynamicContentArea');
+        const data=db.live_roster;
+        if(!data||Object.keys(data).length===0){container.innerHTML='<div style="text-align:center;padding:50px;color:var(--muted)">لا يوجد بيانات.</div>';return;}
+        let html=`<div class="roster-wrapper"><table class="luxury-table"><thead><tr><th>Code</th><th>Name</th><th>Rank</th><th>Responsibility</th><th>Status</th><th>Strikes</th><th>Last Prom</th><th>F.P</th><th>Discord ID</th><th>Notes</th><th>الإجراءات</th></tr></thead><tbody>`;
+        const groups={};
+        Object.keys(data).forEach(k=>{const o=data[k];if(!o)return;o.id=k;const r=o.rank||'غير محدد';if(!groups[r])groups[r]=[];groups[r].push(o);});
+        const sorted=Object.keys(groups).sort((a,b)=>{let iA=SystemRanks.indexOf(a),iB=SystemRanks.indexOf(b);return(iA===-1?999:iA)-(iB===-1?999:iB);});
+        sorted.forEach(rank=>{
+            html+=`<tr><td colspan="11" style="border:none"><div class="dept-title">${rank}</div></td></tr>`;
+            groups[rank].sort((a,b)=>(a.code||'').localeCompare(b.code||'')).forEach(o=>{
+                html+=`<tr class="roster-row">
+                    <td style="color:var(--cyan);font-weight:900">${o.code||'-'}</td>
+                    <td style="color:#fff">${o.name||'-'}</td>
+                    <td>${o.rank||'-'}</td>
+                    <td>${o.responsibility||'-'}</td>
+                    <td><span style="background:rgba(0,255,122,.07);border:1px solid rgba(0,255,122,.3);color:var(--green);padding:4px 12px;border-radius:20px;font-size:.8rem;font-weight:800">${o.status||'ACTIVE'}</span></td>
+                    <td>${o.strikes||'-'}</td>
+                    <td>${o.lastProm||'-'}</td>
+                    <td>${o.fp||'-'}</td>
+                    <td><span style="background:rgba(0,0,0,.4);padding:3px 10px;border-radius:6px;font-family:monospace;color:#7a8fa8;border:1px solid rgba(255,255,255,.05)">${o.discordId||'-'}</span></td>
+                    <td style="font-size:.85rem;max-width:140px;overflow:hidden;text-overflow:ellipsis">${o.notes||'-'}</td>
+                    <td>
+                        <button onclick="editOfficerData('${o.id}','${o.name}','${o.rank}','${o.code}','${o.responsibility}','${o.status}','${o.strikes}','${o.lastProm}','${o.fp}','${o.discordId}','${o.notes}')" class="action-btn-text btn-edit-text" title="تعديل">تعديل</button>
+                        <button onclick="deleteOfficerFromRoster('${o.id}','${o.name}')" class="action-btn-text btn-del-text" title="حذف">حذف</button>
+                    </td>
+                </tr>`;
             });
-        }
+        });
+        container.innerHTML=html+'</tbody></table></div>';
+    }
 
-        function toggleAppStatus(type) {
-            if(!isOfficer) return;
-            if(type === 'police') db.settings.policeOpen = !db.settings.policeOpen;
-            else if(type === 'self') db.settings.selfOpen = !db.settings.selfOpen;
-            firebase.database().ref('lspd_db/settings').set(db.settings).then(() => {
-                logAction('تغيير حالة بوابة التقديم: ' + (type === 'police' ? 'الشرطة' : 'قدم نفسك')); 
-                showCustomAlert("نجاح", "تم التحديث", true); 
-                renderSettingsView(document.getElementById('dynamicContentArea'));
-            }).catch(e => showCustomAlert("خطأ", "لم يتم الحفظ", false));
-        }
+    function deleteOfficerFromRoster(id,name){
+        if(!isOfficer)return showCustomAlert('خطأ','لا تملك صلاحية',false);
+        showCustomConfirm('حذف عسكري',`هل أنت متأكد من حذف (${name}) نهائياً؟`,()=>{
+            database.ref(`live_roster/${id}`).remove().then(()=>{logAction('حذف عسكري: '+name);showCustomAlert('تم','تم الحذف بنجاح',true);});
+        });
+    }
 
-        function renderApplications(container) {
-            if(db.applications.length === 0) { container.innerHTML = '<div style="text-align:center; padding:30px; color:#888; font-size:1.2rem;">لا يوجد طلبات.</div>'; return; }
-            let html = '';
-            [...db.applications].reverse().forEach((app, revIdx) => {
-                const idx = db.applications.length - 1 - revIdx;
-                html += `<div class="rec-item allow-select" style="flex-direction:column; align-items:flex-end;">
-                    <div style="color:var(--cyan); font-weight:bold; font-size:1.3rem; margin-bottom:10px;">طلب مقدم من: ${app.name} (${app.type==='self'?'قدم نفسك':'شرطة'})</div>
-                    <div style="text-align:right; color:#ccc; line-height:1.8; margin-bottom:15px; width:100%;">
-                        <strong>العمر:</strong> ${app.age}<br><strong>الديسكورد:</strong> ${app.discord}<br><strong>الخبرة:</strong> ${app.exp}<br><strong>السبب:</strong> ${app.reason||'لا يوجد'}<br><strong style="color:#888; font-size:0.9rem;">التاريخ: ${app.date}</strong>
-                    </div>
-                    ${isOfficer ? `<button class="action-btn-text btn-del-text hover-target" onclick="deleteApp(${idx}, '${app.name}')">حذف الطلب</button>` : ''}
-                </div>`;
-            });
-            container.innerHTML = html;
-        }
+    let currentEditingOfficerId=null;
+    function editOfficerData(id,name,rank,code,resp,status,strikes,prom,fp,discord,notes){
+        currentEditingOfficerId=id;
+        document.getElementById('editOfficerName').value=name||'';
+        document.getElementById('editOfficerCode').value=code||'';
+        let rH='';respOptionsData.forEach(r=>{rH+=`<option value="${r}"${r===resp?' selected':''}>${r}</option>`;});
+        document.getElementById('editResp').innerHTML=rH;
+        document.getElementById('editStatus').value=status||'ACTIVE';
+        let sH='';strikesOptionsData.forEach(s=>{sH+=`<option value="${s}"${s===strikes?' selected':''}>${s}</option>`;});
+        document.getElementById('editStrikes').innerHTML=sH;
+        document.getElementById('editProm').value=prom==='-'?'':prom;
+        document.getElementById('editFP').value=fp==='-'?'':fp;
+        document.getElementById('editDiscord').value=discord==='-'?'':discord;
+        document.getElementById('editNotes').value=notes==='-'?'':notes;
+        let rkH='';SystemRanks.forEach(r=>{rkH+=`<option value="${r}"${r===rank?' selected':''}>${r}</option>`;});
+        document.getElementById('editRankSelect').innerHTML=rkH;
+        document.getElementById('editRankModal').style.display='flex';
+    }
 
-        function deleteApp(idx, appName) {
-            showCustomConfirm("حذف الطلب", "هل أنت متأكد من حذف هذا الطلب؟", () => {
-                logAction('حذف تقديم يخص: ' + appName); 
-                db.applications.splice(idx, 1); saveDB(); renderApplications(document.getElementById('dynamicContentArea'));
-            });
-        }
+    function autoGenerateCode(){
+        const rank=document.getElementById('editRankSelect').value;
+        if(rankExactCodes[rank]){document.getElementById('editOfficerCode').value=rankExactCodes[rank];}
+        else if(rankRanges[rank]){const rng=rankRanges[rank],cur=document.getElementById('editOfficerCode').value,n=cur.match(/\d+/);if(n&&n[0]>=rng.min&&n[0]<=rng.max){document.getElementById('editOfficerCode').value=`${rng.prefix}${n[0]}`;}else{document.getElementById('editOfficerCode').value=`${rng.prefix}${Math.floor(Math.random()*(rng.max-rng.min+1))+rng.min}`;}}
+        else{document.getElementById('editOfficerCode').value=rank.toLowerCase().includes("officer")||rank.toLowerCase().includes("cadet")?"U-00":"C-00";}
+    }
 
-        function renderAccounts(container) {
-            container.innerHTML = '';
-            (db.customUsers || []).forEach((u, idx) => {
-                container.innerHTML += `<div class="rec-item allow-select">
-                    <div style="text-align:right;"><span style="color:var(--cyan); font-weight:bold; font-size:1.1rem;">[${u.rank}]</span> ${u.name} (User: ${u.user})</div>
-                    ${isOfficer ? `<button class="action-btn-text btn-del-text hover-target" onclick="delAccount(${idx}, '${u.user}')">حذف الحساب</button>` : ''}
-                </div>`;
-            });
-        }
+    function autoGenerateCreateCode(){
+        const rank=document.getElementById('createRankSelect').value;
+        if(rankExactCodes[rank]){document.getElementById('createOfficerCode').value=rankExactCodes[rank];}
+        else if(rankRanges[rank]){const rng=rankRanges[rank];document.getElementById('createOfficerCode').value=`${rng.prefix}${Math.floor(Math.random()*(rng.max-rng.min+1))+rng.min}`;}
+        else{document.getElementById('createOfficerCode').value=rank.toLowerCase().includes("officer")||rank.toLowerCase().includes("cadet")?"U-00":"C-00";}
+    }
 
-        function delAccount(idx, uName) {
-            showCustomConfirm("حذف حساب", "هل أنت متأكد من حذف هذا الحساب؟", () => {
-                logAction('حذف حساب إداري: ' + uName); 
-                db.customUsers.splice(idx, 1); saveDB(); renderAccounts(document.getElementById('dynamicContentArea'));
-            });
-        }
+    function saveNewOfficerData(){
+        if(!currentEditingOfficerId)return;
+        const offName=document.getElementById('editOfficerName').value.trim()||'-';
+        const payload={name:offName,code:document.getElementById('editOfficerCode').value.trim()||'-',rank:document.getElementById('editRankSelect').value,responsibility:document.getElementById('editResp').value,status:document.getElementById('editStatus').value,strikes:document.getElementById('editStrikes').value,lastProm:document.getElementById('editProm').value.trim()||'-',fp:document.getElementById('editFP').value.trim()||'-',discordId:document.getElementById('editDiscord').value.trim()||'-',notes:document.getElementById('editNotes').value.trim()||'-'};
+        database.ref(`live_roster/${currentEditingOfficerId}`).update(payload).then(()=>{logAction('تعديل عسكري: '+offName);document.getElementById('editRankModal').style.display='none';showCustomAlert('اكتمل','تم التحديث بنجاح',true);});
+    }
 
-        function renderSavedReports(container) {
-            const data = db.reports || [];
-            if(data.length === 0) { container.innerHTML = '<div style="text-align:center; padding:50px; color:#888; font-size:1.2rem;">لا يوجد تقارير محفوظة حالياً.</div>'; return; }
-            
-            let html = `<div style="display:flex; justify-content:flex-end; margin-bottom:20px;">
-                ${isOfficer ? `<button class="action-btn-text btn-del-text hover-target" style="padding:10px 20px; font-size:1.1rem;" onclick="deleteAllReports()">🗑️ حذف جميع التقارير</button>` : ''}
+    function openCreateModal(){
+        document.getElementById('createOfficerName').value='';
+        document.getElementById('createOfficerCode').value='';
+        let rH='';SystemRanks.forEach(r=>{rH+=`<option value="${r}">${r}</option>`;});
+        document.getElementById('createRankSelect').innerHTML=rH;
+        let rsH='';respOptionsData.forEach(r=>{rsH+=`<option value="${r}">${r}</option>`;});
+        document.getElementById('createResp').innerHTML=rsH;
+        document.getElementById('createStatus').value='ACTIVE';
+        let sH='';strikesOptionsData.forEach(s=>{sH+=`<option value="${s}">${s}</option>`;});
+        document.getElementById('createStrikes').innerHTML=sH;
+        document.getElementById('createProm').value='';
+        document.getElementById('createFP').value='';
+        document.getElementById('createDiscord').value='';
+        document.getElementById('createNotes').value='';
+        document.getElementById('createRankModal').style.display='flex';
+    }
+
+    function saveNewCreatedOfficer(){
+        const name=document.getElementById('createOfficerName').value.trim();
+        const code=document.getElementById('createOfficerCode').value.trim();
+        if(!name||!code)return showCustomAlert('خطأ','يرجى تعبئة الاسم والكود على الأقل.',false);
+        const payload={name,code,rank:document.getElementById('createRankSelect').value,responsibility:document.getElementById('createResp').value,status:document.getElementById('createStatus').value,strikes:document.getElementById('createStrikes').value,lastProm:document.getElementById('createProm').value.trim()||'-',fp:document.getElementById('createFP').value.trim()||'-',discordId:document.getElementById('createDiscord').value.trim()||'-',notes:document.getElementById('createNotes').value.trim()||'-'};
+        database.ref('live_roster').push(payload).then(()=>{logAction('إضافة عسكري جديد: '+name);document.getElementById('createRankModal').style.display='none';showCustomAlert('تم','تمت الإضافة بنجاح!',true);});
+    }
+
+    /* --- Settings --- */
+    function renderSettingsView(container){
+        const s=db.settings||{policeOpen:true,selfOpen:true};
+        container.innerHTML=`
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;margin-bottom:24px">
+            <div style="background:var(--bg2);border:1px solid rgba(0,234,255,.12);border-radius:12px;padding:24px;text-align:center">
+                <div style="font-size:2rem;margin-bottom:10px">🚔</div>
+                <h3 style="color:#fff;margin-bottom:8px">تقديم الشرطة</h3>
+                <div style="margin-bottom:16px"><span style="padding:5px 16px;border-radius:20px;font-weight:800;font-size:.85rem;${s.policeOpen?'background:rgba(0,255,122,.1);color:var(--green);border:1px solid rgba(0,255,122,.3)':'background:rgba(255,59,59,.1);color:var(--red);border:1px solid rgba(255,59,59,.3)'}"> ${s.policeOpen?'✅ مفتوح':'🔒 مغلق'}</span></div>
+                <button class="submit-btn" style="${s.policeOpen?'background:var(--red)':'background:var(--green)'}" onclick="toggleAppStatus('police')">${s.policeOpen?'إغلاق التقديم':'فتح التقديم'}</button>
+            </div>
+            <div style="background:var(--bg2);border:1px solid rgba(0,234,255,.12);border-radius:12px;padding:24px;text-align:center">
+                <div style="font-size:2rem;margin-bottom:10px">👤</div>
+                <h3 style="color:#fff;margin-bottom:8px">قدم نفسك</h3>
+                <div style="margin-bottom:16px"><span style="padding:5px 16px;border-radius:20px;font-weight:800;font-size:.85rem;${s.selfOpen?'background:rgba(0,255,122,.1);color:var(--green);border:1px solid rgba(0,255,122,.3)':'background:rgba(255,59,59,.1);color:var(--red);border:1px solid rgba(255,59,59,.3)'}"> ${s.selfOpen?'✅ مفتوح':'🔒 مغلق'}</span></div>
+                <button class="submit-btn" style="${s.selfOpen?'background:var(--red)':'background:var(--green)'}" onclick="toggleAppStatus('self')">${s.selfOpen?'إغلاق التقديم':'فتح التقديم'}</button>
+            </div>
+            <div style="background:var(--bg2);border:1px solid rgba(255,59,59,.2);border-radius:12px;padding:24px;text-align:center">
+                <div style="font-size:2rem;margin-bottom:10px">🗑️</div>
+                <h3 style="color:#fff;margin-bottom:8px">رستارت التقديم</h3>
+                <p style="color:var(--muted);font-size:.88rem;margin-bottom:16px">مسح جميع الطلبات الحالية</p>
+                <button class="submit-btn" style="background:var(--red)" onclick="restartApps()">رستارت الطلبات ⚠️</button>
+            </div>
+        </div>`;
+    }
+
+    function restartApps(){
+        if(!isOfficer)return;
+        showCustomConfirm('رستارت التقديم','⚠️ هل أنت متأكد من مسح جميع الطلبات الحالية؟',()=>{
+            firebase.database().ref('lspd_db/applications').remove().then(()=>{db.applications=[];logAction('رستارت طلبات التقديم');showCustomAlert('نجاح','تم الرستارت بنجاح!',true);renderSettingsView(document.getElementById('dynamicContentArea'));});
+        });
+    }
+
+    function toggleAppStatus(type){
+        if(!isOfficer)return;
+        if(type==='police')db.settings.policeOpen=!db.settings.policeOpen;
+        else db.settings.selfOpen=!db.settings.selfOpen;
+        firebase.database().ref('lspd_db/settings').set(db.settings).then(()=>{logAction('تغيير حالة بوابة: '+type);showCustomAlert('نجاح','تم التحديث',true);renderSettingsView(document.getElementById('dynamicContentArea'));}).catch(()=>showCustomAlert('خطأ','لم يتم الحفظ',false));
+    }
+
+    /* --- Applications --- */
+    function renderApplications(container){
+        if(db.applications.length===0){container.innerHTML='<div style="text-align:center;padding:40px;color:var(--muted);font-size:1.1rem">لا يوجد طلبات.</div>';return;}
+        let html='';
+        [...db.applications].reverse().forEach((app,ri)=>{
+            const idx=db.applications.length-1-ri;
+            html+=`<div class="rec-item allow-select" style="flex-direction:column;align-items:flex-end;padding:20px">
+                <div style="color:var(--cyan);font-weight:bold;font-size:1.2rem;margin-bottom:10px">طلب: ${app.name} <span style="color:var(--muted);font-size:.9rem">(${app.type==='self'?'قدم نفسك':'شرطة'})</span></div>
+                <div style="text-align:right;color:#ccd;line-height:1.9;margin-bottom:14px;width:100%"><strong>العمر:</strong> ${app.age} &nbsp;|&nbsp; <strong>الديسكورد:</strong> ${app.discord}<br><strong>الخبرة:</strong> ${app.exp}<br><span style="color:var(--muted);font-size:.85rem">📅 ${app.date}</span></div>
+                ${isOfficer?`<button class="action-btn-text btn-del-text" onclick="deleteApp(${idx},'${app.name}')">🗑️ حذف الطلب</button>`:''}
             </div>`;
-            
-            html += '<div style="display:flex; flex-direction:column; gap:20px;">';
-            
-            [...data].reverse().forEach((rec, revIdx) => {
-                const idx = data.length - 1 - revIdx;
-                if (typeof rec === 'string') {
-                    html += `<div style="background:#131a2a; padding:20px; border-radius:12px; border:1px solid var(--glass-border); box-shadow: 0 10px 20px rgba(0,0,0,0.5);">
-                        <div style="text-align:right; margin-bottom:15px; line-height:1.8; color:#ddd;" class="allow-select">${rec}</div>
-                        ${isOfficer ? `<button class="action-btn-text btn-del-text hover-target" onclick="delReport(${idx}, 'تقرير نصي قديم')">حذف التقرير</button>` : ''}
-                    </div>`;
-                } else {
-                    html += `<div style="background:#0a0f1c; padding:30px; border-radius:16px; border:1px solid rgba(0,234,255,0.15); display:flex; flex-direction:row-reverse; gap:30px; align-items:center; box-shadow:0 15px 35px rgba(0,0,0,0.6);">
-                        
-                        <div style="flex:1; text-align:right;">
-                            <h3 style="color:var(--cyan); font-size:1.8rem; margin-bottom:15px; display:flex; align-items:center; gap:10px; flex-direction:row-reverse;">
-                                <img src="yyW7oBx.jpg?v=5" style="width:40px; border-radius:50%;"> تقرير: ${rec.type}
-                            </h3>
-                            <div style="color:#d1d1d1; font-size:1.2rem; line-height:2;" class="allow-select">
-                                <p><strong style="color:#8da2b5;">البادج:</strong> ${rec.badge}</p>
-                                <p><strong style="color:#8da2b5;">الاسم:</strong> ${rec.name}</p>
-                                <p><strong style="color:#8da2b5;">التاريخ:</strong> ${rec.date}</p>
-                            </div>
-                        </div>
+        });
+        container.innerHTML=html;
+    }
 
-                        <div style="width: 220px; height: 280px; background:#fff; border:8px solid #1a233a; border-radius:16px; position:relative; overflow:hidden; box-shadow:0 0 25px rgba(0,0,0,0.8); flex-shrink:0;">
-                            <div style="position:absolute; inset:0; z-index:50; cursor:not-allowed;" title="للقراءة يرجى تحميل التقرير"></div>
-                            <embed src="${rec.pdf}#toolbar=0&navpanes=0&scrollbar=0&view=FitH" type="application/pdf" style="width:100%; height:100%; object-fit:cover; pointer-events:none;">
-                            <div style="position:absolute; bottom:0; width:100%; background:rgba(0,234,255,0.85); color:#000; font-size:1.1rem; text-align:center; padding:8px 0; font-weight:900; z-index:60; letter-spacing:1px;">معاينة فقط</div>
-                        </div>
+    function deleteApp(idx,n){showCustomConfirm('حذف الطلب','هل أنت متأكد؟',()=>{logAction('حذف تقديم: '+n);db.applications.splice(idx,1);saveDB();renderApplications(document.getElementById('dynamicContentArea'));});}
 
-                        <div style="flex:1; display:flex; flex-direction:column; gap:15px; align-items:flex-start;">
-                            <a href="${rec.pdf}" download="Report_${rec.badge}.pdf" class="hover-target" style="background:linear-gradient(90deg, var(--cyan), #00a2ff); color:#000; padding:15px 30px; border-radius:12px; text-decoration:none; font-weight:900; font-size:1.2rem; font-family:var(--font-ar); transition:0.3s; box-shadow:0 10px 20px rgba(0,234,255,0.3); display:flex; align-items:center; gap:10px; width:100%; justify-content:center;" onclick="logAction('تحميل تقرير يخص: ${rec.name}')">
-                                ⬇️ تحميل التقرير
-                            </a>
-                            ${isOfficer ? `<button class="action-btn-text btn-del-text hover-target" style="width:100%; padding:15px; font-size:1.1rem; border-radius:12px; border:1px solid var(--red);" onclick="delReport(${idx}, '${rec.name}')">🗑️ حذف التقرير</button>` : ''}
-                        </div>
-                        
-                    </div>`;
-                }
-            });
-            html += '</div>';
-            container.innerHTML = html;
-        }
+    /* --- Accounts --- */
+    function renderAccounts(container){
+        container.innerHTML='';
+        (db.customUsers||[]).forEach((u,idx)=>{
+            container.innerHTML+=`<div class="rec-item allow-select"><div style="text-align:right"><span style="color:var(--cyan);font-weight:bold">[${u.rank}]</span> ${u.name} <span style="color:var(--muted)">(${u.user})</span></div>${isOfficer?`<button class="action-btn-text btn-del-text" onclick="delAccount(${idx},'${u.user}')">حذف</button>`:''}</div>`;
+        });
+    }
 
-        function renderTasksTable(container) {
-            const data = db.tasks || [];
-            if(data.length === 0) { container.innerHTML = '<div style="text-align:center; padding:30px; color:#888; font-size:1.2rem;">لا يوجد مهام.</div>'; return; }
-            let html = '<div class="roster-wrapper"><table class="luxury-table"><thead><tr><th>المستلم</th><th>المسؤول</th><th>المهمة</th><th>النقاط</th><th>الإجراء</th></tr></thead><tbody>';
-            data.forEach((t, idx) => {
-                html += `<tr class="roster-row"><td>${t.assignee}</td><td>${t.officer}</td><td>${t.reason}</td><td><span style="color:var(--cyan);font-weight:bold;">${t.pts}</span></td><td>${isOfficer ? `<button class="action-btn-text btn-del-text hover-target" onclick="delRec(${idx}, 'مهمة تخص ${t.assignee}')">حذف</button>` : ''}</td></tr>`;
-            });
-            container.innerHTML = html + '</tbody></table></div>';
-        }
+    function delAccount(idx,uName){showCustomConfirm('حذف حساب','هل أنت متأكد؟',()=>{logAction('حذف حساب: '+uName);db.customUsers.splice(idx,1);saveDB();renderAccounts(document.getElementById('dynamicContentArea'));});}
 
-        function renderVideoGrid(container) {
-            const data = db.video || [];
-            if(data.length === 0) { container.innerHTML = '<div style="text-align:center; padding:30px; color:#888; font-size:1.2rem;">لا يوجد مقاطع.</div>'; return; }
-            let html = '<div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">';
-            data.forEach((v, idx) => {
-                let ytId = v.yt.includes('v=') ? v.yt.split('v=')[1].split('&')[0] : v.yt.split('/').pop();
-                html += `<div style="background:#131a2a; padding:15px; border-radius:12px; border:1px solid var(--glass-border);">
-                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
-                        ${isOfficer ? `<button class="action-btn-text btn-del-text hover-target" onclick="delRec(${idx}, 'فيديو: ${v.title}')">حذف</button>` : '<div></div>'}
-                        <strong style="color:var(--cyan); font-size:1.2rem;">${v.title}</strong>
+    /* --- Reports --- */
+    function renderSavedReports(container){
+        const data=db.reports||[];
+        if(data.length===0){container.innerHTML='<div style="text-align:center;padding:50px;color:var(--muted);font-size:1.1rem">لا يوجد تقارير.</div>';return;}
+        let html=`<div style="display:flex;justify-content:flex-end;margin-bottom:18px">${isOfficer?`<button class="action-btn-text btn-del-text" style="padding:10px 18px;font-size:1rem" onclick="deleteAllReports()">🗑️ حذف جميع التقارير</button>`:''}</div><div style="display:flex;flex-direction:column;gap:16px">`;
+        [...data].reverse().forEach((rec,ri)=>{
+            const idx=data.length-1-ri;
+            if(typeof rec==='string'){html+=`<div style="background:var(--bg2);padding:18px;border-radius:12px;border:1px solid rgba(0,234,255,.1)">${rec}${isOfficer?`<button class="action-btn-text btn-del-text" onclick="delReport(${idx},'قديم')">حذف</button>`:''}</div>`;}
+            else{
+                html+=`<div style="background:#070d1a;padding:26px;border-radius:14px;border:1px solid rgba(0,234,255,.12);display:flex;flex-direction:row-reverse;gap:24px;align-items:center;flex-wrap:wrap">
+                    <div style="flex:1;text-align:right;min-width:200px"><h3 style="color:var(--cyan);font-size:1.5rem;margin-bottom:12px">📋 ${rec.type}</h3><div style="color:#ccd;line-height:2;font-size:1.05rem" class="allow-select"><p><strong style="color:var(--muted)">البادج:</strong> ${rec.badge}</p><p><strong style="color:var(--muted)">الاسم:</strong> ${rec.name}</p><p><strong style="color:var(--muted)">التاريخ:</strong> ${rec.date}</p></div></div>
+                    <div style="width:180px;height:230px;background:#fff;border:6px solid #111;border-radius:12px;overflow:hidden;position:relative;flex-shrink:0"><div style="position:absolute;inset:0;z-index:50;cursor:not-allowed"></div><embed src="${rec.pdf}#toolbar=0&navpanes=0&scrollbar=0" type="application/pdf" style="width:100%;height:100%;pointer-events:none"><div style="position:absolute;bottom:0;width:100%;background:rgba(0,234,255,.9);color:#000;text-align:center;padding:7px;font-weight:900;font-size:.9rem;z-index:60">معاينة فقط</div></div>
+                    <div style="flex:1;display:flex;flex-direction:column;gap:12px;min-width:160px">
+                        <a href="${rec.pdf}" download="Report_${rec.badge}.pdf" style="background:var(--cyan);color:#000;padding:13px 20px;border-radius:10px;text-decoration:none;font-weight:900;text-align:center;display:block" onclick="logAction('تحميل تقرير: ${rec.name}')">⬇️ تحميل التقرير</a>
+                        ${isOfficer?`<button class="action-btn-text btn-del-text" style="width:100%;padding:12px;border-radius:10px" onclick="delReport(${idx},'${rec.name}')">🗑️ حذف التقرير</button>`:''}
                     </div>
-                    <iframe src="https://www.youtube.com/embed/${ytId}" style="width:100%; aspect-ratio:16/9; border:none; border-radius:8px;"></iframe>
                 </div>`;
-            });
-            container.innerHTML = html + '</div>';
-        }
-
-        function renderRecordsList(container) {
-            container.innerHTML = '';
-            const data = db[currentModule.id] || [];
-            if(data.length === 0) { container.innerHTML = '<div style="text-align:center; padding:30px; color:#888; font-size:1.2rem;">لا يوجد بيانات.</div>'; return; }
-            data.forEach((rec, idx) => {
-                container.innerHTML += `<div class="rec-item allow-select" style="flex-direction:column; align-items:flex-end;">
-                    <div style="width:100%; text-align:right; margin-bottom:10px; padding-bottom:10px; line-height:1.8;">${rec}</div>
-                    ${isOfficer ? `<button class="action-btn-text btn-del-text hover-target" onclick="delRec(${idx}, 'سجل عام')">حذف</button>` : ''}
-                </div>`;
-            });
-        }
-
-        function doCrypto(type) { 
-            const v = document.getElementById('cryIn').value, out = document.getElementById('cryOut'); 
-            if(!v) return; 
-            try { 
-                out.innerText = (type === 'enc') ? btoa(unescape(encodeURIComponent(v))) : decodeURIComponent(escape(atob(v))); 
-                logAction(`قام بـ ${type === 'enc' ? 'تشفير' : 'فك تشفير'} نص`); 
-            } catch(e) { out.innerText = "Error"; } 
-        }
-        function copyCrypto() { navigator.clipboard.writeText(document.getElementById('cryOut').innerText); showCustomAlert("نجاح", "تم نسخ النص", true); }
-
-        function addRecord() {
-            if(currentModule.isAccountsForm) {
-                const u=document.getElementById('o-user').value, p=document.getElementById('o-pass').value, n=document.getElementById('o-name').value, r=document.getElementById('o-rank').value;
-                if(!u || !p || !n) return showCustomAlert("خطأ", "يرجى تعبئة الحقول", false);
-                db.customUsers = cleanArray(db.customUsers); db.customUsers.push({user:u, pass:p, name:n, rank:r}); saveDB(); 
-                logAction('إضافة حساب إداري جديد: ' + n); 
-                renderAccounts(document.getElementById('dynamicContentArea'));
-            
-            } else if(currentModule.isReportForm) {
-                const b = document.getElementById('r-badge').value;
-                const n = document.getElementById('r-name').value;
-                const c = document.getElementById('r-crim').value;
-                
-                if(!b || !n || !c) return showCustomAlert("خطأ", "يرجى تعبئة جميع الحقول النصية للتقرير!", false);
-                if(!tempPDFBase64) return showCustomAlert("خطأ", "يرجى إرفاق ملف الـ PDF الخاص بالتقرير!", false);
-                
-                db.reports = cleanArray(db.reports); 
-                db.reports.push({ badge: b, name: n, type: c, pdf: tempPDFBase64, date: new Date().toLocaleDateString() }); 
-                saveDB(); 
-                logAction('رفع تقرير جديد للمدعو: ' + n); 
-                
-                tempPDFBase64 = ""; document.getElementById('r-pdf').value = ""; 
-                showCustomAlert("نجاح", "تم حفظ التقرير بنجاح وإرساله للتقارير المحفوظة!", true);
-                document.querySelectorAll('#mInputs input').forEach(el => el.value = '');
-                return; 
-
-            } else if(currentModule.isWantedForm) {
-                const n = document.getElementById('w-name').value;
-                const c = document.getElementById('w-charge').value;
-                const d = document.getElementById('w-danger').value;
-                if(!n || !c || !d) return showCustomAlert("خطأ", "يرجى تعبئة الحقول الأساسية", false);
-                
-                db.wanted = cleanArray(db.wanted); 
-                db.wanted.push({ name: n, charge: c, danger: d, image: tempWantedImgBase64 }); 
-                saveDB(); 
-                logAction('إضافة مطلوب للعدالة: ' + n); 
-                
-                tempWantedImgBase64 = ""; document.getElementById('w-img').value = ""; 
-                showCustomAlert("نجاح", "تمت الإضافة بنجاح!", true);
-                document.querySelectorAll('#mInputs input').forEach(el => el.value = '');
-                renderWantedGrid(document.getElementById('dynamicContentArea'));
-                return;
-
-            } else if(currentModule.isTable) {
-                const a=document.getElementById('t-assignee').value, o=document.getElementById('t-officer').value, r=document.getElementById('t-reason').value, p=document.getElementById('t-pts').value;
-                if(!a || !o || !r || !p) return showCustomAlert("خطأ", "يرجى تعبئة الحقول", false);
-                db.tasks = cleanArray(db.tasks); db.tasks.push({assignee:a, officer:o, reason:r, pts:p}); saveDB(); 
-                logAction(`إضافة مهمة للمدعو: ${a} (${p} نقطة)`); 
-                renderTasksTable(document.getElementById('dynamicContentArea'));
-            } else if(currentModule.isVideo) {
-                const t=document.getElementById('v-title').value, y=document.getElementById('v-yt').value;
-                if(!t || !y) return showCustomAlert("خطأ", "يرجى تعبئة الحقول", false);
-                db.video = cleanArray(db.video); db.video.push({title:t, yt:y}); saveDB(); 
-                logAction('إضافة مقطع فيديو: ' + t); 
-                renderVideoGrid(document.getElementById('dynamicContentArea'));
-            } else {
-                let vals = []; const arr = currentModule.inputsAr; if(!arr) return;
-                arr.forEach((_, i) => vals.push(document.getElementById(`inp-${i}`).value));
-                if(vals.some(v=>!v)) return showCustomAlert("خطأ", "يرجى تعبئة الحقول", false);
-                db[currentModule.id] = cleanArray(db[currentModule.id]);
-                let str = ''; vals.forEach((v, i) => str += `<strong style="color:var(--cyan);">${arr[i]}:</strong> ${v} <br>`);
-                db[currentModule.id].push(str); saveDB(); 
-                logAction('إضافة سجل عام في قسم: ' + currentModule.i18n_t); 
-                renderRecordsList(document.getElementById('dynamicContentArea'));
             }
-            showCustomAlert("نجاح", "تمت الإضافة بنجاح!", true);
-            document.querySelectorAll('#mInputs input, #mInputs textarea, #mInputs select').forEach(el => el.value = '');
-        }
+        });
+        container.innerHTML=html+'</div>';
+    }
 
-        function delReport(idx, rName) {
-            showCustomConfirm("حذف تقرير", "هل أنت متأكد من حذف هذا التقرير نهائياً؟", () => {
-                logAction('حذف تقرير يخص: ' + rName); 
-                db.reports.splice(idx, 1); saveDB(); 
-                renderSavedReports(document.getElementById('dynamicContentArea'));
-            });
-        }
+    function delReport(idx,n){showCustomConfirm('حذف تقرير','هل أنت متأكد؟',()=>{logAction('حذف تقرير: '+n);db.reports.splice(idx,1);saveDB();renderSavedReports(document.getElementById('dynamicContentArea'));});}
+    function deleteAllReports(){showCustomConfirm('حذف جميع التقارير','⚠️ لا يمكن التراجع عن هذا الإجراء!',()=>{logAction('حذف جميع التقارير ⚠️');db.reports=[];saveDB();renderSavedReports(document.getElementById('dynamicContentArea'));});}
 
-        function deleteAllReports() {
-            showCustomConfirm("حذف جميع التقارير", "⚠️ تحذير: هل أنت متأكد من حذف جميع التقارير المحفوظة بشكل نهائي؟ لا يمكن التراجع عن هذا الإجراء!", () => {
-                logAction('حذف جميع التقارير المحفوظة بالنظام ⚠️'); 
-                db.reports = []; saveDB();
-                renderSavedReports(document.getElementById('dynamicContentArea'));
-            });
-        }
+    /* --- Tasks --- */
+    function renderTasksTable(container){
+        const data=db.tasks||[];
+        if(data.length===0){container.innerHTML='<div style="text-align:center;padding:30px;color:var(--muted)">لا يوجد مهام.</div>';return;}
+        let html='<div class="roster-wrapper"><table class="luxury-table"><thead><tr><th>المستلم</th><th>المسؤول</th><th>المهمة</th><th>النقاط</th><th>الإجراء</th></tr></thead><tbody>';
+        data.forEach((t,idx)=>{html+=`<tr class="roster-row"><td>${t.assignee}</td><td>${t.officer}</td><td>${t.reason}</td><td style="color:var(--cyan);font-weight:900">${t.pts}</td><td>${isOfficer?`<button class="action-btn-text btn-del-text" onclick="delRec(${idx},'مهمة: ${t.assignee}')">حذف</button>`:''}</td></tr>`;});
+        container.innerHTML=html+'</tbody></table></div>';
+    }
 
-        function delRec(idx, infoText) {
-            showCustomConfirm("حذف سجل", "هل أنت متأكد من الحذف؟", () => {
-                logAction('حذف سجل: ' + infoText); 
-                db[currentModule.id].splice(idx, 1); saveDB(); 
-                
-                if(currentModule.isTable) renderTasksTable(document.getElementById('dynamicContentArea'));
-                else if(currentModule.isVideo) renderVideoGrid(document.getElementById('dynamicContentArea'));
-                else if(currentModule.isWantedForm) renderWantedGrid(document.getElementById('dynamicContentArea'));
-                else renderRecordsList(document.getElementById('dynamicContentArea'));
-            });
+    /* --- Videos --- */
+    function renderVideoGrid(container){
+        const data=db.video||[];
+        if(data.length===0){container.innerHTML='<div style="text-align:center;padding:30px;color:var(--muted)">لا يوجد مقاطع.</div>';return;}
+        let html='<div style="display:grid;grid-template-columns:1fr 1fr;gap:18px">';
+        data.forEach((v,idx)=>{
+            let ytId=v.yt.includes('v=')?v.yt.split('v=')[1].split('&')[0]:v.yt.split('/').pop();
+            html+=`<div style="background:var(--bg2);padding:14px;border-radius:12px;border:1px solid rgba(0,234,255,.1)"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">${isOfficer?`<button class="action-btn-text btn-del-text" onclick="delRec(${idx},'فيديو: ${v.title}')">حذف</button>`:'<div></div>'}<strong style="color:var(--cyan)">${v.title}</strong></div><iframe src="https://www.youtube.com/embed/${ytId}" style="width:100%;aspect-ratio:16/9;border:none;border-radius:8px"></iframe></div>`;
+        });
+        container.innerHTML=html+'</div>';
+    }
+
+    /* --- Wanted --- */
+    function renderWantedGrid(container){
+        const data=db.wanted||[];
+        if(data.length===0){container.innerHTML='<div style="text-align:center;padding:30px;color:var(--muted)">لا يوجد مطلوبين.</div>';return;}
+        let html='<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px">';
+        data.forEach((w,idx)=>{
+            if(typeof w==='string'){html+=`<div class="rec-item allow-select" style="border-inline-start:4px solid var(--red)">${w}${isOfficer?`<button class="action-btn-text btn-del-text" onclick="delRec(${idx},'قديم')">حذف</button>`:''}</div>`;}
+            else{
+                let img=w.image||'https://via.placeholder.com/150x150/111/555?text=NO+IMAGE';
+                html+=`<div style="background:#050812;border:1px solid rgba(255,59,59,.35);border-radius:10px;overflow:hidden;display:flex;flex-direction:column">
+                    <div style="background:rgba(255,0,60,.08);color:var(--red);text-align:center;font-family:var(--font-en);font-weight:900;font-size:1.2rem;letter-spacing:3px;padding:5px 0;animation:glitch-red 2s infinite">WANTED</div>
+                    <div style="height:150px;background:url('${img}') center/cover;filter:grayscale(50%)"></div>
+                    <div style="padding:10px;text-align:right;flex:1;display:flex;flex-direction:column;gap:8px" class="allow-select">
+                        <div style="color:#fff;font-weight:bold;border-bottom:1px dashed #222;padding-bottom:5px">${w.name}</div>
+                        <div style="color:#999;font-size:.88rem"><strong style="color:var(--cyan)">التهمة:</strong> ${w.charge}</div>
+                        <div style="color:#999;font-size:.88rem"><strong style="color:var(--cyan)">الخطورة:</strong> <span style="color:var(--red);font-weight:bold">${w.danger}</span></div>
+                        ${isOfficer?`<button class="action-btn-text btn-del-text" style="width:100%;border-radius:4px;padding:7px;margin:0" onclick="delRec(${idx},'مطلوب: ${w.name}')">إزالة</button>`:''}
+                    </div>
+                </div>`;
+            }
+        });
+        container.innerHTML=html+'</div>';
+    }
+
+    /* --- Logs --- */
+    function renderLogsView(container){
+        const data=Object.values(db.system_logs||{});
+        if(data.length===0){container.innerHTML='<div style="text-align:center;padding:50px;color:var(--muted)">لا يوجد سجلات.</div>';return;}
+        let html=`<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px">
+            <h3 style="color:var(--cyan)">📜 أحدث العمليات</h3>
+            <div style="display:flex;gap:12px">
+                <button class="action-btn-text" style="padding:9px 18px;font-size:.95rem;background:rgba(0,234,255,.08);color:var(--cyan);border:1px solid var(--cyan)" onclick="downloadLogs()">⬇️ تنزيل</button>
+                <button class="action-btn-text btn-del-text" style="padding:9px 18px;font-size:.95rem" onclick="clearLogs()">🗑️ مسح</button>
+            </div>
+        </div>
+        <div style="background:#05080f;border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:18px;max-height:580px;overflow-y:auto;font-family:monospace">`;
+        data.reverse().forEach(log=>{
+            html+=`<div style="padding:13px;border-bottom:1px solid rgba(255,255,255,.04);color:#bbb;display:flex;flex-direction:row-reverse;gap:12px;align-items:flex-start">
+                <span style="color:var(--cyan);font-weight:bold;white-space:nowrap;min-width:140px;text-align:right">[${log.time}]</span>
+                <strong style="color:#fff;white-space:nowrap">${log.user} <span style="color:var(--muted);font-size:.85rem">(${log.rank})</span></strong>
+                <span style="color:var(--green)">${log.action}</span>
+            </div>`;
+        });
+        container.innerHTML=html+'</div>';
+    }
+
+    function downloadLogs(){
+        const data=Object.values(db.system_logs||{});
+        if(!data.length){showCustomAlert('تنبيه','لا يوجد سجلات.',false);return;}
+        let txt="=== سجلات نظام L.S.P.D ===\n\n";
+        data.reverse().forEach(l=>{txt+=`[${l.time}] ${l.user} (${l.rank}) : ${l.action}\n`;});
+        const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([txt],{type:'text/plain;charset=utf-8'}));a.download=`LSPD_Logs_${new Date().toLocaleDateString('en-GB').replace(/\//g,'-')}.txt`;document.body.appendChild(a);a.click();document.body.removeChild(a);logAction('تنزيل سجلات النظام');
+    }
+
+    function clearLogs(){showCustomConfirm('مسح السجلات','هل أنت متأكد؟',()=>{firebase.database().ref('lspd_db/system_logs').remove().then(()=>{logAction('مسح السجلات');showCustomAlert('تم','تم المسح',true);});});}
+
+    /* --- Records --- */
+    function renderRecordsList(container){
+        container.innerHTML='';
+        const data=db[currentModule.id]||[];
+        if(!data.length){container.innerHTML='<div style="text-align:center;padding:30px;color:var(--muted)">لا يوجد بيانات.</div>';return;}
+        data.forEach((rec,idx)=>{container.innerHTML+=`<div class="rec-item allow-select" style="flex-direction:column;align-items:flex-end"><div style="width:100%;text-align:right;line-height:1.8;margin-bottom:10px">${rec}</div>${isOfficer?`<button class="action-btn-text btn-del-text" onclick="delRec(${idx},'سجل')">حذف</button>`:''}</div>`;});
+    }
+
+    /* --- Crypto --- */
+    function doCrypto(type){const v=document.getElementById('cryIn').value,out=document.getElementById('cryOut');if(!v)return;try{out.innerText=(type==='enc')?btoa(unescape(encodeURIComponent(v))):decodeURIComponent(escape(atob(v)));logAction(`${type==='enc'?'تشفير':'فك تشفير'} نص`);}catch(e){out.innerText='Error: نص غير صالح';}}
+    function copyCrypto(){navigator.clipboard.writeText(document.getElementById('cryOut').innerText);showCustomAlert('نسخ','تم النسخ بنجاح ✅',true);}
+
+    /* --- Add Record --- */
+    function addRecord(){
+        if(currentModule.isAccountsForm){
+            const u=document.getElementById('o-user').value,p=document.getElementById('o-pass').value,n=document.getElementById('o-name').value,r=document.getElementById('o-rank').value;
+            if(!u||!p||!n)return showCustomAlert('خطأ','يرجى تعبئة الحقول',false);
+            db.customUsers=cleanArray(db.customUsers);db.customUsers.push({user:u,pass:p,name:n,rank:r});saveDB();logAction('إضافة حساب: '+n);renderAccounts(document.getElementById('dynamicContentArea'));
+        }else if(currentModule.isReportForm){
+            const b=document.getElementById('r-badge').value,n=document.getElementById('r-name').value,c=document.getElementById('r-crim').value;
+            if(!b||!n||!c)return showCustomAlert('خطأ','يرجى تعبئة الحقول النصية',false);
+            if(!tempPDFBase64)return showCustomAlert('خطأ','يرجى إرفاق ملف PDF',false);
+            db.reports=cleanArray(db.reports);db.reports.push({badge:b,name:n,type:c,pdf:tempPDFBase64,date:new Date().toLocaleDateString()});saveDB();logAction('رفع تقرير: '+n);tempPDFBase64='';document.getElementById('r-pdf').value='';showCustomAlert('نجاح','تم حفظ التقرير!',true);document.querySelectorAll('#mInputs input').forEach(el=>el.value='');return;
+        }else if(currentModule.isWantedForm){
+            const n=document.getElementById('w-name').value,c=document.getElementById('w-charge').value,d=document.getElementById('w-danger').value;
+            if(!n||!c||!d)return showCustomAlert('خطأ','يرجى تعبئة الحقول',false);
+            db.wanted=cleanArray(db.wanted);db.wanted.push({name:n,charge:c,danger:d,image:tempWantedImgBase64});saveDB();logAction('إضافة مطلوب: '+n);tempWantedImgBase64='';document.getElementById('w-img').value='';showCustomAlert('نجاح','تمت الإضافة!',true);document.querySelectorAll('#mInputs input').forEach(el=>el.value='');renderWantedGrid(document.getElementById('dynamicContentArea'));return;
+        }else if(currentModule.isTable){
+            const a=document.getElementById('t-assignee').value,o=document.getElementById('t-officer').value,r=document.getElementById('t-reason').value,p=document.getElementById('t-pts').value;
+            if(!a||!o||!r||!p)return showCustomAlert('خطأ','يرجى تعبئة الحقول',false);
+            db.tasks=cleanArray(db.tasks);db.tasks.push({assignee:a,officer:o,reason:r,pts:p});saveDB();logAction(`إضافة مهمة لـ: ${a}`);renderTasksTable(document.getElementById('dynamicContentArea'));
+        }else if(currentModule.isVideo){
+            const t=document.getElementById('v-title').value,y=document.getElementById('v-yt').value;
+            if(!t||!y)return showCustomAlert('خطأ','يرجى تعبئة الحقول',false);
+            db.video=cleanArray(db.video);db.video.push({title:t,yt:y});saveDB();logAction('فيديو: '+t);renderVideoGrid(document.getElementById('dynamicContentArea'));
+        }else{
+            let vals=[];const arr=currentModule.inputsAr;if(!arr)return;
+            arr.forEach((_,i)=>vals.push(document.getElementById(`inp-${i}`).value));
+            if(vals.some(v=>!v))return showCustomAlert('خطأ','يرجى تعبئة الحقول',false);
+            db[currentModule.id]=cleanArray(db[currentModule.id]);
+            let str='';vals.forEach((v,i)=>str+=`<strong style="color:var(--cyan)">${arr[i]}:</strong> ${v} <br>`);
+            db[currentModule.id].push(str);saveDB();logAction('إضافة سجل: '+currentModule.i18n_t);renderRecordsList(document.getElementById('dynamicContentArea'));
         }
-        
-        function showCustomAlert(title, msg, success) { 
-            document.getElementById('alertTitle').innerText=title; 
-            document.getElementById('alertMessage').innerText=msg; 
-            let icon = document.getElementById('alertIcon');
-            icon.innerText = success ? "✅" : "❌";
-            document.getElementById('customAlertOverlay').style.display='flex'; 
-        }
-    </script>
+        showCustomAlert('نجاح','تمت الإضافة بنجاح!',true);
+        document.querySelectorAll('#mInputs input,#mInputs textarea,#mInputs select').forEach(el=>el.value='');
+    }
+
+    function delRec(idx,info){
+        showCustomConfirm('حذف سجل','هل أنت متأكد؟',()=>{
+            logAction('حذف: '+info);db[currentModule.id].splice(idx,1);saveDB();
+            if(currentModule.isTable)renderTasksTable(document.getElementById('dynamicContentArea'));
+            else if(currentModule.isVideo)renderVideoGrid(document.getElementById('dynamicContentArea'));
+            else if(currentModule.isWantedForm)renderWantedGrid(document.getElementById('dynamicContentArea'));
+            else renderRecordsList(document.getElementById('dynamicContentArea'));
+        });
+    }
+
+    /* --- File Handlers --- */
+    function updateCardImg(input){if(input.files&&input.files[0]){const r=new FileReader();r.onload=e=>{document.getElementById('cardImage').src=e.target.result;localStorage.setItem('user_id_img_'+myName,e.target.result);logAction('تحديث الصورة الشخصية');};r.readAsDataURL(input.files[0]);}}
+
+    function handlePDFUpload(input){const f=input.files[0];if(!f){tempPDFBase64='';return;}if(f.type!=='application/pdf'){showCustomAlert('خطأ','يجب أن يكون الملف PDF!',false);input.value='';return;}if(f.size>5*1024*1024){showCustomAlert('خطأ','حجم الملف يتجاوز 5 ميجابايت!',false);input.value='';return;}const r=new FileReader();r.onload=e=>{tempPDFBase64=e.target.result;};r.readAsDataURL(f);}
+
+    function handleWantedImgUpload(input){const f=input.files[0];if(!f){tempWantedImgBase64='';return;}const r=new FileReader();r.onload=e=>{tempWantedImgBase64=e.target.result;};r.readAsDataURL(f);}
+</script>
+
 </body>
 </html>
